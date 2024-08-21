@@ -1,0 +1,20 @@
+<p>admin-login works!</p>
+<div>
+    <form (ngSubmit)="signUp({name: name.value, username: username.value, password: password.value})">
+      <h2>Admin Sign Up</h2>
+      <input type="text" #name placeholder="name" required> <br>
+      <input type="text" #username placeholder="username" required> <br>
+      <input type="password" #password placeholder="password" required> <br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  
+  <div>
+    <form (ngSubmit)="login({username: loginUsername.value, password: loginPassword.value})">
+      <h2>Admin Login</h2>
+      <input type="text" #loginUsername placeholder="username" required> <br>
+      <input type="password" #loginPassword placeholder="password" required> <br>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  
