@@ -58,6 +58,7 @@ export class AdminLoginComponent {
   }
 
   login(loginData: { username: string; password: string }) {
+    console.log('hahah');
     this.authService.login(loginData).subscribe(response => {
       console.log('Login Response:', response);
     }, error => {

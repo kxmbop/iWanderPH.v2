@@ -10,10 +10,10 @@
   </div>
   
   <div>
-    <form (ngSubmit)="login({username: loginUsername.value, password: loginPassword.value})">
+    <form (ngSubmit)="login({username: loginUsername.value, password: loginPassword.value})" #loginForm="ngForm">
       <h2>Admin Login</h2>
-      <input type="text" #loginUsername placeholder="username" required> <br>
-      <input type="password" #loginPassword placeholder="password" required> <br>
-      <button type="submit">Login</button>
+      <input type="text" #loginUsername="ngModel" ngModel name="username" placeholder="username" required> <br>
+      <input type="password" #loginPassword="ngModel" ngModel name="password" placeholder="password" required> <br>
+      <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
     </form>
   </div>
