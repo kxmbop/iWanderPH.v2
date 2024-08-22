@@ -52,12 +52,17 @@ export class AdminLoginComponent {
   signUp(signUpData: { name: string; username: string; password: string }) {
     this.authService.signUp(signUpData).subscribe(response => {
       console.log('SignUp Response:', response);
+    }, error => {
+      console.error('SignUp Error:', error);
     });
   }
 
   login(loginData: { username: string; password: string }) {
     this.authService.login(loginData).subscribe(response => {
       console.log('Login Response:', response);
+    }, error => {
+      console.error('Login Error:', error);
     });
   }
+
 }

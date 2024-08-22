@@ -11,10 +11,11 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   signUp(signUpData: { name: string; username: string; password: string }) {
-    return this.http.post(`${this.baseUrl}admin_signup.php`, signUpData);
+    return this.http.post(`${this.baseUrl}admin-signup.php`, signUpData);
   }
 
   login(loginData: { username: string; password: string }) {
-    return this.http.post(`${this.baseUrl}admin_login.php`, loginData);
+    return this.http.post(`${this.baseUrl}admin-login.php`, loginData);
   }
+
 }
