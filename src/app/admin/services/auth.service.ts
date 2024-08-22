@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment'; // Import the environment
-
+import { environment } from '../../../environments/environment'; 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = environment.apiUrl;  // Use the environment variable
+  private baseUrl = environment.apiUrl;  
 
   constructor(private http: HttpClient) {}
 
@@ -19,3 +18,4 @@ export class AuthService {
   }
 
 }
+
