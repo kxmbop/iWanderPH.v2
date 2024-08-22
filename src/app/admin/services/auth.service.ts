@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = environment.apiUrl;  
+  private baseUrl = 'http://localhost/iwanderph_backend/api/admin/';  
 
   constructor(private http: HttpClient) {}
 
