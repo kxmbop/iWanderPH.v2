@@ -1,19 +1,18 @@
-<p>admin-login works!</p>
-<div>
-    <form (ngSubmit)="signUp({name: name.value, username: username.value, password: password.value})">
-      <h2>Admin Sign Up</h2>
-      <input type="text" #name placeholder="name" required> <br>
-      <input type="text" #username placeholder="username" required> <br>
-      <input type="password" #password placeholder="password" required> <br>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-  
-  <div>
-    <form (ngSubmit)="login({username: loginUsername.value, password: loginPassword.value})" #loginForm="ngForm">
-      <h2>Admin Login</h2>
-      <input type="text" #loginUsername="ngModel" ngModel name="username" placeholder="username" required> <br>
-      <input type="password" #loginPassword="ngModel" ngModel name="password" placeholder="password" required> <br>
-      <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
-    </form>
-  </div>
+<div class="login-box">
+  <form (ngSubmit)="login({username: loginUsername.value, password: loginPassword.value})" #loginForm="ngForm" class="login-form">
+    <div style="height: 150px;"></div>
+    <h2>Welcome, iWanderMaster!</h2>
+    <div class="login-notice">
+      Ask for an admin for your login or <br><div> submit a request <a href="#">here </a> </div>
+    </div>
+    <input type="text" #loginUsername="ngModel" ngModel name="username" placeholder="username" required> 
+    <input type="password" #loginPassword="ngModel" ngModel name="password" placeholder="password" required> 
+    <button
+      type="submit"
+      [disabled]="!loginForm.form.valid"
+      [ngClass]="{'disabled-button': !loginForm.form.valid, 'enabled-button': loginForm.form.valid}">
+      Login
+    </button>
+    <div *ngIf="errorMessage" class="login-alert">{{ errorMessage }}</div>
+  </form>
+</div>

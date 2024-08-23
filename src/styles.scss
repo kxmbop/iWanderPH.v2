@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+$primary-font: 'Poppins', sans-serif;
+
+/* >>>>>>>>>> ADMIN <<<<<<<<<< */
+$admin-primary-color: #030F14;
+
+/* >>>>>>>> MERCHANT <<<<<<<< */
+$merchant-primary-color: #FFA520;
+
+/* >>>>>>>> TRAVELER <<<<<<<< */
+$traveler-primary-color: #DFCDA7;
+
+
+
+body, input, button, form{
+    font-family: $primary-font;
+}
+
