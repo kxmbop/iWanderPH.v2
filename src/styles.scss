@@ -2,7 +2,7 @@
 $primary-font: 'Poppins', sans-serif;
 
 /* >>>>>>>>>> ADMIN <<<<<<<<<< */
-$admin-primary-color: #030F14;
+$admin-primary-color: #023040;
 
 /* >>>>>>>> MERCHANT <<<<<<<< */
 $merchant-primary-color: #FFA520;
@@ -11,8 +11,19 @@ $merchant-primary-color: #FFA520;
 $traveler-primary-color: #DFCDA7;
 
 
-
+body{
+    background-color: #f1f1f1;
+    position: relative;
+    min-height: 100vh;
+    min-width: 100%;
+    overflow: hidden;
+}
 body, input, button, form{
     font-family: $primary-font;
 }
-
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins" , sans-serif;
+}

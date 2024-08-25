@@ -26,6 +26,9 @@ button{
     background-color: $admin-primary-color;
     }
 }
+h2, body, input{
+    color: #023040;
+}
 
 .login-box{
     display: flex;
@@ -75,4 +78,10 @@ button{
     flex-direction: column; 
     align-items: center;
     justify-content: center; 
+}
+::ng-deep .sidebar{
+    display: none !important;
+}
+::ng-deep  .home-section{
+    display: none !important;
 }

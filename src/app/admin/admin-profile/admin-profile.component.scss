@@ -1,0 +1,10 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
+.text{
+    display: inline-block;
+    color: $admin-primary-color;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 18px
+}

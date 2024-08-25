@@ -1,0 +1,23 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
+::ng-deep .sidebar li#post-notification{
+    pointer-events: none !important;
+}
+::ng-deep .sidebar li#post-notification i{
+    color: $admin-primary-color !important;
+}
+::ng-deep .sidebar li#post-notification a{
+    background-color: #fff;
+}
+::ng-deep .sidebar li#post-notification .links_name{
+    color: $admin-primary-color;
+    pointer-events: none !important;
+}
+.text{
+    display: inline-block;
+    color: $admin-primary-color;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 18px
+}
