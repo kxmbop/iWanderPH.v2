@@ -83,5 +83,12 @@ h2, body, input{
     display: none !important;
 }
 ::ng-deep  .home-section{
-    display: none !important;
+    position: none !important;
+    background: #f1f1f1;
+    min-height: 100vh;
+    top: 0;
+    left: 0 !important;
+    width: 0 !important;
+    transition: all 2.3s ease !important;
+    z-index: none !important;
 }
