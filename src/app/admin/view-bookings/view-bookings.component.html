@@ -1,1 +1,48 @@
-<div class="text">View Bookings</div>
+<div class="hub-container">
+    <span>View Bookings</span>
+    <div class="filter-box">
+            <div class="search-bar">
+                <label>Search by:</label>
+                <input type="number" placeholder="booking id" id="b_id">
+                <input type="text" placeholder="traveler username" id="t_user">
+                <input type="text" placeholder="merchant username" id="m_user">
+                <input type="date">
+            </div>
+            <div class="filter-bar">
+                    <button id="export_bt">Export</button>
+                    <i class='bx bx-chevron-left' id="left_bt"></i>
+                    <i class='bx bx-chevron-right' id="right_bt"></i>
+                    <i class='bx bxs-info-circle' id="info_bt"></i>
+            </div>       
+        </div>
+    <div class="table-box">
+        <table class="table-header">
+            <thead>
+                <th>Date</th>
+                <th>Booking ID</th>
+                <th>Traveler</th>
+                <th>Merchant</th>
+                <th>Payment Status</th>
+                <th>Duration</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+            </thead>
+        </table>
+        <table class="table-body">
+            <tbody>
+                <tr *ngFor="let booking of bookings">
+                    <td>{{ booking.bookingDate | date }}</td>
+                    <td>{{ booking.bookingId }}</td>
+                    <td>{{ booking.travelerName }}</td>
+                    <td>{{ booking.merchantName }}</td>
+                    <td>{{ booking.paymentStatus }}</td>
+                    <td>{{ booking.duration }}</td>
+                    <td>{{ booking.Amount | currency:'PHP':'symbol':'1.2-2'}}</td>
+                    <td>{{ booking.status }}</td>
+                    <td><button>Open</button></td>
+                  </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

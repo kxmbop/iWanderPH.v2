@@ -3,8 +3,8 @@
 .sidebar{
     position: fixed;
     left: 10px;
-    top: 10px;
-    height: 97vh;
+    top: 8px;
+    height: 98vh;
     width: 75px;
     background: $admin-primary-color;
     padding: 6px 14px;
@@ -139,8 +139,8 @@
     background: #f1f1f1;
     min-height: 100vh;
     top: 0;
-    left: 78px;
-    width: calc(100% - 78px);
+    left: 75px;
+    width: calc(100% - 75px);
     transition: all 0.5s ease;
     z-index: 2;
 }
