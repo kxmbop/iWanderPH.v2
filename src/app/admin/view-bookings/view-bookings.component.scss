@@ -1,5 +1,6 @@
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
+@import '../assets/view-bookings.scss';
 
 ::ng-deep .sidebar li#view-bookings{
     pointer-events: none !important;
@@ -14,7 +15,6 @@
     color: $admin-primary-color;
     pointer-events: none !important;
 }
-
 .hub-container{
     position: relative;
     display: flex;
