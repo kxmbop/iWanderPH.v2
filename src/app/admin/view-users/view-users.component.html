@@ -1,1 +1,48 @@
-<div class="text">View Users</div>
+<div class="hub-container">
+    <span>View Users</span>
+    <div class="filter-box">
+        <div class="search-bar">
+            <label>Search by:</label>
+            <input type="number" placeholder="booking id" id="b_id">
+            <input type="text" placeholder="traveler username" id="t_user">
+            <input type="text" placeholder="merchant username" id="m_user">
+        </div>
+        <div class="filter-bar">
+                <i class='bx bxs-info-circle' id="info_bt"></i>
+        </div>       
+    </div>
+    <div class="table-box">
+        <table class="table-header">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>isMerchant</th>
+                    <th>Traveler GMV</th>
+                    <th>Merchant GMV</th>
+                    <th>Number of Bookings</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="table-body">
+            <table>
+                <tbody>
+                    <tr *ngFor="let user of users">
+                        <td>{{ user.userId }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.fullName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.isMerchant }}</td>
+                        <td>{{ user.travelerGmv | currency:'PHP':'symbol':'1.2-2' }}</td>
+                        <td>{{ user.merchantGmv | currency:'PHP':'symbol':'1.2-2' }}</td>
+                        <td>{{ user.numBookings }}</td>
+                        <td><button>View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

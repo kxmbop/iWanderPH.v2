@@ -7,13 +7,12 @@ import { BookingService } from '../services/booking.service';
   styleUrl: './view-bookings.component.scss'
 })
 export class ViewBookingsComponent {
-  bookings: any[] = []; // Array to hold bookings data
+  bookings: any[] = []; 
 
   constructor(private bookingService: BookingService) { }
 
   ngOnInit(): void {
     this.bookingService.getBookings().subscribe(data => {
-      console.log(data); 
       this.bookings = data;
     });
   }
