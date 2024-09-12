@@ -1,19 +1,18 @@
 @import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+@import '../admin-layout/admin-layout.component.scss';
+
 ::ng-deep body{
-    background-color: $admin-primary-color !important;
+    background-color: $apc !important;
 }
 input{
-    height: 32px;
-    width: 60%;
-    border-radius: 10px;
-    border: 0.5px solid #6d6d6d;
-    padding-inline: 10px;
+    width: 70%;
+    border: 0.5px solid $apc;
+    padding: 0 5px;
     margin-bottom: 10px;
 }
 button{
-    height: 38px;
-    width: 65%;
-    border-radius: 10px;
+    width: 80%;
     border: 0;
     color: #fff;
     cursor: pointer;
@@ -23,11 +22,14 @@ button{
     }
 
     &.enabled-button {
-    background-color: $admin-primary-color;
+    background-color: $apc;
     }
 }
 h2, body, input{
     color: #023040;
+}
+h2{
+  text-align: center;  
 }
 
 .login-box{
@@ -35,7 +37,6 @@ h2, body, input{
     justify-content: flex-end;  
     align-items: center;        
     height: 95vh; 
-    
 }
 .login-form{
     display: flex;
@@ -43,20 +44,17 @@ h2, body, input{
     align-items: center;
     margin-right: 8%;
     border-radius: 15px;
-    border: 0px;
+    border: none;
     height: 60%;
-    width: 22vw;
-    padding: 20px;
+    padding: 40px;
     background-color: #f1f1f1;
 }
 .login-notice{
-    width: 60%;
-    height: 50px;
+    padding: 5px 30px;
     font-size: 12px;
     text-align: center;
     background-color: #d3d3d3;
     margin-bottom: 25px;
-    padding-inline: 10px;
     border: 0;
     border-radius: 5px;
     display: flex;
@@ -65,13 +63,11 @@ h2, body, input{
     justify-content: center; 
 }
 .login-alert{
-    width: 60%;
-    height: 28px;
+    padding: 3px 20px;
     font-size: 12px;
     text-align: center;
     background-color: #fce6e3;
     margin-top: 10px;
-    padding-inline: 10px;
     border: 0.5px solid #fc9c90;
     border-radius: 5px;
     display: flex;
@@ -86,9 +82,9 @@ h2, body, input{
     position: none !important;
     background: #f1f1f1;
     min-height: 100vh;
-    top: 0;
-    left: 0 !important;
-    width: 0 !important;
+    top: none !important;
+    left: none !important;
+    width: none !important;
     transition: all 2.3s ease !important;
     z-index: none !important;
 }

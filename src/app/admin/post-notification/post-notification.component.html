@@ -1,1 +1,49 @@
-<div class="text">Post Notification</div>
+<div class="hub-container">
+    <div class="notification-history">
+        <span>Post Notification</span>
+        <div class="notif-form">
+            <form (ngSubmit)="postNotification()" #notificationForm="ngForm">
+                <div>
+                    <label for="header">Header</label>
+                    <input type="text" id="header" name="header" [(ngModel)]="newNotification.header" required>
+                </div>
+                <div>
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" [(ngModel)]="newNotification.description" rows="3" required></textarea>
+                </div>
+                <div class="dedication">
+                    <div class="--dedication">
+                        <label for="visibleto" >Visible to</label>
+                        <select name="visibleto" id="visibleto" [(ngModel)]="newNotification.visibleto" required>
+                            <option value="">--</option>
+                            <option value="Merchant">Merchant</option>
+                            <option value="Traveler">Traveler</option>
+                            <option value="All">All</option>
+                        </select>
+                    </div>
+                    <div class="--dedication">
+                        <label for="dedicatedto">Dedicated User</label>
+                        <input type="dedicatedto" name="dedicatedto" id="dedicatedto" [(ngModel)]="newNotification.dedicatedto" placeholder="user id">
+                    </div>
+                </div>
+                <button type="submit">Post</button>
+            </form>
+        </div>
+        <span>Notification History</span>
+        <div class="notification-container">
+
+            <div class="notification-cards">
+                <div *ngFor="let notif of notifications" class="notification-list">
+                    <span class="notif-header">{{ notif.header }}</span>
+                    <p>{{ notif.description }}</p>
+                    <time>{{ notif.created_at }}</time><br>
+                    <label>Visible to: {{ notif.visibleTo }}</label>
+                </div>
+            </div>
+        </div>
+
+    
+
+    </div>
+  
+</div>

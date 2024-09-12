@@ -1,23 +1,134 @@
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
+@import '../admin-layout/admin-layout.component.scss';
 
 ::ng-deep .sidebar li#post-notification{
     pointer-events: none !important;
 }
 ::ng-deep .sidebar li#post-notification i{
-    color: $admin-primary-color !important;
+    color: $apc !important;
 }
 ::ng-deep .sidebar li#post-notification a{
     background-color: #fff;
 }
 ::ng-deep .sidebar li#post-notification .links_name{
-    color: $admin-primary-color;
+    color: $apc;
     pointer-events: none !important;
 }
-.text{
-    display: inline-block;
-    color: $admin-primary-color;
-    font-size: 25px;
+.hub-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 8px 10px;
+    height: 98vh;
+    max-width: 100%;
+    background-color: #ffffff;
+    border-radius: 15px;
+    border: 0.5px solid #ececec;
+    padding: 18px;
+    color: $apc;
+}
+.hub-container span{
     font-weight: 500;
-    margin: 18px
+}
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: white;
+    margin: 5%;
+    padding: 0;
+}
+
+.notification-container{
+    background-color: #f1f1f1;
+    height: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.25);
+    overflow: hidden; 
+    position: relative; 
+}
+.notification-container::-webkit-scrollbar {
+    display: none; 
+}
+.notification-container .notification-cards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: auto; 
+    max-height: 100%; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+}
+.notification-list {
+    margin: 5px;
+    width: 30%;
+    padding: 15px;
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+}
+
+.notification-list p,  .notification-list label{
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.notification-list time {
+    font-size: 12px;
+    color: #888;
+}
+
+.notif-form {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.notif-form input[type="text"],
+.notif-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.notif-form textarea{
+    height: 50px;
+}
+.notif-form select{
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 0px;
+}
+.notif-form option:hover{
+    background-color: $apc;
+}
+.dedication{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.--dedication{
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    width: 50%;
+}
+.notif-header{
+    font-weight: 600;
 }

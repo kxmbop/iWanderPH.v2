@@ -1,0 +1,17 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+@import '../admin-layout/admin-layout.component.scss';
+
+::ng-deep .sidebar{
+    display: none !important;
+}
+::ng-deep  .home-section{
+    position: none !important;
+    background: #f1f1f1;
+    min-height: 100vh;
+    top: none !important;
+    left: none !important;
+    width: none !important;
+    transition: all 2.3s ease !important;
+    z-index: none !important;
+}

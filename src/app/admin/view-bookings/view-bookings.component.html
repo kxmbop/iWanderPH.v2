@@ -3,15 +3,12 @@
     <div class="filter-box">
         <div class="search-bar">
             <label>Search by:</label>
-            <input type="number" placeholder="booking id" id="b_id">
-            <input type="text" placeholder="traveler username" id="t_user">
-            <input type="text" placeholder="merchant username" id="m_user">
-            <input type="date">
+            <input type="number" placeholder="booking id" [(ngModel)]="filters.bookingId" (input)="applyFilters()">
+            <input type="text" placeholder="traveler username" [(ngModel)]="filters.travelerName" (input)="applyFilters()">
+            <input type="date" [(ngModel)]="filters.date" (change)="applyFilters()">
         </div>
         <div class="filter-bar">
-                <button id="export_bt">Export</button>
-                <i class='bx bx-chevron-left' id="left_bt"></i>
-                <i class='bx bx-chevron-right' id="right_bt"></i>
+                <button id="export_bt" (click)="exportToCSV()">Export</button>
                 <i class='bx bxs-info-circle' id="info_bt"></i>
         </div>       
     </div>
@@ -34,7 +31,7 @@
         <div class="table-body">
             <table>
                 <tbody>
-                    <tr *ngFor="let booking of bookings">
+                    <tr *ngFor="let booking of filteredBookings">
                         <td>{{ booking.bookingDate | date }}</td>
                         <td>{{ booking.bookingId }}</td>
                         <td>{{ booking.travelerName }}</td>

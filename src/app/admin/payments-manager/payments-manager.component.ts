@@ -8,7 +8,12 @@ import { BookingService } from '../services/booking.service';
 })
 export class PaymentsManagerComponent {
   bookings: any[] = [];
-
+  filteredBookings: any[] = []; 
+  filters = {
+    bookingId: '',
+    travelerName: '',
+    date: ''
+  };
   constructor(private bookingService: BookingService) {}
 
   ngOnInit(): void {
@@ -16,10 +21,29 @@ export class PaymentsManagerComponent {
   }
 
   fetchBookings(): void {
-    this.bookingService.getBookings().subscribe((data: any[]) => {
-      this.bookings = data;
+    this.bookingService.getBookings().subscribe(
+      (data: any[]) => {
+        this.bookings = data;
+        this.filteredBookings = [...this.bookings]; 
+      },
+      error => {
+        console.error('Error fetching bookings:', error);
+      }
+    );
+  }
+  applyFilters() {
+    this.filteredBookings = this.bookings.filter(booking => {
+      return (!this.filters.bookingId || booking.bookingId.toString().includes(this.filters.bookingId.toString())) &&
+             (!this.filters.travelerName || booking.travelerName.toLowerCase().includes(this.filters.travelerName.toLowerCase())) &&
+             (!this.filters.date || new Date(booking.bookingDate).toDateString() === new Date(this.filters.date).toDateString());
+    });
+  }
+
+  initiatePayout(bookingId: number): void {
+    this.bookingService.updatePaymentStatus(bookingId).subscribe(response => {
+      console.log('Payout initiated successfully', response);
     }, error => {
-      console.error('Error fetching bookings:', error);
+      console.error('Error initiating payout', error);
     });
   }
 }

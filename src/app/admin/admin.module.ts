@@ -10,10 +10,16 @@ import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
 import { ViewUsersComponent } from './view-users/view-users.component';
 import { PostNotificationComponent } from './post-notification/post-notification.component';
 import { GenerateAnalyticsComponent } from './generate-analytics/generate-analytics.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { RouterModule } from '@angular/router';
+import { AdminPageNotFoundComponent } from './admin-page-not-found/admin-page-not-found.component';
+import { BookingDetailsComponent } from './booking-details/booking-details.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 
 @NgModule({
   declarations: [
+    AdminLayoutComponent,
     AdminDashboardComponent,
     AdminLoginComponent,
     AdminProfileComponent,
@@ -21,12 +27,16 @@ import { GenerateAnalyticsComponent } from './generate-analytics/generate-analyt
     ViewBookingsComponent,
     ViewUsersComponent,
     PostNotificationComponent,
-    GenerateAnalyticsComponent
+    GenerateAnalyticsComponent,
+    AdminPageNotFoundComponent,
+    BookingDetailsComponent,
+    UserDetailsComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    FormsModule  
+    RouterModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

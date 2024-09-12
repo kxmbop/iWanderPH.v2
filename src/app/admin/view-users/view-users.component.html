@@ -3,9 +3,8 @@
     <div class="filter-box">
         <div class="search-bar">
             <label>Search by:</label>
-            <input type="number" placeholder="booking id" id="b_id">
-            <input type="text" placeholder="traveler username" id="t_user">
-            <input type="text" placeholder="merchant username" id="m_user">
+            <input type="number" placeholder="user id" [(ngModel)]="filters.userID" (input)="applyFilters()">
+            <input type="text" placeholder="username" [(ngModel)]="filters.username" (input)="applyFilters()">
         </div>
         <div class="filter-bar">
                 <i class='bx bxs-info-circle' id="info_bt"></i>
@@ -30,7 +29,7 @@
         <div class="table-body">
             <table>
                 <tbody>
-                    <tr *ngFor="let user of users">
+                    <tr *ngFor="let user of filteredUsers">
                         <td>{{ user.userId }}</td>
                         <td>{{ user.username }}</td>
                         <td>{{ user.fullName }}</td>
@@ -39,7 +38,9 @@
                         <td>{{ user.travelerGmv | currency:'PHP':'symbol':'1.2-2' }}</td>
                         <td>{{ user.merchantGmv | currency:'PHP':'symbol':'1.2-2' }}</td>
                         <td>{{ user.numBookings }}</td>
-                        <td><button>View</button></td>
+                        <td>
+                            <a [routerLink]="['/admin/user-details']" [queryParams]="{user_id: user.userId}" target="_blank">View</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

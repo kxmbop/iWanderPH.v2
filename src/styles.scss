@@ -2,13 +2,13 @@
 $primary-font: 'Poppins', sans-serif;
 
 /* >>>>>>>>>> ADMIN <<<<<<<<<< */
-$admin-primary-color: #023040;
+$apc: #023040;
 
 /* >>>>>>>> MERCHANT <<<<<<<< */
-$merchant-primary-color: #FFA520;
-
+$mpc: #FFA520;
+ 
 /* >>>>>>>> TRAVELER <<<<<<<< */
-$traveler-primary-color: #DFCDA7;
+$tpc: #074D4C;
 
 
 body{
@@ -26,4 +26,22 @@ body, input, button, form{
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins" , sans-serif;
+}
+button{
+    color: #fff;
+    max-width: 148px;
+    min-width: 98px;
+    padding: 6px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+input{
+    height: 32px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.25);
+    padding-left: 7px;
 }

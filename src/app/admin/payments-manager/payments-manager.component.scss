@@ -1,17 +1,18 @@
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
+@import '../admin-layout/admin-layout.component.scss';
 
 ::ng-deep .sidebar li#payments-manager{
     pointer-events: none !important;
 }
 ::ng-deep .sidebar li#payments-manager i{
-    color: $admin-primary-color !important;
+    color: $apc !important;
 }
 ::ng-deep .sidebar li#payments-manager a{
     background-color: #fff;
 }
 ::ng-deep .sidebar li#payments-manager .links_name{
-    color: $admin-primary-color;
+    color: $apc;
     pointer-events: none !important;
 }
 .hub-container{
@@ -20,12 +21,12 @@
     flex-direction: column;
     margin: 8px 20px;
     min-height: 98vh;
-    max-width: calc(100% - 105px);
+    max-width: 100%;
     background-color: #ffffff;
     border-radius: 15px;
     border: 0.5px solid #ececec;
     padding: 18px;
-    color: $admin-primary-color;
+    color: $apc;
 }
 .hub-container span{
     font-weight: 500;
@@ -51,9 +52,7 @@
     height: 32px;
     width: calc(50% - 18px);
 }
-.search-bar input, .filter-bar button{
-    height: 32px;
-}
+
 .filter-bar i {
     font-size: 30px;
 }
@@ -84,8 +83,7 @@
 }
 .filter-bar button{
     color: #fff;
-    padding: 0 30px;
-    background-color: $admin-primary-color;
+    background-color: $apc;
     border: 0;
     border-radius: 5px;
     cursor: pointer;
@@ -103,7 +101,7 @@
 }
 .filter-bar i#left_bt:hover, .filter-bar i#right_bt:hover{
     color: #fff;
-    background-color: $admin-primary-color;
+    background-color: $apc;
 }
 .filter-bar i#info_bt{
     cursor: pointer;
@@ -151,20 +149,20 @@
 
 /* Set column widths */
 .table-header th:nth-child(1), .table-body td:nth-child(1) {
-    width: 10%;
+    width: 8%;
     padding-left: 20px;
 }
 
 .table-header th:nth-child(2), .table-body td:nth-child(2) {
-    width: 8%;
+    width: 7%;
 }
 
 .table-header th:nth-child(3), .table-body td:nth-child(3) {
-    width: 12%;
+    width: 10%;
 }
 
 .table-header th:nth-child(4), .table-body td:nth-child(4) {
-    width: 15%;
+    width: 12%;
 }
 
 .table-header th:nth-child(5), .table-body td:nth-child(5) {
@@ -190,23 +188,26 @@
 .table-header th:nth-child(9), .table-body td:nth-child(9) {
     width: 10%;
 }
-.table-header th:nth-child(10){
+.table-header th:nth-child(10), .table-body td:nth-child(10) {
     width: 10%;
 }
+.table-header th:nth-child(11){
+    width: 10%;
+}
+
 
 .table-body td:nth-child(8), .table-body td:nth-child(9){
     padding-left: 25px;
 }
 
 .table-body button {
-    background-color: $admin-primary-color;
+    background-color: $apc;
     color: white;
     border: none;
-    padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .table-body button:hover {
-    background-color: $admin-primary-color;
+    background-color: $apc;
 }

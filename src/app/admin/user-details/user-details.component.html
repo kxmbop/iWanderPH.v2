@@ -1,0 +1,101 @@
+<p>user-details works!</p>
+<div class="container">
+    <h1>User ID #{{ user.TravelerID }}</h1>
+    <div class="user-details">
+      <h2>User Details</h2>
+      <table>
+        <tr>
+          <th>User ID</th>
+          <td>{{ user.TravelerID }}</td>
+        </tr>
+        <tr>
+          <th>Username</th>
+          <td>{{ user.Username }}</td>
+        </tr>
+        <tr>
+          <th>Full Name</th>
+          <td>{{ user.FirstName }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ user.Email }}</td>
+        </tr>
+        <tr>
+          <th>Mobile #</th>
+          <td>{{ user.Mobile }}</td>
+        </tr>
+        <tr>
+          <th>Address</th>
+          <td>{{ user.Address }}</td>
+        </tr>
+        <tr>
+          <th>Profile Pic</th>
+          <td><a href="#">click here</a></td>
+        </tr>
+        <tr>
+          <th>Merchant</th>
+          <td>{{ user.isMerchant ? 'true' : 'false' }}</td>
+        </tr>
+      </table>
+    </div>
+  
+    <div class="reports-complaints">
+      <h2>Reports/Complaints</h2>
+      <table>
+        <tr>
+          <th>Report ID</th>
+          <th>Violation</th>
+          <th>Action</th>
+          <th>Action Activated On</th>
+        </tr>
+        <tr *ngFor="let report of reports">
+          <td>{{ report.ReportID }}</td>
+          <td>{{ report.Violation }}</td>
+          <td>{{ report.Action }}</td>
+          <td>{{ report.ActionActivatedOn }}</td>
+        </tr>
+        <tr *ngIf="!reports.length">
+          <td colspan="4" class="no-data">No data found.</td>
+        </tr>
+      </table>
+      <button class="create-action" (click)="openModal()">Create Action</button>
+    </div>
+  
+    <div class="bookings">
+      <h2>Bookings</h2>
+      <table>
+        <tr>
+          <th>Booking ID</th>
+          <th>Business Owner</th>
+          <th>Status</th>
+          <th>Total</th>
+        </tr>
+        <tr *ngFor="let booking of bookings">
+          <td>{{ booking.BookingID }}</td>
+          <td>{{ booking.BusinessOwner }}</td>
+          <td>{{ booking.Status }}</td>
+          <td>{{ booking.Total }}</td>
+        </tr>
+        <tr *ngIf="!bookings.length">
+          <td colspan="4" class="no-data">No data found.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+  <div id="myModal" class="modal" [ngClass]="{'show': showModal}">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Create Action</h2>
+      <form (ngSubmit)="submitAction()">
+        <label for="violation">Violation:</label>
+        <input type="text" id="violation" [(ngModel)]="action.violation" name="violation" placeholder="Enter violation..." required>
+        <div class="action-buttons">
+          <button type="button" (click)="submitAction('Ban')">Ban</button>
+          <button type="button" (click)="submitAction('Suspend')">Suspend</button>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  

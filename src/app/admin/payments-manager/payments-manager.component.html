@@ -3,10 +3,9 @@
     <div class="filter-box">
         <div class="search-bar">
             <label>Search by:</label>
-            <input type="number" placeholder="booking id" id="b_id">
-            <input type="text" placeholder="traveler username" id="t_user">
-            <input type="text" placeholder="merchant username" id="m_user">
-            <input type="date">
+            <input type="number" placeholder="booking id" [(ngModel)]="filters.bookingId" (input)="applyFilters()">
+            <input type="text" placeholder="traveler username" [(ngModel)]="filters.travelerName" (input)="applyFilters()">
+            <input type="date" [(ngModel)]="filters.date" (change)="applyFilters()">
         </div>
         <div class="filter-bar">
                 <i class='bx bx-chevron-left' id="left_bt"></i>
@@ -26,7 +25,8 @@
                     <th>VAT</th>
                     <th>Payout</th>
                     <th>Total Amount</th>
-                    <th>Status</th>
+                    <th>Booking Status</th>
+                    <th>Payment Status</th>
                     <th>Action</th>
                     <th></th>
                 </tr>
@@ -35,7 +35,7 @@
         <div class="table-body">
             <table>
                 <tbody>
-                    <tr *ngFor="let booking of bookings">
+                    <tr *ngFor="let booking of filteredBookings">
                         <td>{{ booking.bookingDate | date }}</td>
                         <td>{{ booking.bookingId }}</td>
                         <td>{{ booking.travelerName }}</td>
@@ -45,7 +45,10 @@
                         <td>{{ booking.payout | currency:'PHP':'symbol':'1.2-2'}}</td>
                         <td>{{ booking.totalAmount | currency:'PHP':'symbol':'1.2-2'}}</td>
                         <td>{{ booking.bookingstatus }}</td>
-                        <td><button>Initiate Payout</button></td>
+                        <td>{{ booking.paymentstatus }}</td>
+                        <td>
+                            <button (click)="initiatePayout(booking.bookingId)">Initiate Payout</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

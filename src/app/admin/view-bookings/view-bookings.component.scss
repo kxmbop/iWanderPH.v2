@@ -1,17 +1,18 @@
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
+@import '../admin-layout/admin-layout.component.scss';
 
 ::ng-deep .sidebar li#view-bookings{
     pointer-events: none !important;
 }
 ::ng-deep .sidebar li#view-bookings i{
-    color: $admin-primary-color !important;
+    color: $apc !important;
 }
 ::ng-deep .sidebar li#view-bookings a{
     background-color: #fff;
 }
 ::ng-deep .sidebar li#view-bookings .links_name{
-    color: $admin-primary-color;
+    color: $apc;
     pointer-events: none !important;
 }
 .hub-container{
@@ -20,12 +21,12 @@
     flex-direction: column;
     margin: 8px 20px;
     min-height: 98vh;
-    max-width: calc(100% - 105px);
+    max-width: 100%;
     background-color: #ffffff;
     border-radius: 15px;
     border: 0.5px solid #ececec;
     padding: 18px;
-    color: $admin-primary-color;
+    color: $apc;
 }
 .hub-container span{
     font-weight: 500;
@@ -85,7 +86,7 @@
 .filter-bar button{
     color: #fff;
     padding: 0 30px;
-    background-color: $admin-primary-color;
+    background-color: $apc;
     border: 0;
     border-radius: 5px;
     cursor: pointer;
@@ -103,7 +104,7 @@
 }
 .filter-bar i#left_bt:hover, .filter-bar i#right_bt:hover{
     color: #fff;
-    background-color: $admin-primary-color;
+    background-color: $apc;
 }
 .filter-bar i#info_bt{
     cursor: pointer;
@@ -191,7 +192,7 @@
 
 
 .table-body button {
-    background-color: $admin-primary-color;
+    background-color: $apc;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -200,5 +201,5 @@
 }
 
 .table-body button:hover {
-    background-color: $admin-primary-color;
+    background-color: $apc;
 }
