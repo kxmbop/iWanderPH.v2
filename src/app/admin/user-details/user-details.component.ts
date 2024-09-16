@@ -20,11 +20,9 @@ export class UserDetailsComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    // Fetch the user_id from the query parameters
     const userId = this.route.snapshot.queryParamMap.get('user_id');
 
     if (userId) {
-      // Fetch user details using the service
       this.userService.getUserDetails(userId).subscribe(
         (data) => {
           this.user = data;

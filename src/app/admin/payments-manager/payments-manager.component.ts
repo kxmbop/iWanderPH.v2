@@ -21,7 +21,7 @@ export class PaymentsManagerComponent {
   }
 
   fetchBookings(): void {
-    this.bookingService.getBookings().subscribe(
+    this.bookingService.getBookingsWithNoPayout().subscribe(
       (data: any[]) => {
         this.bookings = data;
         this.filteredBookings = [...this.bookings]; 
@@ -35,7 +35,7 @@ export class PaymentsManagerComponent {
     this.filteredBookings = this.bookings.filter(booking => {
       return (!this.filters.bookingId || booking.bookingId.toString().includes(this.filters.bookingId.toString())) &&
              (!this.filters.travelerName || booking.travelerName.toLowerCase().includes(this.filters.travelerName.toLowerCase())) &&
-             (!this.filters.date || new Date(booking.bookingDate).toDateString() === new Date(this.filters.date).toDateString());
+             (!this.filters.date || new Date(booking.bookingDate).toDateString() === new Date(this.filters.date).toDateString())
     });
   }
 

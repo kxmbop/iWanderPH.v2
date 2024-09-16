@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BookingService } from '../services/booking.service';
 import { saveAs } from 'file-saver';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-bookings',
@@ -16,7 +17,10 @@ export class ViewBookingsComponent {
     date: ''
   };
 
-  constructor(private bookingService: BookingService) { }
+  constructor(
+    private bookingService: BookingService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.fetchBookings();
@@ -62,5 +66,8 @@ export class ViewBookingsComponent {
 
     return `${headers}\n${rows}`;
   }
-
+  openBookingDetails(bookingId: string): void {
+    const url = this.router.createUrlTree(['/admin/booking-details', bookingId]).toString();
+    window.open(url, '_blank');
+  }
 }

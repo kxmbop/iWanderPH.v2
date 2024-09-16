@@ -1,1 +1,161 @@
-<p>booking-details works!</p>
+<div class="container" *ngIf="bookingDetails && travelerDetails && merchantDetails; else loading">
+  <!-- Traveler Details -->
+  <div class="uib">
+    <label>Traveler #{{ travelerDetails?.travelerId }}</label>
+    <div class="d">
+      <div class="a">
+        <label>Name: &nbsp;</label>
+        <span>{{ travelerDetails?.firstName }} {{ travelerDetails?.lastName }}</span>
+      </div>
+      <div class="a">
+        <label>Username: &nbsp;</label>
+        <span>{{ travelerDetails?.username }}</span>
+      </div>
+      <div class="a">
+        <i class='bx bxs-phone'></i>
+        <label>Phone: &nbsp;</label>
+        <span>{{ travelerDetails?.mobile }}</span>
+      </div>
+      <div class="a">
+        <i class='bx bxs-envelope'></i>
+        <label>Email: &nbsp;</label>
+        <span>{{ travelerDetails?.email }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Details -->
+  <div class="pib">
+    <label>Payment Details</label>
+    <div class="d">
+      <div class="t">
+        <label>Status: &nbsp;</label>
+        <span>{{ bookingDetails?.paymentStatus }}</span>
+      </div>
+      <div class="t">
+        <label>Transaction ID: &nbsp;</label>
+        <span>1029102031923</span> <!-- leave as is -->
+      </div>
+      <div class="t">
+        <label>Payment Method: &nbsp;</label>
+        <span>GCash</span> <!-- leave as is -->
+      </div>
+      <div class="t">
+        <label>Payment Amount: &nbsp;</label>
+        <span>₱ {{ bookingDetails?.totalAmount | number: '1.2-2' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Merchant Details -->
+  <div class="bib">
+    <div class="mid">
+      <label>Merchant #{{ merchantDetails?.merchantId }}</label>
+      <div class="d">
+        <div class="a">
+          <label>Name: &nbsp;</label>
+          <span>{{ merchantDetails?.businessName }}</span>
+        </div>
+        <div class="a">
+          <label>Username: &nbsp;</label>
+          <span>{{ merchantDetails?.username }}</span>
+        </div>
+        <div class="a">
+          <i class='bx bxs-phone'></i>
+          <label>Phone: &nbsp;</label>
+          <span>{{ merchantDetails?.contact }}</span>
+        </div>
+        <div class="a">
+          <i class='bx bxs-envelope'></i>
+          <label>Email: &nbsp;</label>
+          <span>{{ merchantDetails?.email }}</span>
+        </div>
+        <div class="a">
+          <i class='bx bxs-business'></i>
+          <label>Business Type: &nbsp;</label>
+          <span>{{ merchantDetails?.businessType }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="li">
+      <label>Booking ID #{{ bookingDetails?.bookingId }}</label>
+      <div class="ld">
+        <div class="ib">
+          image here <!-- leave as is -->
+        </div>
+        <div class="ldesc">
+          <div>
+            <label>Listing: &nbsp;</label>
+            <span>{{ bookingDetails?.listingId }}</span>
+          </div>
+          <div>
+            <label>Name: &nbsp;</label>
+            <span>{{ bookingDetails?.listingName }}</span> <!-- based on room or transport logic -->
+          </div>
+          <div>
+            <label>Inclusions: &nbsp;</label><br>
+            <div class="il">
+              <span *ngFor="let inclusion of bookingDetails?.inclusions">{{ inclusion }}</span>
+            </div>
+          </div>
+          <div>
+            <label>View: &nbsp;</label>
+            <div class="il">
+              <span>{{ bookingDetails?.viewName }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="si">
+      <span>
+        <h4>Booking Status:</h4>
+        <h3>{{ bookingDetails?.bookingStatus }}</h3>
+      </span>
+      <span>
+        <h4>Payment Status:</h4>
+        <h3>{{ bookingDetails?.paymentStatus }}</h3>
+      </span>
+      <span>
+        <h4>Payout Status:</h4>
+        <h3>{{ bookingDetails?.payoutStatus }}</h3>
+      </span>
+      <button>Refund</button>
+    </div>
+
+    <div class="bd">
+      <label>Reservation Summary</label>
+      <div class="bdr">
+        <div class="rd">
+          <div class="c">
+            <div class="check-in">
+              <h4>Check-in</h4>
+              <span>{{ bookingDetails?.checkInDate | date }}</span>
+              <span>{{ bookingDetails?.checkInTime }}</span>
+            </div>
+            <div class="check-out">
+              <h4>Check-out</h4>
+              <span>{{ bookingDetails?.checkOutDate | date }}</span>
+              <span>{{ bookingDetails?.checkOutTime }}</span>
+            </div>
+          </div>
+          <span class="sp">Total Length of Stay: {{ bookingDetails?.lengthOfStay }} days</span>
+        </div>
+        <div class="ba">
+          <h4>Price Summary</h4>
+          <span>Room: ₱{{ bookingDetails?.subtotal | number: '1.2-2' }}</span>
+          <span>Tax: ₱{{ bookingDetails?.tax | number: '1.2-2' }}</span>
+          <span>Payout Amount: ₱{{ bookingDetails?.payoutAmount | number: '1.2-2' }}</span>
+          <span id="total">Total Amount: ₱{{ bookingDetails?.totalAmount | number: '1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fallback Loading Template -->
+<ng-template #loading>
+  <p>Loading booking details...</p>
+</ng-template>

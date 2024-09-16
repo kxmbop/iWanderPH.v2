@@ -1,3 +1,242 @@
+
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
 @import '../admin-layout/admin-layout.component.scss';
+
+::ng-deep body{
+    overflow-y: auto !important;
+}
+*{
+    color: $apc;
+}
+.container {
+    max-width: 1220px;
+    margin:30px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+.container .uib{
+    padding: 20px;
+    width: 80%;
+}
+.container .uib label{
+    font-size: 22px;
+    font-weight: 600;
+}
+.container .uib .d{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 30px;
+}
+.container .uib .d .a{
+    display: flex;
+    align-items: center;
+}
+.container .uib .d label{
+    color: #363636;
+    font-size: 16px;
+    font-weight: 200;
+}
+.container .uib .d i{
+    color: #646464;
+    font-size: 18px;
+}
+.container .uib .d span{
+    color: #808080;
+    font-size: 15px;
+}
+.container .pib{
+    width: 100%;
+    border-top: 1px solid $apc;
+    padding: 10px 0;
+    padding: 20px;
+}
+.container .pib label{
+    font-size: 20px;
+}
+.container .pib .d{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0 30px;
+}
+.container .pib .t{
+    margin-left: 5px;;
+}
+.container .pib .t label{
+    color: #363636;
+    font-size: 16px;
+}
+.container .pib .t span{
+    color: #808080;
+    font-size: 15px;
+}
+.container .bib{
+    padding: 20px;
+    border-top: 1px solid $apc;
+}
+.container .bib label{
+    font-size: 22px;
+    font-weight: 600;
+}
+.container .mid{
+    margin-bottom: 10px;
+}
+.container .mid label{
+    font-size: 22px;
+    font-weight: 600;
+}
+.container .mid .d{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 30px;
+}
+.container .mid .d .a{
+    display: flex;
+    align-items: center;
+}
+.container .mid .d label{
+    color: #363636;
+    font-size: 16px;
+    font-weight: 200;
+}
+.container .mid .d i{
+    color: #646464;
+    font-size: 18px;
+}
+.container .mid .d span{
+    color: #808080;
+    font-size: 15px;
+}
+.container .bib .li{
+    border-top: 0.5px solid $apc;
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.li .ld{
+    display: flex;
+    flex-direction: row;
+}
+.li .ld .ib{
+    margin-top: 10px;
+    position: static;
+    min-width: 350px;
+    height: 200px;
+    background-color: #646464;
+    border-radius: 10px;
+}
+.li .ld .ldesc{
+    padding: 10px 20px;
+    
+}
+.li .ld .ldesc label{
+    font-size: 16px;
+    font-weight: 100;
+    color: #363636;
+}
+.li .ld .ldesc span{
+    font-size: 15px;
+}
+.li .ld .ldesc .il{
+    display: flex;
+    flex-direction: row;
+    gap: 2px 3px;
+    flex-wrap: wrap;
+}
+.li .ld .ldesc .il span{
+    border: 1px solid $apc;
+    font-size: 14px;
+    padding: 1px 7px;
+    border-radius: 5px;
+}
+.bib .si{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 3%;
+}
+.bib .si span{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding: 10px 7%;
+    border: 1px solid $apc;
+    border-radius: 7px;
+    color: #fff;
+}
+.bib .si span h4, .bib .si span h3{
+    font-weight: 200;
+}
+.bib .si button{
+    padding: 10px 50px;
+}
+.container .bd{
+    margin: 20px 0;
+}
+.bdr{
+    display: flex;
+    flex-direction: row;
+}
+.bd .rd{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    border:  0.5px solid $apc;
+    border-radius: 10px;
+    margin: 10px 20px;
+    padding: 5px 10px;
+}
+.bd .rd .c{
+    display: flex;
+    flex-direction: row;
+}
+.bd .rd .check-in, .bd .rd .check-out{
+    width: 50%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+}
+.bd .rd .check-in span, .bd .rd .check-ou span{
+    font-size: 14px;
+}
+.bd .rd .check-in{
+    border-right: 0.5px solid $apc;
+}
+.bd .rd h4{
+    font-weight: 500;
+}
+.bd .rd .sp{
+    font-size: 14px;
+    padding: 5px 10px;
+}
+.bd .ba{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+    padding: 10px 0px;
+}
+.bd .ba h4 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.bd .ba span{
+    font-size: 16px;
+}
+.bd .ba span#total{
+    font-size: 17px;
+    font-weight: 500;
+    margin-top: 8px;
+}

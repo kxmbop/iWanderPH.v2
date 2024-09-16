@@ -40,7 +40,9 @@
                         <td>{{ booking.duration }}</td>
                         <td>{{ booking.totalAmount | currency:'PHP':'symbol':'1.2-2'}}</td>
                         <td>{{ booking.bookingstatus }}</td>
-                        <td><button>Open</button></td>
+                        <td>
+                            <button (click)="openBookingDetails(booking.bookingId)">Open</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

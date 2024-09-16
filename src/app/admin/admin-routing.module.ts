@@ -16,7 +16,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 const routes: Routes = [
   { path: '', redirectTo: 'admin-login', pathMatch: 'full' },
   { path: 'admin-login', component: AdminLoginComponent }, 
-  { path: 'booking-details', component: BookingDetailsComponent },
+  { path: 'booking-details/:bookingId', component: BookingDetailsComponent },
   { path: 'user-details', component: UserDetailsComponent },
   {
     path: '',
