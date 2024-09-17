@@ -1,0 +1,32 @@
+<div class="hub-container">
+    <div class="hub-menu">
+        <button id="pending" routerLink="/merchant/booking-hub/pending">Pending</button>
+        <button id="accepted" routerLink="/merchant/booking-hub/accepted">Accepted</button>
+        <button id="ongoing" routerLink="/merchant/booking-hub/ongoing">On-going</button>
+        <button id="completed" routerLink="/merchant/booking-hub/completed">Completed</button>
+        <button id="refunded" routerLink="/merchant/booking-hub/refunded">Refunded</button>
+    </div>
+    <div class="filter-bar">
+        <div class="f-b">
+            <label>Filter</label>
+            <input type="text" placeholder="Search traveler username, booking id, listing id" id="search">
+            <button>Today</button>
+            <div class="date-range">
+                <label for="fromDate">From:</label>
+                <input type="date" id="fromDate" name="fromDate">
+              
+                <label for="toDate">To:</label>
+                <input type="date" id="toDate" name="toDate">
+            </div>
+            <i class='bx bxs-info-circle' id="info_bt"></i>
+        </div>
+        <div class="subtract"></div>
+    </div>
+    <div class="data-container">
+        <div class="table-box">
+            <router-outlet>
+                <!-- Content here :)-->
+            </router-outlet>
+        </div>
+    </div>
+</div>

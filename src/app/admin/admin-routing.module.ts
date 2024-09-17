@@ -12,20 +12,21 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { AdminPageNotFoundComponent } from './admin-page-not-found/admin-page-not-found.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { OnlineChatComponent } from './online-chat/online-chat.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'admin-login', pathMatch: 'full' },
-  { path: 'admin-login', component: AdminLoginComponent }, 
+  { path: 'admin-login', component: AdminLoginComponent },
   { path: 'booking-details/:bookingId', component: BookingDetailsComponent },
   { path: 'user-details', component: UserDetailsComponent },
   {
     path: '',
     component: AdminLayoutComponent,  
     children: [
-      { path: 's', redirectTo: 'admin-page-not-found', pathMatch: 'full' }, 
       { path: 'admin-dashboard', component: AdminDashboardComponent },
+      { path: 'chat', component: OnlineChatComponent },
       { path: 'admin-profile', component: AdminProfileComponent },
-      { path: 'payments-manager', component: PaymentsManagerComponent },
+      { path: 'payout-manager', component: PaymentsManagerComponent },
       { path: 'view-bookings', component: ViewBookingsComponent },
       { path: 'view-users', component: ViewUsersComponent },
       { path: 'post-notification', component: PostNotificationComponent },
@@ -34,7 +35,6 @@ const routes: Routes = [
     ]
   }
 ];
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

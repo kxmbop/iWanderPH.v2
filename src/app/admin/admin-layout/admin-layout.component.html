@@ -1,61 +1,69 @@
 <div class="sidebar">
-    <div class="logo-details">
-      <i class='bx bxs-user-circle icon'></i>
-        <div class="logo_name">Irene Luga</div>
-        <i class='bx bx-menu' id="btn" ></i>
-    </div>
-    <ul class="nav-list">
-      <li id="dashboard">
-        <a href="admin/admin-dashboard">
-          <i class='bx bx-grid-alt'></i>
-          <span class="links_name">Dashboard</span>
-        </a>
-         <span class="tooltip">Dashboard</span>
-      </li>
-      <li id="payments-manager">
-       <a href="admin/payments-manager">
-        <i class='bx bxs-wallet' ></i>
-         <span class="links_name">Payments Manager</span>
-       </a>
-       <span class="tooltip">Payments Manager</span>
-     </li>
-     <li id="view-bookings">
-       <a href="admin/view-bookings">
-        <i class='bx bxs-hotel' ></i>
-         <span class="links_name">View Bookings</span>
-       </a>
-       <span class="tooltip">View Bookings</span>
-     </li>
-     <li id="view-users">
-       <a href="admin/view-users">
+  <div class="logo-details">
+    <i class='bx bxs-user-circle icon'></i>
+    <div class="logo_name">Irene Luga</div>
+    <i class='bx bx-menu' id="btn"></i>
+  </div>
+  <ul class="nav-list">
+    <li id="dashboard">
+      <a routerLink="/admin/admin-dashboard">
+        <i class='bx bx-grid-alt'></i>
+        <span class="links_name">Dashboard</span>
+      </a>
+      <span class="tooltip">Dashboard</span>
+    </li>
+    <li id="online-chat">
+      <a routerLink="/admin/chat">
+        <i class='bx bxs-conversation'></i>
+        <span class="links_name">Chat</span>
+      </a>
+      <span class="tooltip">Chat</span>
+    </li>
+    <li id="payments-manager">
+      <a routerLink="/admin/payout-manager">
+        <i class='bx bxs-wallet'></i>
+        <span class="links_name">Payout Manager</span>
+      </a>
+      <span class="tooltip">Payout Manager</span>
+    </li>
+    <li id="view-bookings">
+      <a routerLink="/admin/view-bookings">
+        <i class='bx bxs-hotel'></i>
+        <span class="links_name">View Bookings</span>
+      </a>
+      <span class="tooltip">View Bookings</span>
+    </li>
+    <li id="view-users">
+      <a routerLink="/admin/view-users">
         <i class='bx bxs-group'></i>
-         <span class="links_name">View Users</span>
-       </a>
-       <span class="tooltip">View Users</span>
-     </li>
-     <li id="post-notification">
-       <a href="admin/post-notification">
-        <i class='bx bxs-notification' ></i>
-         <span class="links_name">Post Notification</span>
-       </a>
-       <span class="tooltip">Post Notification</span>
-     </li>
-     <li id="generate-analytics">
-       <a href="admin/generate-analytics">
-        <i class='bx bxs-bar-chart-square' ></i>
-         <span class="links_name">Generate Analytics</span>
-       </a>
-       <span class="tooltip">Generate Analytics</span>
-     </li>
-     <li class="profile">
-        <a href="admin/">
-            <i class='bx bx-log-out' ></i>
-          <span class="links_name">Log-out</span>
-        </a>
-        <span class="tooltip">Log-out</span>
-      </li>
-    </ul>
+        <span class="links_name">View Users</span>
+      </a>
+      <span class="tooltip">View Users</span>
+    </li>
+    <li id="post-notification">
+      <a routerLink="/admin/post-notification">
+        <i class='bx bxs-notification'></i>
+        <span class="links_name">Post Notification</span>
+      </a>
+      <span class="tooltip">Post Notification</span>
+    </li>
+    <li id="generate-analytics">
+      <a routerLink="/admin/generate-analytics">
+        <i class='bx bxs-bar-chart-square'></i>
+        <span class="links_name">Generate Analytics</span>
+      </a>
+      <span class="tooltip">Generate Analytics</span>
+    </li>
+    <li class="profile">
+      <a routerLink="/admin/admin-login">
+        <i class='bx bx-log-out'></i>
+        <span class="links_name">Log-out</span>
+      </a>
+      <span class="tooltip">Log-out</span>
+    </li>
+  </ul>
 </div>
+
 <div class="home-section">
     <router-outlet>
     </router-outlet>

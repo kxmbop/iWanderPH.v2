@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { MerchantRoutingModule } from './merchant-routing.module';
 import { MerchantLayoutComponent } from './merchant-layout/merchant-layout.component';
-import { BookingHubComponent } from './booking-hub/booking-hub.component';
+import { HubLayoutComponent } from './booking-hub/hub-layout/hub-layout.component';
 
 
 @NgModule({
   declarations: [
     MerchantLayoutComponent,
-    BookingHubComponent
+    HubLayoutComponent
   ],
   imports: [
     CommonModule,

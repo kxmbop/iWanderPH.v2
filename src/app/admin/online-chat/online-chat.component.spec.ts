@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminLayoutComponent } from './admin-layout.component';
 
-describe('AdminLayoutComponent', () => {
-  let component: AdminLayoutComponent;
-  let fixture: ComponentFixture<AdminLayoutComponent>;
+import { OnlineChatComponent } from './online-chat.component';
+
+describe('OnlineChatComponent', () => {
+  let component: OnlineChatComponent;
+  let fixture: ComponentFixture<OnlineChatComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminLayoutComponent]
+      imports: [OnlineChatComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminLayoutComponent);
+    fixture = TestBed.createComponent(OnlineChatComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

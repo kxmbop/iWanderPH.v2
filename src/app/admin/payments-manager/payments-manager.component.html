@@ -1,5 +1,5 @@
 <div class="hub-container">
-    <span>Payments Manager</span>
+    <span>Payout Manager</span>
     <div class="filter-box">
         <div class="search-bar">
             <label>Search by:</label>
@@ -55,3 +55,9 @@
         </div>
     </div>
 </div>
+
+<!-- pop-up notification -->
+<div *ngIf="showSuccessPopup" class="popup success show">
+    <p>{{ successMessage }}</p>
+</div>
+  

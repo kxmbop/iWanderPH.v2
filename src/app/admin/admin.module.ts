@@ -15,12 +15,14 @@ import { RouterModule } from '@angular/router';
 import { AdminPageNotFoundComponent } from './admin-page-not-found/admin-page-not-found.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { OnlineChatComponent } from './online-chat/online-chat.component';
 
 
 @NgModule({
   declarations: [
     AdminLayoutComponent,
     AdminDashboardComponent,
+    OnlineChatComponent,
     AdminLoginComponent,
     AdminProfileComponent,
     PaymentsManagerComponent,

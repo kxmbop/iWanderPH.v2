@@ -5,11 +5,13 @@ import { BookingService } from '../services/booking.service';
 @Component({
   selector: 'app-booking-details',
   templateUrl: './booking-details.component.html',
+  styleUrl: './booking-details.component.scss'
 })
 export class BookingDetailsComponent implements OnInit {
   bookingDetails: any = null;
-  travelerDetails: any = null;
-  merchantDetails: any = null;
+  inclusions: any = null;
+  viewDetails: any = null;
+  listingDetails: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,9 +31,18 @@ export class BookingDetailsComponent implements OnInit {
   fetchBookingDetails(bookingId: string): void {
     this.bookingService.getBookingDetails(bookingId).subscribe(
       (data) => {
-        this.bookingDetails = data.booking;
-        this.travelerDetails = data.traveler;
-        this.merchantDetails = data.merchant;
+        console.log('Fetched data:', data);
+        
+        console.log('Booking Details:', data.booking);
+        console.log('Traveler Details:', data.inclusions);
+        console.log('Merchant Details:', data.viewDetails);
+        console.log('Merchant Details:', data.listingDetails);
+        
+        this.bookingDetails = data.bookingDetails;
+        this.inclusions = data.inclusions;
+        this.viewDetails = data.viewDetails; 
+        this.listingDetails = data.listingDetails;
+
         this.cd.markForCheck();
       },
       (error) => {

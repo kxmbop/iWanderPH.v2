@@ -1,25 +1,25 @@
-<div class="container" *ngIf="bookingDetails && travelerDetails && merchantDetails; else loading">
+<div class="container" *ngIf="bookingDetails && listingDetails && inclusions && viewDetails; else loading">
   <!-- Traveler Details -->
   <div class="uib">
-    <label>Traveler #{{ travelerDetails?.travelerId }}</label>
+    <label>Traveler #{{ bookingDetails?.TravelerID }}</label>
     <div class="d">
       <div class="a">
         <label>Name: &nbsp;</label>
-        <span>{{ travelerDetails?.firstName }} {{ travelerDetails?.lastName }}</span>
+        <span>{{ bookingDetails?.TravelerFirstName }} {{ bookingDetails?.TravelerLastName }}</span>
       </div>
       <div class="a">
         <label>Username: &nbsp;</label>
-        <span>{{ travelerDetails?.username }}</span>
+        <span>{{ bookingDetails?.TravelerUsername }}</span>
       </div>
       <div class="a">
         <i class='bx bxs-phone'></i>
         <label>Phone: &nbsp;</label>
-        <span>{{ travelerDetails?.mobile }}</span>
-      </div>
+        <span>{{ bookingDetails?.TravelerMobile }}</span>
+      </div> 
       <div class="a">
         <i class='bx bxs-envelope'></i>
         <label>Email: &nbsp;</label>
-        <span>{{ travelerDetails?.email }}</span>
+        <span>{{ bookingDetails?.TravelerEmail }}</span>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
     <div class="d">
       <div class="t">
         <label>Status: &nbsp;</label>
-        <span>{{ bookingDetails?.paymentStatus }}</span>
+        <span>{{ bookingDetails?.PaymentStatus }}</span>
       </div>
       <div class="t">
         <label>Transaction ID: &nbsp;</label>
@@ -42,7 +42,7 @@
       </div>
       <div class="t">
         <label>Payment Amount: &nbsp;</label>
-        <span>₱ {{ bookingDetails?.totalAmount | number: '1.2-2' }}</span>
+        <span>₱ {{ bookingDetails?.TotalAmount | number: '1.2-2' }}</span>
       </div>
     </div>
   </div>
@@ -50,36 +50,36 @@
   <!-- Merchant Details -->
   <div class="bib">
     <div class="mid">
-      <label>Merchant #{{ merchantDetails?.merchantId }}</label>
+      <label>Merchant #{{ bookingDetails?.MerchantID }}</label>
       <div class="d">
         <div class="a">
           <label>Name: &nbsp;</label>
-          <span>{{ merchantDetails?.businessName }}</span>
+          <span>{{ bookingDetails?.MerchantBusinessName }}</span>
         </div>
         <div class="a">
           <label>Username: &nbsp;</label>
-          <span>{{ merchantDetails?.username }}</span>
+          <span>{{ bookingDetails?.MerchantUsername }}</span>
         </div>
         <div class="a">
           <i class='bx bxs-phone'></i>
           <label>Phone: &nbsp;</label>
-          <span>{{ merchantDetails?.contact }}</span>
+          <span>{{ bookingDetails?.MerchantContact }}</span>
         </div>
         <div class="a">
           <i class='bx bxs-envelope'></i>
           <label>Email: &nbsp;</label>
-          <span>{{ merchantDetails?.email }}</span>
+          <span>{{ bookingDetails?.MerchantEmail }}</span>
         </div>
         <div class="a">
           <i class='bx bxs-business'></i>
           <label>Business Type: &nbsp;</label>
-          <span>{{ merchantDetails?.businessType }}</span>
+          <span>{{ bookingDetails?.MerchantBusinessType }}</span>
         </div>
       </div>
     </div>
 
     <div class="li">
-      <label>Booking ID #{{ bookingDetails?.bookingId }}</label>
+      <label>Booking ID #{{ bookingDetails?.BookingID }}</label>
       <div class="ld">
         <div class="ib">
           image here <!-- leave as is -->
@@ -87,22 +87,22 @@
         <div class="ldesc">
           <div>
             <label>Listing: &nbsp;</label>
-            <span>{{ bookingDetails?.listingId }}</span>
+            <span>{{ bookingDetails?.ListingID }}</span>
           </div>
           <div>
             <label>Name: &nbsp;</label>
-            <span>{{ bookingDetails?.listingName }}</span> <!-- based on room or transport logic -->
+            <span>{{ listingDetails?.RoomName }}</span> <!-- based on room or transport logic -->
           </div>
           <div>
             <label>Inclusions: &nbsp;</label><br>
             <div class="il">
-              <span *ngFor="let inclusion of bookingDetails?.inclusions">{{ inclusion }}</span>
+              <span *ngFor="let inclusion of inclusions">{{ inclusion }}</span>
             </div>
           </div>
           <div>
             <label>View: &nbsp;</label>
             <div class="il">
-              <span>{{ bookingDetails?.viewName }}</span>
+              <span>{{ viewDetails?.ViewName }}</span>
             </div>
           </div>
         </div>
@@ -112,15 +112,15 @@
     <div class="si">
       <span>
         <h4>Booking Status:</h4>
-        <h3>{{ bookingDetails?.bookingStatus }}</h3>
+        <h3>{{ bookingDetails?.BookingStatus }}</h3>
       </span>
       <span>
         <h4>Payment Status:</h4>
-        <h3>{{ bookingDetails?.paymentStatus }}</h3>
+        <h3>{{ bookingDetails?.PaymentStatus }}</h3>
       </span>
       <span>
         <h4>Payout Status:</h4>
-        <h3>{{ bookingDetails?.payoutStatus }}</h3>
+        <h3>{{ bookingDetails?.PayoutStatus }}</h3>
       </span>
       <button>Refund</button>
     </div>
@@ -132,23 +132,21 @@
           <div class="c">
             <div class="check-in">
               <h4>Check-in</h4>
-              <span>{{ bookingDetails?.checkInDate | date }}</span>
-              <span>{{ bookingDetails?.checkInTime }}</span>
+              <span>{{ bookingDetails?.CheckIn | date }}</span>
             </div>
             <div class="check-out">
               <h4>Check-out</h4>
-              <span>{{ bookingDetails?.checkOutDate | date }}</span>
-              <span>{{ bookingDetails?.checkOutTime }}</span>
+              <span>{{ bookingDetails?.CheckOut | date }}</span>
             </div>
           </div>
-          <span class="sp">Total Length of Stay: {{ bookingDetails?.lengthOfStay }} days</span>
+          <span class="sp">Total Length of Stay: {{ bookingDetails?.Duration }} days</span>
         </div>
         <div class="ba">
           <h4>Price Summary</h4>
-          <span>Room: ₱{{ bookingDetails?.subtotal | number: '1.2-2' }}</span>
-          <span>Tax: ₱{{ bookingDetails?.tax | number: '1.2-2' }}</span>
-          <span>Payout Amount: ₱{{ bookingDetails?.payoutAmount | number: '1.2-2' }}</span>
-          <span id="total">Total Amount: ₱{{ bookingDetails?.totalAmount | number: '1.2-2' }}</span>
+          <span>Room: ₱{{ bookingDetails?.Subtotal | number: '1.2-2' }}</span>
+          <span>Tax: ₱{{ bookingDetails?.VAT | number: '1.2-2' }}</span>
+          <span>Payout Amount: ₱{{ bookingDetails?.PayoutAmount | number: '1.2-2' }}</span>
+          <span id="total">Total Amount: ₱{{ bookingDetails?.TotalAmount | number: '1.2-2' }}</span>
         </div>
       </div>
     </div>

@@ -127,11 +127,14 @@
     flex-direction: row;
 }
 .li .ld .ib{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 10px;
     position: static;
     min-width: 350px;
     height: 200px;
-    background-color: #646464;
+    border: 1px solid $apc;
     border-radius: 10px;
 }
 .li .ld .ldesc{

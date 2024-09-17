@@ -45,7 +45,7 @@ export class ViewBookingsComponent {
     });
   }
 
-   exportToCSV(): void {
+  exportToCSV(): void {
     const csvData = this.convertToCSV(this.filteredBookings);
     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
     saveAs(blob, 'bookings.csv');

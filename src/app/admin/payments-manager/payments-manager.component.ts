@@ -14,7 +14,12 @@ export class PaymentsManagerComponent {
     travelerName: '',
     date: ''
   };
-  constructor(private bookingService: BookingService) {}
+  showSuccessPopup: boolean = false;
+  successMessage: string = '';
+
+  constructor(
+    private bookingService: BookingService
+  ) {}
 
   ngOnInit(): void {
     this.fetchBookings();
@@ -41,7 +46,13 @@ export class PaymentsManagerComponent {
 
   initiatePayout(bookingId: number): void {
     this.bookingService.updatePaymentStatus(bookingId).subscribe(response => {
-      console.log('Payout initiated successfully', response);
+      console.log('Payout initiated successfully!', response);
+      this.showSuccessPopup = true;
+      this.fetchBookings();
+      this.successMessage = 'Payout initiated successfully!';
+      setTimeout(() => {
+        this.showSuccessPopup = false;
+      }, 3000);
     }, error => {
       console.error('Error initiating payout', error);
     });

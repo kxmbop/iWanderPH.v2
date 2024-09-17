@@ -41,9 +41,15 @@
                 </div>
             </div>
         </div>
-
-    
-
     </div>
+</div>
+
+<!-- pop-up notification -->
+<div *ngIf="showSuccessPopup" class="popup success show">
+    <p>{{ successMessage }}</p>
+</div>
   
+  <!-- Error message display -->
+<div *ngIf="showErrorPopup" class="popup error show">
+    <p>{{ errorMessage }}</p>
 </div>

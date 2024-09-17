@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class BookingService {
 
   private apiUrlforNoPayout = 'http://localhost/iwanderph_backend/api/admin/get_no_payout_bookings.php';
-  private apiUrlforPayout = 'http://localhost/iwanderph_backend/api/admin/updatePaymentStatus.php';
+  private apiUrlforPayout = 'http://localhost/iwanderph_backend/api/admin/updatePayoutStatus.php';
   private apiUrlforBookings = 'http://localhost/iwanderph_backend/api/admin/get_bookings.php';
   private apiUrlforBookingDetails = 'http://localhost/iwanderph_backend/api/admin/get_booking_details.php';
   constructor(private http: HttpClient) { }
