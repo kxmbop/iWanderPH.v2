@@ -5,12 +5,20 @@ import { TravelerRoutingModule } from './traveler-routing.module';
 import { LoginComponent } from './login/login.component';
 import { TravelerLayoutComponent } from './traveler-layout/traveler-layout.component';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { DiscoverComponent } from './discover/discover.component';
+import { BookingsComponent } from './bookings/bookings.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    TravelerLayoutComponent
+    TravelerLayoutComponent,
+    HomeComponent,
+    DiscoverComponent,
+    BookingsComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

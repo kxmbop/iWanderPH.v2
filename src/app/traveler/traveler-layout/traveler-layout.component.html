@@ -1,8 +1,30 @@
-
-
 <div class="navbar">
-    <i class='bx bx-home-alt'></i>
-    <i class='bx bx-map-alt' ></i>
-    <i class='bx bx-hotel' ></i>
-    <i class='bx bx-user' ></i>
+    <img src="iWanderPH_logo.png" alt="iWanderPH Logo" class="logo"/>
+    <img src="iWanderPH_logo_solo.png" alt="iWanderPH Logo" class="logo_solo"/>
+    <div class="nav-item" routerLink="/traveler/home">
+        <i class='bx bx-home-alt'></i>
+        <span>Home</span>
+    </div>
+    <div class="nav-item" routerLink="/traveler/discover">
+        <i class='bx bx-map-alt'></i>
+        <span>Discover</span>
+    </div>
+    <div class="nav-item" routerLink="/traveler/bookings">
+        <i class='bx bx-hotel'></i>
+        <span>Bookings</span>
+    </div>
+    <div class="nav-item" routerLink="/traveler/profile">
+        <i class='bx bx-user'></i>
+        <span>Profile</span>
+    </div>
+</div>
+
+<div class="top-utility">
+    <img src="iWanderPH_logo.png" alt="iWanderPH Logo" class="logo"/>
+    <i class='bx bx-heart' ></i>
+</div>
+
+
+<div class="content-container">
+    <router-outlet></router-outlet>
 </div>
