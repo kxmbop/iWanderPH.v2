@@ -104,7 +104,7 @@ input{
 
 .error{
     color: #ac2a37;
-    font-size: 0.7rem ;
+
 }
 
 /* Android phones (small screens, max width: 480px) */
@@ -136,6 +136,9 @@ input{
     .login-btn {
         font-size: 1em;
     }
+    .error{
+        font-size: 0.7rem ;
+    }
 }
 
 /* Tablets and small desktops (min width: 481px, max width: 1024px) */
@@ -165,6 +168,9 @@ input{
     .login-btn {
         font-size: 1.1em;
     }
+    .error{
+        font-size: 0.9rem ;
+    }
 }
 
 /* Web view (large screens, min width: 1025px) */
@@ -193,6 +199,9 @@ input{
 
     .login-btn {
         font-size: 1em;
+    }
+    .error{
+        font-size: 0.9rem ;
     }
 }
   
