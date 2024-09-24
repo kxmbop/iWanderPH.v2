@@ -12,16 +12,15 @@ interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost/iwanderph_backend/api/admin/';  
-
+  private apiUrl = `${environment.apiUrl}/admin/`;
   constructor(private http: HttpClient) {}
 
   signUp(signUpData: { name: string; username: string; password: string }) {
-    return this.http.post(`${this.baseUrl}admin-signup.php`, signUpData);
+    return this.http.post(`${this.apiUrl}admin-signup.php`, signUpData);
   }
 
   login(loginData: { username: string; password: string }): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.baseUrl}admin-login.php`, loginData);
+    return this.http.post<LoginResponse>(`${this.apiUrl}admin-login.php`, loginData);
   }
 
 }

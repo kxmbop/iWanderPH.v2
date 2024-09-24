@@ -181,9 +181,25 @@
 .bib .si span h4, .bib .si span h3{
     font-weight: 200;
 }
-.bib .si button{
-    padding: 10px 50px;
+.bib .si .actions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
+.refund-button {
+    color: white;
+  }
+  
+  .payout-button {
+    color: white;
+  }
+  
+  button:disabled {
+    background-color: #ccc; 
+    color: #666; 
+    cursor: not-allowed;
+  }
 .container .bd{
     margin: 20px 0;
 }

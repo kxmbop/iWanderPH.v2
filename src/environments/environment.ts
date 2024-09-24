@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    apiUrl: 'http://localhost/iwanderph_backend/api/admin/'
+    production: true,
+    apiUrl: 'https://easy-shrimp-dominant.ngrok-free.app/iwanderph_backend/api'
   };

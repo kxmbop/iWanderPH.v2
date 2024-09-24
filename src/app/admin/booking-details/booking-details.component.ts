@@ -12,6 +12,8 @@ export class BookingDetailsComponent implements OnInit {
   inclusions: any = null;
   viewDetails: any = null;
   listingDetails: any = null;
+  showSuccessPopup: boolean = false;
+  successMessage: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -49,5 +51,22 @@ export class BookingDetailsComponent implements OnInit {
         console.error('Error fetching booking details:', error);
       }
     );
+  }
+
+  initiatePayout(bookingId: number): void {
+    this.bookingService.updatePaymentStatus(bookingId).subscribe(response => {
+      console.log('Payout initiated successfully!', response);
+      
+      this.showSuccessPopup = true;
+      this.successMessage = 'Payout initiated successfully!';
+      
+      this.fetchBookingDetails(bookingId.toString());
+
+      setTimeout(() => {
+        this.showSuccessPopup = false;
+      }, 3000);
+    }, error => {
+      console.error('Error initiating payout', error);
+    });
   }
 }

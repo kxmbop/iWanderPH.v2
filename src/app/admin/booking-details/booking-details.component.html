@@ -122,7 +122,10 @@
         <h4>Payout Status:</h4>
         <h3>{{ bookingDetails?.PayoutStatus }}</h3>
       </span>
-      <button>Refund</button>
+      <div class="actions">
+        <button [disabled]="bookingDetails?.refundAmount > 0" class="refund-button">Refund</button>
+        <button (click)="initiatePayout(bookingDetails?.BookingID)" [disabled]="bookingDetails?.PayoutStatus === 'completed'" class="payout-button">Initiate Payout</button>
+      </div>
     </div>
 
     <div class="bd">
@@ -156,3 +159,7 @@
 <ng-template #loading>
   <p>Loading booking details...</p>
 </ng-template>
+
+<div *ngIf="showSuccessPopup" class="popup success show">
+  <p>{{ successMessage }}</p>
+</div>
