@@ -89,7 +89,7 @@ input{
 
 .signup-link p {
     margin: 20px 0 0;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .signup-link a {
@@ -100,6 +100,11 @@ input{
 
 .signup-link a:hover {
     text-decoration: underline;
+}
+
+.error{
+    color: #ac2a37;
+    font-size: 0.7rem ;
 }
 
 /* Android phones (small screens, max width: 480px) */

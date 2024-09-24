@@ -1,16 +1,18 @@
-import { HttpBackend, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ViewUsersService {
-  private apiUrl = 'http://localhost/iwanderph_backend/api/admin/get_users.php';
+
+  private apiUrl = `${environment.apiUrl}/admin/get_users.php`;  
 
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(this.apiUrl);  
   }
 }
