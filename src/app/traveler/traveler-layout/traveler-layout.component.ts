@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './traveler-layout.component.html',
   styleUrl: './traveler-layout.component.scss'
 })
-export class TravelerLayoutComponent {
+export class TravelerLayoutComponent{
 
 }

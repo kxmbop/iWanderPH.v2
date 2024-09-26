@@ -1,0 +1,16 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
+
+/* Mobile view (up to 480px) */
+@media (max-width: 480px) { 
+    ::ng-deep .top-utility i#favorites{
+        display: none;
+    }
+
+}
+/* Desktop view (above 1025px) */
+@media (min-width: 1025px) {
+
+
+}

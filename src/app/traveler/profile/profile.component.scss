@@ -1,0 +1,94 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
+
+.p-j{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.profile-container {
+    width: 84px;
+    height: 84px;
+    border: 1px solid $tpc;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile-picture {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+.profile-journey {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.profile-journey span#num_journey{
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1;
+}
+.profile-journey span#journey_label{
+    font-size: 0.8em;
+    line-height: 1;
+}
+.p-b{
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.names{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:4px;
+    margin-top: 9px;
+}
+#name{
+    font-size: 13px;
+    font-weight: 500;
+}
+#username{
+    font-size: 11px;
+}
+.bio{
+    text-align: center;
+    font-size: 11px;
+    max-width: 90%;
+}
+
+/* Mobile view (up to 480px) */
+@media (max-width: 480px) { 
+    ::ng-deep .top-utility i#favorites{
+        display: none;
+    }
+    .p-j{
+        gap: 15px;
+        margin-top: 15px;
+    }
+    .p-b{
+        max-height: 54px;
+
+    }
+    
+
+}
+/* Desktop view (above 1025px) */
+@media (min-width: 1025px) {
+    ::ng-deep .top-utility i#favorites{
+        display: none;
+    }
+    .p-j{
+        gap: 20px;
+        margin-top: 15px;
+    }
+
+
+}

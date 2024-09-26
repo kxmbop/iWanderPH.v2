@@ -1,1 +1,20 @@
-<p>profile works!</p>
+<div class="p-j">
+    <div class="profile-container">
+        <img [src]="profile.profilePic" alt="Profile Picture" class="profile-picture">
+    </div>
+    <div class="profile-container">
+        <div class="profile-journey">
+            <span id="num_journey">{{ journeys }}</span>
+            <span id="journey_label">Journeys</span>
+        </div>
+    </div>
+</div>
+<div class="p-b">
+    <div class="names">
+        <span id="name">{{ profile.FirstName }} {{ profile.LastName }}</span>
+        <span id="username">&#64;{{ profile.Username }}</span>
+    </div>
+    <div class="bio">
+        <span id="bio">{{ profile.Bio }}</span>
+    </div>
+</div>
