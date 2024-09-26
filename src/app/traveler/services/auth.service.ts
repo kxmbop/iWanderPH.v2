@@ -9,13 +9,10 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/traveler/`;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
 
-  login(loginData: {username: string, password: string}): Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}login.php`, loginData);
+  // Change the return type to Observable<any>
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}login`, credentials); // Return the Observable
   }
-
-
 }
