@@ -17,15 +17,16 @@ export class ProfileComponent implements OnInit {
   }
 
   loadProfile(): void {
-    const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjczMjUwMzksImV4cCI6MTcyNzMyODYzOSwiVHJhdmVsZXJJRCI6MTAwMTIsIlVzZXJuYW1lIjoia2ltYXNoaSJ9.FhhqDq9Dmi_OltuvXPvRzuGNW9PlKium9eVR1-TF-ss";
-    console.log("Token retrieved: ", token); // Log the token for verification
+    const token = localStorage.getItem('token');
+    console.log("Token retrieved: ", token); 
   
     if (token) {
-      const authToken = `Bearer ${token}`;
-      this.profileService.getProfile(authToken).subscribe(
+      this.profileService.getProfile(token).subscribe(
         (data) => {
-          console.log("API Response: ", data); // Log the API response
+          console.log("API Response: ", data); 
           if (data.success) {
+            console.log('User Profile:', data.profile);
+            console.log('Number of Journeys:', data.journeys);
             this.profile = data.profile;
             this.journeys = data.journeys;
           } else {
@@ -39,6 +40,5 @@ export class ProfileComponent implements OnInit {
     } else {
       console.error("No token found");
     }
-  }
-  
+}
 }

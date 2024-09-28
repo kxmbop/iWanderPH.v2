@@ -1,18 +1,37 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment'; // Adjust path if necessary
+import { Router } from '@angular/router';
+
+interface LoginResponse {
+  success: boolean;
+  message?: string;
+  token?: string; 
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/traveler/`;
+  private apiUrl = `${environment.apiUrl}/traveler/`; // Use environment variable
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router:  Router
 
-  // Change the return type to Observable<any>
-  login(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}login`, credentials); // Return the Observable
+  ) {}
+
+  login(loginData: { username: string; password: string }): Observable<LoginResponse> {
+    const headers = new HttpHeaders({
+        'Content-Type': 'application/json'
+    });
+    return this.http.post<LoginResponse>(`${this.apiUrl}login.php`, loginData, { headers });
   }
+  
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
 }
