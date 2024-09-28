@@ -1,6 +1,7 @@
 <div class="p-j">
     <div class="profile-container">
-        <img [src]="profile.profilePic" alt="Profile Picture" class="profile-picture">
+        <!-- <img *ngIf="profile.profilePic" [src]="profile.profilePic" alt="Profile Picture" class="profile-picture"> -->
+        <div *ngIf="!profile.profilePic" class="profile-picture">No Profile Picture</div>
     </div>
     <div class="profile-container">
         <div class="profile-journey">
