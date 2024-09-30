@@ -12,6 +12,7 @@ import { AdminPageNotFoundComponent } from './admin-page-not-found/admin-page-no
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { OnlineChatComponent } from './online-chat/online-chat.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'admin-login', pathMatch: 'full' },
@@ -29,7 +30,9 @@ const routes: Routes = [
       { path: 'view-users', component: ViewUsersComponent },
       { path: 'post-notification', component: PostNotificationComponent },
       { path: 'generate-analytics', component: GenerateAnalyticsComponent },
-      { path: 'admin-page-not-found', component: AdminPageNotFoundComponent }
+      { path: 'admin-page-not-found', component: AdminPageNotFoundComponent },
+      { path: 'settings', component: SettingsComponent },
+
     ]
   }
 ];
