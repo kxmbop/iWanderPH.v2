@@ -1,7 +1,9 @@
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
 
-
+.settings-panel, .favorites-panel{
+    z-index: 1000 !important;
+}
 .p-j{
     display: flex;
     flex-direction: row;
@@ -65,6 +67,118 @@
     font-size: 11px;
     max-width: 90%;
 }
+.profile-tabs{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 32px;
+    margin-top: 20px;
+}
+.profile-tabs span{
+    width: 50%;
+    text-align: center;
+    border-bottom: 0.5px solid $tpc;
+}
+.tabs{
+    max-height: 500px;
+    color: #353535;
+}
+.review-tab, .journey-tab {
+    position: fixed;
+    transition: transform 0.5s ease-in-out;
+}
+.review-tab.active {
+    transform: translateX(0);
+}
+.review-tab.slide-out-left {
+    transform: translateX(-100%);
+}
+.journey-tab.active {
+    transform: translateX(0);
+}
+.journey-tab.slide-in-right {
+    transform: translateX(0);
+}
+.journey-tab.slide-out-right {
+    transform: translateX(100%);
+}
+.review-tab{
+    // background-color: #ff7777;
+}
+.journey-tab{
+    background-color: #b889ff;
+}
+.u-d{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    gap: 5px;
+    height: 42px;
+    margin: 5px 0;
+}
+.u-d span{
+    font-size: 14px !important;
+    font-weight: 500;
+}
+
+.pp-mini{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.review-images{
+    border: 0.5px solid $tpc;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+.review-details{
+    padding: 5px 10px;
+    color: #353535;
+}
+.review-details .likes{
+    height: 22px;
+    display: flex;
+    align-items: center;
+}
+.review-details .likes i{
+    font-size: 22px !important;
+}
+.review-details .likes span{
+    margin-right: 5px;
+    margin-left: 2px;
+    font-size: 14px !important;
+}
+.review-details .likes .rating{
+    position: static;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: 100%;
+}
+.review-details .likes .rating i{
+    font-size: 18px !important;
+}
+.review-details .caption span{
+    margin-top: 4px;
+    font-size: 14px !important;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+.review-details .caption a{
+    font-size: 12px;
+    line-height: 1;
+    color: #4a4a4a;
+}
 
 /* Mobile view (up to 480px) */
 @media (max-width: 480px) { 
@@ -79,7 +193,16 @@
         max-height: 54px;
 
     }
-    
+    .review-tab, .journey-tab {
+        width: 100%;
+        height: calc(100% - 300px);
+        padding: 0 15px;
+    }
+    .review-images{
+        width: 100%;
+        min-height: 100px;
+    }
+
 
 }
 /* Desktop view (above 1025px) */
@@ -91,6 +214,24 @@
         gap: 20px;
         margin-top: 15px;
     }
+    .tabs{
+        width: calc(100% - 320px);
+        z-index: 1;
+    }
+    .review-tab, .journey-tab {
+        width: calc(100% - 320px);
+        height: 100%;
+        padding: 10px 0;
+        display: flex;
+    }
+    .review-post{
+        width: 500px;
+        margin: 0 auto;
+    }
+    .review-images{
+        width: 500px;
+        min-height: 100px;
 
-
+    }
+    
 }
