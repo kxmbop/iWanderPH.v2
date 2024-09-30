@@ -1,7 +1,7 @@
 <div class="p-j">
     <div class="profile-container">
-        <!-- <img *ngIf="profile.profilePic" [src]="profile.profilePic" alt="Profile Picture" class="profile-picture"> -->
-        <div *ngIf="!profile.profilePic" class="profile-picture">No Profile Picture</div>
+        <img *ngIf="profile.ProfilePic" [src]="getProfilePicture()" alt="Profile Picture" class="profile-picture">
+        <div *ngIf="!profile.ProfilePic" class="profile-picture">No Profile Picture</div>
     </div>
     <div class="profile-container">
         <div class="profile-journey">
@@ -19,3 +19,49 @@
         <span id="bio">{{ profile.Bio }}</span>
     </div>
 </div>
+
+<div class="profile-tabs">
+    <span (click)="toggleTab('reviews')">Reviews</span>
+    <span (click)="toggleTab('journeys')">Journeys</span>
+</div>
+
+<div class="tabs">
+    <div class="review-tab" [class.active]="activeTab === 'reviews'" [class.slide-out-left]="activeTab !== 'reviews'">
+    
+        <div class="review-post" *ngFor="let review of reviews">
+            <div class="u-d">
+                <img *ngIf="profile.ProfilePic" [src]="getProfilePicture()" alt="Profile Picture" class="pp-mini">
+                <span id="username">{{ profile.Username }}</span>
+            </div>
+            <div class="review-images">
+                <div *ngFor="let image of review.reviewImages" class="review-image">
+                    <img [src]="image" alt="Review Image">
+                </div>
+            </div>
+            <div class="review-details">
+                <div class="likes">
+                    <i class='bx bx-heart'></i><span>{{ getLikesCount(review.reviewID) }}</span>
+                    <i class='bx bx-message-square-dots'></i><span>{{ getCommentsCount(review.reviewID) }}</span>
+                    <div class="rating">
+                        <ng-container *ngFor="let star of [].constructor(review.reviewRating); let i = index">
+                            <i class='bx bxs-star' *ngIf="i < review.reviewRating"></i>
+                            <i class='bx bx-star' *ngIf="i >= review.reviewRating"></i>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="caption">
+                    <span>{{ review.reviewComment }}</span>
+                    <a href="#">View {{ getCommentsCount(review.reviewID) }} comment{{ getCommentsCount(review.reviewID) !== 1 ? 's' : '' }} here</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- review tab content -->
+    </div>
+    
+    <div class="journey-tab" [class.active]="activeTab === 'journeys'" [class.slide-out-right]="activeTab !== 'journeys'">
+        <!-- journey tab content -->
+    </div>
+</div>
+
+

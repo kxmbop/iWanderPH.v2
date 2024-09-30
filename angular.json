@@ -74,6 +74,10 @@
             },
             "development": {
               "buildTarget": "iWanderPH.v2:build:development"
+            },
+            "options": {
+              "buildTarget": "iWanderPH.v2:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
