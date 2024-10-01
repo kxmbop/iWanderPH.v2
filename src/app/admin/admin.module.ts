@@ -15,6 +15,7 @@ import { AdminPageNotFoundComponent } from './admin-page-not-found/admin-page-no
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { OnlineChatComponent } from './online-chat/online-chat.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { OnlineChatComponent } from './online-chat/online-chat.component';
     GenerateAnalyticsComponent,
     AdminPageNotFoundComponent,
     BookingDetailsComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

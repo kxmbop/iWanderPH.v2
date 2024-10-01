@@ -33,7 +33,7 @@ export class LoginComponent {
     }
     
     this.loading = true; 
-    this.errorMessage = ''; // Clear any previous error messages
+    this.errorMessage = ''; 
 
     const loginData: LoginData = { username: this.username, password: this.password };
     
@@ -52,7 +52,7 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loading = false; 
-        console.error('Login error: ', err); // Log the error for debugging
+        console.error('Login error: ', err);
         this.errorMessage = 'Something went wrong. Please try again.';
       } 
     });

@@ -57,6 +57,13 @@
 .container .pib label{
     font-size: 20px;
 }
+.container .pib span{
+    font-size: 14px;
+    margin-left: 5px;
+}
+.container .pib span i{
+    cursor: pointer;
+}
 .container .pib .d{
     width: 100%;
     display: flex;
@@ -76,7 +83,7 @@
     font-size: 15px;
 }
 .container .bib{
-    padding: 20px;
+    padding: 10px 20px;
     border-top: 1px solid $apc;
 }
 .container .bib label{
@@ -84,6 +91,8 @@
     font-weight: 600;
 }
 .container .mid{
+    padding: 20px;
+    border-top: 1px solid $apc;
     margin-bottom: 10px;
 }
 .container .mid label{
@@ -115,9 +124,8 @@
     font-size: 15px;
 }
 .container .bib .li{
-    border-top: 0.5px solid $apc;
     width: 100%;
-    padding: 20px 0;
+    padding: 10px 0;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -259,3 +267,84 @@
     font-weight: 500;
     margin-top: 8px;
 }
+
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+  }
+  .modal input {
+    border-radius: 5px;
+    border: 0.5px solid $apc;
+    margin-left: 5px;
+    height: 28px;
+    padding: 2px 5px;
+  }
+  .modal-content {
+    background-color: #fefefe;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 80vh;
+    overflow: auto;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 10;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .refund-modal-content {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .refund-image {
+    max-width: 30%;
+    height: 70vh;
+    margin-right: 20px;
+    overflow: auto;
+    display: flex;
+  }
+
+  .refund-details {
+    width: calc(70% - 480px);
+  }
+  
+  .refund-amount {
+    margin-bottom: 20px;
+  }
+  
+  .traveler-details {
+    margin-bottom: 20px;
+  }
+  
+  .refund-transaction-id {
+    margin-bottom: 20px;
+  }
+  
+  .payout-modal-content {
+    text-align: center;
+  }
+  
+  .payout-transaction-id {
+    margin-bottom: 20px;
+  }

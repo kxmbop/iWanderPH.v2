@@ -15,15 +15,15 @@ import { OnlineChatComponent } from './online-chat/online-chat.component';
 import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'admin-login', pathMatch: 'full' },
-  { path: 'admin-login', component: AdminLoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: AdminLoginComponent },
   { path: 'booking-details/:bookingId', component: BookingDetailsComponent },
   { path: 'user-details', component: UserDetailsComponent },
   {
     path: '',
     component: AdminLayoutComponent,  
     children: [
-      { path: 'admin-dashboard', component: AdminDashboardComponent },
+      { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'chat', component: OnlineChatComponent },
       { path: 'admin-profile', component: AdminProfileComponent },
       { path: 'view-bookings', component: ViewBookingsComponent },
@@ -32,7 +32,6 @@ const routes: Routes = [
       { path: 'generate-analytics', component: GenerateAnalyticsComponent },
       { path: 'admin-page-not-found', component: AdminPageNotFoundComponent },
       { path: 'settings', component: SettingsComponent },
-
     ]
   }
 ];

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 interface LoginResponse {
   status: string;
@@ -13,12 +14,29 @@ interface LoginResponse {
 }) 
 export class AuthService {
   private apiUrl = `${environment.apiUrl}/admin/`;
-
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
 
   login(loginData: { username: string; password: string }): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}admin-login.php`, loginData);
+    const headers = new HttpHeaders({
+        'Content-Type': 'application/json'
+    });
+    return this.http.post<LoginResponse>(`${this.apiUrl}login.php`, loginData, { headers });
   }
 
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  isLoggedIn() {
+    return !!this.getToken();
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
 }
 
