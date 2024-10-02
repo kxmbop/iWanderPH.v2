@@ -17,15 +17,19 @@ export class BookingService {
     return this.http.get<any[]>(`${this.apiUrl}/get_bookings.php`);
   }
 
-  getBookingsWithNoPayout(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/get_no_payout_bookings.php`);
-  }
-
-  updatePaymentStatus(bookingId: number): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/updatePayoutStatus.php`, { bookingId });
-  }
-
   getBookingDetails(bookingId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/get_booking_details.php?bookingId=${bookingId}`);
+  }
+
+  updatePaymentStatus(bookingId: number) {
+    return this.http.post(`${this.apiUrl}initiate_payout.php`, { bookingId });
+  }
+
+updateRefundStatus(bookingId: number, refundAmount: number, refundTransactionID: string, refundReason: string, refundReasonOther: string) {
+  return this.http.post(`${this.apiUrl}refund.php`, { bookingId, refundAmount, refundTransactionID, refundReason, refundReasonOther });
+}
+
+  updatePayoutStatus(bookingId: number, payoutTransactionID: string) {
+    return this.http.post(`${this.apiUrl}payout.php`, { bookingId, payoutTransactionID });
   }
 }

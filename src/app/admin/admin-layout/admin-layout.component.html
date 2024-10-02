@@ -1,7 +1,10 @@
 <div class="sidebar">
   <div class="logo-details">
     <i class='bx bxs-user-circle icon'></i>
-    <div class="logo_name">Irene Luga</div>
+    <div class="logo_name">        
+      <span id="name">{{ profile.firstname }} {{ profile.lastname }}</span>
+    </div>
+    
     <i class='bx bx-menu' id="btn"></i>
   </div>
   <ul class="nav-list">
@@ -48,7 +51,7 @@
       <span class="tooltip">Generate Analytics</span>
     </li>
     <li class="profile">
-      <a routerLink="/admin/admin-login">
+      <a routerLink="/admin/login">
         <i class='bx bx-log-out'></i>
         <span class="links_name">Log-out</span>
       </a>
