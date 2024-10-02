@@ -12,3 +12,70 @@
     pointer-events: none !important;
     transition: 0.1s ease-out;
 } 
+
+.filter-bar{
+    width: 100%;
+    color: $tpc;
+    background-color: #FFFFFF;
+    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.10);
+    border-radius: 0px 15px 0px 0px;
+}
+.filter-bar .f-b{
+    padding: 16px 30px 16px 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.filter-bar input#search{
+    width: 30%;
+    background-color: #F2F2F2;
+    margin-left: 15px;
+}
+.date-range {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-left: 3%;
+  }
+  .date-range input[type="date"] {
+    padding: 5px;
+    font-size: 14px;
+    background-color: #F2F2F2;
+  }
+.filter-bar input::placeholder{
+    font-style: italic;
+}
+.filter-bar button{
+    background-color: $mpc;
+    margin-left: 3%;
+}
+.filter-bar i{
+    font-size: 30px;
+    margin-left: auto;
+}
+.filter-bar .subtract{
+    position: static;
+    bottom: 0;
+    background-color: #f1f1f1;
+    height: 18px;
+    width: 100%;
+    //border: 1px solid #000;
+    border-radius: 20px 20px 0px 0px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.data-container{
+    height: 75vh;
+    width: 100%;
+    padding: 0 15px;
+}
+.data-container .table-box{
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+    border-radius: 15px 15px 0px 0px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+
+}

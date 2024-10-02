@@ -1,12 +1,12 @@
 <div class="login-box">
-  <form (ngSubmit)="login({username: loginUsername.value, password: loginPassword.value})" #loginForm="ngForm" class="login-form">
+  <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm" class="login-form">
     <div style="height: 150px;"></div>
     <h2>Welcome, iWanderMaster!</h2>
     <div class="login-notice">
       Ask for an admin for your login or <br><div> submit a request <a href="#">here </a> </div>
     </div>
-    <input type="text" #loginUsername="ngModel" ngModel name="username" placeholder="username" required autofocus> 
-    <input type="password" #loginPassword="ngModel" ngModel name="password" placeholder="password" required> 
+    <input type="text" ngModel name="username" placeholder="username" required autofocus> 
+    <input type="password" ngModel name="password" placeholder="password" required> 
     <button
       type="submit"
       [disabled]="!loginForm.form.valid"

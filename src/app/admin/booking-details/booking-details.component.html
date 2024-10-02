@@ -26,7 +26,8 @@
 
   <!-- Payment Details -->
   <div class="pib">
-    <label>Payment Details</label>
+    <label>Payment Details</label> 
+    <span (click)="openPOPModal()">Proof of Payment <i class='bx bx-link-external'></i></span>
     <div class="d">
       <div class="t">
         <label>Status: &nbsp;</label>
@@ -34,7 +35,7 @@
       </div>
       <div class="t">
         <label>Transaction ID: &nbsp;</label>
-        <span>1029102031923</span> <!-- leave as is -->
+        <span>{{ bookingDetails?.paymentGCashTransactionID }}</span> <!-- leave as is -->
       </div>
       <div class="t">
         <label>Payment Method: &nbsp;</label>
@@ -47,37 +48,37 @@
     </div>
   </div>
 
-  <!-- Merchant Details -->
-  <div class="bib">
-    <div class="mid">
-      <label>Merchant #{{ bookingDetails?.MerchantID }}</label>
-      <div class="d">
-        <div class="a">
-          <label>Name: &nbsp;</label>
-          <span>{{ bookingDetails?.MerchantBusinessName }}</span>
-        </div>
-        <div class="a">
-          <label>Username: &nbsp;</label>
-          <span>{{ bookingDetails?.MerchantUsername }}</span>
-        </div>
-        <div class="a">
-          <i class='bx bxs-phone'></i>
-          <label>Phone: &nbsp;</label>
-          <span>{{ bookingDetails?.MerchantContact }}</span>
-        </div>
-        <div class="a">
-          <i class='bx bxs-envelope'></i>
-          <label>Email: &nbsp;</label>
-          <span>{{ bookingDetails?.MerchantEmail }}</span>
-        </div>
-        <div class="a">
-          <i class='bx bxs-business'></i>
-          <label>Business Type: &nbsp;</label>
-          <span>{{ bookingDetails?.MerchantBusinessType }}</span>
-        </div>
+    <!-- Merchant Details -->
+  <div class="mid">
+    <label>Merchant #{{ bookingDetails?.MerchantID }}</label>
+    <div class="d">
+      <div class="a">
+        <label>Name: &nbsp;</label>
+        <span>{{ bookingDetails?.MerchantBusinessName }}</span>
+      </div>
+      <div class="a">
+        <label>Username: &nbsp;</label>
+        <span>{{ bookingDetails?.MerchantUsername }}</span>
+      </div>
+      <div class="a">
+        <i class='bx bxs-phone'></i>
+        <label>Phone: &nbsp;</label>
+        <span>{{ bookingDetails?.MerchantContact }}</span>
+      </div>
+      <div class="a">
+        <i class='bx bxs-envelope'></i>
+        <label>Email: &nbsp;</label>
+        <span>{{ bookingDetails?.MerchantEmail }}</span>
+      </div>
+      <div class="a">
+        <i class='bx bxs-business'></i>
+        <label>Business Type: &nbsp;</label>
+        <span>{{ bookingDetails?.MerchantBusinessType }}</span>
       </div>
     </div>
+  </div>
 
+  <div class="bib">
     <div class="li">
       <label>Booking ID #{{ bookingDetails?.BookingID }}</label>
       <div class="ld">
@@ -123,8 +124,8 @@
         <h3>{{ bookingDetails?.PayoutStatus }}</h3>
       </span>
       <div class="actions">
-        <button [disabled]="bookingDetails?.refundAmount > 0" class="refund-button">Refund</button>
-        <button (click)="initiatePayout(bookingDetails?.BookingID)" [disabled]="bookingDetails?.PayoutStatus === 'completed'" class="payout-button">Initiate Payout</button>
+        <button [disabled]="bookingDetails?.refundAmount > 0 || bookingDetails?.PaymentStatus !== 'successful'" (click)="openRefundModal()" class="refund-button">Refund</button>
+        <button (click)="initiatePayout(bookingDetails?.BookingID)" [disabled]="bookingDetails?.PayoutStatus === 'completed' || bookingDetails?.PaymentStatus !== 'successful'" class="payout-button">Initiate Payout</button>
       </div>
     </div>
 
@@ -156,10 +157,87 @@
   </div>
 </div>
 
+
 <ng-template #loading>
   <p>Loading booking details...</p>
 </ng-template>
 
 <div *ngIf="showSuccessPopup" class="popup success show">
   <p>{{ successMessage }}</p>
+</div>
+
+<div class="modal" *ngIf="isVisible">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <div class="refund-image" style="justify-content: center; max-width: 100%;">
+      <img *ngIf="bookingDetails?.ProofOfPayment" 
+      [src]="'data:image/jpeg;base64,' + bookingDetails?.ProofOfPayment" 
+      alt="Proof of Payment" />
+    </div>
+    <p *ngIf="!bookingDetails?.ProofOfPayment">No proof of payment uploaded.</p>
+  </div>
+</div>
+
+<!-- Refund Modal -->
+<div class="modal" *ngIf="refundVisible">
+  <div class="modal-content">
+    <span class="close" (click)="closeRefundModal()">&times;</span>
+    <h2>Initiating Refund for Booking #{{ bookingDetails?.BookingID }}</h2>
+    <div class="refund-modal-content">
+      <div class="refund-image">
+        <img *ngIf="bookingDetails?.ProofOfPayment" 
+             [src]="'data:image/jpeg;base64,' + bookingDetails?.ProofOfPayment" 
+             alt="Proof of Payment" />
+        <p *ngIf="!bookingDetails?.ProofOfPayment">No proof of payment uploaded.</p>
+      </div>
+      <div class="refund-details">
+        <h3>Refund Details</h3>
+        <div class="refund-amount">
+          <label>Refund Amount:</label>
+          <input type="number" [(ngModel)]="refundAmount" [placeholder]="bookingDetails?.TotalAmount" [value]="bookingDetails?.TotalAmount">
+        </div>
+        <div class="traveler-details">
+          <h4>Traveler Details</h4>
+          <p>Send to: {{ bookingDetails?.TravelerFirstName }} {{ bookingDetails?.TravelerLastName }}</p>
+          <p>GCash No.: {{ bookingDetails?.TravelerMobile }}</p>
+        </div>
+        <div class="refund-reason">
+          <label>Reason for Refund:</label>
+          <select [(ngModel)]="refundReason">
+            <option value="Unforeseen circumstances">Unforeseen circumstances</option>
+            <option value="Travel restrictions">Travel restrictions</option>
+            <option value="Natural disasters or severe weather">Natural disasters or severe weather</option>
+            <option value="Emergency situations">Emergency situations</option>
+            <option value="Changes in government regulations">Changes in government regulations</option>
+            <option value="Health-related concerns">Health-related concerns</option>
+            <option value="Accidental booking errors">Accidental booking errors</option>
+            <option value="Other">Other (please specify)</option>
+          </select>
+          <textarea *ngIf="refundReason === 'Other'" [(ngModel)]="refundReasonOther" placeholder="Please specify reason for refund"></textarea>
+        </div>
+        <div class="refund-transaction-id">
+          <label>Enter Refund Transaction ID:</label>
+          <input type="text" [(ngModel)]="refundTransactionID">
+        </div>
+        <button (click)="processRefund()">Refund</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payout Modal -->
+<div class="modal" *ngIf="payoutVisible">
+  <div class="modal-content">
+    <span class="close" (click)="closePayoutModal()">&times;</span>
+    <h2>Initiating Payout for Booking #{{ bookingDetails?.BookingID }}</h2>
+    <div class="payout-modal-content">
+      <h3>Payout Details</h3>
+      <p>Payout Amount: ₱{{ bookingDetails?.PayoutAmount | number: '1.2-2' }}</p>
+      <div class="payout-transaction-id">
+        <label>Enter Payout Transaction ID:</label>
+        <input type="text" [(ngModel)]="payoutTransactionID">
+      </div>
+      <button (click)="processPayout()">Payout</button>
+    </div>
+  </div>
 </div>
