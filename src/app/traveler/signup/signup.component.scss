@@ -1,0 +1,71 @@
+.signup-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: white;
+  
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+  
+      div {
+        width: 24%;
+        padding: 10px;
+        text-align: center;
+        background-color: lightgray;
+        border-radius: 4px;
+        &.active {
+          background-color: #4caf50;
+          color: white;
+        }
+      }
+    }
+  
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+  
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+  
+        &:disabled {
+          background-color: lightgray;
+          cursor: not-allowed;
+        }
+  
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+    }
+  }
+  
+  /* Responsive Styling */
+  
+  /* Android phones (small screens, max width: 480px) */
+  @media (max-width: 480px) {
+    .signup-container {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+  
+  /* Web view (large screens, min width: 1025px) */
+  @media (min-width: 1025px) {
+    .signup-container {
+      padding: 40px;
+      font-size: 16px;
+    }
+  }
+  

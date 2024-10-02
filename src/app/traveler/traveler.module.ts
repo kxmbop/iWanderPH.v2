@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { DiscoverComponent } from './discover/discover.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ProfileComponent } from './profile/profile.component';
     HomeComponent,
     DiscoverComponent,
     BookingsComponent,
-    ProfileComponent
+    ProfileComponent,
+    SignupComponent
   ],
   imports: [
     CommonModule,
