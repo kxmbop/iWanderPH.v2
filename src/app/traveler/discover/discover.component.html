@@ -1,1 +1,29 @@
-<p>discover works!</p>
+<div class="search-bar">
+    <div class="input-container">
+        <input type="text" id="search-input" name="discover-search" placeholder="Discover..." (input)="onSearchInput($event)">
+        <i class='bx bx-search'></i>
+    </div>
+</div>
+
+<div class="side-scroll">
+    <button [class.active]="selectedIslandGroup === 'All'" (click)="filterByIslandGroup('All')">All</button>
+    <button [class.active]="selectedIslandGroup === 'Luzon'" (click)="filterByIslandGroup('Luzon')">Luzon</button>
+    <button [class.active]="selectedIslandGroup === 'Visayas'" (click)="filterByIslandGroup('Visayas')">Visayas</button>
+    <button [class.active]="selectedIslandGroup === 'Mindanao'" (click)="filterByIslandGroup('Mindanao')">Mindanao</button>
+</div>
+
+<div class="place-list">
+    <div *ngFor="let place of places" class="place-item">
+        <img 
+            [src]="'data:image/jpeg;base64,' + place.main_image" 
+            [alt]="place.place_name"
+            (click)="goToPlaceDetails(place.id)" 
+            class="place-image" 
+        />
+        
+        <p>{{ place.place_name }}</p>
+    </div>
+</div>
+
+  
+
