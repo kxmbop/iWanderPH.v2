@@ -4,7 +4,10 @@
 
 /* Mobile view (up to 480px) */
 @media (max-width: 480px) { 
-    ::ng-deep .top-utility i#favorites{
+    ::ng-deep .top-utility i#settings{
+        display: none;
+    }
+    ::ng-deep .top-utility i#chats{
         display: none;
     }
 

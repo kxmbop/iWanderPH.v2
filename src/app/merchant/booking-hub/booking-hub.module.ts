@@ -8,6 +8,7 @@ import { AcceptedComponent } from './accepted/accepted.component';
 import { OngoingComponent } from './ongoing/ongoing.component';
 import { CompletedComponent } from './completed/completed.component';
 import { RefundedComponent } from './refunded/refunded.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,9 @@ import { RefundedComponent } from './refunded/refunded.component';
   imports: [
     CommonModule,
     BookingHubRoutingModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class BookingHubModule { }

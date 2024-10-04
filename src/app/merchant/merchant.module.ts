@@ -12,7 +12,8 @@ import { ListingsComponent } from './listings/listings.component';
   declarations: [
     MerchantLayoutComponent,
     HubLayoutComponent,
-    ListingsComponent
+    ListingsComponent,
+    
   ],
   imports: [
     CommonModule,

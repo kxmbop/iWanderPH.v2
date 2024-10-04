@@ -1,0 +1,95 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
+.chats-panel{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 11;
+    padding: 0 20px;
+}
+.close-button {
+    position: static;
+    left: 0;
+    cursor: pointer;
+    font-size: 32px;
+}
+
+@media (max-width: 480px) {
+    ::ng-deep .top-utility i#favorites{
+        display: none;
+    }
+    ::ng-deep .top-utility i#settings{
+        display: none;
+    }
+    .chats-panel .top-options{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .close-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .chats-panel .close-button span{
+        font-size: 22px;
+        font-weight: 500;
+    }
+    .chats-panel .top-options .create {
+        position: static;
+        top: 0;
+        cursor: pointer;
+        font-size: 28px;
+    }
+    .chats-panel .search{
+        width: 100%;
+    }
+    .chats-panel input{
+        margin-top: 10px;
+        width: 100% !important;
+        height: 36px !important;
+        background-color: #f1f1f1;
+    }
+    .chat-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 72px;
+        width: 100%;
+        margin: 10px 0;
+        background-color: #f1f1f1;
+        margin-bottom: 5px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .chat-container .pp {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: 1px solid $tpc;
+    }
+    .chat-container .chat-box{
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 35px);
+        padding: 0 10px;
+    }
+    .chat-container .chat-box span{
+
+    }
+    .chat-container .chat-box span#username{
+        font-size: 18px;
+        font-weight: 500;
+    }
+    .chat-container .chat-box span#message{
+        font-size: 14px;
+    }
+}

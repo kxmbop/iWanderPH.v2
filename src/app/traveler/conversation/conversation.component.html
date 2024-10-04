@@ -1,0 +1,12 @@
+<div class="conversation-panel" id="chats-panel" [@slideInOut]="showChats" *ngIf="showChats">
+    <div class="top-options">
+        <div class="close-button"  (click)="openChat()">
+            <i class='bx bx-chevron-left'></i>
+            <span id="username"></span>
+        </div>
+        <div class="create">
+            <i class='bx bx-dots-horizontal-rounded' ></i>
+        </div>
+    </div>
+    <p>conversation works!</p>
+</div>
