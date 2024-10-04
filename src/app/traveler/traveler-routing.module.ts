@@ -6,6 +6,8 @@ import { HomeComponent } from './home/home.component';
 import { DiscoverComponent } from './discover/discover.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { ProfileComponent } from './profile/profile.component';
+import { InboxComponent } from './inbox/Inbox.component';
+import { ConversationComponent } from './conversation/conversation.component';
 
 
 const routes: Routes = [
@@ -16,13 +18,18 @@ const routes: Routes = [
     component: TravelerLayoutComponent,  
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'inbox', 
+        component: InboxComponent, 
+        children: [
+          { path: 'conversation', component: ConversationComponent}
+        ]
+      },
       { path: 'discover', component: DiscoverComponent },
       { path: 'bookings', component: BookingsComponent },
       { path: 'profile', component: ProfileComponent },
     ]
   }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

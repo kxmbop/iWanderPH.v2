@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { PendingService } from '../../services/pending.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pending',
@@ -7,26 +9,107 @@ import { PendingService } from '../../services/pending.service';
   styleUrls: ['./pending.component.scss']
 })
 export class PendingComponent implements OnInit {
-  pendingBookings: any[] = [];
+  filterForm!: FormGroup;
+  bookings: any[] = [];
+  originalBookings: any[] = []; // To store the original bookings
 
-  constructor(private pendingService: PendingService) {}
+  constructor(private pendingService: PendingService) { }
 
   ngOnInit(): void {
-    this.fetchPendingBookings();
+    this.filterForm = new FormGroup({
+      filter: new FormControl(''),
+      fromDate: new FormControl(''),
+      toDate: new FormControl('')
+    });
+
+    const token = localStorage.getItem('token');
+    this.pendingService.getBookings(token).subscribe((response: any) => {
+      this.bookings = response;
+      this.originalBookings = [...response]; // Store the original bookings
+    });
+
+    // Subscribe to form value changes to apply filters
+    this.filterForm.valueChanges
+      .pipe(debounceTime(300)) // Debounce to limit the number of updates
+      .subscribe(() => this.applyFilters());
   }
 
-  fetchPendingBookings(): void {
-    this.pendingService.getPendingBookings().subscribe(
-      (data) => {
-        this.pendingBookings = data;
-      },
-      (error) => {
-        console.error('Error fetching pending bookings', error);
+  applyFilters(): void {
+    const filter = this.filterForm.get('filter')?.value.toLowerCase();
+    const fromDate = this.filterForm.get('fromDate')?.value;
+    const toDate = this.filterForm.get('toDate')?.value;
+
+    this.bookings = this.originalBookings.filter(booking => {
+      const matchesFilter = !filter || 
+                            booking.BookingID.toString().includes(filter) || 
+                            booking.Username.toLowerCase().includes(filter) || 
+                            booking.ListingID.toString().includes(filter);
+      
+      const matchesFromDate = !fromDate || new Date(booking.BookingDate) >= new Date(fromDate);
+      const matchesToDate = !toDate || new Date(booking.BookingDate) <= new Date(toDate);
+
+      return matchesFilter && matchesFromDate && matchesToDate;
+    });
+  }
+
+  searchToday(): void {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    const todayDate = `${year}-${month}-${day}`;
+
+    this.filterForm.get('fromDate')?.setValue(todayDate);
+    this.filterForm.get('toDate')?.setValue(todayDate);
+
+    this.applyFilters();
+  }
+
+  showBookingDetails(bookingID: number): void {
+    const token = localStorage.getItem('token');
+    this.pendingService.getBookingDetails(token, bookingID).subscribe((response: any) => {
+      const modalDetails = document.getElementById('modal-details');
+      if (modalDetails) {
+        modalDetails.innerHTML = response;
       }
-    );
+      const bookingModal = document.getElementById('bookingModal');
+      if (bookingModal) {
+        bookingModal.style.display = 'block';
+      }
+    });
   }
 
-  acceptBooking(bookingId: number): void {
-    console.log('Accepted booking with ID:', bookingId);
+  closeModal(): void {
+    const bookingModal = document.getElementById('bookingModal');
+    if (bookingModal ) {
+      bookingModal.style.display = 'none';
+    }
+  }
+
+  acceptBooking(bookingID: number): void {
+    const token = localStorage.getItem('token');
+    this.pendingService.acceptBooking(token, bookingID).subscribe((response: any) => {
+      console.log(response);
+    });
+  }
+
+  refundBooking(bookingID: number ): void {
+    const token = localStorage.getItem('token');
+    this.pendingService.refundBooking(token, bookingID).subscribe((response: any) => {
+      console.log(response);
+    });
+  }
+
+  getStatusClass(paymentStatus: string): string {
+    switch (paymentStatus) {
+      case 'successful':
+        return 'status-success';
+      case 'in-progress':
+        return 'status-in-progress';
+      case 'failed':
+        return 'status-failed';
+      default:
+        return '';
+    }
   }
 }

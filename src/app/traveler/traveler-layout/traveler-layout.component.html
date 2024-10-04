@@ -8,6 +8,7 @@
     <img src="iWanderPH_logo.png" alt="iWanderPH Logo" class="logo"/>
     <i class='bx bx-heart' id="favorites" (click)="toggleFavoritesPanel()"></i>
     <i class='bx bx-menu' id="settings" (click)="toggleSettingsPanel()"></i>
+    <i class='bx bx-conversation' id="chats" [routerLink]="['/traveler/inbox']"></i>
 </div>
 
 <div class="settings-panel" id="settings-panel">
@@ -27,12 +28,13 @@
 </div>
 
 <div class="favorites-panel" id="favorites-panel">
-    <div class="close-button" (click)="toggleSettingsPanel()">
+    <div class="close-button" (click)="toggleFavoritesPanel()">
         <i class='bx bx-x'></i>
     </div>
     <h2>Favorites</h2>
     <p>This is the favorites panel.</p>
 </div>
+
 
 <div class="navbar">
     <img src="iWanderPH_logo.png" alt="iWanderPH Logo" class="logo"/>

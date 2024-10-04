@@ -1,0 +1,31 @@
+<router-outlet></router-outlet>
+<div class="chats-panel" id="chats-panel" [@slideInOut]="showChats" *ngIf="showChats">
+    <div class="top-options">
+        <div class="close-button">
+            <i class='bx bx-chevron-left' (click)="closeChats()" ></i>
+            <span id="username">{{ profile.Username }}</span>
+        </div>
+        <div class="create">
+            <i class='bx bxs-edit'></i>
+        </div>
+    </div>
+    <div class="chat-section">
+        <div class="search">
+            <input type="text" placeholder="Search user.." >
+        </div>
+    
+        <div class="inbox">
+            <div class="chat-container" (click)="openConversation()">
+                <div class="pp">
+        
+                </div>
+                <div class="chat-box">
+                    <span id="username">John Doe</span>
+                    <span id="message">Hi,  how are you?</span>
+                </div>
+            </div>
+        </div>
+        <p>chats works!</p>
+    </div>
+</div>
+
