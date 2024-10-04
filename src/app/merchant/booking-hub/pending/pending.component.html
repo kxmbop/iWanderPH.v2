@@ -1,21 +1,24 @@
-<div class="filter-bar">
-    <div class="f-b">
-        <label>Filter</label>
-        <input type="text" placeholder="Search traveler username, booking id, listing id" id="search">
-        <button>Today</button>
-        <div class="date-range">
-            <label for="fromDate">From:</label>
-            <input type="date" id="fromDate" name="fromDate">
-          
-            <label for="toDate">To:</label>
-            <input type="date" id="toDate" name="toDate">
-        </div>
-        <i class='bx bxs-info-circle' id="info_bt"></i>
-    </div>
-    <div class="subtract"></div>
-</div>
-<div class="data-container">
-    <div class="table-box">
-        <p>pending works!</p>
-    </div>
-</div>
+<p>This page works</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Booking ID</th>
+      <th>Booking Date</th>
+      <th>Traveler</th>
+      <th>Payment Status</th>
+      <th>Total Amount</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let booking of pendingBookings">
+      <td>{{ booking.BookingID }}</td>
+      <td>{{ booking.BookingDate | date: 'shortDate' }}</td>
+      <td>{{ booking.TravelerID }}</td> <!-- Traveler name can be retrieved if required -->
+      <td>{{ booking.PaymentStatus }}</td>
+      <td>{{ booking.TotalAmount | currency }}</td>
+      <td><button (click)="acceptBooking(booking.BookingID)">Accept</button></td>
+    </tr>
+  </tbody>
+</table>
