@@ -1,0 +1,93 @@
+<div id="merchant-details">
+  <h1>{{ merchantDetails.BusinessName }}</h1>
+  <p>Email: {{ merchantDetails.Email }}</p>
+  <p>Contact: {{ merchantDetails.Contact }}</p>
+  <p>Address: {{ merchantDetails.Address }}</p>
+</div>
+<div class="page-container">    
+  <mat-tab-group>
+      <!-- Rooms Tab -->
+      <mat-tab label="Rooms">
+          <div *ngIf="rooms?.length">
+              <div *ngFor="let room of rooms" class="card">
+                  <h3>{{ room.RoomName }} - {{ room.RoomRate | currency }}</h3>
+                  <p>Guests per room: {{ room.GuestPerRoom }}</p>
+
+                  <!-- Gallery Preview (if there are images) -->
+                  <div *ngIf="room.gallery?.length">
+                      <h4>Gallery</h4>
+                      <img *ngFor="let image of room.gallery.slice(0, 3)" [src]="'data:image/jpeg;base64,' + image" alt="Room image" />
+                  </div>
+
+                  <!-- See More Content (Inclusions and Views) -->
+                  <div *ngIf="room.showMore">
+                      <div *ngIf="room.inclusions?.length">
+                          <h4>Inclusions</h4>
+                          <ul>
+                              <li *ngFor="let inclusion of room.inclusions">{{ inclusion }}</li>
+                          </ul>
+                      </div>
+                      <div *ngIf="room.views?.length">
+                          <h4>Views</h4>
+                          <ul>
+                              <li *ngFor="let view of room.views">{{ view }}</li>
+                          </ul>
+                      </div>
+                  </div>
+
+                  <!-- See more button -->
+                  <button mat-button *ngIf="room.inclusions?.length > 2 || room.views?.length > 2 || room.gallery?.length > 3"
+                          (click)="room.showMore = !room.showMore">
+                      {{ room.showMore ? 'See less' : 'See more' }}
+                  </button>
+
+                  <!-- Book Button using routerLink -->
+                  <button
+                    mat-raised-button
+                    color="primary"
+                    [routerLink]="['/traveler/discover/booking']"
+                    [queryParams]="{ type: 'room', id: room.RoomID }"
+                  >
+                    Book Room
+                  </button>
+              </div>
+          </div>
+      </mat-tab>
+
+      <!-- Transportation Tab -->
+      <mat-tab label="Transportation">
+          <div *ngIf="transportations?.length">
+              <div *ngFor="let transport of transportations" class="card">
+                  <h3>{{ transport.VehicleName }} ({{ transport.Model }} - {{ transport.Brand }})</h3>
+                  <p>Capacity: {{ transport.Capacity }} | Rental Price: {{ transport.RentalPrice | currency }}</p>
+
+                  <!-- Gallery Preview (if there are images) -->
+                  <div *ngIf="transport.gallery?.length">
+                      <h4>Gallery</h4>
+                      <img *ngFor="let image of transport.gallery.slice(0, 3)" [src]="'data:image/jpeg;base64,' + image" alt="Transportation image" />
+                  </div>
+
+                  <!-- See More Content (if there is more content) -->
+                  <div *ngIf="transport.showMore">
+                      <!-- Add any other content or details for transportation here -->
+                  </div>
+
+                  <!-- See more button -->
+                  <button mat-button *ngIf="transport.gallery?.length > 3" (click)="transport.showMore = !transport.showMore">
+                      {{ transport.showMore ? 'See less' : 'See more' }}
+                  </button>
+
+                  <!-- Book Button using routerLink -->
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    [routerLink]="['/traveler/discover/booking']"
+                    [queryParams]="{ type: 'transportation', id: transport.TransportationID }"
+                  >
+                    Book Transportation
+                  </button>
+              </div>
+          </div>
+      </mat-tab>
+  </mat-tab-group>
+</div>

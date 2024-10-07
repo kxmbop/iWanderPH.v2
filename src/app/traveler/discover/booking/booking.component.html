@@ -1,0 +1,90 @@
+<div class="booking-container" *ngIf="bookingType && bookingDetails">
+  <h2>Book {{ bookingType === 'room' ? 'Room' : 'Transportation' }}</h2>
+
+  <div class="details">
+    <!-- Display Room or Transportation Details -->
+    <div *ngIf="bookingType === 'room'">
+      <h3>{{ bookingDetails.RoomName }}</h3>
+      <p>Rate: {{ bookingDetails.RoomRate | currency }}</p>
+      <p>Guests per room: {{ bookingDetails.GuestPerRoom }}</p>
+      <p>Inclusions: 
+        <span *ngFor="let inclusion of bookingDetails.inclusions; let last = last">
+          {{ inclusion }}<span *ngIf="!last">, </span>
+        </span>
+      </p>
+      <p>Views: 
+        <span *ngFor="let view of bookingDetails.views; let last = last">
+          {{ view }}<span *ngIf="!last">, </span>
+        </span>
+      </p>
+    </div>
+
+    <div *ngIf="bookingType === 'transportation'">
+      <h3>{{ bookingDetails.VehicleName }}</h3>
+      <p>Model: {{ bookingDetails.Model }}</p>
+      <p>Brand: {{ bookingDetails.Brand }}</p>
+      <p>Capacity: {{ bookingDetails.Capacity }}</p>
+      <p>Rental Price: {{ bookingDetails.RentalPrice | currency }}</p>
+    </div>
+
+    <!-- Image Gallery -->
+    <div *ngIf="gallery.length">
+      <h4>Gallery</h4>
+      <img *ngFor="let image of gallery" [src]="'data:image/jpeg;base64,' + image" alt="Item image" />
+    </div>
+  </div>
+
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="bookingForm.get('date')?.hasError('required')">
+          Date is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Conditional Fields Based on Booking Type -->
+    <div *ngIf="bookingType === 'room'">
+      <mat-form-field appearance="fill">
+        <mat-label>Check-In</mat-label>
+        <input matInput type="time" formControlName="checkIn">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Check-Out</mat-label>
+        <input matInput type="time" formControlName="checkOut">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="bookingType === 'transportation'">
+      <mat-form-field appearance="fill">
+        <mat-label>Pick-Up Location</mat-label>
+        <input matInput formControlName="pickupLocation" required>
+        <mat-error *ngIf="bookingForm.get('pickupLocation')?.hasError('required')">
+          Pick-Up Location is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Payment Amount</mat-label>
+        <input matInput formControlName="payment" required>
+        <mat-error *ngIf="bookingForm.get('payment')?.hasError('required')">
+          Payment is required
+        </mat-error>
+        <mat-error *ngIf="bookingForm.get('payment')?.hasError('pattern')">
+          Enter a valid amount
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="bookingForm.invalid">
+      Confirm Booking
+    </button>
+  </form>
+</div>
