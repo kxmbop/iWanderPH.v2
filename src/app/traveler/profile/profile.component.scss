@@ -131,14 +131,6 @@
     justify-content: center;
     align-items: center;
 }
-.review-images{
-    border: 0.5px solid $tpc;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-}
 .review-details{
     padding: 5px 10px;
     color: #353535;
@@ -182,9 +174,22 @@
 
 /* Mobile view (up to 480px) */
 @media (max-width: 480px) { 
-    ::ng-deep .top-utility i#favorites{
-        display: none;
+    .top-utility{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 52px;
+        //border-bottom: 1px solid #ccc;
+        padding: 10px 12px;
     }
+    .top-utility .logo{
+        width: 132px;
+    }
+    .top-utility i{
+        font-size: 28px;
+        margin-left: auto;
+    }
+
     .p-j{
         gap: 15px;
         margin-top: 15px;
@@ -197,17 +202,96 @@
         width: 100%;
         height: calc(100% - 300px);
         padding: 0 15px;
+        overflow: auto;
     }
-    .review-images{
+    .review-images {
+        border: 1px solid  #ccc;
+        max-height: 460px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+      }
+      
+      .review-images {
+        max-width: 358px;
+        overflow: hidden;
+        display: flex;
+      }
+      
+      ::ng-deep .review-images button {
+        min-width: 0;
+        min-height: 0;
+        padding: 0;
+        border-radius: 50%;
+        font-size: 24px;
+        line-height: 0;
+        color: #353535;
+      }
+      
+      .review-images img {
         width: 100%;
-        min-height: 100px;
-    }
-
+        object-fit: cover;
+      }
+      
+      .carousel {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        width: 100%;
+      }
+      
+      .carousel-item {
+        flex: 0 0 100%;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.5s ease;
+      }
+      
+      .carousel-prev, .carousel-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        cursor: pointer;
+      }
+      
+      .carousel-prev {
+        left: 10px;
+      }
+      
+      .carousel-next {
+        right: 10px;
+      }
+      
+      .carousel-prev[disabled], .carousel-next[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      
+      .carousel-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      
+      .carousel-item.active {
+        position: relative;
+      }
 
 }
 /* Desktop view (above 1025px) */
 @media (min-width: 1025px) {
-    ::ng-deep .top-utility i#favorites{
+    ::ng-deep .top-utility{
         display: none;
     }
     .p-j{
@@ -228,10 +312,5 @@
         width: 500px;
         margin: 0 auto;
     }
-    .review-images{
-        width: 500px;
-        min-height: 100px;
 
-    }
-    
 }

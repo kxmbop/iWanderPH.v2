@@ -11,6 +11,9 @@ import { BookingsComponent } from './bookings/bookings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { InboxComponent } from './inbox/Inbox.component';
 import { ConversationComponent } from './conversation/conversation.component';
+import { SettingsComponent } from './settings/settings.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { HammerModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -22,7 +25,9 @@ import { ConversationComponent } from './conversation/conversation.component';
     BookingsComponent,
     ProfileComponent,
     InboxComponent,
-    ConversationComponent
+    ConversationComponent,
+    SettingsComponent,
+    FavoritesComponent
   ],
   imports: [
     CommonModule,

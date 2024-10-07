@@ -33,10 +33,7 @@ export class TravelerLayoutComponent {
     chatsPanel.classList.toggle('show');
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['traveler/login']);
-  }
+
   merchant_hub(){
     this.router.navigate(['merchant/booking-hub']);  
   }

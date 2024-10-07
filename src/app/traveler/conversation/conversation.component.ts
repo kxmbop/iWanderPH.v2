@@ -28,7 +28,7 @@ export class ConversationComponent {
   openChat(){
     this.showChats = false;
     setTimeout(() => {
-      this.router.navigate(['/traveler/chat']);
+      this.router.navigate(['/traveler/inbox']);
     }, 500);
   }
 }

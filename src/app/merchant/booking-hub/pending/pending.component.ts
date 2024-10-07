@@ -11,7 +11,7 @@ import { debounceTime } from 'rxjs/operators';
 export class PendingComponent implements OnInit {
   filterForm!: FormGroup;
   bookings: any[] = [];
-  originalBookings: any[] = []; // To store the original bookings
+  originalBookings: any[] = []; 
 
   constructor(private pendingService: PendingService) { }
 
@@ -25,12 +25,11 @@ export class PendingComponent implements OnInit {
     const token = localStorage.getItem('token');
     this.pendingService.getBookings(token).subscribe((response: any) => {
       this.bookings = response;
-      this.originalBookings = [...response]; // Store the original bookings
+      this.originalBookings = [...response];
     });
 
-    // Subscribe to form value changes to apply filters
     this.filterForm.valueChanges
-      .pipe(debounceTime(300)) // Debounce to limit the number of updates
+      .pipe(debounceTime(300)) 
       .subscribe(() => this.applyFilters());
   }
 

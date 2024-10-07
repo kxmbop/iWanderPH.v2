@@ -4,13 +4,22 @@
 
 /* Mobile view (up to 480px) */
 @media (max-width: 480px) { 
-    ::ng-deep .top-utility i#favorites{
-        display: none;
+    .top-utility{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 52px;
+        //border-bottom: 1px solid #ccc;
+        padding: 10px 12px;
     }
-    ::ng-deep .top-utility i#settings{
-        display: none;
+    .top-utility .logo{
+        width: 132px;
     }
-
+    .top-utility i{
+        font-size: 28px;
+        margin-left: auto;
+        
+    }
 }
 /* Desktop view (above 1025px) */
 @media (min-width: 1025px) {

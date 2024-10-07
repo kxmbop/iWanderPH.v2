@@ -1,3 +1,9 @@
+<div class="top-utility">
+    <img src="iWanderPH_logo.png" alt="iWanderPH Logo" class="logo"/>
+    <i class='bx bx-menu' id="settings" [routerLink]="['/traveler/settings']"></i>
+</div>
+
+
 <div class="p-j">
     <div class="profile-container">
         <img *ngIf="profile.ProfilePic" [src]="getProfilePicture()" alt="Profile Picture" class="profile-picture">
@@ -27,34 +33,45 @@
 
 <div class="tabs">
     <div class="review-tab" [class.active]="activeTab === 'reviews'" [class.slide-out-left]="activeTab !== 'reviews'">
-    
         <div class="review-post" *ngFor="let review of reviews">
             <div class="u-d">
-                <img *ngIf="profile.ProfilePic" [src]="getProfilePicture()" alt="Profile Picture" class="pp-mini">
-                <span id="username">{{ profile.Username }}</span>
+              <img *ngIf="profile.ProfilePic" [src]="getProfilePicture()" alt="Profile Picture" class="pp-mini">
+              <span id="username">{{ profile.Username }}</span>
             </div>
-            <div class="review-images">
-                <div *ngFor="let image of review.reviewImages" class="review-image">
-                    <img [src]="image" alt="Review Image">
-                </div>
-            </div>
-            <div class="review-details">
-                <div class="likes">
-                    <i class='bx bx-heart'></i><span>{{ getLikesCount(review.reviewID) }}</span>
-                    <i class='bx bx-message-square-dots'></i><span>{{ getCommentsCount(review.reviewID) }}</span>
-                    <div class="rating">
-                        <ng-container *ngFor="let star of [].constructor(review.reviewRating); let i = index">
-                            <i class='bx bxs-star' *ngIf="i < review.reviewRating"></i>
-                            <i class='bx bx-star' *ngIf="i >= review.reviewRating"></i>
-                        </ng-container>
+            <div #carousel class="review-images">
+                <div class="carousel">
+                  <div class="carousel-inner">
+                    <div *ngFor="let image of review.images; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">
+                      <img [src]="'data:image/jpeg;base64,' + image" alt="Review Image">
                     </div>
-                </div>
-                <div class="caption">
-                    <span>{{ review.reviewComment }}</span>
-                    <a href="#">View {{ getCommentsCount(review.reviewID) }} comment{{ getCommentsCount(review.reviewID) !== 1 ? 's' : '' }} here</a>
+                  </div>
+                  <!-- Add navigation buttons -->
+                  <button class="carousel-prev" [disabled]="review.images.length === 1 || currentIndex === 0" (click)="prevImage()">
+                    <i class='bx bx-chevron-left'></i>
+                  </button>
+                  <button class="carousel-next" [disabled]="review.images.length === 1 || currentIndex === review.images.length - 1" (click)="nextImage()">
+                    <i class='bx bx-chevron-right'></i>
+                  </button>
                 </div>
             </div>
-        </div>
+              
+            <div class="review-details">
+              <div class="likes">
+                <i class='bx bx-heart'></i><span>{{ review.likes }}</span>
+                <i class='bx bx-message-square-dots'></i><span>{{ review.comments }}</span>
+                <div class="rating">
+                    <ng-container *ngFor="let star of createArray(5); let i = index">
+                        <i class='bx bxs-star' *ngIf="i < review.rating"></i>
+                        <i class='bx bx-star' *ngIf="i >= review.rating"></i>
+                      </ng-container>
+                </div>
+              </div>
+              <div class="caption">
+                <span>{{ review.comment }}</span>
+                <a href="#">View {{ review.comments }} comment{{ review.comments !== 1 ? 's' : '' }} here</a>
+              </div>
+            </div>
+          </div>
         
         <!-- review tab content -->
     </div>
