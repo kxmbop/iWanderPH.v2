@@ -14,6 +14,8 @@ import { ConversationComponent } from './conversation/conversation.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { HammerModule } from '@angular/platform-browser';
+import { SignupComponent } from './signup/signup.component';
+
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { HammerModule } from '@angular/platform-browser';
     InboxComponent,
     ConversationComponent,
     SettingsComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    ProfileComponent,
+    SignupComponent
   ],
   imports: [
     CommonModule,
