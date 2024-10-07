@@ -9,6 +9,11 @@ import { HomeComponent } from './home/home.component';
 import { DiscoverComponent } from './discover/discover.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { ProfileComponent } from './profile/profile.component';
+import { InboxComponent } from './inbox/Inbox.component';
+import { ConversationComponent } from './conversation/conversation.component';
+import { SettingsComponent } from './settings/settings.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { HammerModule } from '@angular/platform-browser';
 import { SignupComponent } from './signup/signup.component';
 
 
@@ -20,6 +25,11 @@ import { SignupComponent } from './signup/signup.component';
     HomeComponent,
     DiscoverComponent,
     BookingsComponent,
+    ProfileComponent,
+    InboxComponent,
+    ConversationComponent,
+    SettingsComponent,
+    FavoritesComponent,
     ProfileComponent,
     SignupComponent
   ],

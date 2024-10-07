@@ -1,21 +1,45 @@
 <div class="filter-bar">
-    <div class="f-b">
-        <label>Filter</label>
-        <input type="text" placeholder="Search traveler username, booking id, listing id" id="search">
-        <button>Today</button>
-        <div class="date-range">
-            <label for="fromDate">From:</label>
-            <input type="date" id="fromDate" name="fromDate">
-          
-            <label for="toDate">To:</label>
-            <input type="date" id="toDate" name="toDate">
-        </div>
-        <i class='bx bxs-info-circle' id="info_bt"></i>
-    </div>
+    <form [formGroup]="filterForm" class="f-b">
+      <label>Filter</label>
+      <input type="text" formControlName="filter" placeholder="Search traveler username, booking id, listing id" id="search">
+      <button type="button" (click)="searchToday()">Today</button>
+      <div class="date-range">
+        <label for="fromDate">From:</label>
+        <input type="date" formControlName="fromDate" name="fromDate">
+        
+        <label for="toDate">To:</label>
+        <input type="date" formControlName="toDate" name="toDate">
+      </div>
+      <i class='bx bxs-info-circle' id="info_bt"></i>
+    </form>
     <div class="subtract"></div>
-</div>
-<div class="data-container">
+  </div>
+  <div class="data-container">
     <div class="table-box">
-        <p>pending works!</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Booking Date</th>
+            <th>Traveler</th>
+            <th>Payment Status</th>
+            <th>Total Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings">
+            <td>{{ booking.BookingID }}</td>
+            <td>{{ booking.BookingDate | date: 'longDate' }}</td>
+            <td>{{ booking.Username }}</td>
+            <td [class]="getStatusClass(booking.PaymentStatus)">{{ booking.PaymentStatus | titlecase }}</td>
+            <td>₱ {{ booking.TotalAmount | number: '.2-2' }}</td>
+            <td>
+              <a (click)="acceptBooking(booking.BookingID)">Accept</a>
+              <a (click)="refundBooking(booking.BookingID)">Refund</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-</div>
+  </div>

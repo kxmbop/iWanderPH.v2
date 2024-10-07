@@ -18,7 +18,7 @@ getProfile(token: string | null): Observable<any> {
 }
 getReviews(token: string): Observable<any> {
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  return this.http.get<any>(this.apiUrlforReview, { headers });
+  return this.http.get(this.apiUrlforReview, { headers });
 }
 
 }

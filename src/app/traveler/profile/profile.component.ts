@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ProfileService } from '../services/profile.service';
-import { DomSanitizer } from '@angular/platform-browser';
-
+import { DomSanitizer, HammerGestureConfig } from '@angular/platform-browser';
+import Hammer from 'hammerjs';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -12,7 +12,8 @@ export class ProfileComponent implements OnInit {
   journeys: number = 0;
   activeTab = 'reviews';
   reviews: any[] = []; 
-  currentImageIndex: number = 0;
+  @ViewChild('carousel', { static: true }) carousel: ElementRef | null = null;
+  currentIndex = 0;
 
   constructor(
     private profileService: ProfileService,
@@ -23,9 +24,7 @@ export class ProfileComponent implements OnInit {
     this.loadProfile();
     this.getReviews();
   }
-
   loadProfile(): void {
-
     const token = localStorage.getItem('token');
     console.log("Token retrieved: ", token); 
     
@@ -35,7 +34,7 @@ export class ProfileComponent implements OnInit {
         console.log("API Response: ", data); 
         // console.log("ProfilePic: ", data.profile.ProfilePic); 
         if (data.success) {
-          console.log('User Profile:', data.profile);
+          console.log('User  Profile:', data.profile);
           console.log('Number of Journeys:', data.journeys);
           this.profile = data.profile;
           this.journeys = data.journeys;
@@ -64,18 +63,21 @@ export class ProfileComponent implements OnInit {
         }
     }
   }
+
   getProfilePicture() {
     if (!this.profile.ProfilePic) {
       return this.sanitizer.bypassSecurityTrustUrl('assets/images/default-profile-picture.jpg');
     }
     return this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + (this.profile.ProfilePic ?? ''));
   }
+
   getReviews() {
     const token = localStorage.getItem('token');
     
     if (token) {
       this.profileService.getReviews(token).subscribe((data: any) => {
-        this.reviews = data;
+        console.log(data);
+        this.reviews = data.reviews;
       });
     }
   }
@@ -88,19 +90,40 @@ export class ProfileComponent implements OnInit {
     return this.reviews.find(review => review.reviewID === reviewID)?.commentsCount || 0;
   }
 
-  nextImage(review: any) {
-    if (this.currentImageIndex < review.reviewImages.length - 1) {
-      this.currentImageIndex++;
-    } else {
-      this.currentImageIndex = 0; 
+  prevImage() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+      this.updateCarousel();
     }
   }
 
-  prevImage(review: any) {
-    if (this.currentImageIndex > 0) {
-      this.currentImageIndex--;
-    } else {
-      this.currentImageIndex = review.reviewImages.length - 1; 
+  nextImage() {
+    if (this.currentIndex < this.reviews[this.currentIndex].images.length - 1) {
+      this.currentIndex++;
+      this.updateCarousel();
     }
+  }
+
+  updateCarousel() {
+    if (this.carousel) {
+      const carouselInner = this.carousel.nativeElement.querySelector('.carousel-inner');
+      const carouselItems = carouselInner.children;
+      Array.prototype.forEach.call(carouselItems, (item: HTMLElement) => {
+        item.classList.remove('active');
+      });
+  
+      const currentItem = carouselItems[this.currentIndex];
+      currentItem.classList.add('active');
+  
+      // Slide the carousel by setting the correct transform
+      const translateX = -this.currentIndex * 100;
+      carouselInner.style.transform = `translateX(${translateX}%)`;
+    }
+  }
+  decodeBase64(encodedString: string): string {
+    return atob(encodedString);
+  }
+  createArray(length: number): number[] {
+    return new Array(length);
   }
 }

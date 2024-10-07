@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PlaceDetailsComponent } from './place-details/place-details.component';
+import { RouterModule } from '@angular/router';
+
 import { BookingComponent } from './booking/booking.component';
 import { NearbyDetailsComponent } from './nearby-details/nearby-details.component';
 import { DiscoverRoutingModule } from './discover-routing.module';
@@ -14,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NearbyComponent } from './nearby/nearby.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { PlaceDetailsComponent } from './place-details/place-details.component';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   imports: [
     CommonModule,
     DiscoverRoutingModule,
+    RouterModule,
     MatTabsModule,
     MatButtonModule,
     MatFormFieldModule,
