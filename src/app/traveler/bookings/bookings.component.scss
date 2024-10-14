@@ -23,6 +23,8 @@
 }
 /* Desktop view (above 1025px) */
 @media (min-width: 1025px) {
-
+    .top-utility{
+        display: none;    
+    }
 
 }

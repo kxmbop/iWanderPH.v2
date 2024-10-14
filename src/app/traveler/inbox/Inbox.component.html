@@ -2,30 +2,50 @@
 <div class="chats-panel" id="chats-panel" [@slideInOut]="showChats" *ngIf="showChats">
     <div class="top-options">
         <div class="close-button">
-            <i class='bx bx-chevron-left' (click)="closeChats()" ></i>
+            <i class='bx bx-chevron-left' (click)="closeChats()"></i>
             <span id="username">{{ profile.Username }}</span>
         </div>
         <div class="create">
-            <i class='bx bxs-edit'></i>
         </div>
     </div>
     <div class="chat-section">
-        <div class="search">
-            <input type="text" placeholder="Search user.." >
-        </div>
-    
-        <div class="inbox">
-            <div class="chat-container" (click)="openConversation()">
-                <div class="pp">
-        
-                </div>
-                <div class="chat-box">
-                    <span id="username">John Doe</span>
-                    <span id="message">Hi,  how are you?</span>
+        <div class="search-dropdown">
+            <input 
+                type="text" 
+                class="search-input" 
+                [(ngModel)]="searchTerm" 
+                (ngModelChange)="filterUsers()" 
+                placeholder="Search users..."
+            >
+            <div class="search-results" *ngIf="searchTerm && searchTerm.length > 0 && searchResults.length > 0">
+                <div class="search-result" *ngFor="let user of searchResults" (click)="selectUser(user)">
+                  <span>{{ getUserDisplayName(user) }}</span>
+                  <span *ngIf="user.BusinessType">({{ user.BusinessType }})</span>
                 </div>
             </div>
+            <div class="no-results" *ngIf="searchResults.length === 0 && searchTerm.length > 0">
+                <p>No users found.</p>
+            </div>
         </div>
-        <p>chats works!</p>
+        
+        <div class="inbox">
+            <div class="chat-container" *ngFor="let convo of conversations" (click)="openConversation(convo.chatSessionId)">
+              <div class="pp">
+                <!-- You can add user profile picture here if available -->
+              </div>
+              <div class="chat-box">
+                <span id="username">
+                  {{ convo.userOneDetails.userid === this.loggedInUserId  ? convo.userTwoDetails.username : convo.userOneDetails.username}}
+                </span>
+                <span *ngIf="convo.userOneDetails.userid === this.loggedInUserId  && convo.userTwoDetails.BusinessType">
+                  ({{ convo.userTwoDetails.BusinessType }})
+                </span>
+                <span *ngIf="convo.userOneDetails.userid !== this.loggedInUserId  && convo.userOneDetails.BusinessType">
+                  ({{ convo.userOneDetails.BusinessType }})
+                </span>
+              </div>
+            </div>
+        </div>
+
     </div>
 </div>
-

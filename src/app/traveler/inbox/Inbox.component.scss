@@ -1,7 +1,7 @@
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
 
-.chats-panel{
+.chats-panel {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -12,47 +12,66 @@
     transition: transform 0.3s ease-in-out;
     z-index: 11;
     padding: 0 20px;
-}
-.close-button {
-    position: static;
-    left: 0;
-    cursor: pointer;
-    font-size: 32px;
-}
 
-@media (max-width: 480px) {
-    .chats-panel .top-options{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px;
-    }
-    .close-button {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    .chats-panel .close-button span{
-        font-size: 22px;
-        font-weight: 500;
-    }
-    .chats-panel .top-options .create {
-        position: static;
-        top: 0;
-        cursor: pointer;
-        font-size: 28px;
-    }
-    .chats-panel .search{
+ 
+    .search-dropdown {
         width: 100%;
+        margin-top: 10px; // Adjusted margin for visual spacing
+        position: relative;
+
+        .search-input {
+            width: 100%;
+            height: 36px;
+            padding: 8px; // Adding some padding for better input appearance
+            background-color: #f1f1f1;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 40px; // Position below the input
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            z-index: 1;
+            max-height: 200px; // Optional: limit height for scrollable results
+            overflow-y: auto; // Allow scrolling if needed
+
+            .search-result {
+                padding: 10px;
+                border-bottom: 1px solid #dddddd;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #f1f1f1; // Highlight on hover
+                }
+
+                span {
+                    font-size: 16px;
+                    font-weight: 500;
+
+                    &:nth-child(2) {
+                        font-size: 14px;
+                        font-weight: 400;
+                        color: #666666;
+                    }
+                }
+            }
+        }
+
+        .no-results {
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: #999999; // Lighter color for no results message
+        }
     }
-    .chats-panel input{
-        margin-top: 10px;
-        width: 100% !important;
-        height: 36px !important;
-        background-color: #f1f1f1;
-    }
-    .chat-container{
+
+
+    .chat-container {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -64,27 +83,63 @@
         margin-bottom: 5px;
         padding: 10px;
         border-radius: 5px;
-    }
-    .chat-container .pp {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        border: 1px solid $tpc;
-    }
-    .chat-container .chat-box{
-        display: flex;
-        flex-direction: column;
-        width: calc(100% - 35px);
-        padding: 0 10px;
-    }
-    .chat-container .chat-box span{
 
+        .pp {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid $tpc;
+        }
+
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - 35px);
+            padding: 0 10px;
+
+            #username {
+                font-size: 18px;
+                font-weight: 500;
+            }
+
+            #message {
+                font-size: 14px;
+            }
+        }
     }
-    .chat-container .chat-box span#username{
-        font-size: 18px;
+}
+
+.top-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.close-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: static;
+    left: 0;
+    cursor: pointer;
+    font-size: 32px;
+
+    span {
+        font-size: 22px;
         font-weight: 500;
     }
-    .chat-container .chat-box span#message{
-        font-size: 14px;
-    }
+}
+
+.create {
+    position: static;
+    top: 0;
+    cursor: pointer;
+    font-size: 28px;
+}
+
+
+@media (max-width: 480px) {
+
 }

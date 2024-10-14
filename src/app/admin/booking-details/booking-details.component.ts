@@ -32,6 +32,7 @@ export class BookingDetailsComponent implements OnInit {
   ngOnInit(): void {
     const bookingId = this.route.snapshot.paramMap.get('bookingId');
     if (bookingId) {
+      console.log(bookingId);
       this.fetchBookingDetails(bookingId);
     } else {
       console.error('No bookingId provided');

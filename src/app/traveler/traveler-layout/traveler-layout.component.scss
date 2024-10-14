@@ -66,6 +66,9 @@
 }
 /* Mobile view (up to 480px) */
 @media (max-width: 480px) { 
+    #settings{
+        display: none;
+    }
     .navbar {
         flex-direction: row;
         align-items: center;

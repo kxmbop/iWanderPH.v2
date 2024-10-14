@@ -20,6 +20,9 @@
 }
 
 @media (max-width: 480px) {
+    .settings{
+        display: none;
+    }
     .settings-panel .top-options{
         display: flex;
         flex-direction: row;
@@ -35,5 +38,10 @@
     .settings-panel .close-button span{
         font-size: 22px;
         font-weight: 500;
+    }
+}
+@media (min-width: 1025px) {
+    .settings-panel {
+        display: none;
     }
 }

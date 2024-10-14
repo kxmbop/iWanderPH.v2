@@ -62,6 +62,9 @@ $padding: 10px;
   }
 
   @media (min-width: 769px) {
+    .top-utility{
+      display: none;    
+    }
     // Styles for desktop view
     .search-bar {
       flex-direction: row; // Align elements in a row

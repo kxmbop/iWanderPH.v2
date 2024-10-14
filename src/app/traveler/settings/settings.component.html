@@ -14,3 +14,16 @@
     </div>
 </div>
 
+<div class="settings">
+    <h2>Settings</h2>
+    <p>This is the settings panel.</p>
+    <div class="merchant-hub" [routerLink]="['/merchant']">
+        <i class='bx bxs-paper-plane'></i>
+        <label>Merchant Hub</label>
+    </div>
+    <div class="logout" (click)="logout()">
+        <i class='bx bx-log-out'></i>
+        <label>Log-out</label>
+    </div>
+</div>
+
