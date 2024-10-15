@@ -1,1 +1,64 @@
-<p>online-chat works!</p>
+<div class="hub-container">
+    <!-- Chat List Sidebar -->
+    <div class="chat-list">
+        <div class="header">
+            <span>Chat List</span>
+            <button (click)="openNewChat()">New Chat</button>
+        </div>
+        <div class="search-section">
+            <input type="search" [(ngModel)]="searchTerm" (input)="searchConversations()" placeholder="Search chat here" />
+            <i class='bx bx-search-alt-2'></i>
+        </div>
+        <div class="conversations">
+            <div class="convo-card" *ngFor="let convo of conversations" (click)="openConversation(convo.chatSessionId)">
+                <div>
+                    <h5>{{ convo.chatSessionId }}<small>&nbsp;({{ convo.receiverName }})</small></h5>
+                    <p><small> updated: {{ convo.updatedAt | date:'medium' }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Box -->
+    <div class="chat-box" *ngIf="selectedConversation || newChatMode">
+        <div *ngIf="!newChatMode">
+            <!-- Existing Chat Messages -->
+            <div class="chat-messages">
+                <div *ngFor="let message of chatMessages">
+                    <div [class]="message.sender === 'Customer Service' ? 'sent-message' : 'received-message'">
+                        <p>{{ message.content }}</p>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Send Message Section -->
+            <div class="send-message">
+                <input type="text" [(ngModel)]="newMessage" placeholder="Type your message here" />
+                <button (click)="sendMessage()">Send</button>
+            </div>
+        </div>
+
+        <!-- New Chat Mode -->
+        <div *ngIf="newChatMode" class="new-chat-container">
+            <h4>Create a New Conversation</h4>
+            <input type="text" 
+                   [(ngModel)]="userSearchTerm" 
+                   (input)="filterUsers()" 
+                   placeholder="Search for users to chat" 
+                   class="search-input" />
+        
+            <div *ngIf="searchedUsers.length > 0" class="dropdown">
+                <ul>
+                    <li *ngFor="let user of searchedUsers" (click)="startNewChat(user)" class="dropdown-item">
+                        <div class="user-info">
+                            <span class="user-id" style="width: 20%;">{{ user.id }}</span>
+                            <span class="username" style="width: 40%;">{{ user.username }}</span>
+                            <span class="fullname" style="width: 40%;">{{ user.fullname }}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
