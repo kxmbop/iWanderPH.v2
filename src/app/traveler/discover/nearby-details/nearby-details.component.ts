@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { PlaceService } from '../../services/place.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class NearbyDetailsComponent implements OnInit {
   rooms: any[] = [];
   transportations: any[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private placeService: PlaceService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private placeService: PlaceService, private location: Location) { }
 
   ngOnInit(): void {
     const merchantId = this.route.snapshot.paramMap.get('merchantId');
@@ -32,6 +33,9 @@ export class NearbyDetailsComponent implements OnInit {
         console.error('Error loading merchant details:', error);
       }
     );
+  }
+  goBack(): void {
+    this.location.back(); // This method will go back to the previous page
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router'; // Import ActivatedRoute
+import { Router, ActivatedRoute } from '@angular/router';
 import { PlaceService } from '../services/place.service';
 
 @Component({
@@ -9,19 +9,39 @@ import { PlaceService } from '../services/place.service';
 })
 export class DiscoverComponent implements OnInit {
   places: any[] = [];
+  merchants: any[] = []; // Add this to store merchants
+  filteredMerchants: any[] = [];
   searchQuery: string = '';
   selectedIslandGroup: string = 'All'; // Default filter
 
-  constructor(private placeService: PlaceService, private router: Router, private route: ActivatedRoute) { } // Inject ActivatedRoute
+  constructor(private placeService: PlaceService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loadPlaces();
+    this.loadMerchants(); // Load merchants when component initializes
   }
 
   loadPlaces(): void {
     this.placeService.getPlaces(this.searchQuery, this.selectedIslandGroup).subscribe(data => {
       this.places = data;
     });
+  }
+
+  loadMerchants(): void {
+    this.placeService.getMerchants().subscribe(data => {
+      this.merchants = data; // Store the merchants
+      this.filteredMerchants = this.merchants; // Initially show all merchants
+    });
+  }
+
+  filterMerchants(): void {
+    if (this.searchQuery) {
+      this.filteredMerchants = this.merchants.filter(merchant =>
+        merchant.BusinessName.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    } else {
+      this.filteredMerchants = this.merchants; // Show all if search query is empty
+    }
   }
 
   onSearchInput(event: any): void {
@@ -34,12 +54,7 @@ export class DiscoverComponent implements OnInit {
     this.loadPlaces();
   }
 
-  // Navigate to place-details with the place ID
   goToPlaceDetails(placeId: number): void {
-    console.log("Navigating to place with ID:", placeId);  // Check placeId value
-    this.router.navigate(['place-details', placeId], { relativeTo: this.route }).then(
-        success => console.log('Navigation successful!'),
-        error => console.error('Navigation error:', error)
-    );
+    this.router.navigate(['place-details', placeId], { relativeTo: this.route });
   }
 }

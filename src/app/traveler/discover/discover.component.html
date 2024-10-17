@@ -1,36 +1,54 @@
-
 <div class="top-utility">
     <img src="iWanderPH_logo.png" alt="iWanderPH Logo" class="logo"/>
-    <i class='bx bx-heart' id="favorites" [routerLink]="['/traveler/favorites']"></i>
+    <i class='bx bx-menu' id="settings" [routerLink]="['/traveler/settings']"></i>
 </div>
+<mat-tab-group>
+    <mat-tab label="Places">
+        <div class="search-bar">
+            <div class="input-container">
+                <input type="text" id="search-input" name="discover-search" placeholder="Discover..." (input)="onSearchInput($event)">
+                <i class='bx bx-search'></i>
+            </div>
+        </div>
 
-<p>discover works!</p>
-<div class="search-bar">
-    <div class="input-container">
-        <input type="text" id="search-input" name="discover-search" placeholder="Discover..." (input)="onSearchInput($event)">
-        <i class='bx bx-search'></i>
-    </div>
-</div>
+        <div class="side-scroll">
+            <button [class.active]="selectedIslandGroup === 'All'" (click)="filterByIslandGroup('All')">All</button>
+            <button [class.active]="selectedIslandGroup === 'Luzon'" (click)="filterByIslandGroup('Luzon')">Luzon</button>
+            <button [class.active]="selectedIslandGroup === 'Visayas'" (click)="filterByIslandGroup('Visayas')">Visayas</button>
+            <button [class.active]="selectedIslandGroup === 'Mindanao'" (click)="filterByIslandGroup('Mindanao')">Mindanao</button>
+        </div>
 
-<div class="side-scroll">
-    <button [class.active]="selectedIslandGroup === 'All'" (click)="filterByIslandGroup('All')">All</button>
-    <button [class.active]="selectedIslandGroup === 'Luzon'" (click)="filterByIslandGroup('Luzon')">Luzon</button>
-    <button [class.active]="selectedIslandGroup === 'Visayas'" (click)="filterByIslandGroup('Visayas')">Visayas</button>
-    <button [class.active]="selectedIslandGroup === 'Mindanao'" (click)="filterByIslandGroup('Mindanao')">Mindanao</button>
-</div>
+        <div class="place-list">
+            <div *ngFor="let place of places" class="place-item">
+                <img 
+                    [src]="'data:image/jpeg;base64,' + place.main_image" 
+                    [alt]="place.place_name"
+                    (click)="goToPlaceDetails(place.id)" 
+                    class="place-image" 
+                />
+                <p>{{ place.place_name }}</p>
+            </div>
+        </div>
+    </mat-tab>
 
-<div class="place-list">
-    <div *ngFor="let place of places" class="place-item">
-        <img 
-            [src]="'data:image/jpeg;base64,' + place.main_image" 
-            [alt]="place.place_name"
-            (click)="goToPlaceDetails(place.id)" 
-            class="place-image" 
-        />
-        
-        <p>{{ place.place_name }}</p>
-    </div>
-</div>
-
-  
-
+    <mat-tab label="Hotels/Resorts">
+        <div>
+            <input
+                type="text"
+                [(ngModel)]="searchQuery"
+                placeholder="Search for merchants..."
+                (input)="filterMerchants()"
+                class="search-input"
+            />
+        </div>
+        <div class="merchant-list">
+            <div *ngFor="let merchant of filteredMerchants" class="merchant-item">
+                <a [routerLink]="['/traveler/discover/nearby-details', merchant.MerchantID]" class="merchant-link">
+                    <p>{{ merchant.BusinessName }}</p>
+                    <p>{{ merchant.Address }}</p>
+                    <p>Lowest Room Rate: {{ merchant.lowestRoomRate | currency }}</p>
+                </a>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>

@@ -51,4 +51,9 @@ export class PlaceService {
     const url = `${environment.apiUrl}/traveler/get_transportation_details.php?id=${transportationId}`; // Fixed with backticks
     return this.http.get<any>(url);
   }
+  getMerchants(): Observable<any> {
+    const url = `${environment.apiUrl}/traveler/get_merchants.php`;
+    return this.http.get<any>(url);
+  }
+  
 }
