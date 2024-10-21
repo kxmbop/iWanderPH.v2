@@ -242,3 +242,33 @@ transform: scale(1.05);
 .modal-footer button:focus {
 outline: none;
 }
+
+/* Accept button: Green */
+.actions .accept {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .actions .accept:hover {
+    background-color: #45a049;
+  }
+  
+  /* Refund button: Red */
+  .actions .refund {
+    background-color: #f44336;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .actions .refund:hover {
+    background-color: #d32f2f;
+  }

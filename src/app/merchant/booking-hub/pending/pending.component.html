@@ -28,15 +28,21 @@
           </tr>
         </thead>
         <tbody>
+        <tr *ngIf="bookings.length === 0">
+          <td colspan="6" style="text-align: center; padding: 15px;">
+            No matching bookings found.
+          </td>
+        </tr>
+        <tbody>
           <tr *ngFor="let booking of bookings">
-            <td>{{ booking.BookingID }}</td>
-            <td>{{ booking.BookingDate | date: 'longDate' }}</td>
+            <td>{{ booking.bookingID }}</td>
+            <td>{{ booking.bookingDate | date: 'longDate' }}</td>
             <td>{{ booking.Username }}</td>
-            <td [class]="getStatusClass(booking.PaymentStatus)">{{ booking.PaymentStatus | titlecase }}</td>
-            <td>₱ {{ booking.TotalAmount | number: '.2-2' }}</td>
-            <td>
-              <a (click)="acceptBooking(booking.BookingID)">Accept</a>
-              <a (click)="refundBooking(booking.BookingID)">Refund</a>
+            <td [class]="getStatusClass(booking.paymentStatus)">{{ booking.paymentStatus | titlecase }}</td>
+            <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td>
+            <td class="actions">
+              <button class="accept" (click)="acceptBooking(booking.bookingID)">Accept</button>
+              <button class="refund" (click)="refundBooking(booking.bookingID)">Refund</button>
             </td>
           </tr>
         </tbody>
