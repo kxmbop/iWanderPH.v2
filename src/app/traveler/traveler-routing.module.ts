@@ -20,7 +20,10 @@ const routes: Routes = [
       { path: 'bookings', component: BookingsComponent },
       { path: 'profile', component: ProfileComponent },
     ]
-  }
+  },
+  { path: '', component: HomeComponent },
+
+  { path: '**', redirectTo: '' } // Redirect any unknown routes to the homepage
 ];
 
 
@@ -29,3 +32,14 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class TravelerRoutingModule { }
+
+
+
+
+
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

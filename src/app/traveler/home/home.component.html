@@ -1,1 +1,69 @@
-<p>home works!</p>
+
+<div class="search-container">
+  <div class="input-container">
+    <i class='bx bx-search-alt search-icon'></i>
+    <input type="text" placeholder="Search..." class="search-input" />
+  </div>
+</div>
+
+<!-- Loading Message -->
+<div *ngIf="isLoading" class="loading-message">Loading reviews...</div>
+
+<!-- Error Message -->
+<div *ngIf="!isLoading && errorMessage" class="error-message">{{ errorMessage }}</div>
+
+<!-- Review List -->
+<div *ngIf="!isLoading && !errorMessage">
+  <div *ngFor="let review of reviews" class="review-item">
+    
+    <!-- Review Header: Address, Profile Picture, Username, Review Rating -->
+    <div class="review-header">
+      <p>{{ review.address }}</p>
+      <img [src]="review.ProfilePic" alt="Profile Picture" class="profile-pic" />
+      <span class="username">{{ getUsernameWithAt(review.username) }}</span>
+
+    </div>
+    
+    <!-- Image Container -->
+    <div class="image-container">
+      <img *ngIf="review.images[0]" [src]="review.images[0]" alt="Review Image" />
+      <img *ngIf="!review.images[0]" src="path/to/placeholder_image.jpg" alt="Placeholder Image" />
+    </div>
+    <p class="review-address">123 Main St, Springfield</p> 
+    <div class="review-rating">
+      <ng-container *ngFor="let star of getStars(review.rating); let i = index">
+          <i class='bx bxs-star' *ngIf="star === 'full'"></i> <!-- Full star -->
+          <i class='bx bx-star' *ngIf="star === 'empty'"></i> <!-- Empty star -->
+      </ng-container>
+  </div>
+    <p class="comment">{{ review.comment }}</p>
+
+<!-- Display Existing Comments -->
+<div class="existing-comments">
+  <h4>Comments:</h4>
+  <div class="comment-item">
+    <img src="path/to/user1-profile.jpg" alt="User1 Profile" class="profile-pic" />
+    <span class="comment-username">User1:</span>
+    <span class="comment-text">This place is amazing!</span>
+    <i class='bx bx-heart heart-icon'></i>
+  </div>
+  <div class="comment-item">
+    <img src="path/to/user2-profile.jpg" alt="User2 Profile" class="profile-pic" />
+    <span class="comment-username">User2:</span>
+    <span class="comment-text">I agree, it's awesome!</span>
+    <i class='bx bx-heart heart-icon'></i>
+  </div>
+</div>
+
+    <!-- Comment Section for Typing and Submitting Comments -->
+    <div class="comment-section">
+      <div class="textarea-container">
+        <textarea placeholder="Type your comment..." class="comment-input" ></textarea>
+        <div class="submit-button">
+          <i class='bx bxs-send'></i>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
