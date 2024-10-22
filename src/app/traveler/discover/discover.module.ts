@@ -16,6 +16,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { NearbyComponent } from './nearby/nearby.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PlaceDetailsComponent } from './place-details/place-details.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PlaceDetailsComponent } from './place-details/place-details.component';
     PlaceDetailsComponent,
     BookingComponent,
     NearbyDetailsComponent,
-    NearbyComponent
+    NearbyComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { PlaceDetailsComponent } from './place-details/place-details.component';
     ReactiveFormsModule,
     MatIconModule,
     MatButtonToggleModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule
   ]
 })
 export class DiscoverModule { }

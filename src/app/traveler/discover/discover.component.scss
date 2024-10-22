@@ -34,6 +34,9 @@ $padding: 10px;
 // Mixin for responsive design
 @mixin responsive {
   @media (max-width: 768px) {
+    .top-utility{
+      display: none;
+    }
     // Styles for mobile view
     .search-bar {
       flex-direction: column; // Stack search bar elements
@@ -66,6 +69,9 @@ $padding: 10px;
       display: none;    
     }
     // Styles for desktop view
+    .top-utility{
+      display: none;
+    }
     .search-bar {
       flex-direction: row; // Align elements in a row
 
@@ -187,6 +193,50 @@ $padding: 10px;
     }
   }
 }
+.merchant-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;  // Space between merchant items
+  margin: 20px 0; // Top and bottom margin
+
+  .merchant-item {
+      text-decoration: none;
+      background-color: #f9f9f9; // Light background for merchant items
+      border: 1px solid #ddd; // Subtle border
+      border-radius: 5px; // Rounded corners
+      padding: 15px; // Inner spacing
+      transition: box-shadow 0.3s; // Smooth transition for hover effect
+      color: inherit;
+
+      &:hover {
+          text-decoration: none;
+          color: #007BFF; 
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Shadow on hover
+          background-color: #fff; // Change background on hover
+      }
+
+      p {
+          margin: 5px 0; // Margin for paragraphs
+          font-size: 16px; // Font size for merchant details
+          color: #333; // Dark text color
+
+          &:first-of-type {
+              font-weight: bold; // Bold BusinessName
+              font-size: 18px; // Slightly larger font size
+          }
+
+          &:nth-of-type(2) {
+              color: #555; // Lighter color for Address
+          }
+
+          &:last-of-type {
+              font-weight: normal; // Regular weight for Room Rate
+              color: #007BFF; // Use a primary color for emphasis
+          }
+      }
+  }
+}
+
 
 // Include responsive mixin
 @include responsive;

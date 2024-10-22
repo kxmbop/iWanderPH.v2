@@ -1,0 +1,180 @@
+/* General Page Layout */
+:host {
+    display: block;
+    max-height: none; /* Remove height restrictions for full-page scrolling */
+    overflow-y: auto; /* Ensure the page can scroll vertically */
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%; /* Ensure body and html take the full viewport height */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+    overflow-y: auto;
+  }
+  
+  .page-container {
+    min-height: 100vh; /* Ensures the container fills the viewport */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Back Icon */
+  .back-icon {
+    margin-bottom: 15px;
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: #004d40;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+      i {
+        font-size: 1.5rem;
+      }
+  
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+  
+  /* Main Image */
+  .main-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  /* Description List */
+  .description-list {
+    margin-top: 20px;
+    overflow-y: auto; /* Allow vertical scrolling if content exceeds available space */
+  }
+  
+  /* Additional Images Section */
+  .additional-images {
+    margin-top: 20px;
+  
+    .thumbnail-list {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto; /* Scroll horizontally for thumbnails */
+      padding-bottom: 10px;
+    }
+  
+    .thumbnail {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+  
+      img {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+      }
+  
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+  
+  /* Scrollable Merchant List */
+  .nearby-merchants-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #004d40;
+    }
+  }
+  
+  .merchant-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 1000px; /* Height of the merchant list */
+    overflow-y: auto;
+  
+    .merchant-item {
+      padding: 15px;
+      margin-bottom: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+      &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      }
+  
+      h3 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+        color: #004d40;
+      }
+  
+      p {
+        margin: 5px 0;
+        color: #555;
+        font-size: 0.95rem;
+      }
+  
+      button {
+        background-color: #00796b;
+        color: #fff;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+  
+        &:hover {
+          background-color: #004d40;
+        }
+      }
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 480px) {
+    .merchant-item {
+      h3 {
+        font-size: 1rem;
+      }
+  
+      p {
+        font-size: 0.85rem;
+      }
+  
+      button {
+        padding: 6px 10px;
+      }
+      .merchant-list{
+        overflow-y: scroll;
+      }
+    }
+  }
+
+  .merchant-img {
+  max-width: 100%;  /* Ensures the image scales down for responsiveness */
+  height: auto;     /* Maintains the aspect ratio */
+  display: block;   /* Ensures the image doesn't have unwanted margins */
+}
+

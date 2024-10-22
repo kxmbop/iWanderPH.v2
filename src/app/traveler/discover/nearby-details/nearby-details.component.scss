@@ -1,82 +1,40 @@
-@import '../../../../../src/styles.scss';
-@import '../../../app.component.scss';
-
-// Variables for colors and spacing
-$primary-color: #074D4C;
-$background-color: #f8f8f8;
-$button-color: #ffffff;
-$button-hover-color: lighten($primary-color, 10%);
-$border-radius: 5px;
-$padding: 10px;
-
-// Mobile view (up to 480px)
-@media (max-width: 480px) {
-  ::ng-deep .top-utility i#favorites {
-    display: none;
-  }
+.details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
 }
 
-// Desktop view (above 1025px)
-@media (min-width: 1025px) {}
-
-// Merchant Details Section
 #merchant-details {
-  text-align: center;
-  margin-bottom: 2rem;
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: #3f51b5; // Primary color for headings
-  }
-  p {
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
-  }
+  margin-bottom: 20px;
 }
 
 .page-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  .card {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    p {
-      margin-bottom: 0.75rem;
-    }
-    img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 4px;
-      margin-right: 1rem;
-    }
-    button {
-      margin-top: 1rem;
-      font-weight: bold;
-    }
-  }
-
-  mat-tab-group {
-    margin-top: 2rem;
-
-    mat-tab {
-      padding: 1rem;
-    }
-  }
+  max-height: 400px; // You can adjust this to your desired height
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f9f9f9; // Light background for the scrollable area
+  border-radius: 8px;
+  scrollbar-width: none;
 }
 
-button {
-  background-color: #ff4081; // Accent color
-  color: white;
-  &:hover {
-    background-color: #f50057;
-  }
+.card {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+h3, h4, p {
+  margin: 0 0 10px 0;
+}
+.merchant-img{
+  width: 100px;
+}
+.room-img{
+  width: 100px;
+}
+.transport-img{
+  width: 100px;
 }

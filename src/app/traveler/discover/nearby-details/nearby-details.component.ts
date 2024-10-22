@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { PlaceService } from '../../services/place.service';
 
 @Component({
@@ -12,7 +13,12 @@ export class NearbyDetailsComponent implements OnInit {
   rooms: any[] = [];
   transportations: any[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private placeService: PlaceService) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private placeService: PlaceService, 
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     const merchantId = this.route.snapshot.paramMap.get('merchantId');
@@ -25,6 +31,12 @@ export class NearbyDetailsComponent implements OnInit {
     this.placeService.getMerchantById(merchantId).subscribe(
       data => {
         this.merchantDetails = data.merchant;
+
+        // Handle the image if it exists
+        if (this.merchantDetails.merchant_img) {
+          this.merchantDetails.merchant_img = 'data:image/jpeg;base64,' + this.merchantDetails.merchant_img;
+        }
+
         this.rooms = data.rooms;
         this.transportations = data.transportations;
       },
@@ -34,4 +46,7 @@ export class NearbyDetailsComponent implements OnInit {
     );
   }
 
+  goBack(): void {
+    this.location.back();
+  }
 }
