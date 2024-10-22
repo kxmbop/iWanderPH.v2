@@ -15,6 +15,7 @@
   padding: 10px;
   background-color: #f9f9f9; // Light background for the scrollable area
   border-radius: 8px;
+  scrollbar-width: none;
 }
 
 .card {
@@ -27,4 +28,13 @@
 
 h3, h4, p {
   margin: 0 0 10px 0;
+}
+.merchant-img{
+  width: 100px;
+}
+.room-img{
+  width: 100px;
+}
+.transport-img{
+  width: 100px;
 }

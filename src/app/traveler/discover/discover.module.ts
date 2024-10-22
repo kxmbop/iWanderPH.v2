@@ -24,7 +24,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     PlaceDetailsComponent,
     BookingComponent,
     NearbyDetailsComponent,
-    NearbyComponent
+    NearbyComponent,
+    
   ],
   imports: [
     CommonModule,
