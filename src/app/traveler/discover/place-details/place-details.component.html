@@ -1,22 +1,20 @@
 <div class="back-icon">
   <a routerLink="/traveler/discover">
-    <i class='bx bx-arrow-back'></i> <!-- Boxicons Arrow Icon -->
+    <i class='bx bx-arrow-back'></i>
   </a>
 </div>
-<div class="main-image">
-  <img [src]="'data:image/jpeg;base64,' + selectedImage" alt="{{ place.place_name }}">
-</div>
-
 <div class="description-list">
   <div *ngIf="place" class="description">
     <h2>{{ place.place_name }}</h2>
+    <div class="main-image">
+      <img [src]="'data:image/jpeg;base64,' + selectedImage" alt="{{ place.place_name }}">
+    </div>
     <p>{{ place.description }}</p>
     <p><strong>Region:</strong> {{ place.region }}</p>
     <p><strong>Province:</strong> {{ place.province }}</p>
     <p><strong>Full Address:</strong> {{ place.full_address }}</p>
     <p><strong>Island Group:</strong> {{ place.island_group }}</p>
 
-    <!-- Nearby button -->
     <div>
       <a [routerLink]="['/traveler/discover/nearby', placeId]">Nearby Resorts or Merchants</a>
   </div>

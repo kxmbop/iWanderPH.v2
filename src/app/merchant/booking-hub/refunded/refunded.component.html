@@ -16,6 +16,30 @@
 </div>
 <div class="data-container">
     <div class="table-box">
-        <p>refunded works!</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Booking Date</th>
+                    <th>Traveler</th>
+                    <th>Booking Status</th>
+                    <th>Total Amount</th>
+                    <th>Reason for Refund</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="bookings.length === 0">
+                    <td colspan="7">No bookings found.</td>
+                </tr>
+                <tr *ngFor="let booking of bookings">
+                    <td>{{ booking.bookingID }}</td>
+                    <td>{{ booking.bookingDate | date: 'longDate' }}</td>
+                    <td>{{ booking.Username }}</td>
+                    <td [class]="booking.bookingStatus">{{ booking.bookingStatus | titlecase }}</td>
+                    <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td>
+                    <td>{{ booking.reasonForRefund || 'N/A' }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

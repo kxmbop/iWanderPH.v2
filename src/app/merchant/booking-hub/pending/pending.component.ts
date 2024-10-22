@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
 import { PendingService } from '../../services/pending.service';
 import { debounceTime } from 'rxjs/operators';
@@ -12,25 +13,36 @@ export class PendingComponent implements OnInit {
   filterForm!: FormGroup;
   bookings: any[] = [];
   originalBookings: any[] = []; 
+  status: 'pending' | null = 'pending';
 
-  constructor(private pendingService: PendingService) { }
+  constructor(private pendingService: PendingService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.filterForm = new FormGroup({
-      filter: new FormControl(''),
-      fromDate: new FormControl(''),
-      toDate: new FormControl('')
+        filter: new FormControl(''),
+        fromDate: new FormControl(''),
+        toDate: new FormControl('')
     });
 
     const token = localStorage.getItem('token');
-    this.pendingService.getBookings(token).subscribe((response: any) => {
-      this.bookings = response;
-      this.originalBookings = [...response];
-    });
+    this.pendingService.getBookings(token, this.status).subscribe(
+        (response: any) => {
+            console.log('API Response:', response);
+            if (response && response.data) {
+                this.bookings = response.data;
+            } else {
+                this.bookings = []; 
+            }
+            this.originalBookings = [...this.bookings];
+        },
+        (error) => {
+            console.error('Error fetching pending bookings:', error);
+        }
+    );
 
     this.filterForm.valueChanges
-      .pipe(debounceTime(300)) 
-      .subscribe(() => this.applyFilters());
+        .pipe(debounceTime(300)) 
+        .subscribe(() => this.applyFilters());
   }
 
   applyFilters(): void {

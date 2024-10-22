@@ -1,12 +1,34 @@
 <div class="conversation-panel" id="chats-panel" [@slideInOut]="showChats" *ngIf="showChats">
     <div class="top-options">
-        <div class="close-button"  (click)="openChat()">
-            <i class='bx bx-chevron-left'></i>
-            <span id="username"></span>
-        </div>
-        <div class="create">
-            <i class='bx bx-dots-horizontal-rounded' ></i>
-        </div>
+      <div class="close-button" (click)="closeChat()">
+        <i class='bx bx-chevron-left'></i>
+        <span id="username">{{ receiverId.displayName }}</span>
+      </div>
+      <div class="create" (click)="togglePopup()">
+        <i class='bx bx-dots-horizontal-rounded'></i>
+      </div>
     </div>
-    <p>conversation works!</p>
+  
+    <div class="chat-window">
+        <div *ngFor="let message of chatMessages" 
+             class="message" 
+             [ngClass]="{'mine': message.senderId === senderUUID, 'theirs': message.senderId !== senderUUID}">
+          <span>{{ message.message }}</span>
+          <small>{{ message.timestamp | date:'short' }}</small>
+        </div>
+      </div>
+      
+      
+    <div class="chat-box">
+        <input type="text" placeholder="Type a message..." [(ngModel)]="newMessage" (keydown.enter)="sendMessage()" />
+        <button (click)="sendMessage()">Send</button>
+    </div>
+</div>
+
+
+
+
+
+<div class="popup-menu" *ngIf="isPopupVisible">
+    <button (click)="deleteConversation()">Delete Conversation</button>
 </div>

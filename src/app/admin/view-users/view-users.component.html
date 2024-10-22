@@ -34,7 +34,7 @@
                         <td>{{ user.username }}</td>
                         <td>{{ user.fullName }}</td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.isMerchant }}</td>
+                        <td>{{ isMerchantValue(user.isMerchant) ? 'true' : 'false' }}</td>
                         <td>{{ user.travelerGmv | currency:'PHP':'symbol':'1.2-2' }}</td>
                         <td>{{ user.merchantGmv | currency:'PHP':'symbol':'1.2-2' }}</td>
                         <td>{{ user.numBookings }}</td>

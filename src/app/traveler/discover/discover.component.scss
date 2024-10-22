@@ -1,6 +1,18 @@
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
 
+
+::ng-deep .mat-mdc-tab-label-container{
+  border-bottom-style: none !important;
+  border-bottom-width: none !important;
+  border-bottom-color: none !important;
+  border: none !important;
+  box-sizing: none !important;
+}
+::ng-deep .mat-mdc-tab-labels{
+  margin-bottom: 15px;
+}
+
 /* Mobile view (up to 480px) */
 @media (max-width: 480px) { 
     .top-utility{
@@ -20,10 +32,8 @@
         
     }
   }
-/* Desktop view (above 1025px) */
 @media (min-width: 1025px) {}
 
-// Variables for colors and spacing
 $primary-color: #074D4C;
 $background-color: #f8f8f8;
 $button-color: #ffffff;
@@ -31,49 +41,47 @@ $button-hover-color: lighten($primary-color, 10%);
 $border-radius: 5px;
 $padding: 10px;
 
-// Mixin for responsive design
 @mixin responsive {
   @media (max-width: 768px) {
-    .top-utility{
-      display: none;
-    }
-    // Styles for mobile view
     .search-bar {
-      flex-direction: column; // Stack search bar elements
+      flex-direction: column;
       align-items: stretch;
-
-      .input-container {
-        margin-bottom: 10px; // Space between input and buttons
-      }
     }
 
     .side-scroll {
-      display: flex; // Ensure the side-scroll is a flex container
-      flex-direction: row; // Align buttons horizontally
-      overflow-x: auto; // Allow horizontal scrolling if necessary
-      align-items: center; // Center buttons vertically
+      display: flex; 
+      flex-direction: row; 
+      overflow-x: auto; 
+      align-items: center;
+      padding: 5px; 
+      gap: 5px;
 
       button {
-        width: auto; // Allow buttons to size based on content
-        margin-right: 10px; // Space between buttons
-
+        border: none;
+        box-shadow: none;
+        padding: 5px;
         &:last-child {
-          margin-right: 0; // Remove margin for the last button
+          margin-right: 0; 
         }
       }
     }
   }
-
+  .side-scroll::-webkit-scrollbar {
+    display: none;
+  }
   @media (min-width: 769px) {
-    // Styles for desktop view
     .top-utility{
       display: none;
     }
+    ::ng-deep .mat-mdc-tab-labels{
+      margin-bottom: 15px;
+      margin-top: 15px;
+    }
     .search-bar {
-      flex-direction: row; // Align elements in a row
+      flex-direction: row; 
 
       .input-container {
-        margin-right: 10px; // Space between input and icon
+        margin-right: 10px; 
       }
     }
 
@@ -82,7 +90,9 @@ $padding: 10px;
       overflow-x: auto; // Allow horizontal scrolling if necessary
 
       button {
-        margin-right: 10px; // Space between buttons
+        border: none;
+        box-shadow: none;
+        padding: 5px; 
       }
     }
   }
@@ -94,11 +104,10 @@ $padding: 10px;
   background-color: $background-color;
   border-radius: $border-radius;
   padding: $padding;
-  margin: 20px 0;
 
   .input-container {
     position: relative;
-    flex: 1; // Allow the input to take up available space
+    flex: 1;
 
     input {
       width: 100%;
@@ -165,15 +174,15 @@ $padding: 10px;
   gap: 20px;
   justify-content: center;
   overflow-y: auto;
-  max-height: 600px; // Set a max height for the scroll container
+  max-height: 600px;
   padding: 10px;
   
   .place-item {
     background-color: white;
     border-radius: $border-radius;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
     overflow: hidden;
-    width: 300px; // Adjust as needed
+    width: 300px; 
     text-align: center;
 
     img {
@@ -193,16 +202,17 @@ $padding: 10px;
 .merchant-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;  // Space between merchant items
-  margin: 20px 0; // Top and bottom margin
+  gap: 10px;
+  margin: 10px 0; 
+  padding: 10px;
 
   .merchant-item {
       text-decoration: none;
-      background-color: #f9f9f9; // Light background for merchant items
-      border: 1px solid #ddd; // Subtle border
-      border-radius: 5px; // Rounded corners
-      padding: 15px; // Inner spacing
-      transition: box-shadow 0.3s; // Smooth transition for hover effect
+      background-color: #f9f9f9; 
+      border: 1px solid #ddd; 
+      border-radius: 5px; 
+      padding: 15px; 
+      transition: box-shadow 0.3s;
       color: inherit;
 
       &:hover {

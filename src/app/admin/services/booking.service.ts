@@ -3,6 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
+interface BookingResponse {
+  data: any[];
+  success: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,5 +36,16 @@ updateRefundStatus(bookingId: number, refundAmount: number, refundTransactionID:
 
   updatePayoutStatus(bookingId: number, payoutTransactionID: string) {
     return this.http.post(`${this.apiUrl}payout.php`, { bookingId, payoutTransactionID });
+  }
+  updatePayment(paymentDetails: any): Observable<any> {
+    const { bookingID, transactionID, paymentStatus } = paymentDetails;
+    return this.http.post(`${this.apiUrl}updatePayment.php`, {
+      bookingID,
+      transactionID,
+      paymentStatus
+    });
+  }  
+  getBookingsByUserId(userId: number): Observable<BookingResponse> {
+    return this.http.get<BookingResponse>(`${this.apiUrl}get_bookings_by_user.php?user_id=${userId}`);
   }
 }

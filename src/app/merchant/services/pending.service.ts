@@ -9,16 +9,13 @@ import { environment } from '../../../environments/environment';
 })
 export class PendingService {
 
-  private apiUrl = `${environment.apiUrl}/merchant/pending.php`; 
+  private apiUrl = `${environment.apiUrl}/merchant/get_bookings.php`; 
 
   constructor(private http: HttpClient) { }
 
-  getBookings(token: string | null): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get(`${ this.apiUrl}`, { headers });
-  }
+  getBookings(token: string | null, status: string | null): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, { token, status });
+}
 
   searchBookings(token: string | null, filter: string, fromDate: string, toDate: string): Observable<any> {
     const headers = new HttpHeaders({

@@ -79,17 +79,11 @@
 
 // Desktop view (min-width: 1025px)
 @media (min-width: 1025px) {
-  .top-utility {
-    padding: 20px 0;
-    
-    .logo {
-      max-width: 200px;
-    }
-  }
 
   .clickable-item {
     padding: 20px;
     margin: 15px 0;
+
 
     p {
       font-size: 16px;

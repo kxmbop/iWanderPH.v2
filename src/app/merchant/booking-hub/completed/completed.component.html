@@ -16,7 +16,35 @@
 </div>
 <div class="data-container">
     <div class="table-box">
-        <p>completed works!</p>    
+        <table>
+            <thead>
+              <tr>
+                <th>Booking ID</th>
+                <th>Check-In/Pick-Up</th>
+                <th>Check-Out/Drop-Off</th>
+                <th>Traveler</th>
+                <th>Booking Status</th>
+                <th>Total Amount</th>
+                <th>Reviews</th>
+                <th>Ratings</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="bookings.length === 0">
+            <td colspan="9">No bookings found.</td>
+          </tr>
+          <tr *ngFor="let booking of bookings">
+            <td>{{ booking.bookingID }}</td>
+            <td>{{ booking.checkIn | date: 'longDate' }}</td>
+            <td>{{ booking.checkOut | date: 'longDate' }}</td>
+            <td>{{ booking.Username }}</td>
+            <td [class]="booking.bookingStatus">{{ booking.bookingStatus | titlecase }}</td>
+            <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td>
+            <td>{{ booking.review || 'No review available' }}</td>
+            <td>{{ booking.rating || 'No rating' }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 </div>
 
