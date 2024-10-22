@@ -1,5 +1,8 @@
 @import '../styles.scss';
 
+body, *{
+  color: #1b1b1b;
+}
 .popup {
     position: fixed;
     top: 20px;

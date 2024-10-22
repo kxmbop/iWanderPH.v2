@@ -46,6 +46,7 @@
         <span>₱ {{ bookingDetails?.TotalAmount | number: '1.2-2' }}</span>
       </div>
     </div>
+    <button (click)="openPaymentModal()">Update Payment</button>
   </div>
 
     <!-- Merchant Details -->
@@ -103,7 +104,7 @@
           <div>
             <label>View: &nbsp;</label>
             <div class="il">
-              <span>{{ viewDetails?.ViewName }}</span>
+              <span *ngFor="let views of viewDetails">{{ views }}</span>
             </div>
           </div>
         </div>
@@ -136,14 +137,14 @@
           <div class="c">
             <div class="check-in">
               <h4>Check-in</h4>
-              <span>{{ bookingDetails?.CheckIn | date }}</span>
+              <span>{{ listingDetails?.CheckIn | date }}</span>
             </div>
             <div class="check-out">
               <h4>Check-out</h4>
-              <span>{{ bookingDetails?.CheckOut | date }}</span>
+              <span>{{ listingDetails?.CheckOut | date }}</span>
             </div>
           </div>
-          <span class="sp">Total Length of Stay: {{ bookingDetails?.Duration }} days</span>
+          <!-- <span class="sp">Total Length of Stay: {{ bookingDetails?.Duration }} days</span> -->
         </div>
         <div class="ba">
           <h4>Price Summary</h4>
@@ -238,6 +239,46 @@
         <input type="text" [(ngModel)]="payoutTransactionID">
       </div>
       <button (click)="processPayout()">Payout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Update Modal -->
+<div class="modal" *ngIf="paymentUpdateVisible">
+  <div class="modal-content">
+    <span class="close" (click)="closePaymentModal()">&times;</span>
+    <h2>Confirm Payment for Booking #{{ bookingDetails?.BookingID }}</h2>
+    
+    <div class="payment-update-modal-content">
+      <div class="payment-proof">
+        <img *ngIf="bookingDetails?.ProofOfPayment" 
+             [src]="'data:image/jpeg;base64,' + bookingDetails?.ProofOfPayment" 
+             alt="Proof of Payment" />
+        <p *ngIf="!bookingDetails?.ProofOfPayment">No proof of payment uploaded.</p>
+      </div>
+      
+      <div class="payment-form">
+        <div class="payment-transaction-id">
+          <label>Enter Payment Transaction ID:</label>
+          <input type="text" [(ngModel)]="paymentTransactionID" placeholder="Transaction ID" required>
+        </div>
+  
+        <!-- Confirmation Checkboxes -->
+        <div class="confirmation">
+          <label>
+            <input type="checkbox" [(ngModel)]="confirmPayment1"> I confirm that I received the payment.
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="confirmPayment2"> I confirm that the payment matches the booking amount.
+          </label>
+          <label>
+            <input type="checkbox" [(ngModel)]="confirmPayment3"> I confirm that all payment details are accurate.
+          </label>
+        </div>
+        
+        <!-- Submit Button -->
+        <button (click)="submitPayment()" [disabled]="!canSubmitPayment()">Submit Payment</button>
+      </div>
     </div>
   </div>
 </div>

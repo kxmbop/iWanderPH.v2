@@ -1,9 +1,8 @@
 <div class="top-utility">
-    <img src="iWanderPH_logo.png" alt="iWanderPH Logo" class="logo"/>
-    <i class='bx bx-menu' id="settings" [routerLink]="['/traveler/settings']"></i>
+    <h3 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH</h3>
 </div>
 <mat-tab-group>
-    <mat-tab label="Places">
+    <mat-tab class="tab" label="Places">
         <div class="search-bar">
             <div class="input-container">
                 <input type="text" id="search-input" name="discover-search" placeholder="Discover..." (input)="onSearchInput($event)">
@@ -32,22 +31,24 @@
     </mat-tab>
 
     <mat-tab label="Hotels/Resorts">
-        <div>
-            <input
-                type="text"
-                [(ngModel)]="searchQuery"
-                placeholder="Search for merchants..."
-                (input)="filterMerchants()"
-                class="search-input"
-            />
-        </div>
-        <div class="merchant-list">
-            <div *ngFor="let merchant of filteredMerchants" class="merchant-item">
-                <a [routerLink]="['/traveler/discover/nearby-details', merchant.MerchantID]" class="merchant-link">
-                    <p>{{ merchant.BusinessName }}</p>
-                    <p>{{ merchant.Address }}</p>
-                    <p>Lowest Room Rate: {{ merchant.lowestRoomRate | currency }}</p>
-                </a>
+        <div class="rooms">
+            <div class="search-bar">
+                <input
+                    type="text"
+                    [(ngModel)]="searchQuery"
+                    placeholder="Search for merchants..."
+                    (input)="filterMerchants()"
+                    class="search-input"
+                />
+            </div>
+            <div class="merchant-list">
+                <div *ngFor="let merchant of filteredMerchants" class="merchant-item">
+                    <a [routerLink]="['/traveler/discover/nearby-details', merchant.MerchantID]" class="merchant-link">
+                        <p>{{ merchant.BusinessName }}</p>
+                        <p>{{ merchant.Address }}</p>
+                        <p>Lowest Room Rate: {{ merchant.lowestRoomRate | currency }}</p>
+                    </a>
+                </div>
             </div>
         </div>
     </mat-tab>

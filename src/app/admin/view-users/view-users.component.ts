@@ -43,4 +43,7 @@ export class ViewUsersComponent {
   formatCurrency(value: number): string {
     return this.currencyPipe.transform(value, 'PHP', 'symbol', '1.2-2') || '';
   }
+  isMerchantValue(value: any): boolean {
+    return Number(value) === 1;
+  }
 }

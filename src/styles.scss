@@ -15,14 +15,14 @@ body{
     position: relative;
     min-height: 100vh;
     min-width: 100%;
-    overflow: hidden;
 }
 :host, body, html, mat-form-field, .mat-button, .mat-card {
 font-family: 'Poppins', sans-serif !important;
 }
 
-
-
+body::-webkit-scrollbar {
+    display: none;
+  }
 
 *{
     margin: 0;
@@ -49,3 +49,5 @@ input{
     padding-left: 7px;
 }
 
+
+html, body { height: 100%; }

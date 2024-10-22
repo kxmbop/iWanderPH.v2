@@ -6,6 +6,9 @@
   padding: 10px;
   box-sizing: border-box;
 }
+body{
+  overflow: hidden;
+}
 
 .main-image {
   img {
@@ -16,20 +19,19 @@
 }
 
 .description-list {
-  max-height: 460px; /* Adjust this height as needed */
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: auto; 
   padding-right: 10px;
-  margin-bottom: 0; /* Remove extra margin */
+  margin-bottom: 0; 
 }
 
 .additional-images {
   margin-top: 20px;
-  margin-bottom: 0; /* Ensure no additional margin below the section */
+  margin-bottom: 0; 
   
   .thumbnail-list {
     display: flex;
     gap: 10px;
-    overflow-x: auto; /* Scroll horizontally for thumbnails */
+    overflow-x: auto; 
     padding-bottom: 10px;
   }
 
@@ -50,30 +52,32 @@
 }
 
 .back-icon {
-  position: relative;
+  height: 54px;
+  position: sticky;
   display: inline-block;
   margin-bottom: 15px;
+  z-index: 1000;
 
   a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px; /* Adjust size of the button */
+    width: 40px; 
     height: 40px;
-    border-radius: 50%; /* Make it circular */
-    background-color: #fff; /* White background */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    border-radius: 50%; 
+    background-color: #f1f1f1; 
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.15);
     text-decoration: none;
-    color: #004d40; /* Deep teal color for the icon */
+    color: #004d40; 
     transition: transform 10s ease-in-out, box-shadow 2.5s ease-in-out;
 
     i {
-      font-size: 1.5rem; /* Adjust size of the icon */
+      font-size: 1.5rem; 
     }
 
     &:hover {
-      transform: scale(1.05); /* Slight scale on hover */
-      box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+      transform: scale(1.05); 
+      box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); 
     }
   }
 }
@@ -110,10 +114,9 @@
 }
 
 .description-list {
-  flex-grow: 1; /* Ensures it grows to fill available space */
+  flex-grow: 1; 
   margin-bottom: 0;
 }
 .description{
-  padding-top: 20px;
   color: black;
 }

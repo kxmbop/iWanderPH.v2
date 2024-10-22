@@ -20,10 +20,10 @@
                     <th>Booking ID</th>
                     <th>Traveler</th>
                     <th>Merchant</th>
-                    <th>Payment Status</th>
-                    <th>Duration</th>
+                    <th>Booking Status</th>
+                    <th>Booking Type</th>
                     <th>Amount</th>
-                    <th>Status</th>
+                    <th>Payment Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -36,10 +36,10 @@
                         <td>{{ booking.bookingId }}</td>
                         <td>{{ booking.travelerName }}</td>
                         <td>{{ booking.merchantName }}</td>
-                        <td>{{ booking.paymentstatus }}</td>
-                        <td>{{ booking.duration }}</td>
+                        <td>{{ booking.bookingstatus }}</td> 
+                        <td>{{ booking.bookingType }}</td>
                         <td>{{ booking.totalAmount | currency:'PHP':'symbol':'1.2-2'}}</td>
-                        <td>{{ booking.bookingstatus }}</td>
+                        <td>{{ booking.paymentstatus }}</td>
                         <td>
                             <button (click)="openBookingDetails(booking.bookingId)">Open</button>
                         </td>

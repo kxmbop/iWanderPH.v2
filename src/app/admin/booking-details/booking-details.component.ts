@@ -22,6 +22,11 @@ export class BookingDetailsComponent implements OnInit {
   payoutTransactionID: string = '';
   refundReason: string = '';
   refundReasonOther: string = '';
+  paymentUpdateVisible: boolean = false;
+  paymentTransactionID: string = '';
+  confirmPayment1: boolean = false;
+  confirmPayment2: boolean = false;
+  confirmPayment3: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,7 +51,7 @@ export class BookingDetailsComponent implements OnInit {
         
         console.log('Booking Details:', data.booking);
         console.log('Traveler Details:', data.inclusions);
-        console.log('Merchant Details:', data.viewDetails);
+        console.log('View Details:', data.viewDetails);
         console.log('Merchant Details:', data.listingDetails);
         
         this.bookingDetails = data.bookingDetails;
@@ -117,4 +122,38 @@ export class BookingDetailsComponent implements OnInit {
   closeModal() {
     this.isVisible = false;
   }
+
+    openPaymentModal() {
+      this.paymentUpdateVisible = true;
+    }
+  
+    closePaymentModal() {
+      this.paymentUpdateVisible = false;
+    }
+  
+    canSubmitPayment(): boolean {
+      const isTransactionIDValid = typeof this.paymentTransactionID === 'string' && this.paymentTransactionID.trim().length > 0;
+      return isTransactionIDValid && this.confirmPayment1 && this.confirmPayment2 && this.confirmPayment3;
+    }
+  
+    submitPayment() {
+      if (this.canSubmitPayment()) {
+        const paymentDetails = {
+          bookingID: this.bookingDetails?.BookingID,
+          transactionID: this.paymentTransactionID,
+          paymentStatus: 'successful'
+        };
+        
+        this.bookingService.updatePayment(paymentDetails).subscribe(response => {
+          if (response.success) {
+            alert('Payment updated successfully!');
+            this.paymentUpdateVisible = false;
+            this.bookingDetails.PaymentStatus = 'successful';
+            this.bookingDetails.paymentTransactionID = this.paymentTransactionID;
+          } else {
+            alert('Error updating payment.');
+          }
+        });
+      }
+    }
 }
