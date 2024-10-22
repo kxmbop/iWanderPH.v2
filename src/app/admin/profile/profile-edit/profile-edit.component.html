@@ -1,0 +1,172 @@
+<!-- Profile Section -->
+<div class="profile">
+  <h2>My Profile</h2>
+  <div class="profile-card">
+    <div class="profile-info">
+      <div class="profile-picture">
+        <img [src]="profileData.profile_picture || 'assets/default-profile.png'" alt="Profile Picture" class="profile-img" />
+      </div>
+
+      <div class="profile-details">
+        <h4>{{ profileData.first_name }} {{ profileData.last_name }}</h4>
+        <p>{{ profileData.bio }}</p>
+        <div class="city">
+          <p>{{ profileData.city_state }}</p>
+        </div>
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="edit-button" (click)="openModal('profilePictureModal')">
+      <i class='bx bxs-edit-alt'></i>
+    </a>
+  </div>
+
+  <!-- Personal Information Section -->
+  <div class="profile-section">
+    <h2>Personal Information</h2>
+    <a href="javascript:void(0)" class="edit-btn" (click)="openModal('personalInfoModal')">
+      <i class='bx bxs-edit-alt'></i>
+    </a>
+    <div class="row">
+      <div class="col">
+        <label>First Name</label>
+        <p>{{ profileData.first_name }}</p>
+      </div>
+      <div class="col">
+        <label>Last Name</label>
+        <p>{{ profileData.last_name }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Gender</label>
+        <p>{{ profileData.gender }}</p>
+      </div>
+      <div class="col">
+        <label>Age</label>
+        <p>{{ profileData.age }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Email Address</label>
+        <p>{{ profileData.email }}</p>
+      </div>
+      <div class="col">
+        <label>Phone</label>
+        <p>{{ profileData.phone_number }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Bio</label>
+        <p>{{ profileData.bio }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Section -->
+  <div class="profile-section">
+    <h2>Address</h2>
+    <a href="javascript:void(0)" class="edit-btn" (click)="openModal('addressModal')">
+      <i class='bx bxs-edit-alt'></i>
+    </a>
+    <div class="row">
+      <div class="col">
+        <label>Country</label>
+        <p>{{ profileData.country }}</p>
+      </div>
+      <div class="col">
+        <label>City/State</label>
+        <p>{{ profileData.city_state }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Postal Code</label>
+        <p>{{ profileData.postal_code }}</p>
+      </div>
+      <div class="col">
+        <label>Tax ID</label>
+        <p>{{ profileData.tax_id }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Picture Modal -->
+<div *ngIf="showModal === 'profilePictureModal'" class="modal-overlay">
+  <div class="modal">
+    <h2>Update Profile Picture</h2>
+    <form id="profilePictureForm" (submit)="onSubmit($event, 'picture')">
+      <input type="file" (change)="previewImage($event)" accept="image/*" required />
+      <img *ngIf="profileImagePreview" [src]="profileImagePreview" alt="Preview" class="image-preview" />
+      <div class="modal-footer">
+        <button type="button" (click)="closeModal()">Cancel</button>
+        <button type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Personal Information Modal -->
+<div *ngIf="showModal === 'personalInfoModal'" class="modal-overlay">
+  <div class="modal">
+    <h2>Edit Personal Information</h2>
+    <form id="personalInfoForm" (submit)="onSubmit($event, 'personal')">
+      <label for="firstName">First Name</label>
+      <input id="firstName" [(ngModel)]="profileData.first_name" name="firstName" required />
+
+      <label for="lastName">Last Name</label>
+      <input id="lastName" [(ngModel)]="profileData.last_name" name="lastName" required />
+
+      <label for="gender">Gender</label>
+      <select id="gender" [(ngModel)]="profileData.gender" name="gender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="age">Age</label>
+      <input id="age" type="number" [(ngModel)]="profileData.age" name="age" required />
+
+      <label for="email">Email</label>
+      <input id="email" type="email" [(ngModel)]="profileData.email" name="email" required />
+
+      <label for="phone_number">Phone Number</label>
+      <input id="phone_number" type="tel" [(ngModel)]="profileData.phone_number" name="phone_number" required />
+
+      <label for="bio">Bio</label>
+      <textarea id="bio" [(ngModel)]="profileData.bio" name="bio" required></textarea>
+
+      <div class="modal-footer">
+        <button type="button" (click)="closeModal()">Cancel</button>
+        <button type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Address Modal -->
+<div *ngIf="showModal === 'addressModal'" class="modal-overlay">
+  <div class="modal">
+    <h2>Edit Address</h2>
+    <form id="addressForm" (submit)="onSubmit($event, 'address')">
+      <label for="country">Country</label>
+      <input id="country" [(ngModel)]="profileData.country" name="country" required />
+
+      <label for="city_state">City/State</label>
+      <input id="city_state" [(ngModel)]="profileData.city_state" name="city_state" required />
+
+      <label for="postal_code">Postal Code</label>
+      <input id="postal_code" [(ngModel)]="profileData.postal_code" name="postal_code" required />
+
+      <label for="tax_id">Tax ID</label>
+      <input id="tax_id" [(ngModel)]="profileData.tax_id" name="tax_id" required />
+
+      <div class="modal-footer">
+        <button type="button" (click)="closeModal()">Cancel</button>
+        <button type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
