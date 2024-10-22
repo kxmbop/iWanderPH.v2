@@ -1,5 +1,4 @@
 <div class="hub-container">
-    <!-- Chat List Sidebar -->
     <div class="chat-list">
         <div class="header">
             <span>Chat List</span>
@@ -13,52 +12,84 @@
             <div class="convo-card" *ngFor="let convo of conversations" (click)="openConversation(convo.chatSessionId)">
                 <div>
                     <h5>{{ convo.chatSessionId }}<small>&nbsp;({{ convo.receiverName }})</small></h5>
-                    <p><small> updated: {{ convo.updatedAt | date:'medium' }}</small></p>
+                    <p><small> Updated: {{ convo.updatedAt | date:'medium' }}</small></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Chat Box -->
     <div class="chat-box" *ngIf="selectedConversation || newChatMode">
-        <div *ngIf="!newChatMode">
-            <!-- Existing Chat Messages -->
-            <div class="chat-messages">
-                <div *ngFor="let message of chatMessages">
-                    <div [class]="message.sender === 'Customer Service' ? 'sent-message' : 'received-message'">
-                        <p>{{ message.content }}</p>
+        <div class="chat-content">
+            <div *ngIf="!newChatMode" class="existing-chat">
+                <div class="top-bar" *ngIf="receiverInfo">
+                    <h3>
+                        {{ receiverInfo?.businessName || (receiverInfo?.FirstName + ' ' + receiverInfo?.LastName) || 'Unknown Receiver' }}
+                    </h3>                    
+                    <i class='bx bx-dots-vertical-rounded' (click)="toggleOptions()"></i>
+                </div>
+            
+                <div *ngIf="showOptions" class="options-dropdown">
+                    <button (click)="confirmDeleteConversation(selectedConversation)">Delete Conversation</button>
+                </div>
+            
+                <div class="chat-messages">
+                    <div *ngFor="let message of chatMessages">
+                        <div [ngClass]="message.senderName === 'Customer Support' ? 'sent-message' : 'received-message'">
+                            <p>{{ message.message }} </p><br>
+                            <small>{{ message.timestamp}}</small>
+                        </div>
                     </div>
                 </div>
-            </div>
             
-
-            <!-- Send Message Section -->
-            <div class="send-message">
-                <input type="text" [(ngModel)]="newMessage" placeholder="Type your message here" />
-                <button (click)="sendMessage()">Send</button>
+                <div class="send-message">
+                    <input type="text" [(ngModel)]="newMessage" placeholder="Type your message here" />
+                    <button (click)="sendMessage()">Send</button>
+                </div>
+            </div>
+    
+            <div *ngIf="newChatMode" class="new-chat-container">
+                <h4>Create a New Conversation</h4>
+                <input type="text" 
+                       [(ngModel)]="userSearchTerm" 
+                       (input)="filterUsers()" 
+                       placeholder="Search for users to chat" 
+                       class="search-input" />
+            
+                <div *ngIf="searchedUsers.length > 0" class="dropdown">
+                    <ul>
+                        <li *ngFor="let user of searchedUsers" (click)="startNewChat(user)" class="dropdown-item">
+                            <div class="user-info">
+                                <span class="user-id" style="width: 20%;">{{ user.id }}</span>
+                                <span class="username" style="width: 40%;">{{ user.username }}</span>
+                                <span class="fullname" style="width: 40%;">{{ user.fullname }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-
-        <!-- New Chat Mode -->
-        <div *ngIf="newChatMode" class="new-chat-container">
-            <h4>Create a New Conversation</h4>
-            <input type="text" 
-                   [(ngModel)]="userSearchTerm" 
-                   (input)="filterUsers()" 
-                   placeholder="Search for users to chat" 
-                   class="search-input" />
-        
-            <div *ngIf="searchedUsers.length > 0" class="dropdown">
-                <ul>
-                    <li *ngFor="let user of searchedUsers" (click)="startNewChat(user)" class="dropdown-item">
-                        <div class="user-info">
-                            <span class="user-id" style="width: 20%;">{{ user.id }}</span>
-                            <span class="username" style="width: 40%;">{{ user.username }}</span>
-                            <span class="fullname" style="width: 40%;">{{ user.fullname }}</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <div class="receiver-profile" *ngIf="receiverInfo">
+            <ng-container *ngIf="isTraveler(receiverInfo); else merchantTemplate">
+                <h4>{{ receiverInfo.FirstName }} {{ receiverInfo.LastName }}</h4>
+                <p>Email: {{ receiverInfo.Email }}</p>
+                <p>Mobile: {{ receiverInfo.Mobile }}</p>
+                <p>Address: {{ receiverInfo.Address }}</p>
+                <p>Username: {{ receiverInfo.Username }}</p>
+                <p>Bio: {{ receiverInfo.Bio }}</p>
+                <p>Traveler ID: {{ receiverInfo.TravelerID }}</p>
+                <p>Traveler UUID: {{ receiverInfo.TravelerUUID }}</p>
+            </ng-container>
+            <ng-template #merchantTemplate>
+                <h4>{{ receiverInfo.businessName }}</h4>
+                <p>Email: {{ receiverInfo.Email }}</p>
+                <p>Contact: {{ receiverInfo.Contact }}</p>
+                <p>Address: {{ receiverInfo.Address }}</p>
+                <p>Business Type: {{ receiverInfo.BusinessType }}</p>
+                <p>Merchant ID: {{ receiverInfo.MerchantID }}</p>
+                <p>Merchant UUID: {{ receiverInfo.MerchantUUID }}</p>
+                <p>Is Approved: {{ receiverInfo.isApproved }}</p>
+                <p>Traveler ID: {{ receiverInfo.TravelerID }}</p>
+            </ng-template>
         </div>
     </div>
 </div>

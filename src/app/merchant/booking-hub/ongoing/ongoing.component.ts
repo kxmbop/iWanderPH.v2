@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-ongoing',
   templateUrl: './ongoing.component.html',
-  styleUrl: './ongoing.component.scss'
+  styleUrls: ['./ongoing.component.scss'] 
 })
 export class OngoingComponent {
     filterForm!: FormGroup;
@@ -23,12 +23,18 @@ export class OngoingComponent {
       });
   
       const token = localStorage.getItem('token');
-      this.pendingService.getBookings(token, this.status).subscribe((response: any) => {
-        console.log(response); // Check if data is coming in
-        this.bookings = response;
-        this.originalBookings = [...response];
-      });
+      this.pendingService.getBookings(token, this.status).subscribe(
+          (response: any) => {
+              console.log(response); 
+              this.bookings = response.data || []; 
+              this.originalBookings = [...this.bookings];
+          },
+          (error) => {
+              console.error('Error fetching ongoing bookings:', error);
+          }
+      );
   }
+
   searchToday(): void {
     const today = new Date();
     const year = today.getFullYear();
@@ -38,12 +44,9 @@ export class OngoingComponent {
   
     this.filterForm.get('fromDate')?.setValue(todayDate);
     this.filterForm.get('toDate')?.setValue(todayDate);
-  
   }
 
   updateStatus(bookingID: number, status: string): void {
     console.log(`Booking ${bookingID} updated to: ${status}`);
-    // Implement backend logic to update the status if necessary
   }
-
 }

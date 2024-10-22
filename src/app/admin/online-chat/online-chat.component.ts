@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminChatService } from '../services/admin-chat.service';
+import { Router, ActivatedRoute } from '@angular/router'; // Added import
 import { Observable } from 'rxjs';
 
 @Component({
@@ -17,32 +18,84 @@ export class OnlineChatComponent implements OnInit {
   userSearchTerm: string = '';
   searchedUsers: any[] = [];
   allUsers: any[] = []; 
+  chatSessionId: string | null = null;
+  receiverInfo: any;
+  private messagePollingInterval: any;
+  showOptions: boolean = false;
 
-  constructor(private chatService: AdminChatService) {}
+  constructor(
+    private chatService: AdminChatService,
+    private router: Router, 
+    private route: ActivatedRoute 
+  ) {}
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.chatSessionId = params.get('chatSessionId');
+      if (this.chatSessionId) {
+        this.openConversation(this.chatSessionId);
+        this.loadReceiverProfile(this.chatSessionId);
+        this.startMessagePolling(this.chatSessionId); 
+      }
+    });
     this.loadConversations();
     this.loadAllUsers();
   }
+  ngOnDestroy(): void {
+    this.stopMessagePolling();
+  }
+  toggleOptions(): void {
+    this.showOptions = !this.showOptions; 
+  }
 
-  // Load all conversations
+  confirmDeleteConversation(chatSessionId: string): void {
+    const confirmation = confirm('Are you sure you want to delete this conversation?');
+    if (confirmation) {
+      this.deleteConversation(chatSessionId); 
+    }
+    this.showOptions = false; 
+  }
+
+  deleteConversation(chatSessionId: string): void {
+    this.chatService.deleteConversation(chatSessionId).subscribe(
+      response => {
+        console.log('Conversation deleted successfully:', response);
+        this.router.navigate(['/admin/chat']);
+      },
+      error => {
+        console.error('Error deleting conversation:', error);
+      }
+    );
+  }
+  startMessagePolling(chatSessionId: string) {
+    if (this.messagePollingInterval) {
+      clearInterval(this.messagePollingInterval);
+    }
+    this.messagePollingInterval = setInterval(() => {
+      this.loadChatMessages(chatSessionId);
+    }, 3000);
+  }
+
+  stopMessagePolling() {
+    if (this.messagePollingInterval) {
+      clearInterval(this.messagePollingInterval);
+    }
+  }
   loadConversations(): void {
     const token = localStorage.getItem('admintoken');
     if (!token) {
-      console.error('Token not found in localStorage');
+      console.error('token not found in localStorage');
       return;
     }
-    console.log("Token retrieved: ", token);
     this.chatService.getConversations(token).subscribe(
       (conversations: any[]) => {
         this.conversations = conversations;
       },
       error => {
-        console.error('Error loading conversations:', error);
+        console.error('error loading conversations:', error);
       }
     );
   }
-  
 
   searchConversations(): void {
     if (this.searchTerm) {
@@ -50,16 +103,19 @@ export class OnlineChatComponent implements OnInit {
         convo.receiverName.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     } else {
-      this.loadConversations();  // Reload all if search is cleared
+      this.loadConversations(); 
     }
   }
 
   openConversation(chatSessionId: string) {
+    this.stopMessagePolling(); 
     this.selectedConversation = chatSessionId;
+    this.router.navigate(['/admin/chat', chatSessionId]);
     this.loadChatMessages(chatSessionId);
-}
+    this.startMessagePolling(chatSessionId);
+  }
 
-loadChatMessages(chatSessionId: string) {
+  loadChatMessages(chatSessionId: string) {
     this.chatService.getChatMessages(chatSessionId).subscribe(
         (response: any) => {
             if (response && response.length > 0) {
@@ -69,17 +125,16 @@ loadChatMessages(chatSessionId: string) {
             }
         },
         (error) => {
-            console.error('Error fetching chat messages:', error);
+            console.error('error fetching chat messages:', error);
             this.chatMessages = []; 
         }
     );
-}
-
+  }
 
   sendMessage(): void {
     const token = localStorage.getItem('admintoken');
     if (!token) {
-      console.error('Token not found in localStorage');
+      console.error('token not found in localStorage');
       return;
     }
   
@@ -93,33 +148,32 @@ loadChatMessages(chatSessionId: string) {
           this.newMessage = ''; 
         },
         error => {
-          console.error('Error sending message:', error);
+          console.error('error sending message:', error);
         }
       );
     }
   }
-  
 
   openNewChat(): void {
-    console.log('New chat button clicked');
-    this.newChatMode = true;
-    this.chatMessages = [];
-    this.selectedConversation = null;
-    console.log('New chat mode:', this.newChatMode);  
-}
+    this.router.navigate(['/admin/chat']).then(() => {
+      this.newChatMode = true;
+      this.chatMessages = [];
+      this.selectedConversation = null;
+    });
+  }
 
   loadAllUsers(): void {
     this.chatService.fetchAllUsers().subscribe((users: any[]) => {
       this.allUsers = users; 
     }, error => {
-      console.error('Error loading users:', error);
+      console.error('error loading users:', error);
     });
   }
 
   filterUsers(): void {
     if (this.userSearchTerm) {
       this.searchedUsers = this.allUsers.filter(user =>
-        String(user.id).toLowerCase().includes(this.userSearchTerm)||
+        String(user.id).includes(this.userSearchTerm) ||
         user.username.toLowerCase().includes(this.userSearchTerm.toLowerCase()) ||
         user.fullname.toLowerCase().includes(this.userSearchTerm.toLowerCase())
       );
@@ -130,24 +184,36 @@ loadChatMessages(chatSessionId: string) {
 
   startNewChat(user: any): void {
     const token = localStorage.getItem('admintoken'); 
-    console.log("Token retrieved: ", token);
 
     if (token) {
         this.chatService.createNewChat(user.uuid, token).subscribe(
             (response: any) => {
-                console.log("User UUID: ", user.uuid);
                 this.newChatMode = false;
                 this.selectedConversation = response.chatSessionId;
-                this.openConversation(response.chatSessionId);
+                this.router.navigate(['/admin/chat', this.selectedConversation]);
                 this.loadConversations(); 
             },
             (error: any) => {
-                console.error('Error starting new chat:', error);
+                console.error('error starting new chat:', error);
             }
         );
-    } else {
-        console.error('No token found in localStorage.');
     }
 }
 
+  loadReceiverProfile(chatSessionId: string) {
+    this.chatService.getReceiverInfo(chatSessionId).subscribe(
+      (response: any) => {
+        console.log('Receiver:', response);
+        this.receiverInfo = response.receiver; 
+      },
+      (error) => {
+        console.error('Error fetching receiver info:', error);
+        this.receiverInfo = null; 
+      }
+    );
+  }
+  isTraveler(receiverInfo: any): boolean {
+    return receiverInfo && receiverInfo.TravelerID !== undefined && receiverInfo.TravelerUUID !== undefined;
 }
+}
+

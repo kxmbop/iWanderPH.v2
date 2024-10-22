@@ -15,8 +15,7 @@ export class PendingComponent implements OnInit {
   originalBookings: any[] = []; 
   status: 'pending' | null = 'pending';
 
-  constructor(private pendingService: PendingService,  private http: HttpClient) { }
-
+  constructor(private pendingService: PendingService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.filterForm = new FormGroup({
@@ -26,15 +25,25 @@ export class PendingComponent implements OnInit {
     });
 
     const token = localStorage.getItem('token');
-    this.pendingService.getBookings(token, this.status).subscribe((response: any) => {
-        this.bookings = response;
-        this.originalBookings = [...response];
-    });
+    this.pendingService.getBookings(token, this.status).subscribe(
+        (response: any) => {
+            console.log('API Response:', response);
+            if (response && response.data) {
+                this.bookings = response.data;
+            } else {
+                this.bookings = []; 
+            }
+            this.originalBookings = [...this.bookings];
+        },
+        (error) => {
+            console.error('Error fetching pending bookings:', error);
+        }
+    );
 
     this.filterForm.valueChanges
         .pipe(debounceTime(300)) 
         .subscribe(() => this.applyFilters());
-}
+  }
 
   applyFilters(): void {
     const filter = this.filterForm.get('filter')?.value.toLowerCase();
@@ -115,4 +124,3 @@ export class PendingComponent implements OnInit {
     }
   }
 }
-

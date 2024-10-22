@@ -25,6 +25,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'chat', component: OnlineChatComponent },
+      { path: 'chat/:chatSessionId', component: OnlineChatComponent },
       { path: 'admin-profile', component: AdminProfileComponent },
       { path: 'view-bookings', component: ViewBookingsComponent },
       { path: 'view-users', component: ViewUsersComponent },

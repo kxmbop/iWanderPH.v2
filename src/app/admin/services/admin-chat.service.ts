@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -16,9 +16,8 @@ export class AdminChatService {
   }
 
   getChatMessages(chatSessionId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/get-chat-messages.php/${chatSessionId}`);
+    return this.http.get<any[]>(`${this.apiUrl}/get-chat-messages.php?chatSessionId=${chatSessionId}`);
   }
-
   sendMessage(chatSessionId: string, message: string, adminToken: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/send-message.php`, { chatSessionId, message, adminToken });
   }
@@ -30,4 +29,11 @@ export class AdminChatService {
   fetchAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/search-users.php`);
   }
+  getReceiverInfo(chatSessionId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/get-receiver-info.php?chatSessionId=${chatSessionId}`);
+}
+deleteConversation(chatSessionId: string): Observable<any> { 
+  return this.http.get<any>(`${this.apiUrl}/delete-chat-session.php?chatSessionId=${chatSessionId}`);
+}
+
 }

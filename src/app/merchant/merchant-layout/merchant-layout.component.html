@@ -7,8 +7,11 @@
         <a routerLink="/merchant/analytics">Analytics</a>
     </div>
     <div class="nav-profile">
-        <h3>{{ profile.BusinessName }}</h3>
-        <i class='bx bxs-user-circle'></i>
+        <h3>{{ profile.businessName }}</h3>
+        <div class="profile-picture">
+            <img *ngIf="profile.profilePicture" [src]="'data:image/jpeg;base64,' + profile.profilePicture" alt="Profile Picture" />
+            <p *ngIf="!profile.profilePicture">No Profile Picture Available</p>
+        </div>
     </div>
 </div>
 <div class="home-section">

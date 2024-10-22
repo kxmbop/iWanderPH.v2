@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 })
 export class PendingService {
 
-  private apiUrl = `${environment.apiUrl}/merchant/pending.php`; 
+  private apiUrl = `${environment.apiUrl}/merchant/get_bookings.php`; 
 
   constructor(private http: HttpClient) { }
 

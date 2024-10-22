@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-completed',
   templateUrl: './completed.component.html',
-  styleUrl: './completed.component.scss'
+  styleUrls: ['./completed.component.scss']
 })
 export class CompletedComponent {
   filterForm!: FormGroup;
@@ -23,21 +23,26 @@ export class CompletedComponent {
     });
 
     const token = localStorage.getItem('token');
-    this.pendingService.getBookings(token, this.status).subscribe((response: any) => {
-      console.log(response); // Check if data is coming in
-      this.bookings = response;
-      this.originalBookings = [...response];
-    });
-}
-searchToday(): void {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = (today.getMonth() + 1).toString().padStart(2, '0');
-  const day = today.getDate().toString().padStart(2, '0');
-  const todayDate = `${year}-${month}-${day}`;
+    this.pendingService.getBookings(token, this.status).subscribe(
+      (response: any) => {
+        console.log(response); 
+        this.bookings = response.data || []; 
+        this.originalBookings = [...this.bookings];
+      },
+      (error) => {
+        console.error('Error fetching bookings:', error);
+      }
+    );
+  }
 
-  this.filterForm.get('fromDate')?.setValue(todayDate);
-  this.filterForm.get('toDate')?.setValue(todayDate);
+  searchToday(): void {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    const todayDate = `${year}-${month}-${day}`;
 
-}
+    this.filterForm.get('fromDate')?.setValue(todayDate);
+    this.filterForm.get('toDate')?.setValue(todayDate);
+  }
 }
