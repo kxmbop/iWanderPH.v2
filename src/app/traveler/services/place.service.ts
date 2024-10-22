@@ -32,10 +32,11 @@ export class PlaceService {
   }
 
   getNearbyMerchants(placeId: number): Observable<any> {
-    const url = `${environment.apiUrl}/traveler/nearby.php?place_id=${placeId}`; // Fixed with backticks
-    console.log(`Request URL: ${url}`); // Fixed console log with backticks
-    return this.http.get(url, { responseType: 'text' as 'text' });
+    const url = `${environment.apiUrl}/traveler/nearby.php?place_id=${placeId}`;
+    console.log(`Request URL: ${url}`);
+    return this.http.get<any>(url); // Expecting a JSON response
   }
+  
 
   getMerchantById(merchantId: number): Observable<any> {
     const url = `${environment.apiUrl}/traveler/get_merchant_details.php?id=${merchantId}`; // Fixed with backticks
