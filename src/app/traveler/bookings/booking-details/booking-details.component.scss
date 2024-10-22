@@ -1,0 +1,202 @@
+/* General styles for the booking details component */
+.booking-details-container {
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 20px auto; /* Centering the container */
+    overflow-y: auto; /* Handle content overflow */
+  }
+  
+  /* Title */
+  h2 {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Section Titles */
+  h3 {
+    font-size: 20px;
+    color: #444;
+    font-weight: bold;
+    margin: 20px 0 10px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 5px;
+  }
+  
+  /* Information paragraphs */
+  p {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #555;
+  
+    strong {
+      color: #333;
+    }
+  }
+  
+  /* Room/Transportation Image Gallery */
+  .room-gallery, .transportation-gallery {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  
+    img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+  }
+  
+  /* Merchant details section */
+  .merchant-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  
+    .merchant-info {
+      flex: 1;
+      p {
+        margin: 3px 0;
+      }
+    }
+  
+    .merchant-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-left: 20px;
+    }
+  }
+  
+  /* Payment Upload */
+  .payment-upload {
+    margin-top: 20px;
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+    }
+  }
+  
+  /* Button styles */
+  button {
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    background-color: #ff6b6b;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #ff4b4b;
+    }
+  }
+  
+  /* Scrollable content area */
+  .scroll {
+    max-height: calc(100vh - 150px); /* Dynamically adjust based on viewport height */
+    overflow-y: auto;
+    padding-bottom: 0;
+  }
+  
+  /* Mobile responsiveness: Target mobile view for devices with max-width of 480px */
+  @media (max-width: 480px) {
+    .booking-details-container {
+      padding: 15px;
+      margin: 10px;
+    }
+  
+    h2 {
+      font-size: 18px;
+    }
+  
+    h3 {
+      font-size: 16px;
+    }
+  
+    p {
+      font-size: 12px;
+    }
+  
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  
+    button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  
+    .merchant-details {
+      flex-direction: column;
+      .merchant-img {
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+  }
+  
+  /* Desktop responsiveness: Target desktop view for devices with min-width of 1025px */
+  @media (min-width: 1025px) {
+    .booking-details-container {
+      max-width: 1000px;
+      padding: 30px;
+    }
+  
+    h2 {
+      font-size: 28px;
+    }
+  
+    h3 {
+      font-size: 24px;
+    }
+  
+    p {
+      font-size: 16px;
+    }
+  
+    img {
+      width: 120px;
+      height: 120px;
+    }
+  
+    button {
+      padding: 14px;
+      font-size: 16px;
+    }
+  
+    .merchant-details {
+      .merchant-img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  }
+  
+  /* Details Grid */
+  .details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    .details-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MatTabsModule } from '@angular/material/tabs';
 import { TravelerRoutingModule } from './traveler-routing.module';
 import { LoginComponent } from './login/login.component';
 import { TravelerLayoutComponent } from './traveler-layout/traveler-layout.component';

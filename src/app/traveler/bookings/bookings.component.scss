@@ -1,30 +1,96 @@
-@import '../../../../src/styles.scss';
-@import '../../app.component.scss';
+// General styles for all views
+.top-utility {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
 
-
-/* Mobile view (up to 480px) */
-@media (max-width: 480px) { 
-    .top-utility{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        height: 52px;
-        //border-bottom: 1px solid #ccc;
-        padding: 10px 12px;
-    }
-    .top-utility .logo{
-        width: 132px;
-    }
-    .top-utility i{
-        font-size: 28px;
-        margin-left: auto;
-        
-    }
+  .logo {
+    max-width: 180px;
+  }
 }
-/* Desktop view (above 1025px) */
-@media (min-width: 1025px) {
-    .top-utility{
-        display: none;    
-    }
 
+.mat-tab-group {
+  width: 100%;
+  height: 100%;
+}
+
+// Ensure the scrollable content fits within the screen height
+.scrollable-content {
+  max-height: calc(100vh - 200px); // Adjust to fill the viewport, accounting for the header, tabs, and other content
+  overflow-y: auto;
+  padding-bottom: 0; // Remove any padding that may cause extra space
+}
+
+// Remove extra margin from the tabs
+::ng-deep .mat-tab-body-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+// Style for clickable booking items
+.clickable-item {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px 0;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #333;
+  }
+}
+
+// Mobile view (max-width: 480px)
+@media (max-width: 480px) {
+  .top-utility {
+    padding: 20px 10px;
+
+    .logo {
+      max-width: 120px;
+    }
+  }
+
+  .clickable-item {
+    padding: 12px;
+    margin: 8px 0;
+
+    p {
+      font-size: 12px;
+    }
+  }
+
+  .mat-tab-label {
+    font-size: 12px;
+  }
+
+  .scrollable-content {
+    max-height: calc(100vh - 150px); // Adjust to avoid the blank space in mobile view
+  }
+}
+
+// Desktop view (min-width: 1025px)
+@media (min-width: 1025px) {
+
+  .clickable-item {
+    padding: 20px;
+    margin: 15px 0;
+
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .scrollable-content {
+    max-height: calc(100vh - 200px); // Adjust to avoid blank space in desktop view
+  }
 }
