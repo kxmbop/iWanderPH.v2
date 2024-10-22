@@ -36,6 +36,10 @@ const routes: Routes = [
         loadChildren: () => import('./discover/discover.module').then(m => m.DiscoverModule)
       },
       { path: 'bookings', component: BookingsComponent },
+      {
+        path: 'bookings', 
+        loadChildren: () => import('./bookings/bookings.module').then(m => m.BookingsModule) 
+      },
       { path: 'profile', component: ProfileComponent },
     ]
   }

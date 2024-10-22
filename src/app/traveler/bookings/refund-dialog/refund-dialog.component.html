@@ -1,0 +1,10 @@
+<h2>Reason for Refund</h2>
+<mat-form-field appearance="fill">
+  <mat-label>Reason</mat-label>
+  <textarea matInput [(ngModel)]="refundReason"></textarea>
+</mat-form-field>
+
+<div class="modal-actions">
+  <button mat-raised-button color="primary" (click)="confirm()">Submit</button>
+  <button mat-button (click)="close()">Cancel</button>
+</div>

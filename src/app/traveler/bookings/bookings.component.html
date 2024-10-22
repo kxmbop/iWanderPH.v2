@@ -1,6 +1,112 @@
-
 <div class="top-utility">
-    <img src="iWanderPH_logo.png" alt="iWanderPH Logo" class="logo"/>
+    <img src="iWanderPH_logo.png" alt="iWanderPH Logo" class="logo" />
 </div>
+  
+  <mat-tab-group>
+    <mat-tab label="Pending">
+      <ng-container *ngIf="bookingsByStatus && bookingsByStatus['Pending'] && bookingsByStatus['Pending'].length > 0; else noBookings">
+        <div class="scrollable-content">
+          <div *ngFor="let booking of bookingsByStatus['Pending']" class="clickable-item" (click)="goToBookingDetails(booking)">
+            <p>Booking ID: {{ booking.BookingID }}</p>
+            <p>Booking Date: {{ booking.BookingDate }}</p>
+            <p>Total Amount: {{ booking.TotalAmount }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+  
+    <mat-tab label="Accepted">
+      <ng-container *ngIf="bookingsByStatus && bookingsByStatus['Accepted'] && bookingsByStatus['Accepted'].length > 0; else noBookings">
+        <div class="scrollable-content">
+          <div *ngFor="let booking of bookingsByStatus['Accepted']" class="clickable-item" (click)="goToBookingDetails(booking)">
+            <p>Booking ID: {{ booking.BookingID }}</p>
+            <p>Booking Date: {{ booking.BookingDate }}</p>
+            <p>Total Amount: {{ booking.TotalAmount }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
 
-<p>bookings works!</p>
+    <mat-tab label="Ready">
+      <ng-container *ngIf="bookingsByStatus && bookingsByStatus['Ready'] && bookingsByStatus['Ready'].length > 0; else noBookings">
+        <div class="scrollable-content">
+          <div *ngFor="let booking of bookingsByStatus['Ready']" class="clickable-item" (click)="goToBookingDetails(booking)">
+            <p>Booking ID: {{ booking.BookingID }}</p>
+            <p>Booking Date: {{ booking.BookingDate }}</p>
+            <p>Total Amount: {{ booking.TotalAmount }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+
+    <mat-tab label="Checked-in">
+      <ng-container *ngIf="bookingsByStatus && bookingsByStatus['Checked-in'] && bookingsByStatus['Checked-in'].length > 0; else noBookings">
+        <div class="scrollable-content">
+          <div *ngFor="let booking of bookingsByStatus['Checked-in']" class="clickable-item" (click)="goToBookingDetails(booking)">
+            <p>Booking ID: {{ booking.BookingID }}</p>
+            <p>Booking Date: {{ booking.BookingDate }}</p>
+            <p>Total Amount: {{ booking.TotalAmount }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+
+    <mat-tab label="Checked-out">
+      <ng-container *ngIf="bookingsByStatus && bookingsByStatus['Checked-out'] && bookingsByStatus['Checked-out'].length > 0; else noBookings">
+        <div class="scrollable-content">
+          <div *ngFor="let booking of bookingsByStatus['Checked-out']" class="clickable-item" (click)="goToBookingDetails(booking)">
+            <p>Booking ID: {{ booking.BookingID }}</p>
+            <p>Booking Date: {{ booking.BookingDate }}</p>
+            <p>Total Amount: {{ booking.TotalAmount }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+
+    <mat-tab label="Completed">
+      <ng-container *ngIf="bookingsByStatus && bookingsByStatus['Completed'] && bookingsByStatus['Completed'].length > 0; else noBookings">
+        <div class="scrollable-content">  
+          <div *ngFor="let booking of bookingsByStatus['Completed']" class="clickable-item">
+            <p>Booking ID: {{ booking.BookingID }}</p>
+            <p>Booking Date: {{ booking.BookingDate }}</p>
+            <p>Total Amount: {{ booking.TotalAmount }}</p>
+    
+            <!-- Review button -->
+            <button mat-raised-button color="primary" (click)="goToReview(booking)">Review</button>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+
+    <mat-tab label="Canceled">
+      <ng-container *ngIf="bookingsByStatus && bookingsByStatus['Canceled'] && bookingsByStatus['Canceled'].length > 0; else noBookings">
+        <div class="scrollable-content">
+          <div *ngFor="let booking of bookingsByStatus['Canceled']" class="clickable-item" (click)="goToBookingDetails(booking)">
+            <p>Booking ID: {{ booking.BookingID }}</p>
+            <p>Booking Date: {{ booking.BookingDate }}</p>
+            <p>Total Amount: {{ booking.TotalAmount }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+
+    <mat-tab label="Refunded">
+      <ng-container *ngIf="bookingsByStatus && bookingsByStatus['Refunded'] && bookingsByStatus['Refunded'].length > 0; else noBookings">
+        <div class="scrollable-content">
+          <div *ngFor="let booking of bookingsByStatus['Refunded']" class="clickable-item" (click)="goToBookingDetails(booking)">
+            <p>Booking ID: {{ booking.BookingID }}</p>
+            <p>Booking Date: {{ booking.BookingDate }}</p>
+            <p>Total Amount: {{ booking.TotalAmount }}</p>
+          </div>
+        </div>
+      </ng-container>
+    </mat-tab>
+
+  
+    <!-- Add more tabs for other statuses as needed -->
+  </mat-tab-group>
+  
+  <ng-template #noBookings>
+    <p>No bookings available.</p>
+  </ng-template>
+  

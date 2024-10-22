@@ -1,0 +1,132 @@
+<div *ngIf="bookingDetails" class="booking-details-container">
+  <h2>Booking Details</h2>
+
+  <!-- Room Booking Details -->
+  <div class="scroll">
+    <div *ngIf="bookingType === 'room'" class="booking-section">
+      <h3>Room Details</h3>
+      <div class="info">
+        <p><strong>Room Name:</strong> {{ bookingDetails.room.RoomName }}</p>
+        <p><strong>Room Rate:</strong> {{ bookingDetails.room.RoomRate | currency }}</p>
+      </div>
+      
+      <div class="room-gallery">
+        <img *ngFor="let image of bookingDetails.room.gallery" [src]="'data:image/jpeg;base64,' + image" alt="Room Image">
+      </div>
+
+      <h3>Booking Information</h3>
+      <div class="info">
+        <p><strong>Check-In:</strong> {{ bookingDetails.room_booking.CheckInDate }}</p>
+        <p><strong>Check-Out:</strong> {{ bookingDetails.room_booking.CheckOutDate }}</p>
+        <p><strong>Special Request:</strong> {{ bookingDetails.room_booking.SpecialRequest }}</p>
+      </div>
+
+      <h3>Merchant Details</h3>
+      <div class="merchant-details">
+        <div class="merchant-info">
+          <p><strong>Business Name:</strong> {{ bookingDetails.merchant.BusinessName }}</p>
+          <p><strong>Address:</strong> {{ bookingDetails.merchant.Address }}</p>
+          <p><strong>Email:</strong> {{ bookingDetails.merchant.Email }}</p>
+          <p><strong>Contact:</strong> {{ bookingDetails.merchant.Contact }}</p>
+        </div>
+        <img *ngIf="bookingDetails.merchant.merchant_img" [src]="'data:image/jpeg;base64,' + bookingDetails.merchant.merchant_img" alt="Merchant Image" class="merchant-img">
+      </div>
+
+      <h3>Payment Information</h3>
+      <div class="info">
+        <p><strong>Booking Date:</strong> {{ bookingDetails.booking.BookingDate }}</p>
+        <p><strong>Payment Status:</strong> {{ bookingDetails.booking.PaymentStatus }}</p>
+        <p><strong>Subtotal:</strong> {{ bookingDetails.booking.Subtotal | currency }}</p>
+        <p><strong>VAT:</strong> {{ bookingDetails.booking.VAT | currency }}</p>
+        <p><strong>Total Amount:</strong> {{ bookingDetails.booking.TotalAmount | currency }}</p>
+      </div>
+
+      <div class="payment-upload">
+        <h4>Payment Upload:</h4>
+        <img *ngIf="bookingDetails.booking.PaymentUpload" [src]="'data:image/jpeg;base64,' + bookingDetails.booking.PaymentUpload" alt="Payment Upload Image">
+      </div>
+
+      <ng-container *ngIf="bookingDetails.booking.BookingStatus === 'Pending'">
+        <button 
+          mat-raised-button 
+          color="warn" 
+          *ngIf="!refundRequested" 
+          (click)="requestRefund()">
+          Request Refund
+        </button>
+    
+        <p *ngIf="refundRequested">Refund request submitted, wait for confirmation.</p>
+      </ng-container>
+    
+      <!-- Nothing is shown for Refunded bookings -->
+      <ng-container *ngIf="bookingDetails.booking.BookingStatus === 'Refunded'">
+        <!-- No refund button or message -->
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="scroll">
+    <!-- Transportation Booking Details -->
+    <div *ngIf="bookingType === 'transportation'" class="booking-section">
+      <h3>Transportation Details</h3>
+      <div class="info">
+        <p><strong>Vehicle Name:</strong> {{ bookingDetails.transportation.VehicleName }}</p>
+        <p><strong>Model:</strong> {{ bookingDetails.transportation.Model }}</p>
+        <p><strong>Brand:</strong> {{ bookingDetails.transportation.Brand }}</p>
+        <p><strong>Capacity:</strong> {{ bookingDetails.transportation.Capacity }}</p>
+        <p><strong>Driver Name:</strong> {{ bookingDetails.transportation.DriverName }}</p>
+        <p><strong>Driver Contact:</strong> {{ bookingDetails.transportation.DriverContactNo }}</p>
+        <p><strong>Rental Price:</strong> {{ bookingDetails.transportation.RentalPrice | currency }}</p>
+      </div>
+
+      <div class="transportation-gallery">
+        <img *ngFor="let image of bookingDetails.transportation.gallery" [src]="'data:image/jpeg;base64,' + image" alt="Transportation Image">
+      </div>
+
+      <h3>Booking Information</h3>
+      <div class="info">
+        <p><strong>Pickup Location:</strong> {{ bookingDetails.transportation_booking.PickupLocation }}</p>
+        <p><strong>Dropoff Location:</strong> {{ bookingDetails.transportation_booking.DropoffLocation }}</p>
+        <p><strong>Pickup Date & Time:</strong> {{ bookingDetails.transportation_booking.PickupDateTime }}</p>
+        <p><strong>Dropoff Date & Time:</strong> {{ bookingDetails.transportation_booking.DropoffDateTime }}</p>
+      </div>
+
+      <h3>Merchant Details</h3>
+      <div class="merchant-details">
+        <div class="merchant-info">
+          <p><strong>Business Name:</strong> {{ bookingDetails.merchant.BusinessName }}</p>
+          <p><strong>Address:</strong> {{ bookingDetails.merchant.Address }}</p>
+          <p><strong>Email:</strong> {{ bookingDetails.merchant.Email }}</p>
+          <p><strong>Contact:</strong> {{ bookingDetails.merchant.Contact }}</p>
+        </div>
+        <img *ngIf="bookingDetails.merchant.merchant_img" [src]="'data:image/jpeg;base64,' + bookingDetails.merchant.merchant_img" alt="Merchant Image" class="merchant-img">
+      </div>
+
+      <h3>Payment Information</h3>
+      <div class="info">
+        <p><strong>Booking Date:</strong> {{ bookingDetails.booking.BookingDate }}</p>
+        <p><strong>Payment Status:</strong> {{ bookingDetails.booking.PaymentStatus }}</p>
+        <p><strong>Subtotal:</strong> {{ bookingDetails.booking.Subtotal | currency }}</p>
+        <p><strong>VAT:</strong> {{ bookingDetails.booking.VAT | currency }}</p>
+        <p><strong>Total Amount:</strong> {{ bookingDetails.booking.TotalAmount | currency }}</p>
+      </div>
+
+      <ng-container *ngIf="bookingDetails.booking.BookingStatus === 'Pending'">
+        <button 
+          mat-raised-button 
+          color="warn" 
+          *ngIf="!refundRequested" 
+          (click)="requestRefund()">
+          Request Refund
+        </button>
+    
+        <p *ngIf="refundRequested">Refund request submitted, wait for confirmation.</p>
+      </ng-container>
+    
+      <!-- Nothing is shown for Refunded bookings -->
+      <ng-container *ngIf="bookingDetails.booking.BookingStatus === 'Refunded'">
+        <!-- No refund button or message -->
+      </ng-container>
+    </div>
+  </div>
+</div>
