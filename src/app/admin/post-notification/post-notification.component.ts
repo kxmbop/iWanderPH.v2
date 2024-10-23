@@ -8,17 +8,16 @@ import { NotificationService } from '../services/notification.service';
 })
 export class PostNotificationComponent implements OnInit {
   notifications: any[] = [];
-  newNotification: { header: string, description: string, visibleto: string, dedicatedto: string } = { header: '', description: '', visibleto: '', dedicatedto:'' };
+  newNotification: { id?: string, header: string, description: string, visibleto: string, dedicatedto: string } = { header: '', description: '', visibleto: '', dedicatedto: '' };
   successMessage: string = '';
   errorMessage: string = '';
   showSuccessPopup: boolean = false;
   showErrorPopup: boolean = false;
+  isEditing: boolean = false; 
+  notificationIdBeingEdited: string | null = null;
 
+  constructor(private notificationService: NotificationService) { }
 
-  constructor(
-    private notificationService: NotificationService
-  ) { }
-  
   ngOnInit(): void {
     this.loadNotifications();
   }
@@ -32,60 +31,74 @@ export class PostNotificationComponent implements OnInit {
       (error: any) => console.error(error)
     );
   }
+
   postNotification() {
-    if (this.newNotification.header && this.newNotification.description && this.newNotification.visibleto && this.newNotification.dedicatedto) {
-      this.notificationService.postNotification(
-        this.newNotification.header,
-        this.newNotification.description,
-        this.newNotification.visibleto,
-        this.newNotification.dedicatedto
-      ).subscribe(
-        response => {
-          if (response.status === 'success') {
-            this.successMessage = response.message;
-            this.errorMessage = '';
-            this.newNotification = { header: '', description: '', visibleto: '', dedicatedto: '' };
-            this.loadNotifications();
-
-            this.showSuccessPopup = true;
-
-            setTimeout(() => {
-              this.showSuccessPopup = false;
-            }, 3000);
-
-          } else {
-            this.errorMessage = response.message;
-            this.successMessage = '';
-
-            this.showErrorPopup = true;
-
-            setTimeout(() => {
-              this.showErrorPopup = false;
-            }, 3000);
-          }
-        },
-        error => {
-          this.errorMessage = 'An error occurred while posting the notification.';
-          this.successMessage = '';
-
-          this.showErrorPopup = true;
-
-          setTimeout(() => {
-            this.showErrorPopup = false;
-          }, 3000);
-          console.error('Error posting notification: ', error);
-        }
-      );
+    if (this.newNotification.header && this.newNotification.description && this.newNotification.visibleto) {
+      if (this.isEditing && this.notificationIdBeingEdited) {
+        // Update existing notification
+        this.notificationService.updateNotification(
+          this.notificationIdBeingEdited, 
+          this.newNotification.header,
+          this.newNotification.description,
+          this.newNotification.visibleto,
+          this.newNotification.dedicatedto
+        ).subscribe(response => {
+          this.handleSuccess(response);
+        }, error => {
+          this.handleError(error);
+        });
+      } else {
+        // Post a new notification
+        this.notificationService.postNotification(
+          this.newNotification.header,
+          this.newNotification.description,
+          this.newNotification.visibleto,
+          this.newNotification.dedicatedto
+        ).subscribe(response => {
+          this.handleSuccess(response);
+        }, error => {
+          this.handleError(error);
+        });
+      }
     } else {
       this.errorMessage = 'The following information (header, description, and visible to) are required.';
-      this.successMessage = '';
-
       this.showErrorPopup = true;
+    }
+  }
+
+  handleSuccess(response: any) {
+    if (response.status === 'success') {
+      this.successMessage = response.message;
+      this.errorMessage = '';
+      this.newNotification = { header: '', description: '', visibleto: '', dedicatedto: '' };
+      this.loadNotifications(); 
+      this.isEditing = false;
+      this.notificationIdBeingEdited = null;
+      this.showSuccessPopup = true;
 
       setTimeout(() => {
-        this.showErrorPopup = false;
+        this.showSuccessPopup = false;
       }, 3000);
     }
   }
 
+  handleError(error: any) {
+    this.errorMessage = 'An error occurred.';
+    this.successMessage = '';
+    this.showErrorPopup = true;
+    setTimeout(() => {
+      this.showErrorPopup = false;
+    }, 3000);
+  }
+
+  onEditNotification(notif: any): void {
+    this.newNotification = { 
+      header: notif.header, 
+      description: notif.description, 
+      visibleto: notif.visibleTo, 
+      dedicatedto: notif.dedicatedTo 
+    };
+    this.isEditing = true; 
+    this.notificationIdBeingEdited = notif.notificationID; 
+  }
 }
