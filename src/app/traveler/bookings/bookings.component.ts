@@ -70,9 +70,4 @@ export class BookingsComponent implements OnInit {
       console.error('Invalid BookingID or BookingType in goToBookingDetails.');
     }
   }
-  goToReview(booking: Booking): void {
-    if (booking.BookingID && booking.BookingStatus === 'Completed') {
-      this.router.navigate(['/traveler/bookings/review', booking.BookingID]);
-    }
-  }  
 }

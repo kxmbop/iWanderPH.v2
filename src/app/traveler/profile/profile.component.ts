@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ProfileService } from '../services/profile.service';
 import { DomSanitizer, HammerGestureConfig } from '@angular/platform-browser';
-import Hammer from 'hammerjs';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',

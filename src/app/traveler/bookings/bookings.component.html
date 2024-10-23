@@ -71,12 +71,15 @@
             <p>Booking Date: {{ booking.BookingDate }}</p>
             <p>Total Amount: {{ booking.TotalAmount }}</p>
     
-            <!-- Review button -->
-            <button mat-raised-button color="primary" (click)="goToReview(booking)">Review</button>
+            <!-- Router link for review button -->
+            <button mat-raised-button color="primary" [routerLink]="['/traveler/bookings/create-review', booking.BookingID]">
+              Review
+            </button>
           </div>
         </div>
       </ng-container>
     </mat-tab>
+    
 
     <mat-tab label="Canceled">
       <ng-container *ngIf="bookingsByStatus && bookingsByStatus['Canceled'] && bookingsByStatus['Canceled'].length > 0; else noBookings">
