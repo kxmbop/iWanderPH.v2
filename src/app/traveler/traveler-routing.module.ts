@@ -9,9 +9,7 @@ import { InboxComponent } from './inbox/Inbox.component';
 import { ConversationComponent } from './conversation/conversation.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FavoritesComponent } from './favorites/favorites.component';
-
 import { SignupComponent } from './signup/signup.component';
-import { DiscoverComponent } from './discover/discover.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },

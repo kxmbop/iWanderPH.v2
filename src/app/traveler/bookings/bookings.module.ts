@@ -7,11 +7,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
+import { RefundDialogComponent } from './refund-dialog/refund-dialog.component';
 
 
 @NgModule({
   declarations: [
-    BookingDetailsComponent
+    BookingDetailsComponent,
+    RefundDialogComponent
   ],
   imports: [
     CommonModule,

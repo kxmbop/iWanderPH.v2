@@ -81,15 +81,15 @@
         <div *ngIf="transportations?.length">
           <div *ngFor="let transport of transportations" class="card">
 
-            <div *ngIf="transport.gallery?.length; else defaultTransportImage"  class="room-img">
+            <div *ngIf="transport.gallery?.length; else defaultTransportImage">
               <h4>Gallery</h4>
               <img *ngFor="let image of transport.gallery.slice(0, 3)" 
                    [src]="'data:image/jpeg;base64,' + image" 
                    alt="Transportation image" /> 
             </div>
-            <ng-template #defaultTransportImage >
+            <ng-template #defaultTransportImage class="room-img">
               <img src="image_will_be_available_soon.png" 
-                   alt="Default Transportation Image" style="max-height: 175px;"/>
+                   alt="Default Transportation Image" style="max-height: 175px;" class="room-img"/>
             </ng-template>
 
             <h4>{{ transport.VehicleName }} ({{ transport.Model }} - {{ transport.Brand }})</h4>

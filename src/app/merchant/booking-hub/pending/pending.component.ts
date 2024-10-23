@@ -25,20 +25,11 @@ export class PendingComponent implements OnInit {
     });
 
     const token = localStorage.getItem('token');
-    this.pendingService.getBookings(token, this.status).subscribe(
-        (response: any) => {
-            console.log('API Response:', response);
-            if (response && response.data) {
-                this.bookings = response.data;
-            } else {
-                this.bookings = []; 
-            }
-            this.originalBookings = [...this.bookings];
-        },
-        (error) => {
-            console.error('Error fetching pending bookings:', error);
-        }
-    );
+    this.pendingService.getBookings(token, this.status).subscribe((response: any) => {
+      console.log(response); 
+      this.bookings = response;
+      this.originalBookings = [...response];
+    });
 
     this.filterForm.valueChanges
         .pipe(debounceTime(300)) 
@@ -78,16 +69,15 @@ export class PendingComponent implements OnInit {
 
   showBookingDetails(bookingID: number): void {
     const token = localStorage.getItem('token');
-    this.pendingService.getBookingDetails(token, bookingID).subscribe((response: any) => {
-      const modalDetails = document.getElementById('modal-details');
-      if (modalDetails) {
-        modalDetails.innerHTML = response;
+    this.pendingService.getBookings(token, status).subscribe(
+      (data) => {
+        console.log('Fetched bookings:', data); 
+        this.bookings = data;
+      },
+      (error) => {
+        console.error('Error fetching bookings:', error);
       }
-      const bookingModal = document.getElementById('bookingModal');
-      if (bookingModal) {
-        bookingModal.style.display = 'block';
-      }
-    });
+    );
   }
 
   closeModal(): void {
@@ -98,11 +88,23 @@ export class PendingComponent implements OnInit {
   }
 
   acceptBooking(bookingID: number): void {
-    const token = localStorage.getItem('token');
-    this.pendingService.acceptBooking(token, bookingID).subscribe((response: any) => {
-      console.log(response);
-    });
+    const status = 'Accepted'; 
+    
+    const confirmationMessage = `Are you sure you want to accept booking #${bookingID}?`;
+    
+    if (confirm(confirmationMessage)) {
+      this.pendingService.updateBooking(bookingID, status).subscribe((response: any) => {
+        console.log(response);
+        alert(`Booking #${bookingID} has been successfully accepted.`);
+      }, (error) => {
+        console.error('Error updating booking:', error);
+        alert('There was an error accepting the booking. Please try again.');
+      });
+    } else {
+      console.log(`Booking #${bookingID} acceptance cancelled.`);
+    }
   }
+  
 
   refundBooking(bookingID: number ): void {
     const token = localStorage.getItem('token');

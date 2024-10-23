@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ViewBookingsService } from '../../services/view-bookings.service';
 import { MatDialog } from '@angular/material/dialog';
+import { RefundDialogComponent } from '../refund-dialog/refund-dialog.component';
 
 @Component({
   selector: 'app-booking-details',
@@ -11,13 +12,13 @@ import { MatDialog } from '@angular/material/dialog';
 export class BookingDetailsComponent implements OnInit {
   bookingDetails: any = {};
   bookingType: string = '';
-  refundRequested: boolean = false;  // Track if refund is requested
+  refundRequested: boolean = false;  
 
   constructor(private route: ActivatedRoute, private viewBookingsService: ViewBookingsService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     const bookingId = this.route.snapshot.paramMap.get('id');
-    this.bookingType = this.route.snapshot.paramMap.get('type') || '';  // If type is passed as a query param
+    this.bookingType = this.route.snapshot.paramMap.get('type') || '';  
 
     const token = localStorage.getItem('token');
     if (bookingId && token) {
@@ -33,6 +34,7 @@ export class BookingDetailsComponent implements OnInit {
         if (data.success) {
           this.bookingDetails = data.details;
   
+          console.log('Booking Details:', this.bookingDetails);
           this.bookingDetails.booking.Subtotal = Number(this.bookingDetails.booking.Subtotal);
           this.bookingDetails.booking.VAT = Number(this.bookingDetails.booking.VAT);
           this.bookingDetails.booking.TotalAmount = Number(this.bookingDetails.booking.TotalAmount);
@@ -48,7 +50,18 @@ export class BookingDetailsComponent implements OnInit {
     );
   }
   
+  requestRefund(): void {
+    const dialogRef = this.dialog.open(RefundDialogComponent, {
+      width: '300px',
+      disableClose: true
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.submitRefundRequest(result);
+      }
+    });
+  }
   submitRefundRequest(refundReason: string): void {
     const bookingId = this.bookingDetails.booking.BookingID;
     const token = localStorage.getItem('token');
@@ -57,7 +70,7 @@ export class BookingDetailsComponent implements OnInit {
       this.viewBookingsService.requestRefund(bookingId, refundReason, token).subscribe(
         (response: any) => {
           if (response.success) {
-            this.refundRequested = true;  // Mark refund as requested
+            this.refundRequested = true;  
             alert('Refund request submitted successfully.');
           } else {
             alert('Failed to submit refund request: ' + response.message);
