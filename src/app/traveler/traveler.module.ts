@@ -15,7 +15,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { HammerModule } from '@angular/platform-browser';
 import { SignupComponent } from './signup/signup.component';
-import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 

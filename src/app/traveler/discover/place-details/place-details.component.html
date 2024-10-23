@@ -1,36 +1,37 @@
-<div class="back-icon">
-  <a routerLink="/traveler/discover">
-    <i class='bx bx-arrow-back'></i>
-  </a>
-</div>
-<div class="description-list">
-  <div *ngIf="place" class="description">
-    <h2>{{ place.place_name }}</h2>
-    <div class="main-image">
-      <img [src]="'data:image/jpeg;base64,' + selectedImage" alt="{{ place.place_name }}">
-    </div>
-    <p>{{ place.description }}</p>
-    <p><strong>Region:</strong> {{ place.region }}</p>
-    <p><strong>Province:</strong> {{ place.province }}</p>
-    <p><strong>Full Address:</strong> {{ place.full_address }}</p>
-    <p><strong>Island Group:</strong> {{ place.island_group }}</p>
-
-    <div>
-      <a [routerLink]="['/traveler/discover/nearby', placeId]">Nearby Resorts or Merchants</a>
+<div class="place-details">
+  <div class="back-icon">
+    <a routerLink="/traveler/discover">
+      <i class='bx bx-arrow-back'></i>
+    </a>
   </div>
-
-    <!-- Only display the additional images section if images exist -->
-    <div *ngIf="placeImages && placeImages.length > 0" class="additional-images">
-        <h3>More Images</h3>
+  <div class="description-list">
+    <div *ngIf="place" class="description">
+      <h2>{{ place.place_name }}</h2>
+      <div class="main-image">
+        <img [src]="'data:image/jpeg;base64,' + selectedImage" alt="{{ place.place_name }}">
+      </div>
+      <p id="description">{{ place.description }}</p>
+      <p><strong>Region:</strong> {{ place.region }}</p>
+      <p><strong>Province:</strong> {{ place.province }}</p>
+      <p><strong>Full Address:</strong> {{ place.full_address }}</p>
+      <p><strong>Island Group:</strong> {{ place.island_group }}</p>
+  
+      <!-- Only display the additional images section if images exist -->
+      <div *ngIf="placeImages && placeImages.length > 0" class="additional-images">
+        <h5>More Images</h5>
         <div class="thumbnail-list">
-            <div class="thumbnail" (click)="resetToMainImage()">
-                <img [src]="'data:image/jpeg;base64,' + mainImage" alt="Main Image">
-            </div>
+          <div class="thumbnail" (click)="resetToMainImage()">
+              <img [src]="'data:image/jpeg;base64,' + mainImage" alt="Main Image">
+          </div>
 
-            <div *ngFor="let image of placeImages" class="thumbnail" (click)="changeMainImage(image)">
-                <img [src]="'data:image/jpeg;base64,' + image" alt="Additional Image">
-            </div>
+          <div *ngFor="let image of placeImages" class="thumbnail" (click)="changeMainImage(image)">
+              <img [src]="'data:image/jpeg;base64,' + image" alt="Additional Image">
+          </div>
         </div>
+      </div>
+      <div>
+        <button [routerLink]="['/traveler/discover/nearby', placeId]">Nearby Resorts or Merchants</button>
+      </div>
     </div>
-  </div>
+  </div>  
 </div>

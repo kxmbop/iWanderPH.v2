@@ -1,12 +1,26 @@
 <div class="details-container">
-  <button mat-button (click)="goBack()">Back</button>
-  
+  <div class="back-icon">
+    <a routerLink="/traveler/discover/place-details/{{this.placeId}}">
+      <i class='bx bx-arrow-back'></i>
+    </a>
+  </div>
   <div id="merchant-details">
-    <h1>{{ merchantDetails.BusinessName }}</h1>
-    <img *ngIf="merchantDetails.merchant_img" [src]="merchantDetails.merchant_img" alt="{{ merchantDetails.BusinessName }}" class="merchant-img">
-    <p>Email: {{ merchantDetails.Email }}</p>
-    <p>Contact: {{ merchantDetails.Contact }}</p>
-    <p>Address: {{ merchantDetails.Address }}</p>
+    <img *ngIf="merchantDetails.profilePicture; else defaultImage" 
+         [src]="merchantDetails.profilePicture" 
+         alt="{{ merchantDetails.BusinessName }}" 
+         class="merchant-img">
+    <ng-template #defaultImage>
+      <img src="image_will_be_available_soon.png" 
+           alt="Default Image" 
+           class="merchant-img">
+    </ng-template>
+
+    <div class="details">
+      <h3>{{ merchantDetails.BusinessName }}</h3>
+      <p><i class='bx bxs-envelope'></i>&nbsp;Email: {{ merchantDetails.Email }}</p>
+      <p><i class='bx bxs-contact'></i>&nbsp;Contact: {{ merchantDetails.Contact }}</p>
+      <p><i class='bx bxs-map'></i>&nbsp;Address: {{ merchantDetails.Address }}</p>
+    </div>
   </div>
 
   <mat-tab-group>
@@ -15,38 +29,46 @@
       <div class="page-container">
         <div *ngIf="rooms?.length">
           <div *ngFor="let room of rooms" class="card">
-            <h3>{{ room.RoomName }} - {{ room.RoomRate | currency }}</h3>
-            <p>Guests per room: {{ room.GuestPerRoom }}</p>
+            <div>
+              <!-- Gallery Preview (if there are images) -->
+              <div *ngIf="room.gallery?.length; else defaultRoomImage" class="room-img">
+                <img *ngFor="let image of room.gallery.slice(0, 3)" 
+                     [src]="'data:image/jpeg;base64,' + image" 
+                     alt="Room image" />
+              </div>
+              <ng-template #defaultRoomImage>
+                <img src="image_will_be_available_soon.png" 
+                     alt="Default Room Image" 
+                     class="room-img">
+              </ng-template>
 
-            <!-- Gallery Preview (if there are images) -->
-            <div *ngIf="room.gallery?.length">
-              <h4>Gallery</h4>
-              <img *ngFor="let image of room.gallery.slice(0, 3)" [src]="'data:image/jpeg;base64,' + image" alt="Room image" />
+              <h4>{{ room.RoomName }} - {{ room.RoomRate | currency }}</h4>
+              <p>Guests per room: {{ room.GuestPerRoom }}</p>
+              <a mat-button *ngIf="room.inclusions?.length > 2 || room.views?.length > 2 || room.gallery?.length > 3" 
+                (click)="room.showMore = !room.showMore">
+                {{ room.showMore ? 'See less' : 'See more' }}
+              </a>
+              <!-- See more content for inclusions and views -->
+              <div *ngIf="room.showMore" class="see-more">
+                <div *ngIf="room.inclusions?.length">
+                  <h4>Inclusions</h4>
+                  <div class="ul-more">
+                    <span *ngFor="let inclusion of room.inclusions">{{ inclusion }}</span>
+                  </div>
+                </div>
+                <div *ngIf="room.views?.length">
+                  <h4>Views</h4>
+                  <div class="ul-more">
+                    <span *ngFor="let view of room.views">{{ view }}</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- See more content for inclusions and views -->
-            <div *ngIf="room.showMore">
-              <div *ngIf="room.inclusions?.length">
-                <h4>Inclusions</h4>
-                <ul>
-                  <li *ngFor="let inclusion of room.inclusions">{{ inclusion }}</li>
-                </ul>
-              </div>
-              <div *ngIf="room.views?.length">
-                <h4>Views</h4>
-                <ul>
-                  <li *ngFor="let view of room.views">{{ view }}</li>
-                </ul>
-              </div>
-            </div>
-
-            <button mat-button *ngIf="room.inclusions?.length > 2 || room.views?.length > 2 || room.gallery?.length > 3" 
-              (click)="room.showMore = !room.showMore">
-              {{ room.showMore ? 'See less' : 'See more' }}
-            </button>
-
-            <button mat-raised-button color="primary" [routerLink]="['/traveler/discover/booking']" [queryParams]="{ type: 'room', id: room.RoomID }">
-              Book Room
+            <button mat-raised-button color="primary" 
+                    [routerLink]="['/traveler/discover/booking']" 
+                    [queryParams]="{ type: 'room', id: room.RoomID, merchantId: merchantDetails.merchantId }">
+              <i class='bx bxs-calendar-check'></i> &nbsp;Book Room
             </button>
           </div>
         </div>
@@ -58,20 +80,30 @@
       <div class="page-container">
         <div *ngIf="transportations?.length">
           <div *ngFor="let transport of transportations" class="card">
-            <h3>{{ transport.VehicleName }} ({{ transport.Model }} - {{ transport.Brand }})</h3>
+
+            <div *ngIf="transport.gallery?.length; else defaultTransportImage"  class="room-img">
+              <h4>Gallery</h4>
+              <img *ngFor="let image of transport.gallery.slice(0, 3)" 
+                   [src]="'data:image/jpeg;base64,' + image" 
+                   alt="Transportation image" /> 
+            </div>
+            <ng-template #defaultTransportImage >
+              <img src="image_will_be_available_soon.png" 
+                   alt="Default Transportation Image" style="max-height: 175px;"/>
+            </ng-template>
+
+            <h4>{{ transport.VehicleName }} ({{ transport.Model }} - {{ transport.Brand }})</h4>
             <p>Capacity: {{ transport.Capacity }} | Rental Price: {{ transport.RentalPrice | currency }}</p>
 
-            <div *ngIf="transport.gallery?.length">
-              <h4>Gallery</h4>
-              <img *ngFor="let image of transport.gallery.slice(0, 3)" [src]="'data:image/jpeg;base64,' + image" alt="Transportation image" />
-            </div>
-
-            <button mat-button *ngIf="transport.gallery?.length > 3" (click)="transport.showMore = !transport.showMore">
+            <button mat-button *ngIf="transport.gallery?.length > 3" 
+                    (click)="transport.showMore = !transport.showMore">
               {{ transport.showMore ? 'See less' : 'See more' }}
             </button>
 
-            <button mat-raised-button color="accent" [routerLink]="['/traveler/discover/booking']" [queryParams]="{ type: 'transportation', id: transport.TransportationID }">
-              Book Transportation
+            <button mat-raised-button color="accent" 
+                    [routerLink]="['/traveler/discover/booking']" 
+                    [queryParams]="{ type: 'transportation', id: transport.TransportationID, merchantId: merchantDetails.merchantId }">
+              <i class='bx bxs-calendar-check'></i>Book Transportation
             </button>
           </div>
         </div>

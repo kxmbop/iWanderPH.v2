@@ -120,7 +120,15 @@
         align-items: center;
         gap: 10px;
     }
-
+    .content-container{
+        position: relative;
+        top: 0;
+        bottom: 52px;
+        height: calc(100% - 52px);
+        width: 100%;
+        transition: all 0.5s ease;
+        overflow: hidden;
+    }
 }
 
 /* Tablet view (481px - 1024px) */
@@ -192,5 +200,6 @@
         width: calc(100% - 320px);
         transition: all 0.5s ease;
         z-index: 2;
+        overflow: hidden;
     }
 }

@@ -10,16 +10,16 @@ import { PlaceService } from '../../services/place.service';
 export class PlaceDetailsComponent implements OnInit {
   place: any = {};
   placeImages: any[] = [];
-  mainImage: string = ''; // Store the original main image separately
-  selectedImage: string = ''; // The currently displayed image
-  placeId!: number; // Define the placeId property
+  mainImage: string = '';
+  selectedImage: string = ''; 
+  placeId!: number; 
 
   constructor(private route: ActivatedRoute, private placeService: PlaceService) { }
 
   ngOnInit(): void {
     const placeIdParam = this.route.snapshot.paramMap.get('id');
     if (placeIdParam) {
-      this.placeId = parseInt(placeIdParam, 10); // Set placeId from route
+      this.placeId = parseInt(placeIdParam, 10);
       this.loadPlaceDetails(this.placeId);
     }
   }
@@ -28,17 +28,17 @@ export class PlaceDetailsComponent implements OnInit {
     this.placeService.getPlaceById(placeId).subscribe(data => {
       this.place = data.place;
       this.placeImages = data.images;
-      this.mainImage = this.place.main_image || ''; // Store the original main image
-      this.selectedImage = this.mainImage; // Initially display the main image
-      console.log(this.placeImages);  // Check the images being received
+      this.mainImage = this.place.main_image || ''; 
+      this.selectedImage = this.mainImage;
+      console.log(this.placeImages);
     });
   }
 
   changeMainImage(image: string): void {
-    this.selectedImage = image; // Change the displayed image
+    this.selectedImage = image; 
   }
 
   resetToMainImage(): void {
-    this.selectedImage = this.mainImage; // Reset to the main image
+    this.selectedImage = this.mainImage; 
   }
 }

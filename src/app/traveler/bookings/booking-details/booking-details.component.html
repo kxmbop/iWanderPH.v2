@@ -36,9 +36,9 @@
       <div class="info">
         <p><strong>Booking Date:</strong> {{ bookingDetails.booking.BookingDate }}</p>
         <p><strong>Payment Status:</strong> {{ bookingDetails.booking.PaymentStatus }}</p>
-        <p><strong>Subtotal:</strong> {{ bookingDetails.booking.Subtotal | currency }}</p>
-        <p><strong>VAT:</strong> {{ bookingDetails.booking.VAT | currency }}</p>
-        <p><strong>Total Amount:</strong> {{ bookingDetails.booking.TotalAmount | currency }}</p>
+        <p><strong>Subtotal:</strong> {{ bookingDetails.booking.Subtotal ? (bookingDetails.booking.Subtotal | currency) : 'N/A' }}</p>
+        <p><strong>VAT:</strong> {{ bookingDetails.booking.VAT ? (bookingDetails.booking.VAT | currency) : 'N/A' }}</p>
+        <p><strong>Total Amount:</strong> {{ bookingDetails.booking.TotalAmount ? (bookingDetails.booking.TotalAmount | currency) : 'N/A' }}</p>
       </div>
 
       <div class="payment-upload">
@@ -51,7 +51,7 @@
           mat-raised-button 
           color="warn" 
           *ngIf="!refundRequested" 
-          (click)="requestRefund()">
+          >
           Request Refund
         </button>
     
@@ -76,7 +76,7 @@
         <p><strong>Capacity:</strong> {{ bookingDetails.transportation.Capacity }}</p>
         <p><strong>Driver Name:</strong> {{ bookingDetails.transportation.DriverName }}</p>
         <p><strong>Driver Contact:</strong> {{ bookingDetails.transportation.DriverContactNo }}</p>
-        <p><strong>Rental Price:</strong> {{ bookingDetails.transportation.RentalPrice | currency }}</p>
+        <p><strong>Rental Price:</strong> {{ bookingDetails.transportation.RentalPrice ? (bookingDetails.transportation.RentalPrice | currency) : 'N/A' }}</p>
       </div>
 
       <div class="transportation-gallery">
@@ -106,9 +106,9 @@
       <div class="info">
         <p><strong>Booking Date:</strong> {{ bookingDetails.booking.BookingDate }}</p>
         <p><strong>Payment Status:</strong> {{ bookingDetails.booking.PaymentStatus }}</p>
-        <p><strong>Subtotal:</strong> {{ bookingDetails.booking.Subtotal | currency }}</p>
-        <p><strong>VAT:</strong> {{ bookingDetails.booking.VAT | currency }}</p>
-        <p><strong>Total Amount:</strong> {{ bookingDetails.booking.TotalAmount | currency }}</p>
+        <p><strong>Subtotal:</strong> {{ bookingDetails.booking.Subtotal ? (bookingDetails.booking.Subtotal | currency) : 'N/A' }}</p>
+        <p><strong>VAT:</strong> {{ bookingDetails.booking.VAT ? (bookingDetails.booking.VAT | currency) : 'N/A' }}</p>
+        <p><strong>Total Amount:</strong> {{ bookingDetails.booking.TotalAmount ? (bookingDetails.booking.TotalAmount | currency) : 'N/A' }}</p>
       </div>
 
       <ng-container *ngIf="bookingDetails.booking.BookingStatus === 'Pending'">
@@ -116,7 +116,7 @@
           mat-raised-button 
           color="warn" 
           *ngIf="!refundRequested" 
-          (click)="requestRefund()">
+          >
           Request Refund
         </button>
     

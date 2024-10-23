@@ -5,7 +5,7 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
 
 const routes: Routes = [
   { path: '', component: BookingsComponent },
-  { path: 'booking-details/:id', component: BookingDetailsComponent }
+  { path: 'booking-details/:id/:type', component: BookingDetailsComponent }
 ];
 
 
