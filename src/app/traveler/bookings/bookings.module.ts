@@ -23,3 +23,4 @@ import { RefundDialogComponent } from './refund-dialog/refund-dialog.component';
   ]
 })
 export class BookingsModule { }
+//end

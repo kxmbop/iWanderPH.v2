@@ -94,3 +94,4 @@ export class BookingsComponent implements OnInit {
     this.router.navigate(['/review', booking.BookingID]);
   }
 }
+//end
