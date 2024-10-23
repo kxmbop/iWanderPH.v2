@@ -23,16 +23,20 @@ export class CompletedComponent {
     });
 
     const token = localStorage.getItem('token');
-    this.pendingService.getBookings(token, this.status).subscribe(
-      (response: any) => {
-        console.log(response); 
-        this.bookings = response.data || []; 
-        this.originalBookings = [...this.bookings];
-      },
-      (error) => {
-        console.error('Error fetching bookings:', error);
+    this.pendingService.getBookings(token, this.status).subscribe((response: any) => {
+      console.log(response); 
+  
+      if (Array.isArray(response)) {
+        this.bookings = response; 
+      } else if (response.data && Array.isArray(response.data)) {
+        this.bookings = response.data; 
+      } else {
+        console.error('Unexpected response structure:', response);
+        this.bookings = []; 
       }
-    );
+  
+      this.originalBookings = [...this.bookings];
+    });
   }
 
   searchToday(): void {

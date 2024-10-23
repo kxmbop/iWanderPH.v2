@@ -1,30 +1,68 @@
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
 
-
-/* Mobile view (up to 480px) */
-@media (max-width: 480px) { 
-    .top-utility{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        height: 52px;
-        //border-bottom: 1px solid #ccc;
-        padding: 10px 12px;
-    }
-    .top-utility .logo{
-        width: 132px;
-    }
-    .top-utility i{
-        font-size: 28px;
-        margin-left: auto;
-        
-    }
+.top-utility {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 52px;
+  //border-bottom: 1px solid #ccc;
+  padding: 10px 12px;
 }
-/* Desktop view (above 1025px) */
-@media (min-width: 1025px) {
-    .top-utility{
-        display: none;    
-    }
 
+.tab-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  max-height: 52px;
+  padding: 0 5px 0 5px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none; 
+  }
+  .tab {
+    font-size: 14px;
+    padding: 0 2px 7px 2px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 15px;
+  }
+  
+  .tab.active {
+    border-bottom: 2px  solid $tpc;
+    color: $tpc;
+    font-weight: 600;
+  
+  }
+}
+.tab-content{
+  height: calc(100vh - 110px);
+  padding: 10px 15px;
+  background-color: #f1f1f1;
+  .scrollable-content {
+    height: 100%;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none; 
+    }
+  }
+  
+  .clickable-item {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    
+  }
+  
+  .clickable-item:hover {
+    background-color: #f9f9f9;
+  }
 }

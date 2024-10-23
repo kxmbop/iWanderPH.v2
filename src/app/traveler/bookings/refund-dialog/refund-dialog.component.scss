@@ -1,0 +1,43 @@
+
+@import '../../../../../src/styles.scss';
+@import '../../../app.component.scss';
+
+:host {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; 
+  }
+  
+  .mat-dialog-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+  }
+  
+  ::ng-deep .cdk-overlay-pane {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+  }
+  
+  .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 20px;
+  }
+  
+  @media (max-width: 600px) {
+      .mat-dialog-container {
+          max-width: 90%;
+      }
+  }

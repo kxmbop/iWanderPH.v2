@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookingService } from '../../services/booking.service';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-booking',
@@ -10,19 +12,21 @@ import { BookingService } from '../../services/booking.service';
 })
 export class BookingComponent implements OnInit {
   bookingForm: FormGroup;
-  bookingType: string = ''; // 'room' or 'transportation'
+  bookingType: string = ''; 
   itemId: number = 0;
+  merchantId: number = 0;
   roomDetails: any = null;
   transportationDetails: any = null;
   isDataLoaded: boolean = false; 
-  showGcashNumber: boolean = false; // Tracks if GCash number should be visible
-  selectedFile: File | null = null;// Tracks if data is loaded
+  showGcashNumber: boolean = false; 
+  selectedFile: File | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private bookingService: BookingService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     this.bookingForm = this.fb.group({
       // Room Booking Controls
@@ -42,6 +46,7 @@ export class BookingComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.bookingType = params['type'];
       this.itemId = +params['id'];
+      this.merchantId = +params['merchantId'];
 
       // Fetch room or transportation details based on bookingType
       if (this.bookingType === 'room') {
@@ -83,7 +88,7 @@ export class BookingComponent implements OnInit {
     this.bookingService.getRoomDetails(roomId).subscribe(
       data => {
         this.roomDetails = data;
-        console.log("Room Details:", this.roomDetails); // Debugging log
+        console.log("Room Details:", this.roomDetails);
         this.isDataLoaded = true;
       },
       error => {
@@ -226,5 +231,7 @@ export class BookingComponent implements OnInit {
       }
     );
   }
-  
+  goBack(): void {
+    this.location.back();
+  }
 }

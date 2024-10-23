@@ -23,21 +23,11 @@ export class RefundedComponent implements OnInit {
     });
 
     const token = localStorage.getItem('token');
-    this.pendingService.getBookings(token, this.status).subscribe(
-        (response: any) => {
-            console.log('API Response:', response); // Log the full response
-            if (response && Array.isArray(response)) {
-                this.bookings = response; // Assign only if it's an array
-            } else {
-                this.bookings = []; // Default to an empty array if response is not valid
-            }
-            this.originalBookings = [...this.bookings];
-        },
-        (error) => {
-            console.error('Error fetching refunded bookings:', error);
-            this.bookings = []; // Ensure bookings is empty on error
-        }
-    );
+    this.pendingService.getBookings(token, this.status).subscribe((response: any) => {
+      console.log(response); 
+      this.bookings = response;
+      this.originalBookings = [...response];
+    });
   }
 
   searchToday(): void {

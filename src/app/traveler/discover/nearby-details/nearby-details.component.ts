@@ -12,6 +12,7 @@ export class NearbyDetailsComponent implements OnInit {
   merchantDetails: any = {};
   rooms: any[] = [];
   transportations: any[] = [];
+  placeId!: number;
 
   constructor(
     private route: ActivatedRoute, 
@@ -22,6 +23,14 @@ export class NearbyDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const merchantId = this.route.snapshot.paramMap.get('merchantId');
+    const placeIdParam = this.route.snapshot.paramMap.get('placeId');
+    console.log(`Place ID param from route: ${placeIdParam}`);
+    
+    if (placeIdParam) {
+    this.placeId = +placeIdParam;
+    }else {
+      console.error("Place ID is missing in the route.");
+    }
     if (merchantId) {
       this.loadMerchantDetails(+merchantId);
     }
@@ -31,10 +40,10 @@ export class NearbyDetailsComponent implements OnInit {
     this.placeService.getMerchantById(merchantId).subscribe(
       data => {
         this.merchantDetails = data.merchant;
-
+        console.log('merchant details:', this.merchantDetails)
         // Handle the image if it exists
-        if (this.merchantDetails.merchant_img) {
-          this.merchantDetails.merchant_img = 'data:image/jpeg;base64,' + this.merchantDetails.merchant_img;
+        if (this.merchantDetails.profilePicture) {
+          this.merchantDetails.profilePicture = 'data:image/jpeg;base64,' + this.merchantDetails.profilePicture;
         }
 
         this.rooms = data.rooms;

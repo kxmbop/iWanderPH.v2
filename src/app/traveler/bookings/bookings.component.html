@@ -1,6 +1,33 @@
-
 <div class="top-utility">
-    <h3 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH</h3>
+  <h3 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH</h3>
 </div>
 
-<p>bookings works!</p>
+
+<div class="tab-container">
+  <div class="tab-list">
+    <div class="tab" (click)="selectTab('Pending')" [class.active]="selectedTab === 'Pending'">Pending</div>
+    <div class="tab" (click)="selectTab('Accepted')" [class.active]="selectedTab === 'Accepted'">Accepted</div>
+    <div class="tab" (click)="selectTab('On-Going')" [class.active]="selectedTab === 'On-Going'">OnGoing</div>
+    <div class="tab" (click)="selectTab('Completed')" [class.active]="selectedTab === 'Completed'">Completed</div>
+    <div class="tab" (click)="selectTab('Canceled')" [class.active]="selectedTab === 'Canceled'">Canceled</div>
+    <div class="tab" (click)="selectTab('Refunded')" [class.active]="selectedTab === 'Refunded'">Refunded</div>
+  </div>
+
+  <div class="tab-content">
+    <ng-container *ngIf="bookingsByStatus && bookingsByStatus[selectedTab] && bookingsByStatus[selectedTab].length > 0; else noBookings">
+      <div class="scrollable-content">
+        <div *ngFor="let booking of bookingsByStatus[selectedTab]" class="clickable-item" (click)="goToBookingDetails(booking)">
+          <p>Booking ID: {{ booking.BookingID }}</p>
+          <p>Booking Date: {{ booking.BookingDate }}</p>
+          <p>Total Amount: {{ booking.TotalAmount }}</p>
+
+          <!-- Show Review button only for Completed bookings -->
+          <button *ngIf="selectedTab === 'Completed'" (click)="goToReview(booking)">Review</button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noBookings>
+      <p>No bookings available.</p>
+    </ng-template>
+  </div>
+</div>

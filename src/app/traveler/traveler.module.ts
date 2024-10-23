@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MatTabsModule } from '@angular/material/tabs';
 import { TravelerRoutingModule } from './traveler-routing.module';
 import { LoginComponent } from './login/login.component';
 import { TravelerLayoutComponent } from './traveler-layout/traveler-layout.component';
@@ -15,7 +15,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { HammerModule } from '@angular/platform-browser';
 import { SignupComponent } from './signup/signup.component';
-import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
