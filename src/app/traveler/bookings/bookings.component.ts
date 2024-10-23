@@ -95,3 +95,4 @@ export class BookingsComponent implements OnInit {
     this.router.navigate(['traveler/bookings/create-review', booking.BookingID]);
   }
 }
+//end

@@ -32,3 +32,4 @@ import { CreateReviewComponent } from './create-review/create-review.component';
   ]
 })
 export class BookingsModule { }
+//end
