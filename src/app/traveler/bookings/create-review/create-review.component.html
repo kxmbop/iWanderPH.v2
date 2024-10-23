@@ -1,0 +1,57 @@
+<div class="review-form-container">
+  <h2>Create Review for Booking ID: {{ bookingId }}</h2>
+
+  <form (ngSubmit)="submitReview()">
+    <!-- Star Rating Input -->
+    <div class="form-group rating">
+      <label for="reviewRating">Rating</label>
+      <div class="star-rating">
+        <i
+          class="fa fa-star"
+          *ngFor="let star of stars; let i = index"
+          (click)="setRating(i + 1)"
+          [class.filled]="i < reviewRating"
+        ></i>
+      </div>
+    </div>
+
+    <!-- Image Upload Section -->
+    <div class="form-group">
+      <label for="photos">Add Photos:</label>
+      <div class="image-upload-container">
+        <div *ngFor="let upload of uploadBoxes; let i = index" class="image-box">
+          <label for="file-upload-{{ i }}">
+            <input type="file" id="file-upload-{{ i }}" (change)="onFileSelected($event, i)" hidden />
+            <span *ngIf="!selectedFiles[i]">Upload Image</span>
+            <span *ngIf="selectedFiles[i]">{{ selectedFiles[i].name }}</span>
+          </label>
+        </div>
+
+        <!-- Add button to dynamically add another upload box with Boxicon -->
+        <div class="image-box add-box" (click)="addUploadBox()">
+          <i class="bx bx-plus"></i> <!-- Boxicons Plus Icon -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Review Comment Input -->
+    <div class="form-group">
+      <label for="reviewComment">Review Comment</label>
+      <textarea id="reviewComment" [(ngModel)]="reviewComment" name="reviewComment" rows="4" required></textarea>
+    </div>
+
+    <!-- Privacy Option -->
+    <div class="privacy-select">
+      <label for="privacy">Privacy</label>
+      <select id="privacy" [(ngModel)]="privacy" name="privacy" required>
+        <option [value]="'public'">Public</option>
+        <option [value]="'private'">Private</option>
+      </select>
+    </div>
+
+
+
+    <!-- Submit Button -->
+    <button type="submit">Upload</button>
+  </form>
+</div>

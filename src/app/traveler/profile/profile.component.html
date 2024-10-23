@@ -1,8 +1,7 @@
 <div class="top-utility">
-    <img src="iWanderPH_logo.png" alt="iWanderPH Logo" class="logo"/>
+    <h3 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH</h3>
     <i class='bx bx-menu' id="settings" [routerLink]="['/traveler/settings']"></i>
 </div>
-
 
 <div class="p-j">
     <div class="profile-container">
@@ -39,20 +38,20 @@
               <span id="username">{{ profile.Username }}</span>
             </div>
             <div #carousel class="review-images">
-                <div class="carousel">
-                  <div class="carousel-inner">
-                    <div *ngFor="let image of review.images; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">
-                      <img [src]="'data:image/jpeg;base64,' + image" alt="Review Image">
-                    </div>
+              <div class="carousel">
+                <div class="carousel-inner">
+                  <div *ngFor="let image of review.images; let i = index" class="carousel-item" [ngClass]="{'active': i === currentIndex}">
+                    <img [src]="'data:image/jpeg;base64,' + image" alt="Review Image">
                   </div>
-                  <!-- Add navigation buttons -->
-                  <button class="carousel-prev" [disabled]="review.images.length === 1 || currentIndex === 0" (click)="prevImage()">
-                    <i class='bx bx-chevron-left'></i>
-                  </button>
-                  <button class="carousel-next" [disabled]="review.images.length === 1 || currentIndex === review.images.length - 1" (click)="nextImage()">
-                    <i class='bx bx-chevron-right'></i>
-                  </button>
                 </div>
+                <!-- Add navigation buttons -->
+                <button class="carousel-prev" [disabled]="review.images.length === 1 || currentIndex === 0" (click)="prevImage()">
+                  <i class='bx bx-chevron-left'></i>
+                </button>
+                <button class="carousel-next" [disabled]="review.images.length === 1 || currentIndex === review.images.length - 1" (click)="nextImage()">
+                  <i class='bx bx-chevron-right'></i>
+                </button>
+              </div>
             </div>
               
             <div class="review-details">

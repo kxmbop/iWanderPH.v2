@@ -1,33 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BookingService } from '../services/booking.service';
+
+
 
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
-  styleUrl: './user-details.component.scss'
+  styleUrls: ['./user-details.component.scss']
 })
-export class UserDetailsComponent implements OnInit{
-  user: any;
+export class UserDetailsComponent implements OnInit {
+  user: any = {}; // Initialize user as an empty object
   reports: any[] = [];
   bookings: any[] = [];
   showModal = false;
   action = { violation: '' };
+  activeTab: string = 'bookings';
+  userId: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private bookingService: BookingService,
+    private router: Router
+
   ) {}
 
   ngOnInit(): void {
-    const userId = this.route.snapshot.queryParamMap.get('user_id');
+    this.route.queryParams.subscribe(params => {
+      const userIdParam = params['user_id'];
+      this.userId = userIdParam ? +userIdParam : null; 
 
+      if (this.userId) {
+        this.fetchBookings(); 
+      }
+    });
+
+    const userId = this.route.snapshot.queryParamMap.get('user_id');
     if (userId) {
       this.userService.getUserDetails(userId).subscribe(
         (data) => {
-          this.user = data;
+          this.user = data || {}; // Ensure user is an object
           this.loadReports(); 
-          this.loadBookings(); 
         },
         (error) => {
           console.error('Error fetching user details', error);
@@ -37,15 +52,27 @@ export class UserDetailsComponent implements OnInit{
   }
 
   loadReports(): void {
-    this.userService.getReports(this.user.userID).subscribe(data => {
-      this.reports = data;
-    });
+    const userId = this.user?.userID; 
+    if (userId) {
+      this.userService.getReports(userId).subscribe(data => {
+        this.reports = Array.isArray(data) ? data : []; 
+      }, error => {
+        console.error('Error fetching reports:', error);
+        this.reports = []; 
+      });
+    }
   }
 
-  loadBookings(): void {
-    this.userService.getBookings(this.user.userID).subscribe(data => {
-      this.bookings = data;
-    });
+  fetchBookings(): void {
+    if (this.userId !== null) {
+      this.bookingService.getBookingsByUserId(this.userId).subscribe(response => {
+        this.bookings = Array.isArray(response.data) ? response.data : [];
+        console.log('Bookings: ', this.bookings);
+      }, error => {
+        console.error('Error fetching bookings:', error);
+        this.bookings = []; 
+      });
+    }
   }
 
   openModal(): void {
@@ -64,5 +91,13 @@ export class UserDetailsComponent implements OnInit{
       this.loadReports();
       this.closeModal();
     });
+  }
+
+  switchTab(tab: string): void {
+    this.activeTab = tab;
+  }
+  openBookingDetails(bookingId: string): void {
+    const url = this.router.createUrlTree(['/admin/booking-details', bookingId]).toString();
+    window.open(url, '_blank');
   }
 }

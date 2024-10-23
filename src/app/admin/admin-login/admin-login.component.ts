@@ -29,7 +29,7 @@ export class AdminLoginComponent {
         if (response.success) {
           console.log('Login successful:', response.message);
           this.errorMessage = null;
-          localStorage.setItem('token', response.token);
+          localStorage.setItem('admintoken', response.token);
           this.router.navigate(['admin/dashboard']);
           console.log("Token stored: ", response.token);
         } else {

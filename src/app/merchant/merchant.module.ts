@@ -6,6 +6,8 @@ import { MerchantLayoutComponent } from './merchant-layout/merchant-layout.compo
 import { HubLayoutComponent } from './booking-hub/hub-layout/hub-layout.component';
 import { BookingHubModule } from './booking-hub/booking-hub.module';
 import { ListingsComponent } from './listings/listings.component';
+import { FinanceComponent } from './finance/finance.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
 
 
 @NgModule({
@@ -13,7 +15,8 @@ import { ListingsComponent } from './listings/listings.component';
     MerchantLayoutComponent,
     HubLayoutComponent,
     ListingsComponent,
-    
+    FinanceComponent,
+    AnalyticsComponent
   ],
   imports: [
     CommonModule,

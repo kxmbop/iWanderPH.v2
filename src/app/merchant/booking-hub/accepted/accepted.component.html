@@ -1,22 +1,47 @@
 <div class="filter-bar">
-    <div class="f-b">
-        <label>Filter</label>
-        <input type="text" placeholder="Search traveler username, booking id, listing id" id="search">
-        <button>Today</button>
-        <div class="date-range">
-            <label for="fromDate">From:</label>
-            <input type="date" id="fromDate" name="fromDate">
-          
-            <label for="toDate">To:</label>
-            <input type="date" id="toDate" name="toDate">
-        </div>
-        <i class='bx bxs-info-circle' id="info_bt"></i>
-    </div>
+    <form [formGroup]="filterForm" class="f-b">
+      <label>Filter</label>
+      <input type="text" formControlName="filter" placeholder="Search traveler username, booking id, listing id" id="search">
+      <button type="button" (click)="searchToday()">Today</button>
+      <div class="date-range">
+        <label for="fromDate">From:</label>
+        <input type="date" formControlName="fromDate" name="fromDate">
+        
+        <label for="toDate">To:</label>
+        <input type="date" formControlName="toDate" name="toDate">
+      </div>
+      <i class='bx bxs-info-circle' id="info_bt"></i>
+    </form>
     <div class="subtract"></div>
-</div>
-<div class="data-container">
+  </div>
+  <div class="data-container">
     <div class="table-box">
-        <p>accepted works!</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Booking Date</th>
+            <th>Traveler</th>
+            <th>Payment Status</th>
+            <th>Total Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="bookings.length === 0">
+            <td colspan="6">No bookings found.</td>
+          </tr>
+          <tr *ngFor="let booking of bookings">
+            <td>{{ booking.bookingID }}</td>
+            <td>{{ booking.bookingDate | date: 'longDate' }}</td>
+            <td>{{ booking.Username }}</td>
+            <td [class]="booking.paymentStatus">{{ booking.paymentStatus | titlecase }}</td>
+            <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td>
+            <td>
+              <button class="ready-btn" (click)="onAction(booking.bookingID)">Ready</button>
+            </td>
+            </tr>
+        </tbody>
+      </table>
     </div>
-</div>
-
+  </div>

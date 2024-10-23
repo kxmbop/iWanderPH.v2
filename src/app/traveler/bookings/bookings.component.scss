@@ -1,102 +1,68 @@
-// General styles for all views
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
 .top-utility {
   display: flex;
-  justify-content: center;
-  padding: 10px 0;
+  flex-direction: row;
+  align-items: center;
+  height: 52px;
+  //border-bottom: 1px solid #ccc;
+  padding: 10px 12px;
+}
 
-  .logo {
-    max-width: 180px;
+.tab-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  max-height: 52px;
+  padding: 0 5px 0 5px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none; 
   }
-}
-
-.mat-tab-group {
-  width: 100%;
-  height: 100%;
-}
-
-// Ensure the scrollable content fits within the screen height
-.scrollable-content {
-  max-height: calc(100vh - 200px); // Adjust to fill the viewport, accounting for the header, tabs, and other content
-  overflow-y: auto;
-  padding-bottom: 0; // Remove any padding that may cause extra space
-}
-
-// Remove extra margin from the tabs
-::ng-deep .mat-tab-body-wrapper {
-  margin: 0;
-  padding: 0;
-}
-
-// Style for clickable booking items
-.clickable-item {
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  padding: 15px;
-  margin: 10px 0;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  p {
-    margin: 5px 0;
+  .tab {
     font-size: 14px;
-    color: #333;
+    padding: 0 2px 7px 2px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 15px;
+  }
+  
+  .tab.active {
+    border-bottom: 2px  solid $tpc;
+    color: $tpc;
+    font-weight: 600;
+  
   }
 }
-
-// Mobile view (max-width: 480px)
-@media (max-width: 480px) {
-  .top-utility {
-    padding: 20px 10px;
-
-    .logo {
-      max-width: 120px;
-    }
-  }
-
-  .clickable-item {
-    padding: 12px;
-    margin: 8px 0;
-
-    p {
-      font-size: 12px;
-    }
-  }
-
-  .mat-tab-label {
-    font-size: 12px;
-  }
-
+.tab-content{
+  height: calc(100vh - 110px);
+  padding: 10px 15px;
+  background-color: #f1f1f1;
   .scrollable-content {
-    max-height: calc(100vh - 150px); // Adjust to avoid the blank space in mobile view
+    height: 100%;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none; 
+    }
   }
-}
-
-// Desktop view (min-width: 1025px)
-@media (min-width: 1025px) {
-  .top-utility {
-    padding: 20px 0;
+  
+  .clickable-item {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
     
-    .logo {
-      max-width: 200px;
-    }
   }
-
-  .clickable-item {
-    padding: 20px;
-    margin: 15px 0;
-
-    p {
-      font-size: 16px;
-    }
-  }
-
-  .scrollable-content {
-    max-height: calc(100vh - 200px); // Adjust to avoid blank space in desktop view
+  
+  .clickable-item:hover {
+    background-color: #f9f9f9;
   }
 }

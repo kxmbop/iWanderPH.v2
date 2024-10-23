@@ -8,18 +8,17 @@ import { PlaceService } from '../../services/place.service';
   styleUrls: ['./nearby.component.scss']
 })
 export class NearbyComponent implements OnInit {
-  placeId!: number;  // Place ID retrieved from route
-  nearbyMerchants: any[] = []; // Array to hold nearby merchants
+  placeId!: number;  
+  nearbyMerchants: any[] = []; 
 
   constructor(private route: ActivatedRoute, private placeService: PlaceService) { }
 
   ngOnInit(): void {
-    // Get placeId from the route parameter
     const placeIdParam = this.route.snapshot.paramMap.get('placeId');
     console.log(`Place ID param from route: ${placeIdParam}`);
 
     if (placeIdParam) {
-      this.placeId = +placeIdParam;  // Convert to number
+      this.placeId = +placeIdParam;  
       console.log(`Navigating to nearby merchants for Place ID: ${this.placeId}`);
       this.loadNearbyMerchants();
     } else {
@@ -31,7 +30,7 @@ export class NearbyComponent implements OnInit {
     console.log(`Loading nearby merchants for Place ID: ${this.placeId}`);
     this.placeService.getNearbyMerchants(this.placeId).subscribe(
       data => {
-        console.log("Data retrieved from the API:", data);
+        // console.log("Data retrieved from the API:", data);
 
         if (data.error) {
           console.error("Error from API:", data.error);
@@ -44,9 +43,8 @@ export class NearbyComponent implements OnInit {
         }
 
         this.nearbyMerchants = data.merchants.map((merchant: any) => {
-          if (merchant.merchant_img) {
-            // Add the Base64 prefix to the image data
-            merchant.merchant_img = 'data:image/jpeg;base64,' + merchant.merchant_img;
+          if (merchant.profilePicture) {
+            merchant.profilePicture = 'data:image/jpeg;base64,' + merchant.profilePicture;
           }
           return merchant;
         });

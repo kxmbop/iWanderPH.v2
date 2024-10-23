@@ -22,15 +22,15 @@ const routes: Routes = [
     component: TravelerLayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'inbox', 
+      { 
+        path: 'inbox', 
         component: InboxComponent, 
         children: [
-          { path: 'conversation', component: ConversationComponent}
+          { path: 'conversation/:chatSessionId', component: ConversationComponent }
         ]
       },
       { path: 'settings', component: SettingsComponent },
       { path: 'favorites', component: FavoritesComponent },
-      { path: 'discover', component: DiscoverComponent },
       {
         path: 'discover',
         loadChildren: () => import('./discover/discover.module').then(m => m.DiscoverModule)

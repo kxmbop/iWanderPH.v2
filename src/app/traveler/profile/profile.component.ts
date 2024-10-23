@@ -1,23 +1,61 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ProfileService } from '../services/profile.service';
-import { DomSanitizer, HammerGestureConfig } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit,  AfterViewInit {
+
   profile: any = {};
   journeys: number = 0;
   activeTab = 'reviews';
   reviews: any[] = []; 
   @ViewChild('carousel', { static: true }) carousel: ElementRef | null = null;
   currentIndex = 0;
+  activeReviewIndex = 0;
 
   constructor(
     private profileService: ProfileService,
     private sanitizer: DomSanitizer
   ) {}
+
+  ngAfterViewInit(): void {
+    this.updateCarousel();
+  }
+
+  prevImage() {
+    if (this.reviews && this.reviews[this.activeReviewIndex] && this.reviews[this.activeReviewIndex].images && this.currentIndex > 0) {
+      this.currentIndex--;
+      this.updateCarousel();
+    }
+  }
+
+  nextImage() {
+    if (this.reviews && this.reviews[this.activeReviewIndex] && this.reviews[this.activeReviewIndex].images && this.currentIndex < this.reviews[this.activeReviewIndex].images.length - 1) {
+      this.currentIndex++;
+      this.updateCarousel();
+    }
+  }
+
+  switchReview(index: number) {
+    this.activeReviewIndex = index;
+    this.currentIndex = 0;
+    this.updateCarousel();
+  }
+
+  updateCarousel() {
+    if (this.carousel && this.carousel.nativeElement) {
+      const carouselItems = this.carousel.nativeElement.querySelectorAll('.carousel-item');
+      Array.prototype.forEach.call(carouselItems, (item: HTMLElement) => {
+        item.classList.remove('active');
+      });
+      if (carouselItems[this.currentIndex]) {
+        carouselItems[this.currentIndex].classList.add('active');
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.loadProfile();
@@ -89,36 +127,6 @@ export class ProfileComponent implements OnInit {
     return this.reviews.find(review => review.reviewID === reviewID)?.commentsCount || 0;
   }
 
-  prevImage() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      this.updateCarousel();
-    }
-  }
-
-  nextImage() {
-    if (this.currentIndex < this.reviews[this.currentIndex].images.length - 1) {
-      this.currentIndex++;
-      this.updateCarousel();
-    }
-  }
-
-  updateCarousel() {
-    if (this.carousel) {
-      const carouselInner = this.carousel.nativeElement.querySelector('.carousel-inner');
-      const carouselItems = carouselInner.children;
-      Array.prototype.forEach.call(carouselItems, (item: HTMLElement) => {
-        item.classList.remove('active');
-      });
-  
-      const currentItem = carouselItems[this.currentIndex];
-      currentItem.classList.add('active');
-  
-      // Slide the carousel by setting the correct transform
-      const translateX = -this.currentIndex * 100;
-      carouselInner.style.transform = `translateX(${translateX}%)`;
-    }
-  }
   decodeBase64(encodedString: string): string {
     return atob(encodedString);
   }

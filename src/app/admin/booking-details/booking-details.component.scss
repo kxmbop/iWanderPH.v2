@@ -348,3 +348,69 @@
   .payout-transaction-id {
     margin-bottom: 20px;
   }
+
+  .payment-update-modal-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    padding: 20px;
+    margin: 0 auto;
+  
+    .payment-proof {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      max-width: 30%;
+  
+      img {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+  
+      p {
+        color: #888888;
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+    .payment-form{
+        display: flex;
+        flex-direction: column;
+        .confirmation{
+            display: flex;
+            flex-direction: column;
+        }
+        .payment-transaction-id {
+          margin-bottom: 20px;
+      
+          label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+          }
+      
+          input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+      
+            &:focus {
+              border-color: #007bff;
+              outline: none;
+            }
+      
+            &:required:invalid {
+              border-color: #dc3545;
+            }
+          }
+        }
+    }
+   
+  }
+  

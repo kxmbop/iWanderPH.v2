@@ -1,8 +1,6 @@
-<p>user-details works!</p>
 <div class="container">
-    <h1>User ID #{{ user.TravelerID }}</h1>
+    <h2>User ID #{{ user.TravelerID }}</h2>
     <div class="user-details">
-      <h2>User Details</h2>
       <table>
         <tr>
           <th>User ID</th>
@@ -38,64 +36,74 @@
         </tr>
       </table>
     </div>
-  
-    <div class="reports-complaints">
-      <h2>Reports/Complaints</h2>
-      <table>
-        <tr>
-          <th>Report ID</th>
-          <th>Violation</th>
-          <th>Action</th>
-          <th>Action Activated On</th>
-        </tr>
-        <tr *ngFor="let report of reports">
-          <td>{{ report.ReportID }}</td>
-          <td>{{ report.Violation }}</td>
-          <td>{{ report.Action }}</td>
-          <td>{{ report.ActionActivatedOn }}</td>
-        </tr>
-        <tr *ngIf="!reports.length">
-          <td colspan="4" class="no-data">No data found.</td>
-        </tr>
-      </table>
-      <button class="create-action" (click)="openModal()">Create Action</button>
-    </div>
-  
-    <div class="bookings">
-      <h2>Bookings</h2>
-      <table>
-        <tr>
-          <th>Booking ID</th>
-          <th>Business Owner</th>
-          <th>Status</th>
-          <th>Total</th>
-        </tr>
-        <tr *ngFor="let booking of bookings">
-          <td>{{ booking.BookingID }}</td>
-          <td>{{ booking.BusinessOwner }}</td>
-          <td>{{ booking.Status }}</td>
-          <td>{{ booking.Total }}</td>
-        </tr>
-        <tr *ngIf="!bookings.length">
-          <td colspan="4" class="no-data">No data found.</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  
-  <div id="myModal" class="modal" [ngClass]="{'show': showModal}">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h2>Create Action</h2>
-      <form (ngSubmit)="submitAction()">
-        <label for="violation">Violation:</label>
-        <input type="text" id="violation" [(ngModel)]="action.violation" name="violation" placeholder="Enter violation..." required>
-        <div class="action-buttons">
-          <button type="button" (click)="submitAction('Ban')">Ban</button>
-          <button type="button" (click)="submitAction('Suspend')">Suspend</button>
+        
+    <div class="other-details">
+      <div class="menu">
+        <div class="tab" (click)="switchTab('bookings')" [class.active]="activeTab === 'bookings'">Bookings</div>
+        <div class="tab" (click)="switchTab('violations')" [class.active]="activeTab === 'violations'">Violations</div>
+      </div>
+
+      <div class="content">
+
+        <div class="bookings" *ngIf="activeTab === 'bookings'">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Booking ID</th>
+                <th>Merchant</th>
+                <th>Booking Status</th>
+                <th>Booking Type</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          </table>
+          <div class="table-body">
+            <table>
+              <tbody>
+                <tr *ngFor="let booking of bookings">
+                  <td>{{ booking.BookingDate }}</td>
+                  <td>{{ booking.BookingID }}</td>
+                  <td>{{ booking.businessName }}</td>
+                  <td>{{ booking.BookingStatus }}</td>
+                  <td>{{ booking.BookingType }}</td>
+                  <td>{{ booking.TotalAmount }}</td>
+                  <td>
+                    <button (click)="openBookingDetails(booking.BookingID)">Open</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <button type="submit">Submit</button>
-      </form>
+        
+        
+        <div class="violations" *ngIf="activeTab === 'violations'">
+          <p>This is violations</p>
+        </div>
+
+      </div>
+
     </div>
+
+
+
+
+<!-- Create Action -->
+<div id="myModal" class="modal" [ngClass]="{'show': showModal}">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>Create Action</h2>
+    <form (ngSubmit)="submitAction()">
+      <label for="violation">Violation:</label>
+      <input type="text" id="violation" [(ngModel)]="action.violation" name="violation" placeholder="Enter violation..." required>
+      <div class="action-buttons">
+        <button type="button" (click)="submitAction('Ban')">Ban</button>
+        <button type="button" (click)="submitAction('Suspend')">Suspend</button>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
   </div>
+</div>
   

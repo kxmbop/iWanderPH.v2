@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router'; 
+import { Router } from '@angular/router';
 import { ViewBookingsService } from '../services/view-bookings.service';
 
-// Define the Booking interface here
 interface Booking {
   BookingID: number;
   BookingDate: string;
@@ -10,7 +9,10 @@ interface Booking {
   BookingType: 'room' | 'transportation';
   BookingStatus: string;
   TotalAmount: number;
+  hasReview: boolean; // This field tells if the review is done or not
 }
+
+type BookingStatus = 'Pending' | 'Accepted' | 'On-Going' | 'Completed' | 'Canceled' | 'Refunded';
 
 @Component({
   selector: 'app-bookings',
@@ -18,9 +20,17 @@ interface Booking {
   styleUrls: ['./bookings.component.scss']
 })
 export class BookingsComponent implements OnInit {
-  bookingsByStatus: { [key: string]: Booking[] } = {}; // Use the Booking interface
+  selectedTab: BookingStatus = 'Pending'; 
+  bookingsByStatus: Record<BookingStatus, Booking[]> = {
+    Pending: [],
+    Accepted: [],
+    'On-Going': [],
+    Completed: [],
+    Canceled: [],
+    Refunded: []
+  };
 
-  constructor(private viewBookingsService: ViewBookingsService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private viewBookingsService: ViewBookingsService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadBookings();
@@ -31,9 +41,7 @@ export class BookingsComponent implements OnInit {
     if (token) {
       this.viewBookingsService.getBookings(token).subscribe(
         (data: any) => {
-          console.log('Bookings Data:', data); // Log the entire data to check if BookingType is present
           if (data.success) {
-            console.log('Booking Types:', data.bookings.map((b: Booking) => b.BookingType)); // Explicitly type 'b' as Booking
             this.groupBookingsByStatus(data.bookings);
           }
         },
@@ -47,27 +55,43 @@ export class BookingsComponent implements OnInit {
   }
 
   groupBookingsByStatus(bookings: Booking[]): void {
-    this.bookingsByStatus = bookings.reduce((acc: any, booking: Booking) => {
-      const status = booking.BookingStatus;
+    const sortedBookings = bookings.sort((a, b) => {
+      return a.hasReview === b.hasReview ? 0 : a.hasReview ? 1 : -1;
+    });
+
+    this.bookingsByStatus = sortedBookings.reduce((acc: Record<BookingStatus, Booking[]>, booking: Booking) => {
+      let status: BookingStatus;
+
+      if (booking.BookingStatus === 'Ready' || booking.BookingStatus === 'Checked-in' || booking.BookingStatus === 'Checked-out') {
+        status = 'On-Going'; 
+      } else {
+        status = booking.BookingStatus as BookingStatus; 
+      }
+
       if (!acc[status]) {
         acc[status] = [];
       }
       acc[status].push(booking);
       return acc;
-    }, {});
+    }, {
+      Pending: [],
+      Accepted: [],
+      'On-Going': [],
+      Completed: [],
+      Canceled: [],
+      Refunded: []
+    });
   }
 
-  goToBookingDetails(booking: Booking): void {
-    console.log('Booking selected:', booking); // Log the booking object
-    console.log('Booking ID:', booking.BookingID); // Log the BookingID
-    console.log('Booking Type:', booking.BookingType); // Log the BookingType
+  selectTab(tab: BookingStatus) { 
+    this.selectedTab = tab;
+  }
 
-    if (booking.BookingID && booking.BookingType) {
-      this.router.navigate(['/traveler/bookings/booking-details', booking.BookingID], { 
-        queryParams: { type: booking.BookingType }
-      });
-    } else {
-      console.error('Invalid BookingID or BookingType in goToBookingDetails.');
-    }
+  goToBookingDetails(booking: Booking) {
+    this.router.navigate(['traveler/bookings/booking-details', booking.BookingID, booking.BookingType]);
+  }
+
+  goToReview(booking: Booking) {
+    this.router.navigate(['traveler/bookings/create-review', booking.BookingID]);
   }
 }

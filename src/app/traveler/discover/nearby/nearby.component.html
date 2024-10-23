@@ -1,18 +1,26 @@
-<div *ngIf="nearbyMerchants.length > 0; else noMerchants" class="nearby-merchants-container">
-    <h2>Nearby Merchants</h2>
+<div class="page-container">
+    <div class="back-icon">
+        <a routerLink="/traveler/discover/place-details/{{this.placeId}}">
+          <i class='bx bx-arrow-back'></i>
+        </a>
+    </div>
+    
+    <div *ngIf="nearbyMerchants.length > 0; else noMerchants" class="nearby-merchants-container">
+        <h3>Nearby Merchants</h3>
         <ul class="merchant-list">
+
             <li *ngFor="let merchant of nearbyMerchants" class="merchant-item">
-                <h3>{{ merchant.BusinessName }}</h3>
-                <img *ngIf="merchant.merchant_img" [src]="merchant.merchant_img" alt="{{ merchant.BusinessName }}" class="merchant-img">
+                <h4>{{ merchant.BusinessName }}</h4>
+                <img *ngIf="merchant.profilePicture" [src]="merchant.profilePicture" alt="{{ merchant.BusinessName }}" class="merchant-img">
                 <p>Address: {{ merchant.Address }}</p>
                 <p *ngIf="merchant.LowestRoomRate !== null">Lowest Room Rate: {{ merchant.LowestRoomRate | currency }}</p>
                 <p *ngIf="merchant.LowestRoomRate === null">Lowest Room Rate: Not Available</p>
-                <button [routerLink]="['/traveler/discover/nearby-details', merchant.MerchantID]">View Details</button>
+                <button [routerLink]="['/traveler/discover/nearby-details', merchant.MerchantID, this.placeId]">View Details</button>
             </li>
         </ul>
+    </div>
     
 </div>
-
 <ng-template #noMerchants>
     <p>No nearby merchants found.</p>
 </ng-template>
