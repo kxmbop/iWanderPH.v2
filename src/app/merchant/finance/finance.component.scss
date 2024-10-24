@@ -1,0 +1,6 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
+::ng-deep .top-nav .nav-menu a#finance{
+    font-weight: bold !important;
+}

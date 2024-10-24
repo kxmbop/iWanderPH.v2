@@ -20,32 +20,34 @@
     <table>
       <thead>
         <tr>
-          <th>Booking ID</th>
           <th>Booking Date</th>
+          <th>Booking ID</th>
           <th>Traveler</th>
+          <th>Check-In/Pick-Up</th>
+          <th>Check-Out/Drop-Off</th>
           <th>Payment Status</th>
           <th>Total Amount</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <!-- Show message if there are no bookings -->
         <tr *ngIf="bookings.length === 0">
           <td colspan="6" style="text-align: center; padding: 15px;">
             No matching bookings found.
           </td>
         </tr>
 
-        <!-- Iterate through the bookings array -->
         <tr *ngFor="let booking of bookings">
-          <td>{{ booking.bookingID }}</td>
           <td>{{ booking.bookingDate | date: 'longDate' }}</td>
-          <td>{{ booking.TravelerUsername }}</td> <!-- Check if this property exists -->
+          <td>{{ booking.bookingID }}</td>
+          <td>{{ booking.TravelerUsername }}</td> 
+          <td>{{ booking.CheckInDate ?? booking.PickupDateTime ?? 'No Date Available' }}</td>
+            <td>{{ booking.CheckOutDate ?? booking.DropoffDateTime ?? 'No Location Available' }}</td>
           <td [class]="getStatusClass(booking.paymentStatus)">{{ booking.paymentStatus | titlecase }}</td>
-          <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td> <!-- Check if this property exists -->
+          <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td> 
           <td class="actions">
             <button class="accept" (click)="acceptBooking(booking.bookingID)">Accept</button>
-            <button class="refund" (click)="refundBooking(booking.bookingID)">Cancel</button>
+            <button class="refund" (click)="cancelBooking(booking.bookingID)">Cancel</button>
           </td>
         </tr>
       </tbody>

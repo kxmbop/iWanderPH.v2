@@ -33,13 +33,18 @@
         <div class="notification-container">
 
             <div class="notification-cards">
-                <div *ngFor="let notif of notifications" class="notification-list">
+                <div class="notification-list" *ngFor="let notif of notifications">
+                  <div class="notif-content">
                     <span class="notif-header">{{ notif.header }}</span>
                     <p>{{ notif.description }}</p>
                     <time>{{ notif.created_at }}</time><br>
                     <label>Visible to: {{ notif.visibleTo }}</label>
+                  </div>
+              
+                  <!-- Edit Button, now positioned at the top right corner -->
+                  <button class="edit-button" (click)="onEditNotification(notif)">Edit</button>
                 </div>
-            </div>
+              </div>
         </div>
     </div>
 </div>

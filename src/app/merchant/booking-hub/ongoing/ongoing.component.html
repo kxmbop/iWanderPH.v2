@@ -1,59 +1,55 @@
 <div class="filter-bar">
-    <div class="f-b">
-        <label>Filter</label>
-        <input type="text" placeholder="Search traveler username, booking id, listing id" id="search">
-        <button>Today</button>
-        <div class="date-range">
-            <label for="fromDate">From:</label>
-            <input type="date" id="fromDate" name="fromDate">
-          
-            <label for="toDate">To:</label>
-            <input type="date" id="toDate" name="toDate">
-        </div>
-        <i class='bx bxs-info-circle' id="info_bt"></i>
+  <form [formGroup]="filterForm" class="f-b">
+    <label>Filter</label>
+    <input type="text" formControlName="filter" placeholder="Search traveler username, booking id, listing id" id="search">
+    <button type="button" (click)="searchToday()">Today</button>
+    <div class="date-range">
+      <label for="fromDate">From:</label>
+      <input type="date" formControlName="fromDate" name="fromDate">
+
+      <label for="toDate">To:</label>
+      <input type="date" formControlName="toDate" name="toDate">
     </div>
-    <div class="subtract"></div>
-</div>
-<div class="data-container">
-    <div class="table-box">
-        <table>
-            <thead>
-              <tr>
-                <th>Booking ID</th>
-                <th>Check-In/Pick-Up</th>
-                <th>Check-Out/Drop-Off</th>
-                <th>Traveler</th>
-                <th>Booking Status</th>
-                <th>Total Amount</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngIf="bookings.length === 0">
-                <td colspan="7" style="text-align: center; padding: 15px;">
-                  No matching bookings found.
-                </td>
-              </tr>
-              <tr *ngFor="let booking of bookings">
-                <td>{{ booking.bookingID }}</td>
-                <td>{{ booking.checkIn | date: 'longDate' }}</td>
-                <td>{{ booking.checkOut | date: 'longDate' }}</td>
-                <td>{{ booking.Username }}</td>
-                <td [class]="booking.paymentStatus">{{ booking.paymentStatus | titlecase }}</td>
-                <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td>
-                <td>
-                    <div class="dropdown">
-                        <button class="dropbtn">Actions ▼</button>
-                        <div class="dropdown-content">
-                          <button (click)="updateStatus(booking.bookingID, 'Ready')">Ready</button>
-                          <button (click)="updateStatus(booking.bookingID, 'Check-In')">Check-In</button>
-                          <button (click)="updateStatus(booking.bookingID, 'Check-Out')">Check-Out</button>
-                        </div>
-                      </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
+    <i class='bx bxs-info-circle' id="info_bt"></i>
+  </form>
+  <div class="subtract"></div>
 </div>
 
+<div class="data-container">
+  <div class="table-box">
+      <table>
+          <thead>
+            <tr>
+              <th>Booking Date</th>
+              <th>Booking ID</th>
+              <th>Traveler</th>
+              <th>Check-In/Pick-Up</th>
+              <th>Check-Out/Drop-Off</th>
+              <th>Booking Status</th>
+              <th>Total Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="bookings.length === 0">
+              <td colspan="8" style="text-align: center; padding: 15px;">
+                No matching bookings found.
+              </td>
+            </tr>
+            <tr *ngFor="let booking of bookings">
+              <td>{{ booking.bookingDate | date: 'longDate' }}</td>
+              <td>{{ booking.bookingID }}</td>
+              <td>{{ booking.TravelerUsername }}</td>
+              <td>{{ booking.CheckInDate ?? booking.PickupDateTime ?? 'No Date Available' }}</td>
+              <td>{{ booking.CheckOutDate ?? booking.DropoffDateTime ?? 'No Location Available' }}</td>
+              <td [class]="booking.bookingStatus">{{ booking.bookingStatus | titlecase }}</td>
+              <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td>
+              <td>
+                <button class="update-btn" *ngIf="booking.bookingStatus === 'Ready'" (click)="updateStatus(booking.bookingID, 'Checked-in')">Check-In</button>
+                <button class="update-btn" *ngIf="booking.bookingStatus === 'Checked-in'" (click)="updateStatus(booking.bookingID, 'Checked-out')">Check-Out</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+</div>

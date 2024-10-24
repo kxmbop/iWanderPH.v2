@@ -10,6 +10,7 @@ import { ConversationComponent } from './conversation/conversation.component';
 import { SettingsComponent } from './settings/settings.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { SignupComponent } from './signup/signup.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -29,6 +30,7 @@ const routes: Routes = [
       },
       { path: 'settings', component: SettingsComponent },
       { path: 'favorites', component: FavoritesComponent },
+      { path: 'notifications', component: NotificationsComponent },
       {
         path: 'discover',
         loadChildren: () => import('./discover/discover.module').then(m => m.DiscoverModule)

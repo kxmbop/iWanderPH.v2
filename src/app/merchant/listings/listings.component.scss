@@ -1,0 +1,6 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
+::ng-deep .top-nav .nav-menu a#listings{
+    font-weight: bold !important;
+}

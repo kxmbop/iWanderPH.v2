@@ -24,7 +24,7 @@ export class BookingsComponent implements OnInit {
     Pending: [],
     Accepted: [],
     'On-Going': [],
-    Completed: [],
+    'Completed': [],
     Canceled: [],
     Refunded: []
   };
@@ -59,8 +59,10 @@ export class BookingsComponent implements OnInit {
     this.bookingsByStatus = bookings.reduce((acc: Record<BookingStatus, Booking[]>, booking: Booking) => {
       let status: BookingStatus;
 
-      if (booking.BookingStatus === 'Ready' || booking.BookingStatus === 'Checked-in' || booking.BookingStatus === 'Checked-out') {
+      if (booking.BookingStatus === 'Ready' || booking.BookingStatus === 'Checked-in') {
         status = 'On-Going'; 
+      }  else if (booking.BookingStatus === 'Completed' || booking.BookingStatus === 'Checked-out') {
+        status = 'Completed'; 
       } else {
         status = booking.BookingStatus as BookingStatus; 
       }
@@ -74,7 +76,7 @@ export class BookingsComponent implements OnInit {
       Pending: [],
       Accepted: [],
       'On-Going': [],
-      Completed: [],
+      'Completed': [],
       Canceled: [],
       Refunded: []
     });

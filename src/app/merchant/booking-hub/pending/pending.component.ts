@@ -14,6 +14,7 @@ export class PendingComponent implements OnInit {
   bookings: any[] = [];
   originalBookings: any[] = []; 
   status: 'pending' | null = 'pending';
+  bookingStatus: string | null = null;
 
   constructor(private pendingService: PendingService, private http: HttpClient) { }
 
@@ -47,8 +48,8 @@ export class PendingComponent implements OnInit {
                             booking.Username.toLowerCase().includes(filter) || 
                             booking.ListingID.toString().includes(filter);
       
-      const matchesFromDate = !fromDate || new Date(booking.BookingDate) >= new Date(fromDate);
-      const matchesToDate = !toDate || new Date(booking.BookingDate) <= new Date(toDate);
+      const matchesFromDate = !fromDate || new Date(booking.bookingDate) >= new Date(fromDate);
+      const matchesToDate = !toDate || new Date(booking.bookingDate) <= new Date(toDate);
 
       return matchesFilter && matchesFromDate && matchesToDate;
     });
@@ -89,13 +90,13 @@ export class PendingComponent implements OnInit {
 
   acceptBooking(bookingID: number): void {
     const status = 'Accepted'; 
-    
     const confirmationMessage = `Are you sure you want to accept booking #${bookingID}?`;
     
     if (confirm(confirmationMessage)) {
       this.pendingService.updateBooking(bookingID, status).subscribe((response: any) => {
         console.log(response);
         alert(`Booking #${bookingID} has been successfully accepted.`);
+        window.location.reload();
       }, (error) => {
         console.error('Error updating booking:', error);
         alert('There was an error accepting the booking. Please try again.');
@@ -105,13 +106,24 @@ export class PendingComponent implements OnInit {
     }
   }
   
-
-  refundBooking(bookingID: number ): void {
-    const token = localStorage.getItem('token');
-    this.pendingService.refundBooking(token, bookingID).subscribe((response: any) => {
-      console.log(response);
-    });
+  cancelBooking(bookingID: number): void {
+    const status = 'Cancelled'; 
+    const confirmationMessage = `Are you sure you want to cancel booking #${bookingID}?`;
+  
+    if (confirm(confirmationMessage)) {
+      this.pendingService.updateBooking(bookingID, status).subscribe((response: any) => {
+        console.log(response);
+        alert(`Booking #${bookingID} has been successfully cancelled.`);
+        window.location.reload();
+      }, (error) => {
+        console.error('Error updating booking:', error);
+        alert('There was an error cancelling the booking. Please try again.');
+      });
+    } else {
+      console.log(`Booking #${bookingID} cancellation cancelled.`);
+    }
   }
+  
 
   getStatusClass(paymentStatus: string): string {
     switch (paymentStatus) {

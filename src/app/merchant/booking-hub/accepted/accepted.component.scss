@@ -201,9 +201,9 @@ outline: none;
 }
 
 .ready-btn {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    padding: 8px 12px;
+    background-color: $mpc; 
+    color: white; 
+    padding: 5px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -213,8 +213,9 @@ outline: none;
   }
   
   .ready-btn:hover {
-    background-color: #45a049; /* Darker green on hover */
-    transform: scale(1.05); /* Slight zoom on hover */
+    background-color: #fff; 
+    color: $mpc; 
+    transform: scale(1.05); 
   }
   
   .ready-btn:focus {

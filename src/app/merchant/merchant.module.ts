@@ -8,6 +8,8 @@ import { BookingHubModule } from './booking-hub/booking-hub.module';
 import { ListingsComponent } from './listings/listings.component';
 import { FinanceComponent } from './finance/finance.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
 
 
 @NgModule({
@@ -16,11 +18,14 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     HubLayoutComponent,
     ListingsComponent,
     FinanceComponent,
-    AnalyticsComponent
+    AnalyticsComponent,
+    MyDashboardComponent
   ],
   imports: [
     CommonModule,
-    MerchantRoutingModule
+    MerchantRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class MerchantModule { }

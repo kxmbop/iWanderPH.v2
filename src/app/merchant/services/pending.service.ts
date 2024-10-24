@@ -37,7 +37,7 @@ export class PendingService {
     });
   }
 
-  refundBooking(token: string | null, bookingID: number): Observable<any> {
+  cancelBooking(token: string | null, bookingID: number): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
