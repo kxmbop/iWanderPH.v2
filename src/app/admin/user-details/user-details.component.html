@@ -41,7 +41,7 @@
       <div class="menu">
         <div class="tab" (click)="switchTab('bookings')" [class.active]="activeTab === 'bookings'">Bookings</div>
         <div class="tab" (click)="switchTab('violations')" [class.active]="activeTab === 'violations'">Violations</div>
-        <div class="tab" (click)="switchTab('violations')" [class.active]="activeTab === 'violations'">Violations</div>
+        <div class="tab" (click)="switchTab('ledger')" [class.active]="activeTab === 'ledger'">Ledger</div>
       </div>
 
       <div class="content">
@@ -82,6 +82,35 @@
         
         <div class="violations" *ngIf="activeTab === 'violations'">
           <p>This is violations</p>
+        </div>
+
+        <div class="ledger" *ngIf="activeTab === 'ledger'">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Booking ID</th>
+                <th>Booking Status</th>
+                <th>Payout Amount</th>
+                <th>Payout Transaction ID</th>
+                <th>Payout Status</th>
+              </tr>
+            </thead>
+          </table>
+          <div class="table-body">
+            <table>
+              <tbody>
+                <tr *ngFor="let booking of saleBookings">
+                  <td>{{ booking.BookingDate }}</td>
+                  <td>{{ booking.BookingID }}</td>
+                  <td>{{ booking.BookingStatus }}</td>
+                  <td>{{ booking.PayoutAmount }}</td>
+                  <td>{{ booking.payoutTransactionID }}</td>
+                  <td>{{ booking.PayoutStatus }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
       </div>

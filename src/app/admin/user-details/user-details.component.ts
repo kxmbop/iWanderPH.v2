@@ -14,6 +14,7 @@ export class UserDetailsComponent implements OnInit {
   user: any = {}; // Initialize user as an empty object
   reports: any[] = [];
   bookings: any[] = [];
+  saleBookings: any[] =[];
   showModal = false;
   action = { violation: '' };
   activeTab: string = 'bookings';
@@ -34,6 +35,7 @@ export class UserDetailsComponent implements OnInit {
 
       if (this.userId) {
         this.fetchBookings(); 
+        this.fetchsaleBookings();
       }
     });
 
@@ -71,6 +73,18 @@ export class UserDetailsComponent implements OnInit {
       }, error => {
         console.error('Error fetching bookings:', error);
         this.bookings = []; 
+      });
+    }
+  }
+
+  fetchsaleBookings(): void {
+    if (this.userId !== null) {
+      this.bookingService.getsaleBookingsByUserId(this.userId).subscribe(response => {
+        this.saleBookings = Array.isArray(response.data) ? response.data : [];
+        console.log('Bookings: ', this.saleBookings);
+      }, error => {
+        console.error('Error fetching bookings:', error);
+        this.saleBookings = []; 
       });
     }
   }
