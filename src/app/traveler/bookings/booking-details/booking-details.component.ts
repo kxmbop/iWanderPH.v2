@@ -50,38 +50,5 @@ export class BookingDetailsComponent implements OnInit {
     );
   }
   
-  requestRefund(): void {
-    const dialogRef = this.dialog.open(RefundDialogComponent, {
-      width: '300px',
-      disableClose: true
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.submitRefundRequest(result);
-      }
-    });
-  }
-  submitRefundRequest(refundReason: string): void {
-    const bookingId = this.bookingDetails.booking.BookingID;
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      this.viewBookingsService.requestRefund(bookingId, refundReason, token).subscribe(
-        (response: any) => {
-          if (response.success) {
-            this.refundRequested = true;  
-            alert('Refund request submitted successfully.');
-          } else {
-            alert('Failed to submit refund request: ' + response.message);
-          }
-        },
-        (error) => {
-          console.error('Error submitting refund request: ', error);
-        }
-      );
-    } else {
-      console.error('Token is missing.');
-    }
-  }
 }

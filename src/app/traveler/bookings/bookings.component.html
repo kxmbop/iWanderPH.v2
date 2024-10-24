@@ -18,10 +18,12 @@
   <div class="tab-content">
     <ng-container *ngIf="bookingsByStatus && bookingsByStatus[selectedTab] && bookingsByStatus[selectedTab].length > 0; else noBookings">
       <div class="scrollable-content">
-        <div *ngFor="let booking of bookingsByStatus[selectedTab]" class="clickable-item" (click)="goToBookingDetails(booking)">
-          <p>Booking ID: {{ booking.BookingID }}</p>
-          <p>Booking Date: {{ booking.BookingDate }}</p>
-          <p>Total Amount: {{ booking.TotalAmount }}</p>
+        <div *ngFor="let booking of bookingsByStatus[selectedTab]" class="clickable-item">
+          <div  (click)="goToBookingDetails(booking)">
+            <p>Booking ID: {{ booking.BookingID }}</p>
+            <p>Booking Date: {{ booking.BookingDate }}</p>
+            <p>Total Amount: {{ booking.TotalAmount }}</p>
+          </div>
 
           <!-- Show Review button only for Completed bookings -->
           <button *ngIf="selectedTab === 'Completed'" (click)="goToReview(booking)">Review</button>
