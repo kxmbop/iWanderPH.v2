@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class SignupService {
-  private apiUrl = `${environment.apiUrl}/traveler/signup.php`; 
+  private apiUrl = `${environment.apiUrl}/traveler/signup.php`;
 
   constructor(private http: HttpClient) {}
 
