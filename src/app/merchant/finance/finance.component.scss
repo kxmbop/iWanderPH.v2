@@ -1,6 +1,71 @@
-@import '../../../../src/styles.scss';
-@import '../../app.component.scss';
-
-::ng-deep .top-nav .nav-menu a#finance{
-    font-weight: bold !important;
+.financehub {
+    padding: 50px 15%;
 }
+
+.container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filter-label {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block; /* Keep this as block to separate from inputs */
+  }
+  
+  .filter-container {
+    display: flex; /* Use flexbox for horizontal layout */
+    align-items: center; /* Align items vertically in the center */
+    margin-bottom: 20px; /* Space below the filters */
+  }
+  
+  .filter-input {
+    width: 30%; /* Adjust width as needed */
+    padding: 10px;
+    margin-right: 10px; /* Space between inputs */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  .date-label {
+    font-weight: bold;
+    margin: 0 10px; /* Margin for separation */
+  }
+  
+  .date-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 120px; /* Fixed width for date inputs */
+  }
+  
+  /* Style for the table */
+  .finance-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .finance-table th, .finance-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .finance-table th {
+    background-color: orange;
+    color: white;
+  }
+  
+  .finance-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .finance-table tr:hover {
+    background-color: #ddd;
+  }
+
+  
