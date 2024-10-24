@@ -57,17 +57,17 @@
           <div class="review-details">
             <div class="likes">
               <i class='bx bx-heart'></i><span>{{ review.likes }}</span>
-              <i class='bx bx-message-square-dots'></i><span>{{ review.comments }}</span>
+              <i class='bx bx-message-square-dots' [routerLink]="['/traveler/review', review.reviewID]"></i><span>{{ review.comments }}</span>
               <div class="rating">
                   <ng-container *ngFor="let star of createArray(5); let i = index">
                       <i class='bx bxs-star' *ngIf="i < review.rating"></i>
                       <i class='bx bx-star' *ngIf="i >= review.rating"></i>
-                    </ng-container>
+                  </ng-container>
               </div>
             </div>
             <div class="caption">
               <span>{{ review.comment }}</span>
-              <a href="#">View {{ review.comments }} comment{{ review.comments !== 1 ? 's' : '' }} here</a>
+              <a [routerLink]="['/traveler/review', review.reviewID]">View {{ review.comments }} comment{{ review.comments !== 1 ? 's' : '' }} here</a>
             </div>
           </div>
         </div>
