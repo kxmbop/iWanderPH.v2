@@ -48,4 +48,7 @@ updateRefundStatus(bookingId: number, refundAmount: number, refundTransactionID:
   getBookingsByUserId(userId: number): Observable<BookingResponse> {
     return this.http.get<BookingResponse>(`${this.apiUrl}get_bookings_by_user.php?user_id=${userId}`);
   }
+  getsaleBookingsByUserId(userId: number): Observable<BookingResponse> {
+    return this.http.get<BookingResponse>(`${this.apiUrl}get_payout_by_user.php?user_id=${userId}`);
+  }
 }

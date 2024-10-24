@@ -8,6 +8,7 @@
   height: 52px;
   //border-bottom: 1px solid #ccc;
   padding: 10px 12px;
+  
 }
 
 .tab-container {
@@ -64,5 +65,23 @@
   
   .clickable-item:hover {
     background-color: #f9f9f9;
+  }
+}
+
+@media (max-width: 480px) { 
+  .top-utility{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 52px;
+      //border-bottom: 1px solid #ccc;
+      padding: 10px 12px;
+  }
+  .top-utility .logo{
+      width: 132px;
+  }
+  .top-utility i{
+      font-size: 28px;
+      margin-left: auto;  
   }
 }

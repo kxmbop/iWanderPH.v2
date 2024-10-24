@@ -7,22 +7,25 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class BookingService {
-  private apiUrl = `${environment.apiUrl}/traveler/book.php`;
+  private apiUrl = `${environment.apiUrl}/traveler`;
 
   constructor(private http: HttpClient) {}
 
   uploadBooking(formData: FormData, token: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<any>(this.apiUrl, formData, { headers });
+    return this.http.post<any>(`${this.apiUrl}/book.php`, formData, { headers });
   }
 
   getRoomDetails(roomId: number): Observable<any> {
-    const url = `${environment.apiUrl}/traveler/room_details.php?id=${roomId}`;
-    return this.http.get<any>(url);
+    return this.http.get<any>(`${this.apiUrl}/room_details.php?id=${roomId}`);
   }
 
   getTransportationDetails(transportationId: number): Observable<any> {
-    const url = `${environment.apiUrl}/traveler/transpo_details.php?id=${transportationId}`;
-    return this.http.get<any>(url);
+    return this.http.get<any>(`${this.apiUrl}/transpo_details.php?id=${transportationId}`);
+  }
+
+  getNotifications(token: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/get_notifications.php`, { headers });
   }
 }

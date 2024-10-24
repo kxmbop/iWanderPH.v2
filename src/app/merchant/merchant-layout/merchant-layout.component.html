@@ -1,16 +1,17 @@
 <div class="top-nav">
-    <h2>iWanderPH Merchant</h2>
+    <h2 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH Merchant</h2>
     <div class="nav-menu">
+        <a routerLink="/merchant/my-dashboard/my-profile" id="my-dashboard">My Dashboard</a>
         <a routerLink="/merchant/booking-hub" id="booking-hub">Booking Hub</a>
-        <a routerLink="/merchant/listings">Listings</a>
-        <a routerLink="/merchant/finance">Finance</a>
-        <a routerLink="/merchant/analytics">Analytics</a>
+        <a routerLink="/merchant/listings" id="listings">Listings</a>
+        <a routerLink="/merchant/finance" id="finance">Finance</a>
+        <a routerLink="/merchant/analytics" id="analytics">Analytics</a>
     </div>
     <div class="nav-profile">
         <h3>{{ profile.businessName }}</h3>
         <div class="profile-picture">
-            <img *ngIf="profile.profilePicture" [src]="'data:image/jpeg;base64,' + profile.profilePicture" alt="Profile Picture" />
-            <p *ngIf="!profile.profilePicture">No Profile Picture Available</p>
+            <img *ngIf="profile.merchantPic" [src]="'data:image/jpeg;base64,' + profile.merchantPic" alt="Profile Picture" />
+            <p *ngIf="!profile.merchantPic">No Profile Picture Available</p>
         </div>
     </div>
 </div>

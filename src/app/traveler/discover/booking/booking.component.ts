@@ -162,11 +162,9 @@ export class BookingComponent implements OnInit {
   }
 
   submitBooking(): void {
-    // Confirmation prompt before proceeding
     const confirmBooking = window.confirm('Are you sure you want to submit this booking?');
     
     if (!confirmBooking) {
-      // If the user cancels the confirmation, do not proceed with the booking submission
       return;
     }
   

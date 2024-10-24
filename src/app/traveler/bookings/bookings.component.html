@@ -1,6 +1,9 @@
 <div class="top-utility">
   <h3 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH</h3>
+  <i class='bx bx-bell' id="notifications" [routerLink]="['/traveler/notifications']"></i>
+
 </div>
+
 
 <div class="tab-container">
   <div class="tab-list">
@@ -16,21 +19,19 @@
     <ng-container *ngIf="bookingsByStatus && bookingsByStatus[selectedTab] && bookingsByStatus[selectedTab].length > 0; else noBookings">
       <div class="scrollable-content">
         <div *ngFor="let booking of bookingsByStatus[selectedTab]" class="clickable-item">
-          <div (click)="goToBookingDetails(booking)">
+          <div  (click)="goToBookingDetails(booking)">
             <p>Booking ID: {{ booking.BookingID }}</p>
             <p>Booking Date: {{ booking.BookingDate }}</p>
             <p>Total Amount: {{ booking.TotalAmount }}</p>
           </div>
-          
-          <!-- Show Review button only for Completed bookings and if review does not exist -->
-          <button *ngIf="selectedTab === 'Completed' && !booking.hasReview" (click)="goToReview(booking)">Review</button>
+
+          <!-- Show Review button only for Completed bookings -->
+          <button *ngIf="selectedTab === 'Completed'" (click)="goToReview(booking)">Review</button>
         </div>
       </div>
-          
     </ng-container>
     <ng-template #noBookings>
       <p>No bookings available.</p>
     </ng-template>
   </div>
 </div>
-<!--  End of Tab Container -->

@@ -9,25 +9,19 @@ import { environment } from '../../../environments/environment';
 })
 export class PendingService {
 
-  private apiUrl = `${environment.apiUrl}/merchant/get_bookings.php`; 
+  private apiUrl = `${environment.apiUrl}/merchant/`; 
 
   constructor(private http: HttpClient) { }
 
   getBookings(token: string | null, status: string | null): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, { token, status });
-}
-
-  searchBookings(token: string | null, filter: string, fromDate: string, toDate: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    const params = {
-      filter: filter,
-      fromDate: fromDate,
-      toDate: toDate
+    const params = { 
+      token: token || '', 
+      status: status || '' 
     };
-    return this.http.get(`${this.apiUrl}`, { headers, params });
+  
+    return this.http.get(`${this.apiUrl}get_bookings.php/bookings`, { params });
   }
+  
 
   getBookingDetails(token: string | null, bookingID: number): Observable<any> {
     const headers = new HttpHeaders({
@@ -36,14 +30,14 @@ export class PendingService {
     return this.http.get(`${this.apiUrl}/${bookingID}`, { headers });
   }
 
-  acceptBooking(token: string | null, bookingID: number): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+  updateBooking(bookingID: number, status: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update_booking.php`, {
+      bookingID: bookingID,
+      bookingStatus: status
     });
-    return this.http.put(`${this.apiUrl}/${bookingID}/accept`, {}, { headers });
   }
 
-  refundBooking(token: string | null, bookingID: number): Observable<any> {
+  cancelBooking(token: string | null, bookingID: number): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

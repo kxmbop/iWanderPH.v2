@@ -22,7 +22,6 @@ export class ViewBookingsService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.bookingDetailsUrl}?id=${bookingId}&type=${bookingType}`, { headers });
   }
-
   submitReview(formData: FormData, token: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(this.reviewUrl, formData, { headers });

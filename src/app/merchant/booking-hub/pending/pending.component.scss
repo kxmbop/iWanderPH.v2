@@ -245,24 +245,26 @@ outline: none;
 
 /* Accept button: Green */
 .actions .accept {
-    background-color: #4CAF50;
-    color: white;
-    padding: 8px 12px;
+    background-color: $mpc;
+    color: #fff;
+    padding: 5px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-right: 10px;
   }
   
   .actions .accept:hover {
-    background-color: #45a049;
+    background-color: #f1f1f1;
+    color: $mpc;
   }
   
   /* Refund button: Red */
   .actions .refund {
-    background-color: #f44336;
-    color: white;
-    padding: 8px 12px;
+    background-color: #ccc;
+    color: #fff;
+    padding: 5px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -271,4 +273,6 @@ outline: none;
   
   .actions .refund:hover {
     background-color: #d32f2f;
+    color: #fff;
+
   }

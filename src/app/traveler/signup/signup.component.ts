@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SignupService } from '../services/signup.service';
+import { Router } from '@angular/router'; // Import the Router service
 
 @Component({
   selector: 'app-signup',
@@ -22,7 +23,7 @@ export class SignupComponent {
   confirmPassword: string = '';
   otpCode: string = ''; // OTP field, but not stored
 
-  constructor(private signupService: SignupService) {}
+  constructor(private signupService: SignupService, private router: Router) {} // Inject the Router service
 
   // Proceed to the next step
   nextStep() {
@@ -50,17 +51,26 @@ export class SignupComponent {
     formData.append('firstName', this.firstName);
     formData.append('lastName', this.lastName);
     formData.append('address', this.address);
-    formData.append('profilePic', this.profilePic as Blob);
+    
+    if (this.profilePic) {
+      formData.append('profilePic', this.profilePic as Blob);
+    }
+
     formData.append('bio', this.bio);
     formData.append('email', this.email);
     formData.append('username', this.username);
     formData.append('password', this.password);
+    formData.append('confirmPassword', this.confirmPassword); // Add confirmPassword
 
     // Call the service to submit the form data
-    this.signupService.signup(formData).subscribe(response => {
-      console.log('Signup successful', response);
-    }, error => {
-      console.error('Error during signup', error);
-    });
+    this.signupService.signup(formData).subscribe(
+      response => {
+        console.log('Signup successful', response);
+        this.router.navigate(['/traveler/login']); // Navigate to the bookings page on success
+      },
+      error => {
+        console.error('Error during signup', error);
+      }
+    );
   }
 }

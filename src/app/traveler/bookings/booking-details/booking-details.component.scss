@@ -1,4 +1,6 @@
-/* General styles for the booking details component */
+@import '../../../../../src/styles.scss';
+@import '../../../app.component.scss';
+
 .booking-details-container {
     padding: 20px;
     background-color: #f7f7f7;

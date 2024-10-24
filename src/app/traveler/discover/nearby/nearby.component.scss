@@ -19,7 +19,8 @@
   .page-container {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100vh - 52px);
+    overflow: auto;
     .back-icon {
       position: fixed;
       display: flex;

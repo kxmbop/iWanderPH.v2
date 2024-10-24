@@ -4,6 +4,7 @@ import { MerchantLayoutComponent } from './merchant-layout/merchant-layout.compo
 import { ListingsComponent } from './listings/listings.component';
 import { FinanceComponent } from './finance/finance.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
+import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,10 @@ const routes: Routes = [
       },
       { path: 'listings', component: ListingsComponent },
       { path: 'finance', component:  FinanceComponent},
-      { path: 'analytics', component: AnalyticsComponent }
+      { path: 'analytics', component: AnalyticsComponent },
+      { path: 'my-dashboard/:tab', component: MyDashboardComponent },
+      { path: 'my-dashboard/:tab/:chatSessionId', component: MyDashboardComponent }
+
 
     ]
   },

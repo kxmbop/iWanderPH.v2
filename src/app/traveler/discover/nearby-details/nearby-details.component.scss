@@ -48,10 +48,12 @@
 .details-container {
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 52px);
 }
 
 #merchant-details {
   margin-bottom: 10px;
+  height: 196px;
 
   img{
     width: 100%;
@@ -69,14 +71,16 @@
 .room-img{
   max-height: 175px;
 }
-.page-container {
+mat-tab-group{
+  height: 100%;
   overflow-y: auto;
+} 
+
+.page-container {
   padding: 10px;
   background-color: #f9f9f9;
   border-radius: 8px;
   scrollbar-width: none;
-  height: 75vh;
-  margin-bottom: 40px;
 
   .card {
     background-color: white;

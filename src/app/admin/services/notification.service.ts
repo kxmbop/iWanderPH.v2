@@ -23,4 +23,11 @@ export class NotificationService {
     
     return this.http.post<any>(`${this.apiUrl}/get_notif.php`, body, { headers });
   }
+  updateNotification(notificationID: string, header: string, description: string, visibleto: string, dedicatedto: string): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+  
+    const body = `notificationID=${encodeURIComponent(notificationID)}&header=${encodeURIComponent(header)}&description=${encodeURIComponent(description)}&visibleto=${encodeURIComponent(visibleto)}&dedicatedto=${encodeURIComponent(dedicatedto)}`;
+  
+    return this.http.put<any>(`${this.apiUrl}/get_notif.php`, body, { headers });
+  }
 }

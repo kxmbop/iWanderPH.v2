@@ -1,0 +1,18 @@
+<div class="notifications" id="notifications-panel" [@slideInOut]="showNotifications" *ngIf="showNotifications">
+    <div class="close-button" (click)="closeNotifications()">
+        <i class='bx bx-chevron-left'></i>
+        <span>Notifications</span>
+    </div>
+  
+    <div *ngIf="notifications.length === 0" class="no-notifications">
+        <p>No notifications available.</p>
+    </div>
+  
+    <div *ngIf="notifications.length > 0" class="notification-cards">
+      <div *ngFor="let notification of notifications" class="notification-card">
+        <h4>{{ notification.bookingStatus}} : Booking status has been updated.</h4>
+        <p class="notification-message">{{ notification.notificationMessage }}</p>
+        <small class="notification-date">{{ notification.createdAt | date:'short' }}</small>
+      </div>
+    </div>
+</div>

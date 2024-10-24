@@ -16,6 +16,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { HammerModule } from '@angular/platform-browser';
 import { SignupComponent } from './signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 
@@ -32,7 +33,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SettingsComponent,
     FavoritesComponent,
     ProfileComponent,
-    SignupComponent
+    SignupComponent,
+    NotificationsComponent
   ],
   imports: [
     CommonModule,

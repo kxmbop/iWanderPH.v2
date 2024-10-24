@@ -1,0 +1,516 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
+::ng-deep .top-nav .nav-menu a#my-dashboard{
+    font-weight: bold !important;
+}
+
+.hub-container{
+    height: 89vh;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+
+
+    .nav-menu{
+        width: 18%;
+        padding: 20px 30px;
+        .menu-tab{
+            width: 100%;
+            cursor: pointer;
+            padding: 3px 10px;
+            border-radius: 5px;
+            margin-bottom: 7px;
+            font-size: 16px;
+            transition: background-color 0.15s ease, color 0.3s ease;
+
+            &:hover, &.active{
+                background-color: $mpc;
+                color: #fff;
+            }
+            
+        }
+    }
+    .content-container{
+        width: 82%;
+        padding: 20px;
+        border: 1px solid $mpc;
+        border-radius: 15px;
+        .my-profile{
+            display: block;
+            .profile_img{
+                width: 100%;
+                height: 180px;
+                border: 1px solid #ccc;
+                position: relative; 
+                .merchant_img{
+                    background-color: #fff;
+                    width: 100%;
+                    height: 100%;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+                .traveler_pic {
+                    position: absolute; 
+                    top: 50px; 
+                    right: 20px; 
+                    width: 170px;
+                    height: 170px;
+                    border-radius: 50%;
+                    background-color: #ccc;
+                    z-index: 1; 
+                    
+                    img {
+                        width: 100%;
+                        object-fit: cover;
+                        border-radius: 50%; 
+                    }
+                }
+            }
+            .account_details{
+                display: flex;
+                flex-direction: column;
+                margin-top: 20px;
+                .businessDetails, .travelerDetails{
+                    padding: 5px 10px;
+                    border-top: 1px solid $mpc;
+
+                    button{
+                        padding: 5px 12px;
+                        color: #fff;
+                        background-color: $mpc;
+                        &:hover{
+                            color:$mpc;
+                            background-color:  #fff;
+                        }
+                    }
+                }
+
+            }
+            .detail{
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 5px;
+                label{
+                    font-size: 14px;
+                    font-weight: 500;
+                    width: 15%;
+                }
+                p{
+                    font-size: 14px;
+                    margin-left: 10px;
+                }
+                input{
+                    border-radius: 0 !important;
+                    width: 30%;
+                }
+            }
+        }
+
+        .notifications {
+            display: block;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 0 auto;
+          }
+          
+          .notifications h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+          }
+          
+          .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+          }
+          
+          .notification-item {
+            background-color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.3s ease, transform 0.3s ease;
+          }
+          
+          .notification-item:nth-child(1) {
+            transition-delay: 0.1s;
+          }
+          .notification-item:nth-child(2) {
+            transition-delay: 0.2s;
+          }
+          .notification-item:nth-child(3) {
+            transition-delay: 0.3s;
+          }
+          .notification-item:nth-child(4) {
+            transition-delay: 0.4s;
+          }
+          
+          .notification-item.loaded {
+            opacity: 1;
+            transform: translateY(0); 
+          }
+          
+          .notification-content {
+            display: flex;
+            flex-direction: column;
+          }
+          
+          .notification-message {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 10px;
+          }
+          
+          .notification-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #888;
+          }
+          
+          .notification-status {
+            font-weight: 600;
+            color: #007bff;
+          }
+          
+          .notification-date {
+            font-style: italic;
+          }
+          
+          .no-notifications-message {
+            text-align: center;
+            color: #888;
+            font-size: 1.1rem;
+        }
+        
+          
+    }
+}
+
+
+
+
+.inbox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.inbox .chat-list {
+    display: flex;
+    flex-direction: column;
+    width: 25%; 
+    height: 100%;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    gap: 10px;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        button {
+            background-color: $mpc;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            &:hover {
+                background-color: darken($mpc, 10%);
+            }
+        }
+    }
+
+    .search-section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+
+        i {
+            font-size: 22px;
+        }
+    }
+
+    .conversations {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow-y: auto;
+
+        .convo-card {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            h5 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            p {
+                margin: 5px 0 0 0;
+                font-size: 14px;
+                color: #777;
+            }
+
+            &:hover {
+                background-color: #ececec;
+            }
+        }
+    }
+}
+
+
+.inbox .chat-box{
+    display: flex; 
+    flex-direction: column; 
+    width: 75%; 
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    .chat-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        position: relative;
+        
+        .existing-chat{
+            height: 100%;
+            i{
+                cursor: pointer;
+            }
+            .options-dropdown {
+                position: absolute; 
+                top: 40px; 
+                right: 0;
+                background-color: white; 
+                border: 1px solid #ccc; 
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                z-index: 1000; 
+                padding: 10px; 
+                border-radius: 5px; 
+                button{
+                    font-size: 14px;
+                    background-color: $mpc;
+                    padding: 5px 12px;
+
+                    &:hover{
+                        background-color: darken($mpc, 10%);
+                    }
+                }
+            }
+            
+            .top-bar {
+                position: relative; /* Needed to position dropdown correctly */
+            }
+            .top-bar{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                height: 54px;
+                width: 100%;
+                background-color: #fff;
+                padding: 10px;
+                
+            }
+            .chat-messages {
+                flex-grow: 1;
+                overflow-y: auto;
+                padding: 10px;
+                font-size: 14px;
+                height: calc(100% - 100px);
+                margin-bottom: 61px;
+        
+                .sent-message {
+                    text-align: right;
+                    margin-bottom: 10px;
+        
+                    p {
+                        display: inline-block;
+                        background-color: $apc;
+                        color: #fff;
+                        padding: 8px 12px;
+                        border-radius: 10px;
+                    }
+                }
+        
+                .received-message {
+                    text-align: left;
+                    margin-bottom: 10px;
+        
+                    p {
+                        display: inline-block;
+                        background-color: #ececec;
+                        padding: 8px 12px;
+                        border-radius: 10px;
+                    }
+                }
+            }
+        }
+    }
+        
+}
+
+
+.send-message {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+    bottom: 0;
+
+    input {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        margin-left: 10px;
+        background-color: $mpc;
+        color: #fff;
+        padding: 5px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darken($mpc, 10%);
+        }
+    }
+}
+
+.new-chat {
+    margin-top: 20px;
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .searched-users {
+        p {
+            padding: 8px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #ececec;
+            }
+        }
+    }
+}
+
+
+.new-chat-container {
+position: relative;
+padding: 10px;
+}
+
+.search-input {
+width: 35%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 16px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+margin-bottom: 10px;
+}
+
+.search-input:focus {
+outline: none;
+border-color: #007bff; 
+box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.dropdown {
+position: absolute; 
+background-color: white;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+max-height: 200px; 
+overflow-y: auto; 
+width: 35%;
+z-index: 1000; 
+}
+
+.dropdown ul {
+list-style-type: none;
+padding: 0;
+margin: 0;
+}
+
+.dropdown-item {
+padding: 5px;
+cursor: pointer;
+transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+background-color: #f0f0f0; 
+}
+
+.user-info {
+display: flex;
+justify-content: space-between;
+align-items: left;
+}
+
+.user-id {
+font-size: 14px;
+color: #888; 
+}
+
+.username {
+font-weight: bold; 
+font-size: 14px;
+}
+
+.fullname {
+font-size: 14px;
+color: #555; 
+}
