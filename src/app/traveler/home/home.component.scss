@@ -219,16 +219,17 @@
         margin: 0 10px;
         }
 
-        .likes{
+        .likes {
             position: absolute;
             top: 10px;
             width: 100%;
-            height: 22px;
             display: flex;
+            flex-direction: column; 
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            .pp-mini{
+            
+            .pp-mini {
                 position: absolute;
                 left: 10px;
                 width: 35px;
@@ -238,38 +239,40 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                img{
+                img {
                     width: 100%;
                     object-fit: cover;
                 }
             }
-        }
-        .likes i{
-            position: absolute;
-            right: 10px;
-            color: rgba(255, 255, 255, 0.8); 
-            font-size: 32px !important;
-        }
-        .likes span{
-            margin-right: 5px;
-            margin-left: 2px;
-            font-size: 14px !important;
-        }
-        .likes .rating{
-            position: static;
-            right: 10px;
-            display: flex;
-            flex-direction: row;
-            justify-content: end;
-            width: 100%;
-        }
-        .likes .rating i{
-            font-size: 18px !important;
-        }
         
-        
+            .comment-like {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end; 
+                z-index: 1000;
 
-
+                .heart-icon {
+                    color: rgba(255, 255, 255, 0.8); 
+                    cursor: pointer;
+                    transition: color 0.3s ease;
+                    font-size: 32px !important;
+                    margin-bottom: 10px;
+                }
+            
+                .heart-icon.filled {
+                    color: #ff0000; 
+                }
+            
+                .comment-icon {
+                    color: #fff;
+                    cursor: pointer;
+                    font-size: 32px !important;
+                }
+            }
+        }
 
 }
 /* Desktop view (above 1025px) */

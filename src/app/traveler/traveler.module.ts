@@ -17,7 +17,7 @@ import { HammerModule } from '@angular/platform-browser';
 import { SignupComponent } from './signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsComponent } from './notifications/notifications.component';
-
+import { ReviewComponent } from './review/review.component';
 
 
 @NgModule({
@@ -34,7 +34,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     FavoritesComponent,
     ProfileComponent,
     SignupComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    ReviewComponent
   ],
   imports: [
     CommonModule,

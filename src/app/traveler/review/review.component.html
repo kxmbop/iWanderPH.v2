@@ -1,0 +1,67 @@
+<div class="review-card">
+  <!-- Profile and Username -->
+  <div class="profile-section">
+    <img class="profile-pic" *ngIf="review.traveler.profilePicture; else defaultImage" 
+         [src]="'data:image/jpeg;base64,' + review.traveler.profilePicture" 
+         alt="Traveler Profile Picture">
+    <ng-template #defaultImage>
+      <img class="profile-pic" src="assets/default-profile.jpg" alt="Default Profile Picture">
+    </ng-template>
+    <p class="username">{{ review.traveler.username }}</p>
+  </div>
+
+  <!-- Main Review Images Carousel with Overlay -->
+  <div class="main-image-container">
+    <div class="carousel">
+      <div class="carousel-inner" [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+        <div *ngFor="let image of review.images; let i = index" 
+             class="carousel-item" 
+             [ngClass]="{'active': i === currentIndex}">
+          <img [src]="'data:image/jpeg;base64,' + image" alt="Review Image">
+        </div>
+      </div>
+      
+      <!-- Navigation buttons -->
+      <button class="carousel-prev" [disabled]="currentIndex === 0" (click)="prevImage()">
+        <i class='bx bx-chevron-left'></i>
+      </button>
+      <button class="carousel-next" [disabled]="currentIndex === review.images.length - 1" (click)="nextImage()">
+        <i class='bx bx-chevron-right'></i>
+      </button>
+    </div>
+    
+
+    <!-- Overlay for Business Name, Location, Rating, and Heart Icon -->
+    <div class="overlay">
+      <h3 class="overlay-title">{{ review.business.name }}</h3>
+      <p class="overlay-location">{{ review.business.address }}</p>
+      <div class="overlay-rating">
+        <ng-container *ngFor="let star of createArray(5); let i = index">
+          <i class='bx bxs-star' *ngIf="i < review.rating"></i>
+          <i class='bx bx-star' *ngIf="i >= review.rating"></i>
+        </ng-container>
+      </div>
+      <i class='bx bxs-heart heart-icon'
+         [class.filled]="likedReview" 
+         (click)="toggleHeart(review.reviewID)">
+      </i>
+    </div>
+  </div>
+
+  <!-- Review Details -->
+  <div class="review-info">
+    <p class="review-text">{{ review.comment }}</p>
+
+    <!-- Input for Adding a New Comment -->
+    <div class="add-comment-container">
+      <input class="comment-input" type="text" [(ngModel)]="newComment" placeholder="Add your comment..." />
+      <button class="submit-button" (click)="submitComment()">Submit</button>
+    </div>
+
+    <!-- Display Existing Comments -->
+    <h3>Comments</h3>
+    <div *ngFor="let comment of comments" class="comment-section">
+      <p><strong>{{ comment.username }}</strong>: {{ comment.comment }}</p>
+    </div>
+  </div>
+</div>

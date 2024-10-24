@@ -32,7 +32,16 @@
                         </ng-template>
                     </div>
                     <p>{{ review.traveler.username }}</p>
-                    <i class='bx bxs-heart'></i>
+                    <div class="comment-like">
+                        <i class='bx bxs-heart heart-icon' 
+                            [class.filled]="likedReviews[review.reviewID]" 
+                            (click)="toggleHeart(review.reviewID)">
+                        </i>
+                        <i class='bx bxs-comment comment-icon' 
+                            (click)="navigateToReview(review.reviewID)">
+                        </i>
+                    </div>                    
+                    
                 </div>
                 <div class="carousel">
                     <div class="carousel-inner">
