@@ -21,7 +21,9 @@ import { BookingService } from '../services/booking.service';
 })
 export class NotificationsComponent implements OnInit {
   notifications: any[] = [];
+  announcements: any[] = [];
   showNotifications = true;
+  activeTab: string = 'notification';  
 
   constructor(
     private bookingService: BookingService,
@@ -30,6 +32,7 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadNotifications();
+    this.getAnnouncements();
   }
 
   loadNotifications() {
@@ -61,4 +64,28 @@ export class NotificationsComponent implements OnInit {
       this.router.navigate(['/traveler/bookings']);
     }, 500);
   }
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
+  }
+
+  getAnnouncements(): void {
+    this.bookingService.getAnnouncement().subscribe(
+      (data) => {
+        console.log("API Response: ", data);
+  
+        if (data.announcements && data.announcements.length > 0) {
+          this.announcements = data.announcements;
+          console.log('Announcements: ', this.announcements);
+        } else {
+          console.error("No announcements found");
+          this.announcements = []; 
+        }
+      },
+      (error) => {
+        console.error("Error: ", error);
+      }
+    );
+  }
+  
 }

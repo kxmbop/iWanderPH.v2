@@ -12,7 +12,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out;
     z-index: 11;
-    overflow-y: auto;
 
     h3 {
         font-size: 24px;
@@ -27,14 +26,33 @@
     left: 0;
     cursor: pointer;
     font-size: 32px;
-    padding: 20px;
+    padding: 10px 20px;
     span {
         font-size: 22px;
         font-weight: 500;
     }
 }
 
+.tab-menu{
+    display: flex;
+    flex-direction: row;
+    padding: 10px 10px 0 10px;
+    .tab{
+        text-align: center;
+        width: 50%;
+        &.active {
+            font-weight: 600;
+            border-bottom: 2px solid $tpc; /* Example for active tab */
+          }
+    }
+}
+    
 
+
+.content{
+    height: calc(100vh - 54px);
+    overflow: auto;
+}
 .notification-cards {
     display: flex;
     flex-direction: column;
