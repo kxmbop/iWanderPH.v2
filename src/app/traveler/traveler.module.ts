@@ -18,6 +18,7 @@ import { SignupComponent } from './signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ReviewComponent } from './review/review.component';
+import { UserTimelineComponent } from './user-timeline/user-timeline.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { ReviewComponent } from './review/review.component';
     ProfileComponent,
     SignupComponent,
     NotificationsComponent,
-    ReviewComponent
+    ReviewComponent,
+    UserTimelineComponent
   ],
   imports: [
     CommonModule,

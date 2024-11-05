@@ -165,4 +165,8 @@ export class HomeComponent {
   createArray(length: number): number[] {
     return new Array(length);
   }
+  navigateToUserTimeline(travelerID: number) {
+    this.router.navigate(['/traveler/user-timeline', travelerID]);
+  }
+
 }

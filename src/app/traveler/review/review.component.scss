@@ -141,16 +141,17 @@
 
 .heart-icon {
     font-size: 24px;
-    color: #f9f9f9;
+    color: #f9f9f9; // Default (unfilled) color
     cursor: pointer;
     position: absolute;
     bottom: 10px;
-    right: 10px; /* Positioning the heart in the bottom-right corner */
-}
-
-.heart-icon.filled {
-    color: #ff0000;
-}
+    right: 10px;
+  }
+  
+  .heart-icon.filled {
+    color: #ff0000; // Filled color when liked
+  }
+  
 
 .add-comment-container {
     display: flex;

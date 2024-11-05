@@ -20,6 +20,7 @@ export class BookingComponent implements OnInit {
   isDataLoaded: boolean = false; 
   showGcashNumber: boolean = false; 
   selectedFile: File | null = null;
+  showFileError: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,7 +48,7 @@ export class BookingComponent implements OnInit {
       this.bookingType = params['type'];
       this.itemId = +params['id'];
       this.merchantId = +params['merchantId'];
-
+  
       // Fetch room or transportation details based on bookingType
       if (this.bookingType === 'room') {
         this.getRoomDetails(this.itemId);
@@ -68,9 +69,34 @@ export class BookingComponent implements OnInit {
       }
 
       // Update form validation
-      this.bookingForm.updateValueAndValidity();
+      this.updateFormValidators();
     });
   }
+  updateFormValidators(): void {
+    if (this.bookingType === 'transportation') {
+      this.bookingForm.get('checkIn')?.clearValidators();
+      this.bookingForm.get('checkOut')?.clearValidators();
+      this.bookingForm.get('specialRequest')?.clearValidators();
+  
+      this.bookingForm.get('pickupLocation')?.setValidators(Validators.required);
+      this.bookingForm.get('dropOffLocation')?.setValidators(Validators.required);
+      this.bookingForm.get('pickupDateTime')?.setValidators(Validators.required);
+      this.bookingForm.get('dropOffDateTime')?.setValidators(Validators.required);
+    } else if (this.bookingType === 'room') {
+      this.bookingForm.get('pickupLocation')?.clearValidators();
+      this.bookingForm.get('dropOffLocation')?.clearValidators();
+      this.bookingForm.get('pickupDateTime')?.clearValidators();
+      this.bookingForm.get('dropOffDateTime')?.clearValidators();
+  
+      this.bookingForm.get('checkIn')?.setValidators(Validators.required);
+      this.bookingForm.get('checkOut')?.setValidators(Validators.required);
+      this.bookingForm.get('specialRequest')?.setValidators([]);
+    }
+  
+    // Update form validation
+    this.bookingForm.updateValueAndValidity();
+  }
+
 
   toggleGcashNumber(event: any): void {
     this.showGcashNumber = event.target.checked;
@@ -79,6 +105,7 @@ export class BookingComponent implements OnInit {
   onFileSelected(event: any): void {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
+      this.showFileError = false; // Reset error flag when a file is selected
       console.log('Selected file:', this.selectedFile);
     }
   }
@@ -101,9 +128,14 @@ export class BookingComponent implements OnInit {
   getTransportationDetails(transportationId: number): void {
     this.bookingService.getTransportationDetails(transportationId).subscribe(
       data => {
-        this.transportationDetails = data;
-        console.log("Transportation Details:", this.transportationDetails); // Debugging log
-        this.isDataLoaded = true;
+        if (data && !data.error) {
+          this.transportationDetails = data;
+          console.log("Transportation Details:", this.transportationDetails); // Ensure this logs actual data
+          this.isDataLoaded = true;
+        } else {
+          console.error("Error: Transportation data not found or invalid response");
+          this.isDataLoaded = false;
+        }
       },
       error => {
         console.error('Error fetching transportation details', error);
@@ -111,6 +143,7 @@ export class BookingComponent implements OnInit {
       }
     );
   }
+  
 
   getSubtotal(): number {
     let subtotal = 0;
@@ -169,10 +202,17 @@ export class BookingComponent implements OnInit {
     }
   
     // Validate the form
-    if (this.bookingForm.invalid) {
-      console.error('Form is invalid');
-      return;
-    }
+  if (this.bookingForm.invalid) {
+    window.alert('Please fill in all required fields before submitting.');
+    return;
+  }
+
+  // Check if the file is selected
+  if (!this.selectedFile) {
+    this.showFileError = true; // Display error if no file is selected
+    window.alert('Payment upload is required. Please upload a payment file to proceed.');
+    return;
+  }
   
     const token = localStorage.getItem('token');
     if (!token) {
@@ -209,11 +249,8 @@ export class BookingComponent implements OnInit {
     const formData = new FormData();
   
     // Check if the file is selected before appending it to FormData
-    if (this.selectedFile) {
-      formData.append('file', this.selectedFile); // Attach payment file if selected
-    }
-  
-    formData.append('bookingData', JSON.stringify(bookingData)); // Attach other booking data
+    formData.append('file', this.selectedFile);
+  formData.append('bookingData', JSON.stringify(bookingData));
   
     this.bookingService.uploadBooking(formData, token).subscribe(
       response => {

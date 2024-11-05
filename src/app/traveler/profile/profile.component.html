@@ -1,6 +1,6 @@
 <div class="top-utility">
     <h3 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH</h3>
-    <i class='bx bx-menu' id="settings" [routerLink]="['/traveler/settings']"></i>
+    <i class="bx bx-menu" id="settings" [routerLink]="['/traveler/settings']"></i>
 </div>
 
 <div class="p-j">
@@ -15,6 +15,7 @@
         </div>
     </div>
 </div>
+
 <div class="p-b">
     <div class="names">
         <span id="name">{{ profile.FirstName }} {{ profile.LastName }}</span>
@@ -31,53 +32,111 @@
 </div>
 
 <div class="tabs">
-  <div class="review-tab" [class.active]="activeTab === 'reviews'" [class.slide-out-left]="activeTab !== 'reviews'">
-      <div class="review-post" *ngFor="let review of reviews">
-          <div class="u-d">
-            <img *ngIf="profile.ProfilePic" [src]="getProfilePicture()" alt="Profile Picture" class="pp-mini">
-            <span id="username">{{ profile.Username }}</span>
-          </div>
-          <div #carousel class="review-images">
-            <div class="carousel">
-              <div class="carousel-inner">
-                <div *ngFor="let image of review.images; let i = index" class="carousel-item" [ngClass]="{'active': i === currentIndex}">
-                  <img [src]="'data:image/jpeg;base64,' + image" alt="Review Image">
+    <div class="review-tab" [class.active]="activeTab === 'reviews'" [class.slide-out-left]="activeTab !== 'reviews'">
+        <div class="review-post" *ngFor="let review of reviews">
+            <div class="u-d">
+                <img *ngIf="profile.ProfilePic" [src]="getProfilePicture()" alt="Profile Picture" class="pp-mini">
+                <span id="username">{{ profile.Username }}</span>
+
+                <div class="menu-container">
+                    <div class="menu-icon" (click)="toggleMenu()">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                    </div>
+                    <div *ngIf="isMenuOpen" class="dropdown-menu">
+                        <span (click)="openEditModal(review)">Edit</span>
+                        <span (click)="onDelete(review)">Delete</span>
+                    </div>
                 </div>
-              </div>
-              <!-- Add navigation buttons -->
-              <button class="carousel-prev" [disabled]="review.images.length === 1 || currentIndex === 0" (click)="prevImage()">
-                <i class='bx bx-chevron-left'></i>
-              </button>
-              <button class="carousel-next" [disabled]="review.images.length === 1 || currentIndex === review.images.length - 1" (click)="nextImage()">
-                <i class='bx bx-chevron-right'></i>
-              </button>
             </div>
-          </div>
-            
-          <div class="review-details">
-            <div class="likes">
-              <i class='bx bx-heart'></i><span>{{ review.likes }}</span>
-              <i class='bx bx-message-square-dots' [routerLink]="['/traveler/review', review.reviewID]"></i><span>{{ review.comments }}</span>
-              <div class="rating">
-                  <ng-container *ngFor="let star of createArray(5); let i = index">
-                      <i class='bx bxs-star' *ngIf="i < review.rating"></i>
-                      <i class='bx bx-star' *ngIf="i >= review.rating"></i>
-                  </ng-container>
-              </div>
+
+            <!-- Review images carousel -->
+            <div #carousel class="review-images">
+                <div class="carousel">
+                    <div class="carousel-inner">
+                        <div *ngFor="let image of review.images; let i = index" class="carousel-item" [ngClass]="{'active': i === currentIndex}">
+                            <img [src]="'data:image/jpeg;base64,' + image" alt="Review Image">
+                        </div>
+                    </div>
+                    <button class="carousel-prev" [disabled]="review.images.length === 1 || currentIndex === 0" (click)="prevImage()">
+                        <i class="bx bx-chevron-left"></i>
+                    </button>
+                    <button class="carousel-next" [disabled]="review.images.length === 1 || currentIndex === review.images.length - 1" (click)="nextImage()">
+                        <i class="bx bx-chevron-right"></i>
+                    </button>
+                </div>
             </div>
-            <div class="caption">
-              <span>{{ review.comment }}</span>
-              <a [routerLink]="['/traveler/review', review.reviewID]">View {{ review.comments }} comment{{ review.comments !== 1 ? 's' : '' }} here</a>
+
+            <!-- Review details -->
+            <div class="review-details">
+                <div class="likes">
+                    <!-- Static filled heart icon with conditional class for liked/unliked state -->
+                    <i 
+                        class="bx bxs-heart" 
+                        [ngClass]="{ 'liked': review.liked }"
+                        (click)="toggleLike(review)"
+                    ></i>
+
+                    <span class="like-count">{{ review.likes }}</span>
+                    
+                    <!-- Comments icon and count -->
+                    <i class="bx bx-message-square-dots" [routerLink]="['/traveler/review', review.reviewID]"></i>
+                    <span class="comment-count">{{ review.comments }}</span>
+                    
+                    <!-- Star rating display -->
+                    <div class="rating">
+                        <ng-container *ngFor="let star of createArray(5); let i = index">
+                            <i class="bx bxs-star" *ngIf="i < review.rating"></i>
+                            <i class="bx bx-star" *ngIf="i >= review.rating"></i>
+                        </ng-container>
+                    </div>
+                </div>
+                
+                <!-- Review caption and comments link -->
+                <div class="caption">
+                    <span>{{ review.comment }}</span>
+                    <br>
+                    <a [routerLink]="['/traveler/review', review.reviewID]">View {{ review.comments }} comment{{ review.comments !== 1 ? 's' : '' }} here</a>
+                </div>
             </div>
-          </div>
         </div>
-      
-      <!-- review tab content -->
-  </div>
-    
+    </div>
+
     <div class="journey-tab" [class.active]="activeTab === 'journeys'" [class.slide-out-right]="activeTab !== 'journeys'">
-        <!-- journey tab content -->
+        <div *ngFor="let booking of completedBookings" class="completed-booking">
+            <img *ngIf="booking.profilePicture" [src]="'data:image/jpeg;base64,' + booking.profilePicture" alt="Merchant Profile Picture" class="merchant-profile-picture">
+            <h4>{{ booking.businessName }}</h4>
+            <p>Email: {{ booking.email }}</p>
+            <p>Contact: {{ booking.contact }}</p>
+            <p>Address: {{ booking.address }}</p>
+        </div>
+    </div>
+</div>
+<!-- Edit Review Modal -->
+<div class="modal" *ngIf="isEditModalOpen">
+    <div class="modal-content">
+        <span class="close" (click)="closeEditModal()">&times;</span>
+        <h2>Edit Review</h2>
+
+        <form>
+            <label for="editComment">Review:</label>
+            <br>
+            <textarea id="editComment" [(ngModel)]="reviewComment" name="comment" required></textarea>
+            <div class="button-container">
+                <button type="button" (click)="confirmSave()">Save</button>
+                <button type="button" (click)="onCancel()">Cancel</button>
+            </div>
+        </form>
     </div>
 </div>
 
-
+<!-- Confirmation Modal -->
+<div class="modal" *ngIf="isConfirmationModalOpen">
+    <div class="modal-content">
+        <h2>Confirm Save</h2>
+        <p>Are you sure you want to save these changes?</p>
+        <div class="button-confirm">
+            <button (click)="saveConfirmed()">Yes</button>
+            <button (click)="cancelSave()">No</button>
+        </div>
+    </div>
+</div>

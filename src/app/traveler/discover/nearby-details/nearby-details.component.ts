@@ -22,19 +22,22 @@ export class NearbyDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const merchantId = this.route.snapshot.paramMap.get('merchantId');
-    const placeIdParam = this.route.snapshot.paramMap.get('placeId');
-    console.log(`Place ID param from route: ${placeIdParam}`);
-    
-    if (placeIdParam) {
-    this.placeId = +placeIdParam;
-    }else {
-      console.error("Place ID is missing in the route.");
-    }
-    if (merchantId) {
-      this.loadMerchantDetails(+merchantId);
-    }
+      const merchantId = this.route.snapshot.paramMap.get('merchantId');
+      const placeId = this.route.snapshot.paramMap.get('placeId');
+
+      if (placeId) {
+          this.placeId = +placeId;
+      } else {
+          console.error("Place ID is missing in the route.");
+      }
+
+      if (merchantId) {
+          this.loadMerchantDetails(+merchantId);
+      } else {
+          console.error("Merchant ID is missing in the route.");
+      }
   }
+
 
   loadMerchantDetails(merchantId: number): void {
     this.placeService.getMerchantById(merchantId).subscribe(

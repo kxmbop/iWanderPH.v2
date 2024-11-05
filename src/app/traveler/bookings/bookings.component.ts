@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ViewBookingsService } from '../services/view-bookings.service';
+import { ReviewService } from '../services/review.service';
 
 interface Booking {
   BookingID: number;
@@ -30,12 +31,16 @@ export class BookingsComponent implements OnInit {
     Refunded: []
   };
 
-  constructor(private viewBookingsService: ViewBookingsService, private router: Router) {}
+  constructor(private viewBookingsService: ViewBookingsService, private router: Router, private reviewService: ReviewService,) {}
 
   ngOnInit(): void {
     this.loadBookings();
+  
+    // Listen for review deletion events
+    this.reviewService.reviewDeleted$.subscribe(() => {
+      this.loadBookings(); // Reload bookings when a review is deleted
+    });
   }
-
   loadBookings(): void {
     const token = localStorage.getItem('token');
     if (token) {
@@ -43,7 +48,6 @@ export class BookingsComponent implements OnInit {
         (data: any) => {
           console.log('Bookings Data:', data); 
           if (data.success) {
-            console.log('Booking Types:', data.bookings.map((b: Booking) => b.BookingType)); 
             this.groupBookingsByStatus(data.bookings);
           }
         },
@@ -62,7 +66,7 @@ export class BookingsComponent implements OnInit {
 
       if (booking.BookingStatus === 'Ready' || booking.BookingStatus === 'Checked-in') {
         status = 'On-Going'; 
-      }  else if (booking.BookingStatus === 'Completed' || booking.BookingStatus === 'Checked-out') {
+      } else if (booking.BookingStatus === 'Completed' || booking.BookingStatus === 'Checked-out') {
         status = 'Completed'; 
       } else {
         status = booking.BookingStatus as BookingStatus; 
@@ -92,7 +96,9 @@ export class BookingsComponent implements OnInit {
   }
   
   goToReview(booking: Booking) {
-    this.router.navigate(['traveler/bookings/create-review', booking.BookingID]);
+    this.router.navigate(['traveler/bookings/create-review', booking.BookingID]).then(() => {
+      // Set the `hasReview` field to true after navigating to the review creation page
+      booking.hasReview = true;
+    });
   }
 }
-//end

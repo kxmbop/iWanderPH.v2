@@ -23,14 +23,14 @@
         <div class="review-card">
             <div #carousel class="review-images">
                 <div class="likes">
-                    <div class="pp-mini">
-                        <img *ngIf="review.traveler.profilePicture; else defaultImage" 
-                             [src]="'data:image/jpeg;base64,' + review.traveler.profilePicture" 
-                             alt="Traveler Profile Picture">
+                    <div class="pp-mini" (click)="navigateToUserTimeline(review.traveler.travelerID)">
+                        <ng-container *ngIf="review.traveler.profilePic; else defaultImage">
+                            <img [src]="'data:image/jpeg;base64,' + review.traveler.profilePic" alt="Traveler Profile Picture">
+                        </ng-container>
                         <ng-template #defaultImage>
-                            <img src="assets/default-profile.jpg" alt="Default Profile Picture">
+                            <img src="assets/images/default-profile-picture.jpg" alt="Default Profile Picture">
                         </ng-template>
-                    </div>
+                    </div>                    
                     <p>{{ review.traveler.username }}</p>
                     <div class="comment-like">
                         <i class='bx bxs-heart heart-icon' 
@@ -60,12 +60,10 @@
 
             </div>
             <div class="explore">
-                <button>Explore</button>
+                <button [routerLink]="['/traveler/discover/nearby-details', review.business.merchantId, review.placeId]">
+                    Explore
+                </button>
             </div>
-
         </div>
-
-
-
     </div>
 </div>

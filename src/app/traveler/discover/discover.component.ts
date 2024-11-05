@@ -40,7 +40,7 @@ export class DiscoverComponent implements OnInit {
         merchant.BusinessName.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     } else {
-      this.filteredMerchants = this.merchants; // Show all if search query is empty
+      this.filteredMerchants = this.merchants;
     }
   }
 

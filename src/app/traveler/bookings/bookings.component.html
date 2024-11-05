@@ -26,7 +26,7 @@
           </div>
 
           <!-- Show Review button only for Completed bookings -->
-          <button *ngIf="selectedTab === 'Completed'" (click)="goToReview(booking)">Review</button>
+          <button *ngIf="selectedTab === 'Completed' && !booking.hasReview" (click)="goToReview(booking)">Review</button>
         </div>
       </div>
     </ng-container>

@@ -12,7 +12,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { SignupComponent } from './signup/signup.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ReviewComponent } from './review/review.component';
-
+import { UserTimelineComponent } from './user-timeline/user-timeline.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -43,7 +43,11 @@ const routes: Routes = [
         path: 'bookings', 
         loadChildren: () => import('./bookings/bookings.module').then(m => m.BookingsModule) 
       },
-      { path: 'profile', component: ProfileComponent },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      },
+      { path: 'user-timeline/:travelerID', component: UserTimelineComponent }
     ]
   }
 ];
