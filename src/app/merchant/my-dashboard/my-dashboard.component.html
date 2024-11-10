@@ -3,7 +3,10 @@
             <div class="menu-tab" id="my-profile" (click)="showTab('my-profile')" 
                  [class.active]="activeTab === 'my-profile'">My Profile</div>
             <div class="menu-tab" id="notifications" (click)="showTab('notifications')" 
-                 [class.active]="activeTab === 'notifications'">Notifications</div>
+                 [class.active]="activeTab === 'notifications'">Notifications      
+            </div>
+             
+           
             <div class="menu-tab" id="inbox" (click)="showTab('inbox')" 
                  [class.active]="activeTab === 'inbox'">Inbox</div>
       </div>
@@ -85,9 +88,20 @@
                   </div>
             </div>
                 
-
+             <div class="tabs">
+                        <button (click)="setActiveTab('notifications')" [class.active]="activeTab === 'notifications'">
+                          Notifications
+                        </button>
+                        <button (click)="setActiveTab('announcements')" [class.active]="activeTab === 'announcements'">
+                          Announcements
+                        </button>
+                      </div>
             <!-- notification-tab -->
-            <div *ngIf="activeTab === 'notifications'" class="notifications content-tab">
+            <div
+                  *ngIf="activeTab === 'notifications'"
+                  class="content-tab notifications"
+                  [@slideAnimation]="activeTab === 'notifications' ? 'in' : 'out'">
+
                   <h4>Notifications</h4>
                 
                   <div *ngIf="notifications.length > 0; else noNotifications" class="notification-list">
@@ -106,7 +120,27 @@
                     <p class="no-notifications-message">You have no notifications at the moment.</p>
                   </ng-template>
             </div>
-                
+            <div
+                  *ngIf="activeTab === 'announcements'"
+                  class="content-tab announcements"
+                  [@slideAnimation]="activeTab === 'announcements' ? 'in' : 'out'"
+                  >
+                  <h4>Announcements</h4>
+                  
+                  <div *ngIf="announcements.length > 0; else noAnnouncements" class="announcement-list">
+                        <div *ngFor="let announcement of announcements" class="announcement-item">
+                          <div class="announcement-content">
+                            <h5 class="announcement-header">{{ announcement.header }}</h5>
+                            <p class="announcement-description">{{ announcement.description }}</p>
+                            <span class="announcement-date">{{ announcement.createdAt | date:'short' }}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                  <ng-template #noAnnouncements>
+                  <p class="no-announcements-message">There are no announcements at the moment.</p>
+                  </ng-template>
+                  </div>
 
 
             <div *ngIf="activeTab === 'inbox'" class="inbox">

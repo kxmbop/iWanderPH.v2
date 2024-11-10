@@ -67,4 +67,5 @@ export class SettingsComponent {
     localStorage.removeItem('token');
     this.router.navigate(['traveler/login']);
   }
+  
 }

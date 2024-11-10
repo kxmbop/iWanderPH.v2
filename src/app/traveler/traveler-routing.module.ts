@@ -28,7 +28,10 @@ const routes: Routes = [
           { path: 'conversation/:chatSessionId', component: ConversationComponent }
         ]
       },
-      { path: 'settings', component: SettingsComponent },
+      { path: 'settings', component: SettingsComponent,
+        loadChildren:() => import ('./settings/settings.module').then(m => m.SettingsModule)
+
+      },
       { path: 'favorites', component: FavoritesComponent },
       { path: 'notifications', component: NotificationsComponent },
       {
