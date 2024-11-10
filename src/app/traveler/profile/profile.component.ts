@@ -133,4 +133,152 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
   createArray(length: number): number[] {
     return new Array(length);
   }
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  // Handle Edit action
+  onEdit(review: any): void {
+    this.isMenuOpen = false;
+    this.router.navigate(['/traveler/edit-review', review.reviewID]);
+  }
+
+  // Delete review with confirmation
+  onDelete(review: any): void {
+    this.isMenuOpen = false;
+    if (confirm("Are you sure you want to delete this review?")) {
+      this.profileService.deleteReview(review.reviewID).subscribe(
+        (response) => {
+          console.log("Review deleted successfully", response);
+          this.getReviews(); // Refresh reviews
+          this.reviewService.notifyReviewDeleted(); // Notify deletion
+        },
+        (error) => console.error("Error deleting review", error)
+      );
+    }
+  }
+  toggleLike(review: any): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        console.error("User not authenticated");
+        return;
+    }
+
+    // Optimistically toggle the UI to reflect immediate feedback
+    review.liked = !review.liked;
+    review.likes += review.liked ? 1 : -1;
+
+    // Send the like/unlike request to the server
+    this.profileService.toggleLike(review.reviewID, token).subscribe(
+        (response) => {
+            if (response.success) {
+                // Update the likes count based on the server response to ensure accuracy
+                review.likes = response.likes;
+                console.log(response.message);
+            } else {
+                console.error("Error toggling like:", response.message);
+                // If there's an error, revert the like state
+                review.liked = !review.liked;
+                review.likes += review.liked ? 1 : -1;
+            }
+        },
+        (error) => {
+            console.error("Error toggling like", error);
+            // Revert the like state if there's an error
+            review.liked = !review.liked;
+            review.likes += review.liked ? 1 : -1;
+        }
+    );
 }
+loadCompletedBookings(): void {
+  const token = localStorage.getItem('token');
+  if (token) {
+      this.profileService.getCompletedBookings(token).subscribe(
+          (data: any) => {
+              if (data.success) {
+                  console.log("Completed Bookings Data:", data.completedBookings);
+                  this.completedBookings = data.completedBookings;
+              }
+          },
+          (error) => console.error("Error loading completed bookings", error)
+      );
+  }
+}
+openEditModal(review: any): void {
+  this.isEditModalOpen = true;
+  this.reviewID = review.reviewID; // Set the review ID
+
+  // Fetch the review data for the specific reviewID
+  this.profileService.getReviewById(this.reviewID).subscribe(
+    (reviewData) => {
+      this.reviewComment = reviewData.ReviewComment; // Set initial comment data
+    },
+    (error) => console.error("Error fetching review data", error)
+  );
+}
+
+closeEditModal(): void {
+  this.isEditModalOpen = false;
+}
+
+onSave(): void {
+  // Prepare the updated review data to be sent to the server
+  const updatedReview = {
+    reviewID: this.reviewID,
+    reviewComment: this.reviewComment,
+  };
+
+  // Send the updated review data to the server
+  this.profileService.updateReview(updatedReview).subscribe(
+    (response) => {
+      if (response.success) {
+        console.log("Review updated successfully", response);
+        this.getReviews(); // Refresh the reviews
+        this.closeEditModal();
+      } else {
+        console.error("Failed to update review:", response.error);
+        alert(response.error);
+      }
+    },
+    (error) => console.error("Error updating review", error)
+  );
+}
+
+onCancel(): void {
+  this.closeEditModal(); // Close modal without saving
+}
+
+confirmSave(): void {
+    this.isConfirmationModalOpen = true; // Open the confirmation modal
+}
+
+saveConfirmed(): void {
+    this.isConfirmationModalOpen = false; // Close confirmation modal
+
+    // Prepare the updated review data
+    const updatedReview = {
+        reviewID: this.reviewID,
+        reviewComment: this.reviewComment,
+    };
+
+    this.profileService.updateReview(updatedReview).subscribe(
+        (response) => {
+            if (response.success) {
+                console.log("Review updated successfully", response);
+                this.getReviews(); // Refresh the reviews
+                this.closeEditModal();
+            } else {
+                console.error("Failed to update review:", response.error);
+                alert(response.error);
+            }
+        },
+        (error) => console.error("Error updating review", error)
+    );
+}
+
+cancelSave(): void {
+    this.isConfirmationModalOpen = false; // Close the confirmation modal without saving
+}
+
+}
+//end 
