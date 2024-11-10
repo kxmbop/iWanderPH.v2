@@ -61,5 +61,5 @@ export class ProfileService {
   getUserJourney(travelerID: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/traveler/get_user_journeys.php?travelerID=${travelerID}`);
   }
-  
+  //put here the for the edit-profile
 }
