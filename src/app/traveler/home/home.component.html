@@ -2,5 +2,70 @@
     <h3 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH</h3>
     <i class='bx bx-conversation' id="chats" [routerLink]="['/traveler/inbox']"></i>
 </div>
+<div class="search-bar">
+    <i class='bx bx-search'></i>
+    <input type="text" placeholder="Discover...">
+</div>
+<div class="fyp-feed">
+    <div class="review-post" *ngFor="let review of reviews">
+        <div class="u-d">
+            <div class="rating">
+                <ng-container *ngFor="let star of createArray(5); let i = index">
+                  <i class='bx bxs-star' *ngIf="i < review.rating"></i>
+                  <i class='bx bx-star' *ngIf="i >= review.rating"></i>
+                </ng-container>
+              </div>
+            <h3 id="username">{{ review.business.name }}</h3>
+            <span>{{ review.business.address }}</span>
+        </div>
+        
+        <!-- Review Images Carousel -->
+        <div class="review-card">
+            <div #carousel class="review-images">
+                <div class="likes">
+                    <div class="pp-mini">
+                        <img *ngIf="review.traveler.profilePicture; else defaultImage" 
+                             [src]="'data:image/jpeg;base64,' + review.traveler.profilePicture" 
+                             alt="Traveler Profile Picture">
+                        <ng-template #defaultImage>
+                            <img src="assets/default-profile.jpg" alt="Default Profile Picture">
+                        </ng-template>
+                    </div>
+                    <p>{{ review.traveler.username }}</p>
+                    <div class="comment-like">
+                        <i class='bx bxs-heart heart-icon' 
+                            [class.filled]="likedReviews[review.reviewID]" 
+                            (click)="toggleHeart(review.reviewID)">
+                        </i>
+                        <i class='bx bxs-comment comment-icon' 
+                            (click)="navigateToReview(review.reviewID)">
+                        </i>
+                    </div>                    
+                    
+                </div>
+                <div class="carousel">
+                    <div class="carousel-inner">
+                    <div *ngFor="let image of review.images; let i = index" class="carousel-item" [ngClass]="{'active': i === currentIndex}">
+                        <img [src]="'data:image/jpeg;base64,' + image" alt="Review Image">
+                    </div>
+                    </div>
+                    <!-- Navigation buttons -->
+                    <button class="carousel-prev" [disabled]="review.images.length === 1 || currentIndex === 0" (click)="prevImage()">
+                    <i class='bx bx-chevron-left'></i>
+                    </button>
+                    <button class="carousel-next" [disabled]="review.images.length === 1 || currentIndex === review.images.length - 1" (click)="nextImage()">
+                    <i class='bx bx-chevron-right'></i>
+                    </button>
+                </div>
 
-<p>home works!</p>
+            </div>
+            <div class="explore">
+                <button routerLink="/traveler/home">Explore</button>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>

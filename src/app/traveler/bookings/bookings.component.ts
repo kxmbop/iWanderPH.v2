@@ -91,6 +91,7 @@ export class BookingsComponent implements OnInit {
   }
   
   goToReview(booking: Booking) {
-    this.router.navigate(['/review', booking.BookingID]);
+    this.router.navigate(['traveler/bookings/create-review', booking.BookingID]);
   }
 }
+//end

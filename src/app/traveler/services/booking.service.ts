@@ -28,4 +28,8 @@ export class BookingService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.apiUrl}/get_notifications.php`, { headers });
   }
+
+  getAnnouncement():Observable<any> {
+    return this.http.get(`${this.apiUrl}/get_announcement.php`);
+  }
 }

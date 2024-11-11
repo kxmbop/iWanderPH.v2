@@ -11,6 +11,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { SignupComponent } from './signup/signup.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { ReviewComponent } from './review/review.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -32,6 +34,8 @@ const routes: Routes = [
         loadChildren:() => import ('./settings/settings.module').then(m => m.SettingsModule)
 
       },
+//       { path: 'settings', component: SettingsComponent },
+      { path: 'review/:reviewID', component: ReviewComponent },
       { path: 'favorites', component: FavoritesComponent },
       { path: 'notifications', component: NotificationsComponent },
       {

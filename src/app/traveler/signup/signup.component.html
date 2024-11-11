@@ -1,44 +1,50 @@
 <div class="signup-container">
-    <!-- Step Progress Indicator -->
-    <div class="step-indicator">
-      <div [class.active]="currentStep >= 1">Step 1</div>
-      <div [class.active]="currentStep >= 2">Step 2</div> <!-- OTP Step (Skipped for database) -->
-      <div [class.active]="currentStep >= 3">Step 3</div>
-    </div>
-  
-    <!-- Step 1: GCash Number -->
-    <div *ngIf="currentStep === 1">
-      <h3>Step 1: Enter GCash Number</h3>
-      <input type="text" [(ngModel)]="gcashNumber" placeholder="Enter your GCash Number">
-      <p><i>Note: The number should align with your GCash number.</i></p>
-    </div>
-  
-    <!-- Step 2: OTP (This step will be skipped in terms of database storage) -->
-    <div *ngIf="currentStep === 2">
-      <h3>Step 2: Enter OTP Code</h3>
-      <input type="text" [(ngModel)]="otpCode" placeholder="Enter OTP Code">
-      <p><i>Note: This step is for validation only. Data will not be stored.</i></p>
-    </div>
-  
-    <!-- Step 3: Account Details -->
-    <div *ngIf="currentStep === 3">
-      <h3>Step 3: Profile and Account Info</h3>
-      <input type="file" (change)="onFileChange($event)" placeholder="Upload Profile Picture">
-      <input type="text" [(ngModel)]="bio" placeholder="Bio">
-      <input type="text" [(ngModel)]="firstName" placeholder="First Name">
-      <input type="text" [(ngModel)]="lastName" placeholder="Last Name">
-      <input type="text" [(ngModel)]="address" placeholder="Address">
-      <input type="email" [(ngModel)]="email" placeholder="Email">
-      <input type="text" [(ngModel)]="username" placeholder="Username">
-      <input type="password" [(ngModel)]="password" placeholder="Password">
-      <input type="password" [(ngModel)]="confirmPassword" placeholder="Confirm Password">
-    </div>
-  
-    <!-- Back and Next Buttons -->
-    <div class="button-group">
-      <button (click)="prevStep()" [disabled]="currentStep === 1">Back</button>
-      <button *ngIf="currentStep < 4" (click)="nextStep()">Next</button>
-      <button *ngIf="currentStep === 4" (click)="onSubmit()">Sign Up</button>
-    </div>
+  <!-- Step Progress Indicator -->
+  <div class="step-indicator">
+    <div [class.active]="currentStep >= 1">Step 1</div>
+    <div [class.active]="currentStep >= 2">Step 2</div>
+    <div [class.active]="currentStep >= 3">Step 3</div>
+    <div [class.active]="currentStep >= 4">Step 4</div>
   </div>
-  
+
+  <!-- Step 1: GCash Number -->
+  <div *ngIf="currentStep === 1">
+    <h3>Step 1: Enter Number</h3>
+    <input type="text" [(ngModel)]="gcashNumber" placeholder="Enter your GCash Number">
+    <p><i>Note: The number should align with your GCash number.</i></p>
+  </div>
+
+  <!-- Step 2: OTP (This step will be skipped in terms of database storage) -->
+  <div *ngIf="currentStep === 2">
+    <h3>Step 2: Enter OTP Code</h3>
+    <input type="text" [(ngModel)]="otpCode" placeholder="Enter OTP Code">
+    <p><i>Note: This step is for validation only. Data will not be stored.</i></p>
+  </div>
+
+  <!-- Step 3: Profile details -->
+  <div *ngIf="currentStep === 3">
+    <h3>Step 3: Profile Info</h3>
+    <input type="file" (change)="onFileChange($event)" placeholder="Upload Profile Picture">
+    <input type="text" [(ngModel)]="bio" placeholder="Bio">
+    <input type="text" [(ngModel)]="firstName" placeholder="First Name">
+    <input type="text" [(ngModel)]="lastName" placeholder="Last Name">
+    <input type="text" [(ngModel)]="address" placeholder="Full Address">
+  </div>
+
+  <!-- Step 4: Account Details -->
+  <div *ngIf="currentStep === 4">
+    <h3>Step 4: Account Info</h3>
+    <input type="email" [(ngModel)]="email" placeholder="Email">
+    <input type="text" [(ngModel)]="username" placeholder="Username">
+    <input type="password" [(ngModel)]="password" placeholder="Password">
+    <input type="password" [(ngModel)]="confirmPassword" placeholder="Confirm Password">
+  </div>
+
+  <!-- Back and Next Buttons -->
+  <div class="button-group">
+    <button (click)="prevStep()" [disabled]="currentStep === 1">Back</button>
+    <button *ngIf="currentStep < 4" (click)="nextStep()">Next</button>
+    <button *ngIf="currentStep === 4" (click)="onSubmit()">Sign Up</button>
+  </div>
+</div>
+  <!-- End of the Code -->

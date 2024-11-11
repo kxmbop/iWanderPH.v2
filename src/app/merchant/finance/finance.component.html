@@ -1,1 +1,52 @@
-<p>finance works!</p>
+<div class="financehub">
+  <form [formGroup]="earningsForm">
+    <div class="earnings-container">
+      <div class="earning-item">
+        <input type="text" formControlName="thisMonthEarnings" id="thisMonthEarnings" class="earnings-input" placeholder="₱0.00" readonly>
+        <label for="thisMonthEarnings" class="earnings-label">This Month's Earnings</label>
+      </div>
+      <div class="earning-item">
+        <input type="text" formControlName="yearToDateEarnings" id="yearToDateEarnings" class="earnings-input" placeholder="₱0.00" readonly>
+        <label for="yearToDateEarnings" class="earnings-label">Year-to-Date Earnings</label>
+      </div>
+    </div>
+    
+    <br><br>
+    
+    <div class="container">
+      <label class="filter-label">Filter</label>
+      <input type="text" formControlName="filter" placeholder="Search traveler username, booking id, listing id" id="search" class="filter-input">
+      <br>
+
+      <div class="date-range">
+        <label for="fromDate" class="date-label">From:</label>
+        <input type="date" formControlName="fromDate" name="fromDate" class="date-input">
+        
+        <label for="toDate" class="date-label">To:</label>
+        <input type="date" formControlName="toDate" name="toDate" class="date-input">
+      </div>
+      <br>
+
+      <table class="finance-table">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Date Earned</th>
+            <th>Booking Status</th>
+            <th>Payout Status</th>
+            <th>Payout Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings">
+            <td>{{ booking.BookingID }}</td>
+            <td>{{ booking.payoutReleaseDate }}</td>
+            <td>{{ booking.BookingStatus }}</td>
+            <td>{{ booking.PayoutStatus }}</td>
+            <td>{{ booking.PayoutAmount | currency:'₱' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>

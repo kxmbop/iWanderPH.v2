@@ -1,0 +1,258 @@
+.review-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+    h2 {
+      padding-top: 30px;
+      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      color: #333;
+      margin-bottom: 20px;
+    }
+  
+    .form-group {
+        margin-top: 45px;
+        margin-bottom: 15px;
+      
+        label {
+          display: block;
+          font-weight: bold;
+          margin-bottom: 5px;
+          font-size: 14px;
+        }
+      
+        textarea,
+        select,
+        input[type="file"] {
+          width: 100%;
+          padding: 10px;
+          font-size: 14px;
+          border: 1px solid #074D4C;
+          border-radius: 4px;
+        }
+      
+        textarea {
+          resize: vertical;
+        }
+      
+        input[type="file"] {
+          padding: 5px;
+        }
+      }
+      
+      
+      .star-rating {
+        display: flex;
+        justify-content: center; // Center stars horizontally
+        align-items: center; // Center stars vertically
+        gap: 5px; // Add some space between stars
+      
+        i {
+          font-size: 24px;
+          color: #ccc;
+          cursor: pointer;
+          transition: color 0.3s ease;
+      
+          &.filled {
+            color: #f1c40f;
+          }
+        }
+      }
+      
+  
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #074D4C;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #064746;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .review-form-container {
+      padding: 10px;
+      max-width: 100%; // Make the form full-width on mobile
+      box-shadow: none; // Remove shadow for a cleaner mobile look
+    }
+  
+    h2 {
+      font-size: 20px;
+    }
+  
+    .form-group {
+      label {
+        font-size: 12px;
+      }
+  
+      textarea,
+      select,
+      input[type="file"] {
+        font-size: 12px;
+        padding: 8px;
+      }
+  
+      .star-rating i {
+        font-size: 20px; // Smaller stars for mobile
+      }
+    }
+  
+    button {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    .review-form-container {
+      max-width: 800px; // Wider form for desktop screens
+    }
+  
+    h2 {
+      font-size: 28px;
+    }
+  
+    .form-group {
+      label {
+        font-size: 16px;
+      }
+  
+      textarea,
+      select,
+      input[type="file"] {
+        font-size: 16px;
+        padding: 12px;
+      }
+  
+      .star-rating i {
+        font-size: 28px; // Larger stars for desktop
+      }
+}
+  
+    button {
+      font-size: 18px;
+      padding: 12px;
+    }
+  }
+  .image-upload-container {
+    display: flex;
+    gap: 10px;
+  
+    .image-box {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #074D4C;
+      border-radius: 8px;
+      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      color: #074D4C;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+  
+      &:hover {
+        border-color: #074D4C;
+      }
+  
+      input[type="file"] {
+        display: none;
+      }
+  
+      span {
+        display: block;
+        color: #074D4C;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 5px;
+        font-size: 11px;
+      }
+    }
+  
+    .add-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px; 
+      height: 100px;
+      border: 1px solid #074D4C;
+      border-radius: 8px;
+      font-size: 24px;
+      color: #074D4C;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+  
+      &:hover {
+        border-color: #074D4C;
+      }
+  
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+
+#privacy{
+    width: 50%;
+}
+
+.privacy-select {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    label {
+      display: block;  // Ensure the label takes up the full width and is on its own line
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;  // Add space between label and select
+    }
+  
+    select {
+      display: block;  // Ensure the select element is on a new line
+      width: 100%;  // Make the select fill the width of its container
+      max-width: 250px;  // Limit the max width of the select dropdown
+      padding: 8px;
+      font-size: 14px;
+      font-family: 'Roboto', sans-serif;
+      color: #333;
+      border: 1px solid #074D4C;
+      border-radius: 4px;
+      background-color: #fff;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+  
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23074D4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');  // Custom dropdown arrow
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+  
+      &:hover {
+        border-color: #074D4C;
+      }
+  
+      &:focus {
+        outline: none;
+        border-color: #074D4C;
+      }
+    }
+  }
+
+  //eyy

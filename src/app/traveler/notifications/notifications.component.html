@@ -1,13 +1,21 @@
 <div class="notifications" id="notifications-panel" [@slideInOut]="showNotifications" *ngIf="showNotifications">
-    <div class="close-button" (click)="closeNotifications()">
-        <i class='bx bx-chevron-left'></i>
-        <span>Notifications</span>
-    </div>
-  
+  <div class="close-button" (click)="closeNotifications()">
+      <i class='bx bx-chevron-left'></i>
+      <span>Notifications</span>
+  </div>
+
+  <!-- Tab Menu -->
+  <div class="tab-menu">
+    <div class="tab" [class.active]="activeTab === 'notification'" (click)="setActiveTab('notification')">Notifications</div>
+    <div class="tab" [class.active]="activeTab === 'announcement'" (click)="setActiveTab('announcement')">Announcements</div>
+  </div>
+
+  <!-- Notification Content -->
+  <div *ngIf="activeTab === 'notification'" class="content" id="notification">
     <div *ngIf="notifications.length === 0" class="no-notifications">
-        <p>No notifications available.</p>
+      <p>No notifications available.</p>
     </div>
-  
+
     <div *ngIf="notifications.length > 0" class="notification-cards">
       <div *ngFor="let notification of notifications" class="notification-card">
         <h4>{{ notification.bookingStatus}} : Booking status has been updated.</h4>
@@ -15,4 +23,23 @@
         <small class="notification-date">{{ notification.createdAt | date:'short' }}</small>
       </div>
     </div>
+  </div>
+
+  <!-- Announcement Content -->
+  <div *ngIf="activeTab === 'announcement'" class="content" id="announcement">
+    <!-- No announcements -->
+    <div *ngIf="announcements.length === 0" class="no-notifications">
+      <p>No announcement available.</p>
+    </div>
+  
+    <!-- Announcements present -->
+    <div *ngIf="announcements.length > 0" class="notification-cards">
+      <div *ngFor="let announcement of announcements" class="notification-card">
+        <h4>{{ announcement.header }}</h4>
+        <p class="notification-message">{{ announcement.description }}</p>
+        <small class="notification-date">{{ announcement.createdAt | date:'short' }}</small>
+      </div>
+    </div>
+  </div>
+  
 </div>
