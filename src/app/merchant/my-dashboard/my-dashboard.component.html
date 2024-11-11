@@ -89,20 +89,21 @@
             </div>
                 
              <div class="tabs">
-                        <button (click)="setActiveTab('notifications')" [class.active]="activeTab === 'notifications'">
-                          Notifications
-                        </button>
-                        <button (click)="setActiveTab('announcements')" [class.active]="activeTab === 'announcements'">
-                          Announcements
-                        </button>
-                      </div>
+                        <div class="content-tab" id="notifications" (click)="showTab('notifications')" 
+                  [class.active]="activeTab === 'notifications'"><h4>Notifications  </h4>    
+                        </div>
+                        <div class="content-tab" id="announcements" (click)="showTab('announcements')" 
+                 [class.active]="activeTab === 'announcements'"><h4>Announcements  </h4>      
+                  </div>
+                  
+            </div>
             <!-- notification-tab -->
             <div
                   *ngIf="activeTab === 'notifications'"
                   class="content-tab notifications"
                   [@slideAnimation]="activeTab === 'notifications' ? 'in' : 'out'">
 
-                  <h4>Notifications</h4>
+                  
                 
                   <div *ngIf="notifications.length > 0; else noNotifications" class="notification-list">
                     <div *ngFor="let notification of notifications" class="notification-item">
@@ -121,11 +122,11 @@
                   </ng-template>
             </div>
             <div
+                  
                   *ngIf="activeTab === 'announcements'"
                   class="content-tab announcements"
                   [@slideAnimation]="activeTab === 'announcements' ? 'in' : 'out'"
                   >
-                  <h4>Announcements</h4>
                   
                   <div *ngIf="announcements.length > 0; else noAnnouncements" class="announcement-list">
                         <div *ngFor="let announcement of announcements" class="announcement-item">

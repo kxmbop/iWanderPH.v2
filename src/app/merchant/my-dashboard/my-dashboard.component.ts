@@ -73,7 +73,9 @@ export class MyDashboardComponent implements OnInit, OnDestroy {
     this.activeTab = tab;
     this.router.navigate(['/merchant/my-dashboard', tab]); 
     this.loadNotifications();
+    this.loadAnnouncements();
     this.updateTabVisibility(); 
+    this.fetchAnnouncements();
   }
 
   confirmDeleteConversation(chatSessionId: string): void {
@@ -363,12 +365,7 @@ export class MyDashboardComponent implements OnInit, OnDestroy {
       }
     );
   }
-  setActiveTab(tab: string): void {
-    this.activeTab = tab;
-    if (tab === 'announcements') {
-      this.fetchAnnouncements();
-    }
-  }
+  
   fetchAnnouncements(): void {
     this.generalService.getMerchantAnnouncements().subscribe(
       (response: any) => {
