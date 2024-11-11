@@ -8,6 +8,7 @@ import { ChatServiceService } from '../services/chat-service.service';
   selector: 'app-my-dashboard',
   templateUrl: './my-dashboard.component.html',
   styleUrls: ['./my-dashboard.component.scss']
+  
 })
 export class MyDashboardComponent implements OnInit, OnDestroy {
   activeTab: string = 'my-profile';
@@ -27,6 +28,7 @@ export class MyDashboardComponent implements OnInit, OnDestroy {
   private messagePollingInterval: any;
   showOptions: boolean = false; 
   receiverInfo: any; 
+  announcements: any[] = [];
 
   constructor(
     private bookingService: BookingsService,
@@ -297,6 +299,27 @@ export class MyDashboardComponent implements OnInit, OnDestroy {
       }
     );
   }
+  loadAnnouncements(): void {
+    this.generalService.getMerchantAnnouncements().subscribe(
+      (response) => {
+        if (response.success) {
+          this.notifications = response.announcements; // assuming the response structure has "announcements"
+          this.cdr.detectChanges();
+  
+          setTimeout(() => {
+            const items = document.querySelectorAll('.announcement-item'); // update the class to reflect the announcement
+            items.forEach((item) => item.classList.add('loaded'));
+          }, 100);
+        } else {
+          console.error('No announcements found.');
+        }
+      },
+      (error) => {
+        console.error('Error fetching announcements', error)
+      }
+    );
+  }
+  
 
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -340,4 +363,25 @@ export class MyDashboardComponent implements OnInit, OnDestroy {
       }
     );
   }
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
+    if (tab === 'announcements') {
+      this.fetchAnnouncements();
+    }
+  }
+  fetchAnnouncements(): void {
+    this.generalService.getMerchantAnnouncements().subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.announcements = response.announcements;
+        } else {
+          console.error(response.message);
+        }
+      },
+      (error) => {
+        console.error('Error fetching announcements:', error);
+      }
+    );
+  }
+    
 }
