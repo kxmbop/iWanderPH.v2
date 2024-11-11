@@ -68,4 +68,37 @@
     background-color: #ddd;
   }
 
-  
+  .icon-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.icon-button {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.icon-button i {
+  margin-right: 5px;
+}
+
+@media print {
+  body * {
+    visibility: hidden; /* Hide all content */
+  }
+  .print-container, .print-container * {
+    visibility: visible; /* Show only the table content */
+  }
+  .print-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
