@@ -49,7 +49,6 @@ export class AdminLayoutComponent {
   loadProfile(): void {
 
     const token = localStorage.getItem('admintoken');
-    console.log("Token retrieved: ", token); 
     
     if (token) {
     this.profileService.getProfile(token).subscribe(

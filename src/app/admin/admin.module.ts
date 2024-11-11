@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -16,6 +16,10 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { OnlineChatComponent } from './online-chat/online-chat.component';
 import { SettingsComponent } from './settings/settings.component';
+import { AddressEditComponent } from './address-edit/address-edit.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { ProfilePictureEditComponent } from './profile-picture-edit/profile-picture-edit.component';
+import { AddAccountComponent } from './add-account/add-account.component';
 
 
 @NgModule({
@@ -32,13 +36,18 @@ import { SettingsComponent } from './settings/settings.component';
     AdminPageNotFoundComponent,
     BookingDetailsComponent,
     UserDetailsComponent,
-    SettingsComponent
+    SettingsComponent,
+    AddressEditComponent,
+    PasswordResetComponent,
+    ProfilePictureEditComponent,
+    AddAccountComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     RouterModule,
     FormsModule
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminModule { }
