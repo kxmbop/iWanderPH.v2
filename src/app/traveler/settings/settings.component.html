@@ -21,9 +21,20 @@
         <i class='bx bxs-paper-plane'></i>
         <label>Merchant Hub</label>
     </div>
+    <div class="traveler-info" [routerLink]="['/traveler/settings/info']">
+        <i class='bx bxs-user'></i>
+        <label>Options</label>
+        
+
+      </div>
+
     <div class="logout" (click)="logout()">
         <i class='bx bx-log-out'></i>
         <label>Log-out</label>
     </div>
 </div>
 
+<div class="content-container">
+    
+    <router-outlet></router-outlet>
+</div>

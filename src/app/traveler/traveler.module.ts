@@ -20,6 +20,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ReviewComponent } from './review/review.component';
 
 
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -35,13 +36,15 @@ import { ReviewComponent } from './review/review.component';
     ProfileComponent,
     SignupComponent,
     NotificationsComponent,
+
     ReviewComponent
   ],
   imports: [
     CommonModule,
     TravelerRoutingModule,
     FormsModule,
-    MatTabsModule
+    MatTabsModule,
+    
   ]
 })
 export class TravelerModule { }

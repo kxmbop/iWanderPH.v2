@@ -22,4 +22,13 @@ getMerchantNotifications(): Observable<any> {
   });
   return this.http.get(`${this.apiUrl}/get_notifications.php`, { headers });
 }
+
+getMerchantAnnouncements(): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,
+  });
+  return this.http.get(`${this.apiUrl}/get_announcements.php`, { headers });
+}
+
 }
