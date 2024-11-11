@@ -110,90 +110,170 @@
                 }
             }
         }
-
-        .notifications {
-            display: block;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 0 auto;
-          }
-          
-          .notifications h4 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #333;
-            text-align: center;
-          }
-          
-          .notification-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-          }
-          
-          .notification-item {
-            background-color: #fff;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-            opacity: 0; 
-            transform: translateY(20px); 
-            transition: opacity 0.3s ease, transform 0.3s ease;
-          }
-          
-          .notification-item:nth-child(1) {
-            transition-delay: 0.1s;
-          }
-          .notification-item:nth-child(2) {
-            transition-delay: 0.2s;
-          }
-          .notification-item:nth-child(3) {
-            transition-delay: 0.3s;
-          }
-          .notification-item:nth-child(4) {
-            transition-delay: 0.4s;
-          }
-          
-          .notification-item.loaded {
-            opacity: 1;
-            transform: translateY(0); 
-          }
-          
-          .notification-content {
-            display: flex;
-            flex-direction: column;
-          }
-          
-          .notification-message {
-            font-size: 1rem;
-            font-weight: 500;
-            color: #555;
-            margin-bottom: 10px;
-          }
-          
-          .notification-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: #888;
-          }
-          
-          .notification-status {
-            font-weight: 600;
-            color: #007bff;
-          }
-          
-          .notification-date {
-            font-style: italic;
-          }
-          
-          .no-notifications-message {
-            text-align: center;
-            color: #888;
-            font-size: 1.1rem;
-        }
         
-          
+
+            .notifications {
+                display: block;
+                padding: 20px;
+                border-radius: 8px;
+                margin: 0 auto;
+            }
+            
+            .notifications h4 {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+                color: #333;
+                text-align: center;
+            }
+            
+            .notification-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .notification-item {
+                background-color: #fff;
+                padding: 12px;
+                border-radius: 8px;
+                box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+                opacity: 0; 
+                transform: translateY(20px); 
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+            
+            .notification-item:nth-child(1) {
+                transition-delay: 0.1s;
+            }
+            .notification-item:nth-child(2) {
+                transition-delay: 0.2s;
+            }
+            .notification-item:nth-child(3) {
+                transition-delay: 0.3s;
+            }
+            .notification-item:nth-child(4) {
+                transition-delay: 0.4s;
+            }
+            
+            .notification-item.loaded {
+                opacity: 1;
+                transform: translateY(0); 
+            }
+            
+            .notification-content {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .notification-message {
+                font-size: 1rem;
+                font-weight: 500;
+                color: #555;
+                margin-bottom: 10px;
+            }
+            
+            .notification-meta {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.9rem;
+                color: #888;
+            }
+            
+            .notification-status {
+                font-weight: 600;
+                color: #007bff;
+            }
+            
+            .notification-date {
+                font-style: italic;
+            }
+            
+            .no-notifications-message {
+                text-align: center;
+                color: #888;
+                font-size: 1.1rem;
+            }
+        
+            .announcements {
+                display: block;
+                padding: 20px;
+                border-radius: 8px;
+                margin: 0 auto;
+            }
+            
+            .announcements h4 {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+                color: #333;
+                text-align: center;
+            }
+            
+            .announcement-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .announcement-item {
+                background-color: #fff;
+                padding: 12px;
+                border-radius: 8px;
+                box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+                opacity: 0; 
+                transform: translateY(20px); 
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                
+            }
+            
+            .announcement-item:nth-child(1) {
+                transition-delay: 0.1s;
+            }
+            .announcement-item:nth-child(2) {
+                transition-delay: 0.2s;
+            }
+            .announcement-item:nth-child(3) {
+                transition-delay: 0.3s;
+            }
+            .announcement-item:nth-child(4) {
+                transition-delay: 0.4s;
+            }
+            
+            .announcement-item.loaded {
+                opacity: 1;
+                transform: translateY(0); 
+            }
+            
+            .announcement-content {
+                display: flex;
+                flex-direction: column;
+                
+            }
+            
+            .announcement-header {
+                font-size: 1rem;
+                font-weight: 500;
+                color: #555;
+                margin-bottom: 10px;
+            }
+            
+            .announcement-description {
+                font-size: 1rem;
+                color: #666;
+                margin-bottom: 10px;
+            }
+            
+            .announcement-date {
+                font-style: italic;
+                font-size: 0.9rem;
+                color: #888;
+            }
+            
+            .no-announcements-message {
+                text-align: center;
+                color: #888;
+                font-size: 1.1rem;
+            }
+                      
     }
 }
 
@@ -519,23 +599,34 @@ color: #555;
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
-  
-    button {
-      padding: 10px 20px;
-      cursor: pointer;
-      border: none;
-      background-color: #f5f5f5;
-      &.active {
-        background-color: #007bff;
-        color: #fff;
-      }
-    }
-  }
-  
-  .content-tab {
+    justify-content: center;
+}
+
+.content-tab {
     overflow: hidden;
-    &.notifications, &.announcements {
-      transition: transform 0.3s ease;
-    }
-  }
+    cursor: pointer; /* Makes it clickable */
+    padding-bottom: 5px; /* Add some space for the underline */
+    position: relative;
+}
+
+.content-tab.notifications,
+.content-tab.announcements {
+    transition: transform 0.3s ease;
+}
+
+/* Underline effect for active tab */
+.content-tab.active {
+    font-weight: bold; /* Optional: Highlight active tab */
+}
+
+.content-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px; /* Adjust thickness */
+    background-color: #007bff; /* Change color as needed */
+}
+
   
