@@ -13,6 +13,18 @@
     
     <br><br>
     
+    <!-- Icons for Export and Print -->
+    <div class="icon-container">
+      <button type="button" (click)="exportData()" class="icon-button">
+        <i class="fa fa-file-export"></i> Export
+      </button>
+      <button type="button" (click)="printData()" class="icon-button">
+        <i class="fa fa-print"></i> Print
+      </button>
+    </div>
+
+    <br>
+
     <div class="container">
       <label class="filter-label">Filter</label>
       <input type="text" formControlName="filter" placeholder="Search traveler username, booking id, listing id" id="search" class="filter-input">
@@ -25,8 +37,10 @@
         <label for="toDate" class="date-label">To:</label>
         <input type="date" formControlName="toDate" name="toDate" class="date-input">
       </div>
+    </div>
       <br>
-
+      
+      <div class="print-container">
       <table class="finance-table">
         <thead>
           <tr>

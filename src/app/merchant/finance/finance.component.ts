@@ -75,4 +75,78 @@ export class FinanceComponent implements OnInit {
       yearToDateEarnings: `₱${yearToDateTotal.toFixed(2)}`
     });
   }
+
+  // Export data to CSV
+  exportData(): void {
+    const csvRows = [];
+    const headers = ['Booking ID', 'Date Earned', 'Booking Status', 'Payout Status', 'Payout Amount'];
+    csvRows.push(headers.join(','));
+
+    this.bookings.forEach(booking => {
+      const row = [
+        booking.BookingID,
+        booking.payoutReleaseDate,
+        booking.BookingStatus,
+        booking.PayoutStatus,
+        `₱${parseFloat(booking.PayoutAmount).toFixed(2)}`
+      ];
+      csvRows.push(row.join(','));
+    });
+
+    const csvData = new Blob([csvRows.join('\n')], { type: 'text/csv' });
+    const csvUrl = window.URL.createObjectURL(csvData);
+    const link = document.createElement('a');
+    link.href = csvUrl;
+    link.download = 'finance_data.csv';
+    link.click();
+  }
+
+  // Print data
+  printData(): void {
+    // Create a new iframe
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'absolute';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = 'none';
+  
+    // Append the iframe to the document body
+    document.body.appendChild(iframe);
+  
+    // Get the table element
+    const table = document.querySelector('.finance-table')?.outerHTML;
+  
+    // Write the table content into the iframe
+    const doc = iframe.contentDocument || iframe.contentWindow?.document;
+    if (doc) {
+      doc.open();
+      doc.write(`
+        <html>
+          <head>
+            <title>Print Table</title>
+            <style>
+              /* Add basic styling for the table */
+              table { 
+                width: 100%; 
+                border-collapse: collapse; 
+                font-family: Arial, sans-serif;
+              }
+              th, td { 
+                border: 1px solid #ddd; 
+                padding: 8px; 
+                text-align: left;
+              }
+              th { 
+                background-color: #f2f2f2;
+              }
+            </style>
+          </head>
+          <body onload="window.print(); window.close();">
+            ${table}
+          </body>
+        </html>
+      `);
+      doc.close();
+    }
+  }
 }
