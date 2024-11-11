@@ -1,6 +1,9 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ProfileService } from '../services/profile.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ReviewService } from '../services/review.service';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -12,13 +15,22 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
   journeys: number = 0;
   activeTab = 'reviews';
   reviews: any[] = []; 
+  completedBookings: any[] = [];
   @ViewChild('carousel', { static: true }) carousel: ElementRef | null = null;
   currentIndex = 0;
   activeReviewIndex = 0;
+  isMenuOpen = false;
+  isEditModalOpen = false;
+  reviewID!: number;
+  reviewComment: string = '';
+  isConfirmationModalOpen = false;
 
   constructor(
     private profileService: ProfileService,
-    private sanitizer: DomSanitizer
+    private reviewService: ReviewService,
+    private sanitizer: DomSanitizer,
+    private router: Router,
+    
   ) {}
 
   ngAfterViewInit(): void {
@@ -60,6 +72,7 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
   ngOnInit(): void {
     this.loadProfile();
     this.getReviews();
+    this.loadCompletedBookings();
   }
   loadProfile(): void {
     const token = localStorage.getItem('token');
@@ -108,16 +121,19 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
     return this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + (this.profile.ProfilePic ?? ''));
   }
 
-  getReviews() {
+  getReviews(): void {
     const token = localStorage.getItem('token');
     
     if (token) {
-      this.profileService.getReviews(token).subscribe((data: any) => {
-        console.log(data);
-        this.reviews = data.reviews;
-      });
+        this.profileService.getReviews(token).subscribe((data: any) => {
+            console.log("Reviews Data:", data.reviews); // Log to verify `liked` state
+            this.reviews = data.reviews.map((review: any) => ({
+                ...review,
+                liked: !!review.liked // Convert `1` to `true` and `0` to `false`
+            }));
+        });
     }
-  }
+}
 
   getLikesCount(reviewID: number): number {
     return this.reviews.find(review => review.reviewID === reviewID)?.likesCount || 0;
@@ -198,7 +214,7 @@ loadCompletedBookings(): void {
               if (data.success) {
                   console.log("Completed Bookings Data:", data.completedBookings);
                   this.completedBookings = data.completedBookings;
-              }
+              }        
           },
           (error) => console.error("Error loading completed bookings", error)
       );

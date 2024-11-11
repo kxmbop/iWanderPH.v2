@@ -7,8 +7,8 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class ProfileService {
-  private apiUrl = `${environment.apiUrl}/traveler/get_profile.php`;
-  private apiUrlforReview = `${environment.apiUrl}/traveler/get_reviews.php`;
+  private apiUrl = `${environment.apiUrl}`;
+
   constructor(private http: HttpClient) {}
 
   getProfile(token: string | null, travelerID?: string): Observable<any> {
