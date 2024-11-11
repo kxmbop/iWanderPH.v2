@@ -1,0 +1,81 @@
+<div class="modal-background" (click)="closeModal.emit()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <h3>Add Support Agent</h3>
+    <form (ngSubmit)="submitForm()" #agentForm="ngForm">
+      <label>First Name:
+        <input
+          type="text"
+          [(ngModel)]="agent.firstName"
+          name="firstName"
+          required
+        />
+      </label>
+      <div *ngIf="agentForm.submitted && !agentForm.controls['firstName']?.valid">
+        <p class="error">First Name is required.</p>
+      </div>
+
+      <label>Last Name:
+        <input
+          type="text"
+          [(ngModel)]="agent.lastName"
+          name="lastName"
+          required
+        />
+      </label>
+      <div *ngIf="agentForm.submitted && !agentForm.controls['lastName']?.valid">
+        <p class="error">Last Name is required.</p>
+      </div>
+
+      <label>Bio:
+        <input
+          type="text"
+          [(ngModel)]="agent.bio"
+          name="bio"
+          required
+        />
+      </label>
+      <div *ngIf="agentForm.submitted && !agentForm.controls['bio']?.valid">
+        <p class="error">Bio is required.</p>
+      </div>
+
+      <label>Tax ID:
+        <input
+          type="text"
+          [(ngModel)]="agent.taxID"
+          name="taxID"
+          required
+        />
+      </label>
+      <div *ngIf="agentForm.submitted && !agentForm.controls['taxID']?.valid">
+        <p class="error">Tax ID is required.</p>
+      </div>
+
+      <label>Username:
+        <input
+          type="text"
+          [(ngModel)]="agent.username"
+          name="username"
+          required
+        />
+      </label>
+      <div *ngIf="agentForm.submitted && !agentForm.controls['username']?.valid">
+        <p class="error">Username is required.</p>
+      </div>
+
+      <label>Password:
+        <input
+          type="password"
+          [(ngModel)]="agent.password"
+          name="password"
+          required
+        />
+      </label>
+      <div *ngIf="agentForm.submitted && !agentForm.controls['password']?.valid">
+        <p class="error">Password is required.</p>
+      </div>
+
+      <button type="submit">Add Agent</button>
+      <button type="button" (click)="closeModal.emit()">Cancel</button>
+    </form>
+  </div>
+</div>

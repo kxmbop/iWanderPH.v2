@@ -1,10 +1,11 @@
 <div class="sidebar">
   <div class="logo-details">
-    <i class='bx bxs-user-circle icon'></i>
-    <div class="logo_name">        
-      <span id="name">{{ profile.firstname }} {{ profile.lastname }}</span>
-    </div>
-    
+    <a routerLink="/admin/admin-profile">
+      <i class='bx bxs-user-circle icon'></i>
+      <div class="logo_name">        
+        <span id="name">{{ profile.firstname }} {{ profile.lastname }}</span>
+      </div>
+    </a>
     <i class='bx bx-menu' id="btn"></i>
   </div>
   <ul class="nav-list">

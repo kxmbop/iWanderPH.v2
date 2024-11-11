@@ -1,0 +1,25 @@
+<div class="modal-background">
+  <div class="modal-container">
+    <h3>Edit Profile</h3>
+    <form (ngSubmit)="submitEditProfile()">
+
+      <!-- About Section -->
+      <div class="about-section">
+        <h4>About</h4>
+        <input type="text" placeholder="Phone Number" [(ngModel)]="admin.phoneNumber" name="phoneNumber" required />
+        <input type="email" placeholder="Email" [(ngModel)]="admin.email" name="email" required />
+      </div>
+      
+      <!-- Address Section -->
+      <div class="address-section">
+        <h4>Address</h4>
+        <input type="text" placeholder="Address" [(ngModel)]="admin.address" name="address" required />
+        <input type="text" placeholder="City/State" [(ngModel)]="admin.cityState" name="cityState" required />
+        <input type="text" placeholder="Postal Code" [(ngModel)]="admin.postalCode" name="postalCode" required />
+      </div>
+
+      <button type="submit">Save Changes</button>
+      <button type="button" (click)="closeModal.emit()">Close</button>
+    </form>
+  </div>
+</div>

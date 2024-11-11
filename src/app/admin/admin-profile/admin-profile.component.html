@@ -1,1 +1,85 @@
-<div class="text">Admin Profile</div>
+<div class="admin-profile">
+  <!-- Sidebar and Main Content -->
+    <div class="sidebar1">
+      <div class="profile-section">
+        <h2 class="header">Admin Information</h2>
+        <div class="profile-card">
+          <!-- Profile Picture -->
+          <img *ngIf="admin.profilePicture" [src]="'data:image/jpeg;base64,' + admin.profilePicture" alt="Profile Picture">
+          <p *ngIf="!admin.profilePicture">No Profile Picture Available</p>
+      
+          <!-- Admin Details -->
+          <h3>{{ admin.firstName }} {{ admin.lastName }}</h3>
+          <p>{{ admin.adminUserType }}</p>
+          <span>ID: #{{ admin.taxID }}</span>
+          <button (click)="openEditProfile()">Edit Profile</button>
+        </div>
+      </div>
+      
+      <div class="info-section"></div>
+      <div class="info-section2">
+        <h3 class="info-section2">About</h3>
+        <p class="info-section2">Phone: {{ admin.phoneNumber }}</p>
+        <p class="info-section2">Email: {{ admin.email }}</p>
+      </div>
+      
+      <div class="info-section1"></div>
+      <div class="info-section2">
+        <h3 class="info-section2">Address</h3>
+        <p class="info-section2">Address: {{ admin.address }}</p>
+        <p class="info-section2">City/State: {{ admin.cityState }}</p>
+        <p class="info-section2">Postcode: {{ admin.postCode }}</p>
+        <button (click)="openEditAddress()">Edit Address</button>
+      </div>
+      
+      <div class="info-section"></div>
+      <div class="info-section2">
+        <h3 class="info-section2">Security</h3>
+        <p class="info-section2">Username: {{ admin.username }}</p>
+        <p class="info-section2">Password: {{ admin.password }}</p>
+        <button (click)="openEditSecurity()">Edit Security</button>
+      </div>
+      
+    </div>
+  
+    <div class="main-content">
+      <h2>Support Agent Account</h2>
+      <button (click)="openAddAccount()">+ Add Account</button>
+      
+      <div class="table-box">
+        <table class="table-header">
+            <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Bio</th>
+              <th>Tax ID</th>
+              <th>Username</th>
+              <th>Password</th>
+            </tr>
+          </thead>
+        </table>
+        <div class="table-body">
+          <table>
+              <tbody>
+              <tr *ngFor="let agent of supportAgents">
+                <td>{{ agent.firstName }}</td>
+                <td>{{ agent.lastName }}</td>
+                <td>{{ agent.bio }}</td>
+                <td>{{ agent.taxID }}</td>
+                <td>{{ agent.username }}</td>
+                <td>******</td>
+              </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modals -->
+    <app-profile-picture-edit *ngIf="isProfileEditModalOpen" [admin]="admin" (closeModal)="closeProfileEditModal()"></app-profile-picture-edit>
+    <app-address-edit *ngIf="isAddressEditModalOpen" [admin]="admin" (closeModal)="closeAddressEditModal()"></app-address-edit>
+    <app-password-reset *ngIf="isSecurityEditModalOpen" [admin]="admin" (closeModal)="closeSecurityEditModal()"></app-password-reset>
+    <app-add-account *ngIf="isAddAccountModalOpen" (closeModal)="closeAddAccountModal()" (addAgent)="onAgentAdded($event)"></app-add-account>
+  </div>
+  
