@@ -32,7 +32,6 @@ const routes: Routes = [
       },
       { path: 'settings', component: SettingsComponent,
         loadChildren:() => import ('./settings/settings.module').then(m => m.SettingsModule)
-
       },
 //       { path: 'settings', component: SettingsComponent },
       { path: 'review/:reviewID', component: ReviewComponent },

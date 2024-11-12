@@ -24,6 +24,10 @@
   <div class="bio">
       <span id="bio">{{ profile.Bio }}</span>
   </div>
+  <div class="options flex-row centered">
+    <button>Edit Profile</button>
+    <button>Share Profile</button>
+  </div>
 </div>
 
 <div class="profile-tabs">
@@ -49,7 +53,6 @@
               </div>
           </div>
 
-          <!-- Review images carousel -->
           <div #carousel class="review-images">
               <div class="carousel">
                   <div class="carousel-inner">
@@ -66,10 +69,8 @@
               </div>
           </div>
 
-          <!-- Review details -->
           <div class="review-details">
               <div class="likes">
-                  <!-- Static filled heart icon with conditional class for liked/unliked state -->
                   <i 
                       class="bx bxs-heart" 
                       [ngClass]="{ 'liked': review.liked }"
@@ -78,11 +79,9 @@
 
                   <span class="like-count">{{ review.likes }}</span>
                   
-                  <!-- Comments icon and count -->
                   <i class="bx bx-message-square-dots" [routerLink]="['/traveler/review', review.reviewID]"></i>
                   <span class="comment-count">{{ review.comments }}</span>
                   
-                  <!-- Star rating display -->
                   <div class="rating">
                       <ng-container *ngFor="let star of createArray(5); let i = index">
                           <i class="bx bxs-star" *ngIf="i < review.rating"></i>
@@ -91,7 +90,6 @@
                   </div>
               </div>
               
-              <!-- Review caption and comments link -->
               <div class="caption">
                   <span>{{ review.comment }}</span>
                   <br>
@@ -111,6 +109,7 @@
       </div>
   </div>
 </div>
+
 <!-- Edit Review Modal -->
 <div class="modal" *ngIf="isEditModalOpen">
   <div class="modal-content">

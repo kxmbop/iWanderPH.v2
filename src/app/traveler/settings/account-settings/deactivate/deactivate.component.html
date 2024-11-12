@@ -1,0 +1,27 @@
+<div class="panel" id="panel" *ngIf="showSettings" [@slideInOut]="showSettings">
+   <div class="close-button">
+     <div class="back-icon flex-row" (click)="closeSettings()" style="width: 70px;">
+       <i class="bx bx-chevron-left"></i>
+     </div>
+     <div class="title">
+       <span>Deactivation</span>
+     </div>
+     <input 
+       type="submit" 
+       value="Submit" 
+       [disabled]="!canDeactivate" 
+       (click)="deactivateAccount()" />
+   </div>
+
+   <div class="deactivation-content">
+     <ng-container *ngIf="canDeactivate; else activeBookingWarning">
+      <h4>We're sorry to see you go! </h4>
+       <p>Deactivating your account will temporarily disable your profile, bookings, and activity on our platform. During this time, your profile will not be visible to other users, and you will not be able to book new trips or interact with other travelers.</p>
+       <p>Please note that deactivating your account is not permanent. You can reactivate your account at any time by simply logging back in. Your travel history, saved itineraries, and other account details will be preserved for when you return.</p>
+       <p>If you’re sure you want to proceed, please click "Submit" below to deactivate your account.</p>
+     </ng-container>
+     <ng-template #activeBookingWarning>
+       <p>You currently have active bookings that are not completed or checked out. Please complete or check out of all bookings before deactivating your account.</p>
+     </ng-template>
+   </div>
+</div>

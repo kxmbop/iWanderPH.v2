@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProfileEditService } from '../../services/profile-edit.service';
+import { environment } from '../../../../environments/environment';
 
 interface ProfileData {
   first_name?: string;
@@ -34,20 +35,29 @@ export class ProfileEditComponent implements OnInit {
     this.fetchProfileData();
   }
 
-  // Fetches the profile data of the admin
   fetchProfileData() {
-    this.http.get<ProfileData>(`http://localhost:8080/api/get-admin-profile.php?adminId=${this.AdminID}`)
-      .subscribe({
+    const token = localStorage.getItem('admintoken');
+    console.log("Token being sent:", token);  
+
+    const apiUrl = `${environment.apiUrl}/admin/get-admin-profile.php`;
+
+    this.http.get<ProfileData>(apiUrl, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }).subscribe({
         next: (data: ProfileData) => {
-          this.profileData = data;
-          this.profileImagePreview = data.profile_picture || '';
+            this.profileData = data;
+            this.profileImagePreview = data.profile_picture || '';
         },
         error: () => {
-          console.error('Error fetching profile data.');
-          alert('Failed to load profile data. Please try again later.');
+            console.error('Error fetching profile data.');
+            alert('Failed to load profile data. Please try again later.');
         }
-      });
-  }
+    });
+}
+
+  
 
   // Opens the modal based on the section (profile picture, personal info, or address)
   openModal(modalId: string) {

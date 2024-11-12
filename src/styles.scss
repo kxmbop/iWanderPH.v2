@@ -31,7 +31,6 @@ body::-webkit-scrollbar {
     font-family: "Poppins" , sans-serif;
 }
 button{
-    color: #fff;
     // max-width: 148px;
     // min-width: 98px;
     padding: 6px 25px;
@@ -47,7 +46,29 @@ input{
     border-radius: 5px;
     box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.25);
     padding-left: 7px;
+    outline: none;
+
 }
 
 
 html, body { height: 100%; }
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.centered{
+    justify-content: center;
+    align-items: center;
+}
+
+.s-b{
+    justify-content: space-between;
+    align-items: center;
+}

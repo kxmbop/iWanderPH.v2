@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';  // assuming you have an environment file for API base URL
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = `${environment.apiUrl}/admin`;  // Replace with your actual API URL
+  private apiUrl = `${environment.apiUrl}/admin`; 
 
   constructor(private http: HttpClient) {}
 
   // Get admin profile details
   getAdminProfile(token: string): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(`${this.apiUrl}/get-admin-profile.php`, { headers });
+    return this.http.post<any>(`${this.apiUrl}/get-admin-profile.php`, { token });
   }
+  
+  
+  
 
   // Update admin profile
   updateAdminProfile(token: string, updatedData: any): Observable<any> {

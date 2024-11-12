@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { ProfileService } from '../services/profile.service';
+import { ProfileService } from '../../services/profile.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrl: './settings.component.scss',
+  selector: 'app-account-settings',
+  templateUrl: './account-settings.component.html',
+  styleUrl: './account-settings.component.scss',
   animations: [
     trigger('slideInOut', [
       transition(':enter', [
@@ -19,9 +19,9 @@ import { Router } from '@angular/router';
     ])
   ]
 })
-export class SettingsComponent {
+export class AccountSettingsComponent {
   profile: any = {};
-  showAccountSettings = true;
+  showSettings = true;
 
   constructor(
     private profileService: ProfileService,
@@ -55,17 +55,10 @@ export class SettingsComponent {
       console.error("No token found");
     }
   }
-
   closeSettings() {
-    this.showAccountSettings = false;
+    this.showSettings = false;
     setTimeout(() => {
-      this.router.navigate(['/traveler/profile']);
+      this.router.navigate(['/traveler/settings']);
     }, 500);
   }
-
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['traveler/login']);
-  }
-  
 }

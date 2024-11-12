@@ -1,5 +1,5 @@
-@import '../../../../src/styles.scss';
-@import '../../app.component.scss';
+@import '../../../../../src/styles.scss';
+@import '../../../app.component.scss';
 
 .settings-panel{
     position: fixed;
@@ -9,20 +9,24 @@
     height: 100%;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 11;
+    z-index: 10;
 }
 .group{
-    border-bottom: 5px solid #f3f3f3;
-    padding: 10px 20px;
+    padding: 0 15px;
+    background-color: #f1f1f1;
 }
+.container {
+    padding: 0 7px;
+}
+
 .option{
+    padding: 5px 0;
     .label{
-        padding: 10px 0;
-        label{
-            margin-left: 5px;
-        }
-        i{
-            font-size: 20px;
+        padding: 7px 0;
+        p{
+            font-size: 13px;
+            color: #757575;
+
         }
     }
     i{
@@ -69,14 +73,43 @@
             position: relative;
         }
     }
-    .group{
-
+    .form {
+        margin-bottom: 20px;
         span{
             font-size: 13px !important;
             font-weight: 500;
-            color: #979797;
+            color: #535353;
+            margin-left: 15px;
+        }
+        .option{
+            label{
+                font-size: 15px;
+                font-weight: 500;
+                color: #353535;
+            }
+            .label{
+                p{
+                    text-decoration: none;
+                }
+                i{
+                    font-size: 26px;
+                    color: #707070 !important;
+                }
+            }
         }
     }
+    .edit {
+        width: 80%;
+        margin: 10px auto;
+        border: 1px solid #353535;
+        padding: 5px 20px;
+        font-size: 13px;
+        border-radius: 5px;
+        i {
+            font-size: 22px;
+        }
+    }
+
 }
 @media (min-width: 1025px) {
     .settings-panel {

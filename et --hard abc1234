@@ -1,0 +1,32 @@
+[33m31d2e5e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: reset: moving to HEAD@{1}
+[33m7d7cb18[m HEAD@{1}: reset: moving to HEAD@{1}
+[33m31d2e5e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{2}: pull: Fast-forward
+[33m7d7cb18[m HEAD@{3}: pull: Fast-forward
+[33mf17b704[m HEAD@{4}: pull: Fast-forward
+[33mfd3fe7d[m HEAD@{5}: commit (merge): Merge branch 'master' of https://github.com/kxmbopgit/iWanderPH.v2
+[33m327bbbd[m HEAD@{6}: commit: "Updated profile component HTML, SCSS, and TS files with new UI elements, styles, and functionality; added review service and modified profile service."
+[33mfedaed5[m HEAD@{7}: commit (cherry-pick): "Removed edit profile button from profile component, added review service and router to profile component, modified profile service to remove travelerID parameter from getReviews method, and updated environment apiUrl"
+[33m208dc20[m HEAD@{8}: reset: moving to HEAD
+[33m208dc20[m HEAD@{9}: reset: moving to HEAD~1
+[33mb286739[m HEAD@{10}: commit (cherry-pick): "Added Content Moderation and Business Verification features to admin layout and routing"
+[33m208dc20[m HEAD@{11}: commit: "Removed dedicated user field from post-notification component, updated home component explore button, added tab menu and announcement feature to notifications component, and updated booking service and environment files."
+[33mcaaf22c[m HEAD@{12}: commit: "Updated GCash number label in signup component and switched API URL to localhost in development environment"
+[33m3dd0d86[m HEAD@{13}: cherry-pick: gi apil nako diri katong route sa profile
+[33mc45c807[m HEAD@{14}: commit (cherry-pick): signup accepted
+[33m9a6d32b[m HEAD@{15}: reset: moving to 9a6d32bace1d3a928eb619a979f7efa5d58475af
+[33m9a6d32b[m HEAD@{16}: pull: Fast-forward
+[33m70a0430[m HEAD@{17}: commit: "Refactor traveler module: updated HTML, CSS, and TypeScript files for booking details, home, and profile components; added create review functionality"
+[33mdb23a1f[m HEAD@{18}: commit (cherry-pick): ara bag o
+[33ma1ca689[m HEAD@{19}: commit: "Added ledger tab to user details component, including API call to fetch sale bookings and updated HTML, CSS, and TypeScript files accordingly."
+[33madb4540[m HEAD@{20}: commit: 30% :)
+[33mee6d763[m HEAD@{21}: commit: rawrrrr
+[33m206dc04[m HEAD@{22}: commit: rawr ulet
+[33m2781d21[m HEAD@{23}: pull: Fast-forward
+[33m4ba3825[m HEAD@{24}: commit: rawr
+[33m4e3922a[m HEAD@{25}: pull: Fast-forward
+[33meec8738[m HEAD@{26}: pull: Fast-forward
+[33mc56c11d[m HEAD@{27}: commit: "Updated various components and services in admin and merchant modules, including chat functionality, booking
+[33m7d95732[m HEAD@{28}: pull: Fast-forward
+[33mc5a4eed[m HEAD@{29}: commit: MERCHANT NAME
+[33m2f5a539[m HEAD@{30}: commit: chat messaging and cors
+[33ma81debe[m HEAD@{31}: clone: from https://github.com/kxmbop/iWanderPH.v2

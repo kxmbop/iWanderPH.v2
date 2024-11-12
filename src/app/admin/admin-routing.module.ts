@@ -13,6 +13,8 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { OnlineChatComponent } from './online-chat/online-chat.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ContentModerationComponent } from './content-moderation/content-moderation.component';
+import { BusinessVerificationComponent } from './business-verification/business-verification.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,6 +35,8 @@ const routes: Routes = [
       { path: 'generate-analytics', component: GenerateAnalyticsComponent },
       { path: 'admin-page-not-found', component: AdminPageNotFoundComponent },
       { path: 'settings', component: SettingsComponent },
+      { path: 'content-moderation', component: ContentModerationComponent },
+      { path: 'business-verification', component: BusinessVerificationComponent }
     ]
   }
 ];

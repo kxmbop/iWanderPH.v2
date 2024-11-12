@@ -1,0 +1,84 @@
+<div class="settings-panel" id="settings-panel" [@slideInOut]="showSettings" *ngIf="showSettings">
+   <div class="close-button" (click)="closeSettings()">
+      <i class='bx bx-chevron-left' ></i>
+      <div class="title">
+          <span>Account Settings</span>
+      </div>
+  </div>
+  <div class="container">
+      <div class="user-details-form">
+         <div class="form">
+            <span>Account Information</span>
+            <div class="group">
+               <div class="option flex-row s-b"  [routerLink]="['/traveler/settings/account/update-username']">
+                  <label>Username</label>
+                  <div class="label  flex-row centered">
+                     <p>{{ profile.Username }}</p>
+                     <i class='bx bx-chevron-right' ></i>
+                  </div>
+               </div>
+               <div class="option flex-row s-b"  [routerLink]="['/traveler/settings/account/update-password']">
+                  <label>Password</label>
+                  <div class="label  flex-row centered">
+                     <p></p>
+                     <i class='bx bx-chevron-right' ></i>
+                  </div>
+               </div>
+               <div class="option flex-row s-b"  [routerLink]="['/traveler/settings/account/update-phone-number']">
+                  <label>Phone Number</label>
+                  <div class="label  flex-row centered">
+                     <p>{{ profile.Mobile }}</p>
+                     <i class='bx bx-chevron-right' ></i>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="form">
+            <span>Personal Information</span>
+            <div class="group">
+               <div class="option flex-row s-b">
+                  <label>Display Name</label>
+                  <div class="label  flex-row centered">
+                     <p>{{ profile.FirstName }} {{ profile.LastName }}</p>
+                  </div>
+               </div>
+               <div class="option flex-row s-b">
+                  <label>Email</label>
+                  <div class="label  flex-row centered">
+                     <p>{{ profile.Email }}</p>
+                  </div>
+               </div>
+               <div class="option flex-row s-b">
+                  <label>Birthday</label>
+                  <div class="label  flex-row centered">
+                     <p>November 13, 2024</p>
+                  </div>
+               </div>
+               <div class="option flex-row s-b">
+                  <label>Address</label>
+                  <div class="label  flex-row centered">
+                     <p>{{ profile.Address }}</p>
+                  </div>
+               </div>
+            </div>
+            <div class="edit flex-row s-b" [routerLink]="['/traveler/settings/account/update-personal-information']">
+               <label>Update Personal Information</label>
+               <div class="label  flex-row centered">
+                  <i class='bx bx-chevron-right' ></i>
+               </div>
+            </div>
+         </div>
+         <div class="form" [routerLink]="['/traveler/settings/account/deactivate']">
+            <span>Account Deactivation</span>
+            <div class="group">
+               <div class="option flex-row s-b">
+                  <label>Deactivate</label>
+                  <div class="label  flex-row centered">
+                     <i class='bx bx-chevron-right' ></i>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+  </div>
+</div>

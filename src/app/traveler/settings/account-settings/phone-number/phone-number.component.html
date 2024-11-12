@@ -1,0 +1,24 @@
+<div class="panel" id="panel" [@slideInOut]="showSettings" *ngIf="showSettings">
+    <div class="close-button">
+        <div class="back-icon flex-row" (click)="closeSettings()" style="width: 70px;">
+            <i class="bx bx-chevron-left"></i>
+        </div>   
+        <div class="title">
+            <span>Update Phone Number</span>
+        </div>
+        <input type="submit" value="Save" (click)="updatePhoneNumber()">
+    </div>
+    <div class="container">
+        <input 
+            type="tel" 
+            [(ngModel)]="phoneNumber" 
+            placeholder="Enter your phone number" 
+            required 
+            (input)="validatePhoneNumber()"
+            [ngClass]="{'invalid': !isValidPhoneNumber}"
+        />
+        <p *ngIf="!isValidPhoneNumber" style="color: red;">Invalid phone number</p>
+        <div style="margin-top: 10px;"></div>
+        <p>Please make sure to enter a valid phone number. Include the country code 63.</p>
+    </div>
+</div>

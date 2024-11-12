@@ -87,61 +87,56 @@
                         </div>
                   </div>
             </div>
-                
-             <div class="tabs">
-                        <div class="content-tab" id="notifications" (click)="showTab('notifications')" 
-                  [class.active]="activeTab === 'notifications'"><h4>Notifications  </h4>    
-                        </div>
-                        <div class="content-tab" id="announcements" (click)="showTab('announcements')" 
-                 [class.active]="activeTab === 'announcements'"><h4>Announcements  </h4>      
-                  </div>
-                  
-            </div>
-            <!-- notification-tab -->
-            <div
-                  *ngIf="activeTab === 'notifications'"
-                  class="content-tab notifications"
-                  [@slideAnimation]="activeTab === 'notifications' ? 'in' : 'out'">
 
-                  
-                
-                  <div *ngIf="notifications.length > 0; else noNotifications" class="notification-list">
-                    <div *ngFor="let notification of notifications" class="notification-item">
-                      <div class="notification-content">
-                        <p class="notification-message">{{ notification.notificationMessage }}</p>
-                        <div class="notification-meta">
-                          <span class="notification-status">Booking Status: {{ notification.bookingStatus }}</span>
-                          <span class="notification-date">{{ notification.createdAt | date:'short' }}</span>
+            <!-- notification-tab -->
+            <div class="notif content-tab">
+                  <div class="tabs">
+                        <div class="content-tab" id="notifications" (click)="showTab('notifications')" [class.active]="activeTab === 'notifications'">
+                              <h4>Notifications  </h4>    
                         </div>
-                      </div>
-                    </div>
+                        <div class="content-tab" id="announcements" (click)="showTab('announcements')" [class.active]="activeTab === 'announcements'">
+                              <h4>Announcements </h4>      
+                        </div>
                   </div>
-                
-                  <ng-template #noNotifications>
-                    <p class="no-notifications-message">You have no notifications at the moment.</p>
-                  </ng-template>
-            </div>
-            <div
-                  
-                  *ngIf="activeTab === 'announcements'"
-                  class="content-tab announcements"
-                  [@slideAnimation]="activeTab === 'announcements' ? 'in' : 'out'"
-                  >
-                  
-                  <div *ngIf="announcements.length > 0; else noAnnouncements" class="announcement-list">
-                        <div *ngFor="let announcement of announcements" class="announcement-item">
-                          <div class="announcement-content">
-                            <h5 class="announcement-header">{{ announcement.header }}</h5>
-                            <p class="announcement-description">{{ announcement.description }}</p>
-                            <span class="announcement-date">{{ announcement.createdAt | date:'short' }}</span>
+
+                  <div class="content-tab notifications" *ngIf="activeTab === 'notifications'"  [@slideAnimation]="activeTab === 'notifications' ? 'in' : 'out'">
+                        <div *ngIf="notifications.length > 0; else noNotifications" class="notification-list">
+                          <div *ngFor="let notification of notifications" class="notification-item">
+                            <div class="notification-content">
+                              <p class="notification-message">{{ notification.notificationMessage }}</p>
+                              <div class="notification-meta">
+                                <span class="notification-status">Booking Status: {{ notification.bookingStatus }}</span>
+                                <span class="notification-date">{{ notification.createdAt | date:'short' }}</span>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-
-                  <ng-template #noAnnouncements>
-                  <p class="no-announcements-message">There are no announcements at the moment.</p>
-                  </ng-template>
+                      
+                        <ng-template #noNotifications>
+                          <p class="no-notifications-message">You have no notifications at the moment.</p>
+                        </ng-template>
                   </div>
+
+                  <div *ngIf="activeTab === 'announcements'" class="content-tab announcements" [@slideAnimation]="activeTab === 'announcements' ? 'in' : 'out'">
+                  
+                        <div *ngIf="announcements.length > 0; else noAnnouncements" class="announcement-list">
+                              <div *ngFor="let announcement of announcements" class="announcement-item">
+                                <div class="announcement-content">
+                                  <h5 class="announcement-header">{{ announcement.header }}</h5>
+                                  <p class="announcement-description">{{ announcement.description }}</p>
+                                  <span class="announcement-date">{{ announcement.createdAt | date:'short' }}</span>
+                                </div>
+                              </div>
+                            </div>
+      
+                        <ng-template #noAnnouncements>
+                        <p class="no-announcements-message">There are no announcements at the moment.</p>
+                        </ng-template>
+                  </div>
+
+            </div>
+            
+
 
 
             <div *ngIf="activeTab === 'inbox'" class="inbox">

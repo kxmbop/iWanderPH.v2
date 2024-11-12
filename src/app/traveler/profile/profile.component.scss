@@ -69,6 +69,7 @@
     font-size: 11px;
     max-width: 90%;
 }
+
 .profile-tabs{
     display: flex;
     flex-direction: row;
@@ -228,10 +229,29 @@
         }
       }
     }
-  
+
   
 /* Mobile view (up to 480px) */
 @media (max-width: 480px) { 
+    .p-b{
+
+        .options{
+            width: 100%;
+            gap: 10px;
+            padding: 0 20px;
+            margin-top: 5px;
+        }
+        button{
+            padding: 5px 0;
+            width: 100%;
+            box-shadow: none;
+            background-color: #e8e8e8 !important;
+            border-radius: 8px;
+            &:hover{
+                background-color: #373737;
+            }
+        }
+    }
     .settings{
         display: none;
     }
@@ -254,10 +274,6 @@
     .p-j{
         gap: 15px;
         margin-top: 15px;
-    }
-    .p-b{
-        max-height: 54px;
-
     }
     .review-tab, .journey-tab {
         width: 100%;

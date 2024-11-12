@@ -1,0 +1,33 @@
+<div class="panel" id="panel" [@slideInOut]="showThis" *ngIf="showThis">
+    <div class="close-button">
+        <div class="back-icon flex-row" (click)="closeSettings()" style="width: 70px;">
+            <i class="bx bx-chevron-left"></i>
+        </div>        
+        <div class="title">
+            <span>Update Username</span>
+        </div>
+        <input 
+            type="submit" 
+            value="Save" 
+            (click)="updateUsername()" 
+            [disabled]="!isUsernameChanged || !isAvailable" />
+    </div>
+    <div class="container">
+        <input
+            type="text"
+            [(ngModel)]="newUsername"
+            (input)="checkUsernameAvailability()"
+            [ngModelOptions]="{standalone: true}" 
+        />
+        <p [ngStyle]="{ color: isAvailable ? 'green' : 'red' }">
+            {{ availabilityMessage }}
+        </p>
+        <span>https://i-wander-ph-v2.vercel.app/&#64;{{ newUsername || profile.Username }}</span>
+        <div style="margin-top: 10px;"></div>
+
+        <p>
+            Usernames can include only letters, numbers, underscores, and periods. Updating your
+            username will also update your profile link.
+        </p>
+    </div>
+</div>
