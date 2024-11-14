@@ -21,3 +21,78 @@
     font-weight: 500;
     margin: 18px
 }
+
+.dashboard {
+    .top-cards {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+  
+      .card {
+        flex: 1;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        text-align: center;
+        margin: 0 10px;
+      }
+    }
+  
+    .performance-section {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+  
+      .performance,
+      .notifications {
+        flex: 1;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        margin: 0 10px;
+      }
+  
+      .empty-box {
+        text-align: center;
+        color: gray;
+        padding: 20px;
+      }
+    }
+  
+    .new-registered-business {
+      .business-card {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin: 5px 0;
+        border-radius: 5px;
+  
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+  
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .gauge-container {
+    position: relative;
+    text-align: center;
+  
+    .gauge-label {
+      position: absolute;
+      bottom: -20px;
+      width: 100%;
+      font-size: 14px;
+      color: #555;
+    }
+  }
+  
+  

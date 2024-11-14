@@ -8,7 +8,6 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
 import { ViewUsersComponent } from './view-users/view-users.component';
 import { PostNotificationComponent } from './post-notification/post-notification.component';
-import { GenerateAnalyticsComponent } from './generate-analytics/generate-analytics.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { RouterModule } from '@angular/router';
 import { AdminPageNotFoundComponent } from './admin-page-not-found/admin-page-not-found.component';
@@ -20,19 +19,18 @@ import { AddressEditComponent } from './address-edit/address-edit.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { ProfilePictureEditComponent } from './profile-picture-edit/profile-picture-edit.component';
 import { AddAccountComponent } from './add-account/add-account.component';
-
+import { GenerateReportComponent } from './generate-report/generate-report.component';
 
 @NgModule({
   declarations: [
-    AdminLayoutComponent,
     AdminDashboardComponent,
+    AdminLayoutComponent,
     OnlineChatComponent,
     AdminLoginComponent,
     AdminProfileComponent,
     ViewBookingsComponent,
     ViewUsersComponent,
     PostNotificationComponent,
-    GenerateAnalyticsComponent,
     AdminPageNotFoundComponent,
     BookingDetailsComponent,
     UserDetailsComponent,
@@ -40,7 +38,8 @@ import { AddAccountComponent } from './add-account/add-account.component';
     AddressEditComponent,
     PasswordResetComponent,
     ProfilePictureEditComponent,
-    AddAccountComponent
+    AddAccountComponent,
+    GenerateReportComponent
   ],
   imports: [
     CommonModule,

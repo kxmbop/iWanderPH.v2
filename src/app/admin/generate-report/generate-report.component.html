@@ -1,0 +1,55 @@
+<div class="hub-container">
+    <span>Analytic Reports</span>
+        <div class="report-container">
+            <div class="report-section">
+                <div class="card">
+                    <h3>Monthly Booking Trends</h3>
+                    <canvas #monthlyTrendsChart></canvas>
+                    </div>      
+                    <div class="card">
+                    <h3>Revenue - Year to Date</h3>
+                    <canvas #revenueChart></canvas>
+                </div>  
+            </div>
+
+            <div class="report-section">
+                <div class="card">
+                    <h3>Review and Ratings of Merchant</h3>
+                    <div class="table-box">
+                        <table class="table-header">
+                            <thead>
+                                <tr>
+                                    <th>Merchant ID</th>
+                                    <th>Business Name</th>
+                                    <th>Ratings</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div class="table-body">
+                            <table>
+                                <tbody>
+                                    <tr *ngFor="let merchant of filteredUsers">
+                                        <td>{{ merchant.merchantID }}</td>
+                                        <td>{{ merchant.businessName }}</td>
+                                        <td>{{ merchant.reviewRating }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Refunded Merchant Report</h3>
+                    
+                </div>
+            </div>
+
+            <div class="report-section">
+                <div class="card">
+                    <h3>Payment Summary</h3>
+                    
+                </div>  
+            </div>
+        </div>
+        
+</div>

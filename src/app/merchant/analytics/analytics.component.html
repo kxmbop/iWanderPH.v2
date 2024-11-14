@@ -1,1 +1,46 @@
-<p>analytics works!</p>
+<div class="report-container">
+    <div class="report-section">
+      <div class="card">
+          <h3>Monthly Booking Trends</h3>
+          <canvas #monthlyTrendsChart></canvas>
+        </div>      
+        <div class="card">
+          <h3>Customer Demographic & Preferences</h3>
+          <p>Repeat Customers: {{ reportData?.customerDemographics?.repeat }}%</p>
+          <p>First-Time Customers: {{ reportData?.customerDemographics?.new }}%</p>
+          <canvas #customerDemographicsChart></canvas>
+        </div>
+        
+    </div>
+    <div class="report-section">
+      <div class="card">
+        <h3>Revenue Trend Year to Date</h3>
+        <canvas id="revenueChart"></canvas>
+      </div>
+      <div class="card">
+        <h3>August Occupancy</h3>
+        <p>Overall: {{ reportData?.occupancy?.overall }}%</p>
+        <p>Top Booked Room: {{ reportData?.occupancy?.topRoom }}</p>
+      </div>
+      <div class="card">
+        <h3>Calendar Occupancy</h3>
+        <ul>
+          <li *ngFor="let date of reportData?.availability?.unbookedDates">
+            {{ date }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="report-section">
+      <div class="card">
+        <h3>Customer Feedback and Satisfaction</h3>
+        <p>Average Rating: {{ reportData?.feedback?.averageRating }}/5</p>
+      </div>
+      <div class="card">
+        <h3>Cancellation and Refund Summary</h3>
+        <p>Cancellation Rate: {{ reportData?.cancellations?.rate }}%</p>
+        <p>Refunded Amount: PHP {{ reportData?.cancellations?.refundAmount }}</p>
+      </div>
+    </div>
+  </div>
+  

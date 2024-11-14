@@ -1,1 +1,54 @@
-<div class="text">Admin Dashboard</div>
+<div class="dashboard">
+    <div class="top-cards">
+      <div class="card">
+        <p>Total Revenue</p>
+        <h2>₱{{ totalRevenue }}</h2>
+      </div>
+      <div class="card">
+        <p>Total Users</p>
+        <h2>{{ totalUsers }}</h2>
+      </div>
+      <div class="card">
+        <p>Total Business Registered</p>
+        <h2>{{ totalBusiness }}</h2>
+      </div>
+    </div>
+  
+    <div class="performance-section">
+      <div class="performance">
+        <h3>Booking Transaction Performance</h3>
+        <ngx-gauge
+          [value]="performancePercentage"
+          [type]="'semi'"
+          [valueLabel]="'%'"
+          [thick]="15"
+          [cap]="'round'"
+          [size]="200"
+          [foregroundColor]="'#f56c6c'"
+          [backgroundColor]="'#f2f2f2'">
+        </ngx-gauge>
+      </div>
+      <div class="notifications">
+        <h3>Notifications</h3>
+        <div class="empty-box">No new notifications</div>
+      </div>
+    </div>
+  
+    <div class="new-registered-business">
+      <h3>New Registered Business</h3>
+      <div *ngFor="let business of newBusinesses" class="business-card">
+        <div class="business-info">
+          <img src="assets/default-avatar.png" alt="User Avatar" />
+          <div>
+            <p>{{ business.name }}</p>
+            <p>{{ business.date }}</p>
+          </div>
+        </div>
+        <div class="business-details">
+          <p>{{ business.businessName }}</p>
+          <p>₱{{ business.amount }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
