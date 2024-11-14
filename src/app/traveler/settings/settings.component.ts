@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrl: './settings.component.scss',
+  styleUrls: ['./settings.component.scss'],
   animations: [
     trigger('slideInOut', [
       transition(':enter', [
@@ -23,13 +23,15 @@ import { environment } from '../../../environments/environment';
 })
 export class SettingsComponent {
   profile: any = {};
+  isMerchant: boolean = false;
+  isApproved: boolean = false;
   showAccountSettings = true;
   isMerchant: boolean = false;
 
   constructor(
     private profileService: ProfileService,
     private router: Router,
-    private http: HttpClient
+ private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -39,15 +41,15 @@ export class SettingsComponent {
 
   loadProfile() {
     const token = localStorage.getItem('token');
-    // console.log("Token retrieved: ", token);
-
     if (token) {
       this.profileService.getProfile(token).subscribe(
         (data) => {
-          // console.log("API Response: ", data);
           if (data.success) {
-            // console.log('User  Profile:', data.profile);
             this.profile = data.profile;
+
+            // Update flags based on profile data
+            this.isMerchant = this.profile.isMerchant === 1;
+            this.isApproved = data.profile.isApproved === 1; // Ensure to get `isApproved` status from the merchant table
           } else {
             console.error("Error fetching profile: ", data.message);
           }

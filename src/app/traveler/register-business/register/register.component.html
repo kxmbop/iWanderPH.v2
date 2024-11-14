@@ -1,0 +1,213 @@
+<div class="register" *ngIf="currentStep === 1">
+  <div class="back-icon" (click)="goBack()">
+    <i class="bx bx-arrow-back"></i>
+  </div>
+  <h3>Business Details</h3>
+  <p>Please provide the exact business details as registered with the relevant government authorities.</p>
+
+  <!-- Upload Profile Picture -->
+  <div class="profile-picture-container">
+    <input type="file" id="profilePicture" class="profile-picture-input" (change)="onFileSelected($event)">
+    <label for="profilePicture" class="profile-picture-label">
+      <img [src]="profilePictureUrl || 'default-placeholder.jpg'" class="profile-picture-preview">
+      <i class="camera-icon bx bx-camera"></i>
+    </label>
+  </div>
+
+  <label>Business Name</label>
+  <input type="text" class="businessName" [(ngModel)]="businessName">
+
+  <label>Email</label>
+  <input type="email" class="email" [(ngModel)]="email">
+
+  <label>Contact Number</label>
+  <input type="text" class="contact" [(ngModel)]="contact">
+
+  <label>Full Address</label>
+  <input type="text" class="address" [(ngModel)]="address">
+
+  <!-- Transportation Checkbox -->
+  <label>
+    <input type="checkbox" [(ngModel)]="offersTransportation"> Do you offer transportation services?
+  </label>
+
+  <h3>What type of business are you providing?</h3>
+  <div class="business-options">
+    <div class="business-option" [class.selected]="selectedBusinessType === 'Hotel'" (click)="selectBusinessType('Hotel')">
+      <h4>Hotel</h4>
+      <p>An establishment providing accommodations, meals, and other services for travelers and tourists.</p>
+    </div>
+    <div class="business-option" [class.selected]="selectedBusinessType === 'Resort'" (click)="selectBusinessType('Resort')">
+      <h4>Resort</h4>
+      <p>A destination providing accommodations along with extensive recreational facilities and activities.</p>
+    </div>
+  </div>
+
+  <!-- Next Button -->
+  <div class="next-button-container">
+    <button class="next-button" (click)="goToNextStep()">Next</button>
+  </div>
+</div>
+
+<!-- Government Information (New Step 2) -->
+<div class="register" *ngIf="currentStep === 2">
+  <div class="back-icon" (click)="goBackToStep1()">
+    <i class="bx bx-arrow-back"></i>
+  </div>
+  <h3>Government Information</h3>
+  <p>Please provide your business-related government documents and details.</p>
+
+  <label>Business TIN</label>
+  <input type="text" class="business-tin" [(ngModel)]="businessTin">
+
+  <!-- Document Uploads -->
+  <label>Barangay Clearance</label>
+  <input type="file" (change)="onFileSelected($event, 'BarangayClearance')">
+
+  <label>Mayor's Permit</label>
+  <input type="file" (change)="onFileSelected($event, 'MayorPermit')">
+
+  <label>BIR Form</label>
+  <input type="file" (change)="onFileSelected($event, 'BirForm')">
+
+  <label>DOT Authorization</label>
+  <input type="file" (change)="onFileSelected($event, 'DotAuth')">
+
+  <!-- Next Button -->
+  <div class="next-button-container">
+    <button class="next-button" (click)="goToStep3()">Next</button>
+  </div>
+</div>
+
+
+<div class="register" *ngIf="currentStep === 3">
+  <div class="back-icon" (click)="goBackToStep1()">
+    <i class="bx bx-arrow-back"></i>
+  </div>
+
+  <!-- Room Details Form -->
+  <div *ngIf="selectedBusinessType">
+    <div *ngFor="let room of roomDetails; let i = index" class="room-details-form">
+      <h4>Room {{ i + 1 }}</h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="RoomName">Room Name</label>
+          <input type="text" id="RoomName" class="form-input" [(ngModel)]="room.name">
+        </div>
+        <div class="form-group">
+          <label for="RoomQuantity">Room Quantity</label>
+          <div class="counter">
+            <button (click)="decrementRooms(i)">−</button>
+            <span>{{ room.quantity }}</span>
+            <button (click)="incrementRooms(i)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="roomRate">Room Rate</label>
+          <input type="text" id="roomRate" class="form-input" [(ngModel)]="room.rate" placeholder="₱ 00.00">
+        </div>
+        <div class="form-group">
+          <label for="GuestPerRoom">Guest Per Room</label>
+          <div class="counter">
+            <button (click)="decrementGuests(i)">−</button>
+            <span>{{ room.guests }}</span>
+            <button (click)="incrementGuests(i)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inclusions Dropdown -->
+      <div class="form-group">
+        <label for="inclusions">Inclusions</label>
+        <select id="inclusions" class="form-select" [(ngModel)]="room.selectedInclusion" (change)="addInclusion(i)">
+          <option value="" disabled selected>Select an inclusion</option>
+          <option *ngFor="let inclusion of availableInclusions" [value]="inclusion.InclusionID">
+            {{ inclusion.InclusionName }}
+          </option>
+        </select>
+        <div class="selected-options">
+          <div *ngFor="let inclusion of room.inclusions" class="option-box">
+            {{ inclusion.InclusionName }} <span class="remove" (click)="removeInclusion(i, inclusion)">✖</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Views Dropdown -->
+      <div class="form-group">
+        <label for="views">View</label>
+        <select id="views" class="form-select" [(ngModel)]="room.selectedView" (change)="addView(i)">
+          <option value="" disabled selected>Select a view</option>
+          <option *ngFor="let view of availableViews" [value]="view.ViewID">
+            {{ view.ViewName }}
+          </option>
+        </select>
+        <div class="selected-options">
+          <div *ngFor="let view of room.views" class="option-box">
+            {{ view.ViewName }} <span class="remove" (click)="removeView(i, view)">✖</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Room Image Upload -->
+      <div class="form-group">
+        <label for="roomImages">Upload Room Images</label>
+        <input type="file" id="roomImages" (change)="onRoomImagesSelected($event, i)" multiple>
+      </div>
+
+      <!-- Remove Room Button -->
+      <button class="remove-room" (click)="removeRoom(i)">Remove Room</button>
+    </div>
+
+    <!-- Add Room Button -->
+    <button (click)="addRoom()">Add Another Room</button>
+  </div>
+
+  <!-- Transportation Section -->
+  <div *ngIf="offersTransportation">
+    <h3>Transportation Details</h3>
+    <div *ngFor="let transport of transportationDetails; let i = index" class="transport-details-form">
+      <h4>Transportation {{ i + 1 }}</h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="Vehicle Name">Vehicle Name</label>
+          <input type="text" id="VehicleName" class="form-input" [(ngModel)]="transport.type">
+        </div>
+        <div class="form-group">
+          <label for="Model">Model</label>
+          <input type="text" id="Model" class="form-input" [(ngModel)]="transport.model">
+        </div>
+        <div class="form-group">
+          <label for="Brand">Brand</label>
+          <input type="text" id="Brand" class="form-input" [(ngModel)]="transport.brand">
+        </div>
+        <div class="form-group">
+          <label for="Capacity">Capacity</label>
+          <input type="text" id="Capacity" class="form-input" [(ngModel)]="transport.capacity">
+        </div>
+        <div class="form-group">
+          <label for="RentalPriceperDay">Rental Price per Day</label>
+          <input type="text" id="RentalPriceperDay" class="form-input" [(ngModel)]="transport.rate" placeholder="₱ 00.00">
+        </div>
+      </div>
+
+      <!-- Transportation Image Upload -->
+      <div class="form-group">
+        <label for="transportImages">Upload Transportation Images</label>
+        <input type="file" id="transportImages" (change)="onTransportImagesSelected($event, i)" multiple>
+      </div>
+
+      <!-- Remove Transportation Button -->
+      <button class="remove-transport" (click)="removeTransportation(i)">Remove Transportation</button>
+    </div>
+
+    <!-- Add Transportation Button -->
+    <button (click)="addTransportation()">Add Another Transportation</button>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="submit-button-container">
+    <button class="submit-button" (click)="submitForm()">Submit</button>
+  </div>
+</div>
