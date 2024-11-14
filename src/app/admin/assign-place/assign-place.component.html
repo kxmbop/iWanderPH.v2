@@ -1,0 +1,120 @@
+<button (click)="openAddPlaceModal()">Add Place</button>
+
+<!-- Modal for Adding Place -->
+<div *ngIf="showAddPlaceModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeAddPlaceModal()">&times;</span>
+    <h3>Add New Place</h3>
+    
+    <form (ngSubmit)="addPlace()">
+      <label for="place_name">Place Name:</label>
+      <input type="text" id="place_name" [(ngModel)]="newPlace.place_name" name="place_name" required>
+
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="newPlace.description" name="description"></textarea>
+
+      <label for="region">Region:</label>
+      <input type="text" id="region" [(ngModel)]="newPlace.region" name="region">
+
+      <label for="province">Province:</label>
+      <input type="text" id="province" [(ngModel)]="newPlace.province" name="province">
+
+      <label for="full_address">Full Address:</label>
+      <input type="text" id="full_address" [(ngModel)]="newPlace.full_address" name="full_address" required>
+
+      <label for="island_group">Island Group:</label>
+      <select id="island_group" [(ngModel)]="newPlace.island_group" name="island_group" required>
+        <option value="Luzon">Luzon</option>
+        <option value="Visayas">Visayas</option>
+        <option value="Mindanao">Mindanao</option>
+      </select>
+
+      <label for="main_image">Main Image:</label>
+      <input type="file" (change)="onMainImageSelected($event)" required>
+
+      <label for="additional_images">Additional Images:</label>
+      <input type="file" (change)="onAdditionalImagesSelected($event)" multiple>
+
+      <button type="submit">Add Place</button>
+    </form>
+  </div>
+</div>
+
+<!-- Table of Places -->
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Place Name</th>
+      <th>Description</th>
+      <th>Region</th>
+      <th>Province</th>
+      <th>Full Address</th>
+      <th>Island Group</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let place of places">
+      <td>
+        <img [src]="place.main_image ? 'data:image/jpeg;base64,' + place.main_image : ''" alt="Place Image" width="100">
+        <div *ngIf="place.images && place.images.length > 0">
+          <div *ngFor="let image of place.images">
+            <img [src]="'data:image/jpeg;base64,' + image" alt="Additional Place Image" width="100" style="margin-top: 10px;">
+          </div>
+        </div>
+      </td>
+      <td>{{ place.place_name }}</td>
+      <td>{{ place.description }}</td>
+      <td>{{ place.region }}</td>
+      <td>{{ place.province }}</td>
+      <td>{{ place.full_address }}</td>
+      <td>{{ place.island_group }}</td>
+      <td>
+        <button [routerLink]="['/admin/view-place', place.id]">Assign</button>
+        <button (click)="openEditPlaceModal(place)">Edit</button>
+        <button (click)="deletePlace(place.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- Edit Place Modal -->
+<div *ngIf="showEditPlaceModal" class="modal show">
+    <div class="modal-content">
+      <span class="close" (click)="closeEditPlaceModal()">&times;</span>
+      <h3>Edit Place</h3>
+  
+      <form (ngSubmit)="updatePlace()">
+        <label for="place_name">Place Name:</label>
+        <input type="text" id="place_name" [(ngModel)]="editPlace.place_name" name="place_name" required>
+  
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="editPlace.description" name="description"></textarea>
+  
+        <label for="region">Region:</label>
+        <input type="text" id="region" [(ngModel)]="editPlace.region" name="region">
+  
+        <label for="province">Province:</label>
+        <input type="text" id="province" [(ngModel)]="editPlace.province" name="province">
+  
+        <label for="full_address">Full Address:</label>
+        <input type="text" id="full_address" [(ngModel)]="editPlace.full_address" name="full_address" required>
+  
+        <label for="island_group">Island Group:</label>
+        <select id="island_group" [(ngModel)]="editPlace.island_group" name="island_group" required>
+          <option value="Luzon">Luzon</option>
+          <option value="Visayas">Visayas</option>
+          <option value="Mindanao">Mindanao</option>
+        </select>
+  
+        <label for="main_image">Main Image:</label>
+        <input type="file" (change)="onMainImageSelected($event)">
+  
+        <label for="additional_images">Additional Images:</label>
+        <input type="file" (change)="onAdditionalImagesSelected($event)" multiple>
+  
+        <button type="submit">Update Place</button>
+      </form>
+    </div>
+  </div>
+  
