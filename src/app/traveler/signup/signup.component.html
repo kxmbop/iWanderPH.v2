@@ -1,50 +1,96 @@
 <div class="signup-container">
   <!-- Step Progress Indicator -->
   <div class="step-indicator">
-    <div [class.active]="currentStep >= 1">Step 1</div>
-    <div [class.active]="currentStep >= 2">Step 2</div>
-    <div [class.active]="currentStep >= 3">Step 3</div>
-    <div [class.active]="currentStep >= 4">Step 4</div>
+    <div [class.active]="currentStep >= 1"></div>
+    <div [class.active]="currentStep >= 2"></div>
+    <div [class.active]="currentStep >= 3"></div>
+    <div [class.active]="currentStep >= 4"></div>
   </div>
 
-  <!-- Step 1: GCash Number -->
-  <div *ngIf="currentStep === 1">
-    <h3>Step 1: Enter Number</h3>
-    <input type="text" [(ngModel)]="gcashNumber" placeholder="Enter your GCash Number">
-    <p><i>Note: The number should align with your GCash number.</i></p>
+  <!-- Step 1: Email -->
+  <div class="steps" *ngIf="currentStep === 1">
+    <div>
+      <h3>Enter Email</h3>
+      <p>Note: Please make sure that the email is correctly entered.</p>
+    </div>
+    <div>
+        <div style="display: flex; flex-direction: row; gap: 5px;">
+          <input type="email" [(ngModel)]="email" placeholder="Enter your Email" required>
+          <button (click)="sendOtp()" [disabled]="otpSent || loading">
+            <span *ngIf="!loading">Send OTP</span>
+            <span *ngIf="loading">Sending...</span>
+          </button>
+        </div>
+      <p *ngIf="otpSent" style="margin-top:5px; text-align: center; color:green; font-size: 12px;">OTP has been sent to your email!</p>
+    </div>
+    <div></div>
   </div>
 
-  <!-- Step 2: OTP (This step will be skipped in terms of database storage) -->
-  <div *ngIf="currentStep === 2">
-    <h3>Step 2: Enter OTP Code</h3>
-    <input type="text" [(ngModel)]="otpCode" placeholder="Enter OTP Code">
-    <p><i>Note: This step is for validation only. Data will not be stored.</i></p>
+  <!-- Step 2: OTP -->
+  <div class="steps" *ngIf="currentStep === 2">
+    <div>
+      <h3>Enter OTP Code</h3>
+      <p>Note: This step is for validation only. Data will not be stored.</p>
+    </div>
+    <div>
+      <input type="text" [(ngModel)]="otpCode" placeholder="Enter OTP Code" maxlength="6" pattern="[0-9]*">
+      <p style="margin-top:5px; text-align: center; color:green; font-size: 12px;" *ngIf="otpCode && otpCode === generatedOtp" >OTP verified successfully!</p>
+      <p style="margin-top:5px; text-align: center; color:red; font-size: 12px;" *ngIf="otpCode && otpCode !== generatedOtp" >Invalid OTP. Please try again.</p>
+    </div>
+    <div></div>
   </div>
 
   <!-- Step 3: Profile details -->
-  <div *ngIf="currentStep === 3">
-    <h3>Step 3: Profile Info</h3>
-    <input type="file" (change)="onFileChange($event)" placeholder="Upload Profile Picture">
-    <input type="text" [(ngModel)]="bio" placeholder="Bio">
-    <input type="text" [(ngModel)]="firstName" placeholder="First Name">
-    <input type="text" [(ngModel)]="lastName" placeholder="Last Name">
-    <input type="text" [(ngModel)]="address" placeholder="Full Address">
+  <div class="steps" *ngIf="currentStep === 3">
+    <div>
+      <h3>Step 3: Profile Info</h3>
+      <p>Provide your phone number for payment processing, add a profile picture, bio, and your personal details to set up your account.</p>
+    </div>
+    <div class="profile-info">
+      <div class="profile-upload-container">
+        <input type="file" id="profilePic" accept="image/*" (change)="onFileChange($event)">
+        
+        <img *ngIf="profilePicture" [src]="profilePicture" alt="Profile Picture">
+        <span class="placeholder-text" *ngIf="!profilePicture">Upload Image</span>
+      </div>
+      <input type="text" [(ngModel)]="bio" placeholder="Bio">
+      <input type="text" [(ngModel)]="firstName" placeholder="First Name">
+      <input type="text" [(ngModel)]="lastName" placeholder="Last Name">
+      <input type="text" [(ngModel)]="gcashNumber" placeholder="Phone Number"  maxlength="12" pattern="[0-9]*">
+      <input type="text" [(ngModel)]="address" placeholder="Full Address">
+    </div>
+    <div></div>
   </div>
 
   <!-- Step 4: Account Details -->
-  <div *ngIf="currentStep === 4">
-    <h3>Step 4: Account Info</h3>
-    <input type="email" [(ngModel)]="email" placeholder="Email">
-    <input type="text" [(ngModel)]="username" placeholder="Username">
-    <input type="password" [(ngModel)]="password" placeholder="Password">
-    <input type="password" [(ngModel)]="confirmPassword" placeholder="Confirm Password">
+  <div class="steps" *ngIf="currentStep === 4">
+    <div>
+      <h3>Step 4: Account Info</h3>
+      <p>Please choose a username for your account, and set a password. Please confirm your password to ensure security.</p>
+    </div>
+    <div class="profile-info">
+      <input type="text" [(ngModel)]="username" placeholder="Username" (input)="checkUsernameAvailability()">
+      
+      <p *ngIf="usernameMessage" [ngStyle]="{'color': usernameMessageColor}" style="font-size: 14px;">
+        {{ usernameMessage }}
+      </p>
+      
+      <input type="password" [(ngModel)]="password" placeholder="Password">
+      <input type="password" [(ngModel)]="confirmPassword" placeholder="Confirm Password">
+    </div>
+    <div></div>
   </div>
 
   <!-- Back and Next Buttons -->
   <div class="button-group">
-    <button (click)="prevStep()" [disabled]="currentStep === 1">Back</button>
-    <button *ngIf="currentStep < 4" (click)="nextStep()">Next</button>
+    <button *ngIf="currentStep < 4"
+            (click)="nextStep()"
+            [disabled]="(currentStep === 1 && !otpSent) || (currentStep === 2 && otpCode !== generatedOtp)">
+      Next
+    </button>
     <button *ngIf="currentStep === 4" (click)="onSubmit()">Sign Up</button>
+    <button *ngIf="currentStep !== 1" (click)="prevStep()">Back</button>
+    <button *ngIf="currentStep === 1" [routerLink]="'/'">Back to Home</button>
   </div>
+  
 </div>
-  <!-- End of the Code -->

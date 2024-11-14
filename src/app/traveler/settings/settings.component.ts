@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ProfileService } from '../services/profile.service';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-settings',
@@ -22,14 +24,17 @@ import { Router } from '@angular/router';
 export class SettingsComponent {
   profile: any = {};
   showAccountSettings = true;
+  isMerchant: boolean = false;
 
   constructor(
     private profileService: ProfileService,
-    private router: Router   
+    private router: Router,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
     this.loadProfile();
+    this.checkMerchantStatus();
   }
 
   loadProfile() {
@@ -67,5 +72,31 @@ export class SettingsComponent {
     localStorage.removeItem('token');
     this.router.navigate(['traveler/login']);
   }
-  
+
+
+  checkMerchantStatus() {
+    const token = localStorage.getItem('token'); // Get token from localStorage
+    
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    
+    // Send POST request directly to the backend API URL
+    this.http.post(`${environment.apiUrl}/traveler/check_role.php`, {}, { headers })
+      .subscribe(
+        (response: any) => {
+          if (response.isMerchant) {
+            this.isMerchant = true; // If the response indicates the user is a merchant
+          } else {
+            this.isMerchant = false; // If the user is not a merchant
+          }
+        },
+        (error) => {
+          console.error('Error checking user role:', error);
+        }
+      );
+  }
 }
