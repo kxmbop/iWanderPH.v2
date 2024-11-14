@@ -1,0 +1,75 @@
+<div class="details-container">
+  <!-- Traveler Details -->
+  <div class="traveler-details">
+    <h3>Personal Information</h3>
+    <div class="profile-pic">
+      <img *ngIf="profilePicUrl" [src]="profilePicUrl" alt="Profile Picture" />
+    </div>
+    <div class="details">
+      <p><strong>First Name:</strong> {{ traveler.FirstName }}</p>
+      <p><strong>Last Name:</strong> {{ traveler.LastName }}</p>
+      <p><strong>Email:</strong> {{ traveler.Email }}</p>
+      <p><strong>Mobile:</strong> {{ traveler.Mobile }}</p>
+      <p><strong>Address:</strong> {{ traveler.Address }}</p>
+      <p><strong>Bio:</strong> {{ traveler.Bio }}</p>
+    </div>
+  </div>
+
+  <!-- Government Information -->
+  <div class="government-info">
+    <h3>Government Information</h3>
+    <p><strong>Business TIN:</strong> {{ traveler.BusinessTin }}</p>
+    <div class="g-document">
+      <div class="document">
+        <p><strong>Barangay Clearance:</strong></p>
+        <img *ngIf="barangayClearanceUrl" [src]="barangayClearanceUrl" alt="Barangay Clearance" />
+      </div>
+      <div class="document">
+        <p><strong>Mayor's Permit:</strong></p>
+        <img *ngIf="mayorPermitUrl" [src]="mayorPermitUrl" alt="Mayor's Permit" />
+      </div>
+      <div class="document">
+        <p><strong>BIR Form:</strong></p>
+        <img *ngIf="birFormUrl" [src]="birFormUrl" alt="BIR Form" />
+      </div>
+      <div class="document">
+        <p><strong>DOT Authorization:</strong></p>
+        <img *ngIf="dotAuthUrl" [src]="dotAuthUrl" alt="DOT Authorization" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<button class="approve-btn" (click)="approveMerchant()">Approve</button>
+
+<h2>Room Listings</h2>
+<div *ngFor="let room of rooms" class="room-listing">
+  <h3>{{ room.RoomName }}</h3>
+  <p><strong>Quantity:</strong> {{ room.RoomQuantity }}</p>
+  <p><strong>Rate:</strong> {{ room.RoomRate | currency }}</p>
+  <p><strong>Guests per Room:</strong> {{ room.GuestPerRoom }}</p>
+  <div class="room-views">
+    <p><strong>Views:</strong> {{ room.views.join(', ') }}</p>
+  </div>
+
+  <div class="room-inclusions">
+    <p><strong>Inclusions:</strong> {{ room.inclusions.join(', ') }}</p>
+  </div>
+  <div class="room-gallery">
+    <img *ngFor="let image of room.images" [src]="'data:image/png;base64,' + image" alt="Room Image" />
+  </div>
+</div>
+
+<h2>Transportation Listings</h2>
+<div *ngFor="let transportation of transportations" class="transportation-listing">
+  <h3>{{ transportation.VehicleName }}</h3>
+  <p><strong>Model:</strong> {{ transportation.Model }}</p>
+  <p><strong>Brand:</strong> {{ transportation.Brand }}</p>
+  <p><strong>Capacity:</strong> {{ transportation.Capacity }}</p>
+  <p><strong>Rental Price:</strong> {{ transportation.RentalPrice | currency }}</p>
+
+  <div class="transportation-gallery">
+    <img *ngFor="let image of transportation.images" [src]="'data:image/png;base64,' + image" alt="Transportation Image" />
+  </div>
+</div>

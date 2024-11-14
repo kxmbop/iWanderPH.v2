@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
@@ -13,6 +14,11 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { OnlineChatComponent } from './online-chat/online-chat.component';
 import { SettingsComponent } from './settings/settings.component';
+import { ContentModerationComponent } from './content-moderation/content-moderation.component';
+import { BusinessVerificationComponent } from './business-verification/business-verification.component';
+import { ViewVerificationComponent } from './view-verification/view-verification.component'; 
+import { AssignPlaceComponent } from './assign-place/assign-place.component';
+import { AssignComponent } from './assign/assign.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,6 +39,11 @@ const routes: Routes = [
       { path: 'generate-analytics', component: GenerateAnalyticsComponent },
       { path: 'admin-page-not-found', component: AdminPageNotFoundComponent },
       { path: 'settings', component: SettingsComponent },
+      { path: 'content-moderation', component: ContentModerationComponent },
+      { path: 'business-verification', component: BusinessVerificationComponent },
+      { path: 'view-verification/:merchantID', component: ViewVerificationComponent },
+      { path: 'assign-place', component: AssignPlaceComponent }, 
+      { path: 'assign', component: AssignComponent }, 
     ]
   }
 ];

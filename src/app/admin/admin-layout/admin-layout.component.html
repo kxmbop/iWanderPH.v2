@@ -1,10 +1,11 @@
 <div class="sidebar">
   <div class="logo-details">
-    <i class='bx bxs-user-circle icon'></i>
-    <div class="logo_name">        
-      <span id="name">{{ profile.firstname }} {{ profile.lastname }}</span>
-    </div>
-    
+    <a routerLink="/admin/admin-profile">
+      <i class='bx bxs-user-circle icon'></i>
+      <div class="logo_name">        
+        <span id="name">{{ profile.firstname }} {{ profile.lastname }}</span>
+      </div>
+    </a>
     <i class='bx bx-menu' id="btn"></i>
   </div>
   <ul class="nav-list">
@@ -43,12 +44,33 @@
       </a>
       <span class="tooltip">Post Notification</span>
     </li>
+    <li id="content-moderation">
+      <a routerLink="/admin/content-moderation">
+        <i class='bx bxs-check-shield' ></i>
+        <span class="links_name">Content Moderation</span>
+      </a>
+      <span class="tooltip">Content Moderation</span>
+    </li>
+    <li id="business-verification">
+      <a routerLink="/admin/business-verification">
+        <i class='bx bxs-business' ></i>
+        <span class="links_name">Business Verification</span>
+      </a>
+      <span class="tooltip">Business Verification</span>
+    </li>
     <li id="generate-analytics">
       <a routerLink="/admin/generate-analytics">
         <i class='bx bxs-bar-chart-square'></i>
         <span class="links_name">Generate Analytics</span>
       </a>
       <span class="tooltip">Generate Analytics</span>
+    </li>
+    <li id="assign-place">
+      <a routerLink="/admin/assign-place">
+        <i class='bx bxs-landscape'></i>
+        <span class="links_name">Assign Places</span>
+      </a>
+      <span class="tooltip">Assign Places</span>
     </li>
     <li class="profile">
       <a routerLink="/admin/login">
