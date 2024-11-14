@@ -4,3 +4,141 @@
 ::ng-deep .top-nav .nav-menu a#analytics{
     font-weight: bold !important;
 }
+
+.analytics-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 50px;
+}
+.customer-satisfaction {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin-left: 50px;
+
+    
+    .loading,
+    .error-message {
+        text-align: center;
+        padding: 20px;
+        font-size: 18px;
+        color: #fff;
+        border-radius: 4px;
+    }
+    
+    .loading {
+        background-color: #f0ad4e;
+    }
+    
+    .error-message {
+        background-color: #d9534f;
+    }
+    
+    .merchant-data {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .merchant-data h3 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    .data-item {
+        margin-bottom: 20px;
+    }
+    
+    .stars {
+        display: flex;
+        align-items: center;
+    }
+    
+    .bx {
+        font-size: 24px;
+        color: #f0ad4e;
+        margin-right: 5px;
+    }
+    
+    .bxs-star {
+        color: #f0ad4e; /* Filled star */
+    }
+    
+    .bx-star {
+        color: #ccc; /* Empty star */
+    }
+    
+    .rating-percent {
+        font-size: 16px;
+        margin-left: 10px;
+        font-weight: bold;
+        color: #333;
+    }
+    
+}
+
+
+.revenue-trends {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    max-width: 400px;
+    text-align: center;
+    margin-left: 50px;
+
+    .revenue-trends h3 {
+        font-size: 22px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    
+    .revenue-trends select {
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+    
+    .revenue-trends select:focus {
+        border-color: #007BFF;
+        outline: none;
+    }
+    
+    .revenue-trends canvas {
+        width:50px; /* Full width of the container */
+        height: 300px; /* Adjusted height for better visibility */
+        margin: 0 auto;
+    }
+    
+}
+.booking-trends{
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    max-width: 400px;
+    text-align: center;
+    margin-left: 50px;
+}
+.customer-demo{
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    max-width: 400px;
+    text-align: center;
+    margin-left: 50px;
+}
