@@ -13,6 +13,8 @@ import { SignupComponent } from './signup/signup.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ReviewComponent } from './review/review.component';
 import { UserTimelineComponent } from './user-timeline/user-timeline.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { RegisterBusinessComponent } from './register-business/register-business.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -47,7 +49,12 @@ const routes: Routes = [
         path: 'profile',
         component: ProfileComponent
       },
-      { path: 'user-timeline/:travelerID', component: UserTimelineComponent }
+      { path: 'user-timeline/:travelerID', component: UserTimelineComponent },
+      { path: 'edit-pofile', component: EditProfileComponent },
+      {
+        path: 'register-business',
+        loadChildren: () => import('./register-business/register-business.module').then(m => m.RegisterBusinessModule)
+      }
     ]
   }
 ];
