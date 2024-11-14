@@ -1,1 +1,26 @@
-<div class="text">Business Verification</div>
+<p>Business Verification</p>
+<table>
+  <thead>
+    <tr>
+      <th>Business Name</th>
+      <th>Email</th>
+      <th>Contact</th>
+      <th>Address</th>
+      <th>Business Type</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let merchant of merchants">
+      <td>{{ merchant.businessName }}</td>
+      <td>{{ merchant.email }}</td>
+      <td>{{ merchant.contact }}</td>
+      <td>{{ merchant.address }}</td>
+      <td>{{ merchant.businessType }}</td>
+      <td>
+        <button [routerLink]="['/admin/view-verification', merchant.merchantID]">View</button>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

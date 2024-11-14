@@ -1,41 +1,53 @@
-@import '../../../../src/styles.scss';
-@import '../../app.component.scss';
-@import '../admin-layout/admin-layout.component.scss';
 
-::ng-deep .sidebar li#business-verification{
-    pointer-events: none !important;
-}
-::ng-deep .sidebar li#business-verification i{
-    color: $apc !important;
-}
-::ng-deep .sidebar li#business-verification a{
-    background-color: #fff;
-}
-::ng-deep .sidebar li#business-verification .links_name{
-    color: $apc;
-    pointer-events: none !important;
-}
-.hub-container{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin: 8px 20px;
-    min-height: 98vh;
-    max-width: 100%;
-    background-color: #ffffff;
-    border-radius: 15px;
-    border: 0.5px solid #ececec;
-    padding: 18px;
-    color: $apc;
-}
-.hub-container span{
-    font-weight: 500;
-}
-
-.text{
-    display: inline-block;
-    color: $apc;
-    font-size: 25px;
-    font-weight: 500;
-    margin: 18px
-}
+p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #074D4C;
+  }
+  
+  table {
+    margin-left: 10px;
+    width: 98%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+  
+  thead {
+    background-color: #f2f2f2;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #074D4C;
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  button {
+    background-color: #074D4C;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #074D4C;
+  }
+  
