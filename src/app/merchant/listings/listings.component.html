@@ -1,9 +1,14 @@
-<div class="listinghub">
+<div class="options">
+  <button (click)="showRooms()">Rooms</button>
+  <button (click)="showTransportation()">Transportation</button>
+</div>
+
+<div class="listinghub" *ngIf="isRoomsVisible" id="rooms">
   <div class="container">
     <div class="button-container">
-      <button class="add-room-button" (click)="openAddRoomModal()">+ Add Another Room</button>
+      <button class="add-room-button" (click)="openAddRoomModal()">+ Add Room</button>
     </div>
-    <table class="finance-table">
+    <table class="listing-table">
       <thead>
         <tr>
           <th>Room Name</th>
@@ -52,6 +57,45 @@
         <label for="RoomRate">Room Rate (₱)</label>
         <input id="RoomRate" formControlName="RoomRate" type="number" placeholder="Room Rate" required />
       </div>
+
+      <!-- Views (List Type) -->
+      <div class="form-group">
+        <label for="ViewName">Views</label>
+        <input id="ViewName" formControlName="ViewName" type="text" placeholder="Add views" required />
+      </div>
+
+      <!-- Inclusions (List Type) -->
+      <div class="form-group">
+        <label for="Inclusion">Inclusions</label>
+        <input id="Inclusion" formControlName="Inclusion" type="text" placeholder="Add inclusions" required />
+
+      </div>
+
+      <!-- Inclusion Descriptions (List Type) -->
+      <div class="form-group">
+        <label for="InclusionDesc">Inclusion Descriptions</label>
+        <input id="InclusionDesc" formControlName="InclusionDesc" type="text" placeholder="Add inclusion descriptions" required />
+      </div>
+
+      <!-- Room Gallery (Image Upload with Validation) -->
+      <div class="form-group">
+        <label for="RoomGallery">Room Gallery</label>
+        <input 
+          id="RoomGallery" 
+          formControlName="RoomGallery" 
+          type="file" 
+          accept="image/*" 
+          multiple 
+          (change)="onFileChange($event)" 
+          required />
+          <div *ngIf="galleryFiles?.length > 0" class="image-preview-container">
+            <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
+              <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
+            </div>
+          <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
+          <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
+        </div>
+      </div>
       <button type="submit" class="add-room-submit-button" [disabled]="roomForm.invalid">Add Room</button>
     </form>
   </div>
@@ -89,14 +133,13 @@
       <div class="form-group">
         <label for="updateInclusion">Inclusions</label>
         <input id="updateInclusion" formControlName="Inclusion" type="text" placeholder="Add inclusions (comma-separated)" required />
-        <h6>Enter inclusions separated by commas (e.g., Breakfast, WiFi, Parking).</h6>
+
       </div>
 
       <!-- Inclusion Descriptions (List Type) -->
       <div class="form-group">
         <label for="updateInclusionDesc">Inclusion Descriptions</label>
         <input id="updateInclusionDesc" formControlName="InclusionDesc" type="text" placeholder="Add inclusion descriptions (comma-separated)" required />
-        <h6>Enter descriptions for each inclusion (comma-separated).</h6>
       </div>
 
       <!-- Room Gallery (Image Upload with Validation) -->
@@ -141,3 +184,147 @@
     </div>
   </div>
 </div>
+
+<div class="listinghub" *ngIf="isTransportationVisible" id="transportation">
+  <div class="container">
+    <div class="button-container">
+      <button class="add-vehicle-button" (click)="openAddVehicleModal()">+ Add Vehicle</button>
+    </div>
+    <table class="transportation-table">
+      <thead>
+        <tr>
+          <th>Vehicle Name</th>
+          <th>Model</th>
+          <th>Brand</th>
+          <th>Capacity</th>
+          <th>Rental Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vehicle of vehicles">
+          <td>{{ vehicle.VehicleName }}</td>
+          <td>{{ vehicle.Model }}</td>
+          <td>{{ vehicle.Brand }}</td>
+          <td>{{ vehicle.Capacity }}</td>
+          <td>₱ {{ vehicle.RentalPrice | number: '1.2-2' }}</td>
+          <td class="actions">
+            <button class="action-button update-button" (click)="openUpdateVehicleModal(vehicle)">Update</button>
+            <button class="action-button remove-button" (click)="deleteVehicle(vehicle)">Remove</button>
+            <button class="action-button view-button" (click)="viewVehicle(vehicle)">▾</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Add Vehicle Modal -->
+<div *ngIf="showAddVehicleModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeAddVehicleModal()">&times;</span>
+    <h2>Add New Vehicle</h2>
+    <form [formGroup]="vehicleForm" (ngSubmit)="addVehicle()">
+      <div class="form-group">
+        <label for="VehicleName">Vehicle Name</label>
+        <input id="VehicleName" formControlName="VehicleName" type="text" placeholder="Vehicle Name" required />
+      </div>
+      <div class="form-group">
+        <label for="Model">Model</label>
+        <input id="Model" formControlName="Model" type="text" placeholder="Model" required />
+      </div>
+      <div class="form-group">
+        <label for="Brand">Brand</label>
+        <input id="Brand" formControlName="Brand" type="text" placeholder="Brand" required />
+      </div>
+      <div class="form-group">
+        <label for="Capacity">Capacity</label>
+        <input id="Capacity" formControlName="Capacity" type="number" placeholder="Capacity" required />
+      </div>
+      <div class="form-group">
+        <label for="RentalPrice">Rental Price (₱)</label>
+        <input id="RentalPrice" formControlName="RentalPrice" type="number" placeholder="Rental Price" required />
+      </div>
+      <!-- Vehicle Gallery (Image Upload with Validation) -->
+      <div class="form-group">
+        <label for="addVehicleGallery">Vehicle Gallery</label>
+        <input 
+          id="addVehicleGallery" 
+          formControlName="VehicleGallery" 
+          type="file" 
+          accept="image/*" 
+          multiple 
+          (change)="onFileChange($event)" 
+          required />
+          <div *ngIf="galleryFiles?.length > 0" class="image-preview-container">
+            <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
+              <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
+            </div>
+          <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
+          <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
+        </div>
+      </div>
+      <button type="submit" class="add-vehicle-submit-button" [disabled]="vehicleForm.invalid">Add Room</button>
+    </form>
+  </div>
+</div>
+
+<!-- Update Vehicle Modal -->
+<div *ngIf="showUpdateVehicleModal" class="modal update-vehicle-modal">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeUpdateVehicleModal()">&times;</span>
+    <h2>Update Vehicle</h2>
+    <form [formGroup]="updateForm" (ngSubmit)="updateVehicle()">
+      <div class="form-group">
+        <label for="updateVehicleName">Vehicle Name</label>
+        <input id="updateVehicleName" formControlName="VehicleName" type="text" placeholder="Vehicle Name" required />
+      </div>
+      <div class="form-group">
+        <label for="updateModel">Model</label>
+        <input id="updateModel" formControlName="Model" type="text" placeholder="Model" required />
+      </div>
+      <div class="form-group">
+        <label for="updateBrand">Brand</label>
+        <input id="updateBrand" formControlName="Brand" type="text" placeholder="Brand" required />
+      </div>
+      <div class="form-group">
+        <label for="updateCapacity">Capacity</label>
+        <input id="updateCapacity" formControlName="Capacity" type="number" placeholder="Capacity" required />
+      </div>
+      <div class="form-group">
+        <label for="updateRentalPrice">Rental Price (₱)</label>
+        <input id="updateRentalPrice" formControlName="RentalPrice" type="number" placeholder="RentalPrice" required />
+      </div>
+      
+      <!-- Vehicle Gallery (Image Upload with Validation) -->
+      <div class="form-group">
+        <label for="updateVehicleGallery">Vehicle Gallery</label>
+        <input 
+          id="updateVehicleGallery" 
+          formControlName="VehicleGallery" 
+          type="file" 
+          accept="image/*" 
+          multiple 
+          (change)="onFileChange($event)" 
+          required />
+          <div *ngIf="galleryFiles?.length > 0" class="image-preview-container">
+            <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
+              <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
+            </div>
+          <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
+          <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
+        </div>
+      </div>
+      <button type="submit" class="update-vehicle-submit-button" [disabled]="updateForm.invalid">Update Vehicle</button>
+    </form>
+  </div>
+</div>
+
+<!-- View Vehicle Modal -->
+<div *ngIf="showViewVehicleModal" class="modal view-vehicle-modal">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeViewVehicleModal()">&times;</span>
+    <h2>Vehicle Details</h2>
+    <p><strong>Gallery:</strong> {{ viewRoomData?.RoomName }}</p>
+    </div>
+  </div>
