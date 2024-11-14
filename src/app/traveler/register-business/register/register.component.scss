@@ -85,6 +85,20 @@ select {
     box-shadow: 0 0 5px rgba(8, 111, 117, 0.5);
   }
 }
+select{
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+
+  &:focus {
+    border-color: #ccc;
+    box-shadow: 0 0 5px rgba(8, 111, 117, 0.5);
+  }
+}
 input[type="file"]{
   width: 100%;
   padding: 20px;
@@ -94,7 +108,7 @@ input[type="file"]{
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
   text-align: center;
-  
+
   &:focus {
     border-color: #ccc;
     box-shadow: 0 0 5px rgba(8, 111, 117, 0.5);
@@ -243,12 +257,13 @@ label {
   flex-wrap: wrap;
   gap: 10px; 
   margin-top: 10px;
-  padding: 10px;
+  padding: 5px;
   background-color: #f8f9fa;
   border: 1px solid #ced4da; 
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
   align-items: center; 
+  font-size: 12px;
 }
 
 .option-box {
@@ -294,7 +309,8 @@ label {
   background-color: #28a745;
   color: #ffffff;
   border: none;
-  padding: 12px 25px;
+  padding: 5px 25px;
+  width: 100%;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
