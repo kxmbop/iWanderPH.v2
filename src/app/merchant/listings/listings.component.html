@@ -1,1 +1,143 @@
-<p>listings works!</p>
+<div class="listinghub">
+  <div class="container">
+    <div class="button-container">
+      <button class="add-room-button" (click)="openAddRoomModal()">+ Add Another Room</button>
+    </div>
+    <table class="finance-table">
+      <thead>
+        <tr>
+          <th>Room Name</th>
+          <th>No. of Rooms</th>
+          <th>No. of Guests</th>
+          <th>Room Rate</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let room of rooms">
+          <td>{{ room.RoomName }}</td>
+          <td>{{ room.RoomQuantity }}</td>
+          <td>{{ room.GuestPerRoom }}</td>
+          <td>₱ {{ room.RoomRate | number: '1.2-2' }}</td>
+          <td class="actions">
+            <button class="action-button update-button" (click)="openUpdateRoomModal(room)">Update</button>
+            <button class="action-button remove-button" (click)="deleteRoom(room)">Remove</button>
+            <button class="action-button view-button" (click)="viewRoom(room)">▾</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Add Room Modal -->
+<div *ngIf="showAddRoomModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeAddRoomModal()">&times;</span>
+    <h2>Add New Room</h2>
+    <form [formGroup]="roomForm" (ngSubmit)="addRoom()">
+      <div class="form-group">
+        <label for="RoomName">Room Name</label>
+        <input id="RoomName" formControlName="RoomName" type="text" placeholder="Room Name" required />
+      </div>
+      <div class="form-group">
+        <label for="RoomQuantity">No. of Rooms</label>
+        <input id="RoomQuantity" formControlName="RoomQuantity" type="number" placeholder="Number of Rooms" required />
+      </div>
+      <div class="form-group">
+        <label for="GuestPerRoom">No. of Guests</label>
+        <input id="GuestPerRoom" formControlName="GuestPerRoom" type="number" placeholder="Guests per Room" required />
+      </div>
+      <div class="form-group">
+        <label for="RoomRate">Room Rate (₱)</label>
+        <input id="RoomRate" formControlName="RoomRate" type="number" placeholder="Room Rate" required />
+      </div>
+      <button type="submit" class="add-room-submit-button" [disabled]="roomForm.invalid">Add Room</button>
+    </form>
+  </div>
+</div>
+
+<!-- Update Room Modal -->
+<div *ngIf="showUpdateRoomModal" class="modal update-room-modal">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeUpdateRoomModal()">&times;</span>
+    <h2>Update Room</h2>
+    <form [formGroup]="updateForm" (ngSubmit)="updateRoom()">
+      <div class="form-group">
+        <label for="updateRoomName">Room Name</label>
+        <input id="updateRoomName" formControlName="RoomName" type="text" placeholder="Room Name" required />
+      </div>
+      <div class="form-group">
+        <label for="updateRoomQuantity">No. of Rooms</label>
+        <input id="updateRoomQuantity" formControlName="RoomQuantity" type="number" placeholder="Number of Rooms" required />
+      </div>
+      <div class="form-group">
+        <label for="updateGuestPerRoom">No. of Guests</label>
+        <input id="updateGuestPerRoom" formControlName="GuestPerRoom" type="number" placeholder="Guests per Room" required />
+      </div>
+      <div class="form-group">
+        <label for="updateRoomRate">Room Rate (₱)</label>
+        <input id="updateRoomRate" formControlName="RoomRate" type="number" placeholder="Room Rate" required />
+      </div>
+      <!-- Views (List Type) -->
+      <div class="form-group">
+        <label for="updateViewName">Views</label>
+        <input id="updateViewName" formControlName="ViewName" type="text" placeholder="Add views (comma-separated)" required />
+      </div>
+
+      <!-- Inclusions (List Type) -->
+      <div class="form-group">
+        <label for="updateInclusion">Inclusions</label>
+        <input id="updateInclusion" formControlName="Inclusion" type="text" placeholder="Add inclusions (comma-separated)" required />
+        <h6>Enter inclusions separated by commas (e.g., Breakfast, WiFi, Parking).</h6>
+      </div>
+
+      <!-- Inclusion Descriptions (List Type) -->
+      <div class="form-group">
+        <label for="updateInclusionDesc">Inclusion Descriptions</label>
+        <input id="updateInclusionDesc" formControlName="InclusionDesc" type="text" placeholder="Add inclusion descriptions (comma-separated)" required />
+        <h6>Enter descriptions for each inclusion (comma-separated).</h6>
+      </div>
+
+      <!-- Room Gallery (Image Upload with Validation) -->
+      <div class="form-group">
+        <label for="updateRoomGallery">Room Gallery</label>
+        <input 
+          id="updateRoomGallery" 
+          formControlName="RoomGallery" 
+          type="file" 
+          accept="image/*" 
+          multiple 
+          (change)="onFileChange($event)" 
+          required />
+          <div *ngIf="galleryFiles?.length > 0" class="image-preview-container">
+            <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
+              <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
+            </div>
+          <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
+          <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
+        </div>
+      </div>
+
+      <button type="submit" class="update-room-submit-button" [disabled]="updateForm.invalid">Update Room</button>
+    </form>
+  </div>
+</div>
+
+<!-- View Room Modal -->
+<div *ngIf="showViewRoomModal" class="modal view-room-modal">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeViewRoomModal()">&times;</span>
+    <h2>Room Details</h2>
+    <p><strong>Room Name:</strong> {{ viewRoomData?.RoomName }}</p>
+    <p><strong>No. of Rooms:</strong> {{ viewRoomData?.RoomQuantity }}</p>
+    <p><strong>No. of Guests:</strong> {{ viewRoomData?.GuestPerRoom }}</p>
+    <p><strong>Room Rate:</strong> ₱{{ viewRoomData?.RoomRate | number: '1.2-2' }}</p>
+    <div *ngIf="viewRoomData?.inclusions?.length">
+      <h3>Inclusions:</h3>
+      <ul>
+        <li *ngFor="let inclusion of viewRoomData.inclusions">{{ inclusion }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
