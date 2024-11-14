@@ -43,5 +43,40 @@ export class ListingService {
     return this.http.post<any>(`${environment.apiUrl}/merchant/update_listing.php`, updatedData);
 }
 
+getVehicles(token: string): Observable<any> {
+  return this.http.post(`${environment.apiUrl}/merchant/vehicles.php`, { token });
+}
+
+
+addVehicle(data: any, token: string): Observable<any> {
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.post<any>(`${this.apiUrl}/add_vehicle`, data, { headers });
+}
+
+updateVehicle(vehicleID: number, updatedData: any): Observable<any> {
+  updatedData.VehicleID = vehicleID;
+  return this.http.post<any>(`${this.apiUrl}/update_vehicle`, updatedData);
+}
+
+deleteVehicle(vehicleID: number, token: string): Observable<any> {
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  const options = {
+    headers: headers,
+    body: { VehicleID: vehicleID }
+  };
+  return this.http.request<any>('DELETE', `${this.apiUrl}/delete_vehicle`, options);
+}
+
+getRoomView(roomId: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/getRoomView.php?RoomID=${roomId}`);
+}
+
+getRoomInclusions(roomId: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/getRoomInclusions.php?RoomID=${roomId}`);
+}
+
+getRoomGallery(roomId: number): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/getRoomGallery.php?RoomID=${roomId}`);
+}
 
 }
