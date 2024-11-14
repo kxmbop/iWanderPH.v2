@@ -18,4 +18,13 @@ export class GenerateReportService {
   getMerchantRatings(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/merchant-rating.php`);
   }
+
+
+  getRefundedMerchantData(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/refunded-merchant-data.php`);
+  }
+
+  getPayments(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/get-payments.php`);  // Replace with actual endpoint
+  }
 }
