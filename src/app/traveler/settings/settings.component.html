@@ -1,29 +1,39 @@
 <div class="settings-panel" id="settings-panel" [@slideInOut]="showSettings" *ngIf="showSettings">
     <div class="close-button" (click)="closeSettings()">
-        <i class='bx bx-x'></i>
+      <i class='bx bx-x'></i>
     </div>
     <h2>Settings</h2>
     <p>This is the settings panel.</p>
-    <div class="merchant-hub" [routerLink]="['/merchant/']">
+  
+    <!-- Conditional display based on isMerchant and isApproved -->
+    <div *ngIf="isMerchant && isApproved; else merchantStatusTemplate">
+      <div class="merchant-hub" [routerLink]="['/merchant/']">
         <i class='bx bxs-paper-plane'></i>
         <label>Merchant Hub</label>
+      </div>
     </div>
+  
+    <ng-template #merchantStatusTemplate>
+      <div *ngIf="isMerchant && !isApproved; else applyForMerchantTemplate">
+        <div class="waiting-approval">
+          <i class='bx bx-time'></i>
+          <label>Waiting for Approval</label>
+        </div>
+      </div>
+    </ng-template>
+  
+    <ng-template #applyForMerchantTemplate>
+      <div *ngIf="!isMerchant && !isApproved">
+        <div class="apply-merchant" [routerLink]="['/traveler/register-business']">
+          <i class='bx bx-user-plus'></i>
+          <label>Apply for Merchant</label>
+        </div>
+      </div>
+    </ng-template>
+  
     <div class="logout" (click)="logout()">
-        <i class='bx bx-log-out'></i>
-        <label>Log-out</label>
+      <i class='bx bx-log-out'></i>
+      <label>Log-out</label>
     </div>
-</div>
-
-<div class="settings">
-    <h2>Settings</h2>
-    <p>This is the settings panel.</p>
-    <div class="merchant-hub" [routerLink]="['/merchant/my-dashboard/my-profile']">
-        <i class='bx bxs-paper-plane'></i>
-        <label>Merchant Hub</label>
-    </div>
-    <div class="logout" (click)="logout()">
-        <i class='bx bx-log-out'></i>
-        <label>Log-out</label>
-    </div>
-</div>
-
+  </div>
+  
