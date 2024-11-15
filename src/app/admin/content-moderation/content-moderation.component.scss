@@ -39,3 +39,49 @@
     font-weight: 500;
     margin: 18px
 }
+.reports-container {
+    padding: 20px;
+  }
+  
+  .reports-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .reports-table th, .reports-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  .reports-table th {
+    background-color: #f4f4f4;
+  }
+  
+  button {
+    padding: 5px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  button[disabled] {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  button:not([disabled]):hover {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .loading, .error {
+    font-size: 14px;
+    color: red;
+  }
+  
+  .loading {
+    color: orange;
+  }
+  

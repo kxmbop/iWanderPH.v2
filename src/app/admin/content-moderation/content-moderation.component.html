@@ -1,1 +1,43 @@
 <div class="text">Content Moderation</div>
+
+<div class="reports-container">
+   <table class="reports-table">
+     <thead>
+       <tr>
+         <th>Report ID</th>
+         <th>Review ID</th>
+         <th>Violation</th>
+         <th>Reported By</th>
+         <th>Message</th>
+         <th>Date</th>
+         <th>Status</th>
+         <th>Action</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr *ngFor="let report of reports">
+         <td>{{ report.reportID }}</td>
+         <td>{{ report.reviewID }}</td>
+         <td>{{ report.violation }}</td>
+         <td>{{ report.reportedBy.travelerID }}</td>
+         <td>{{ report.reportMessage }}</td>
+         <td>{{ report.reportDate }}</td>
+         <td>{{ report.status }}</td>
+         
+         <td>
+            <button 
+              [disabled]="report.status === 'No Action'"
+              (click)="onStatusChange(report, 'No Action')">No Action</button>
+            
+            <button 
+              [disabled]="report.status === 'Actioned'"
+              (click)="onStatusChange(report, 'Actioned')">Actioned</button>
+         </td>
+         
+       </tr>
+     </tbody>
+   </table>
+   
+   <div *ngIf="loading" class="loading">Loading reports...</div>
+   <div *ngIf="error" class="error">{{ error }}</div>
+</div>
