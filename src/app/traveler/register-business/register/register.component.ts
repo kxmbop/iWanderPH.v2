@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BusinessService } from '../../services/business.service';
+import { animate, style, transition, trigger } from '@angular/animations';
+
 
 interface RoomDetails {
   name: string;
@@ -31,11 +33,24 @@ interface TransportationDetails {
   imports: [CommonModule, FormsModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
+      ])
+    ])
+  ]
 })
 export class RegisterComponent implements OnInit {
-  constructor(private router: Router, private businessService: BusinessService) {}
+  showRegistration: true | undefined;
 
+  constructor(private router: Router, private businessService: BusinessService) {}
   profilePictureUrl: string | ArrayBuffer | null = null;
+  
   selectedFile: File | null = null;
   currentStep = 1;
   selectedBusinessType: string | null = null;
@@ -54,7 +69,6 @@ export class RegisterComponent implements OnInit {
     BirForm: null,
     DotAuth: null,
   };
-
   roomDetails: RoomDetails[] = [
     {
       name: '',

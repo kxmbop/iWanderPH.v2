@@ -125,15 +125,23 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
     const token = localStorage.getItem('token');
     
     if (token) {
-        this.profileService.getReviews(token).subscribe((data: any) => {
-            console.log("Reviews Data:", data.reviews); // Log to verify `liked` state
-            this.reviews = data.reviews.map((review: any) => ({
-                ...review,
-                liked: !!review.liked // Convert `1` to `true` and `0` to `false`
-            }));
-        });
+      this.profileService.getReviews(token).subscribe((data: any) => {
+        console.log("Reviews Data:", data.reviews); 
+  
+        if (Array.isArray(data.reviews)) {
+          this.reviews = data.reviews.map((review: any) => ({
+            ...review,
+            liked: !!review.liked 
+          }));
+        } else {
+          this.reviews = [];
+        }
+      }, error => {
+        console.error("Error fetching reviews:", error);
+      });
     }
-}
+  }
+  
 
   getLikesCount(reviewID: number): number {
     return this.reviews.find(review => review.reviewID === reviewID)?.likesCount || 0;

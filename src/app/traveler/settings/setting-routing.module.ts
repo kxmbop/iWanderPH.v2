@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { InfoComponent } from './info/info.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
+
 const routes: Routes = [
   { path: 'info', component: InfoComponent },
   { path: 'account', component: AccountSettingsComponent},

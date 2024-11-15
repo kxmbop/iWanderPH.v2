@@ -26,7 +26,6 @@ export class SettingsComponent {
   isMerchant: boolean = false;
   isApproved: boolean = false;
   showAccountSettings = true;
-  isMerchant: boolean = false;
 
   constructor(
     private profileService: ProfileService,
@@ -46,10 +45,6 @@ export class SettingsComponent {
         (data) => {
           if (data.success) {
             this.profile = data.profile;
-
-            // Update flags based on profile data
-            this.isMerchant = this.profile.isMerchant === 1;
-            this.isApproved = data.profile.isApproved === 1; // Ensure to get `isApproved` status from the merchant table
           } else {
             console.error("Error fetching profile: ", data.message);
           }
@@ -77,23 +72,23 @@ export class SettingsComponent {
 
 
   checkMerchantStatus() {
-    const token = localStorage.getItem('token'); // Get token from localStorage
-    
+    const token = localStorage.getItem('token'); 
+  
     if (!token) {
       console.error('No token found');
       return;
     }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
-    // Send POST request directly to the backend API URL
-    this.http.post(`${environment.apiUrl}/traveler/check_role.php`, {}, { headers })
+  
+    // Send the token in the request body
+    this.http.post(`${environment.apiUrl}/traveler/check_role.php`, { token })
       .subscribe(
         (response: any) => {
-          if (response.isMerchant) {
-            this.isMerchant = true; // If the response indicates the user is a merchant
+          if (response.message === 'User is a Merchant.') { // Check for boolean true
+            console.log('Response: ', response);
+            this.isMerchant = true; 
           } else {
-            this.isMerchant = false; // If the user is not a merchant
+            this.isMerchant = false;
+            console.log('Response: ', response);
           }
         },
         (error) => {
@@ -101,4 +96,6 @@ export class SettingsComponent {
         }
       );
   }
+  
+  
 }

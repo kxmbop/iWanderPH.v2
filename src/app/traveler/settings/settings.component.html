@@ -17,15 +17,15 @@
     </div>
     <div class="group">
         <span>Merchant</span>
-        <div class="option flex-row s-b" *ngIf="isMerchant">
-            <div class="label flex-row centered" [routerLink]="['/merchant/my-dashboard']">
+        <div class="option flex-row s-b" *ngIf="isMerchant" [routerLink]="['/merchant/my-dashboard']">
+            <div class="label flex-row centered" >
                 <i class='bx bx-paper-plane'></i>
                 <label>Merchant Hub</label>
             </div>
             <i class='bx bx-chevron-right'></i>
         </div>
-        <div class="option flex-row s-b" *ngIf="!isMerchant">
-            <div class="label flex-row centered" [routerLink]="['/merchant/apply']">
+        <div class="option flex-row s-b" *ngIf="!isMerchant" [routerLink]="['/traveler/register-business']">
+            <div class="label flex-row centered" >
                 <i class='bx bx-edit-alt'></i>
                 <label>Apply as Merchant</label>
             </div>

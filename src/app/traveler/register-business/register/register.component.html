@@ -1,17 +1,16 @@
-<div class="register" *ngIf="currentStep === 1">
+<div class="register" *ngIf="currentStep === 1" [@slideInOut]="showRegistration">
   <div class="back-icon" (click)="goBack()">
     <i class="bx bx-arrow-back"></i>
   </div>
   <h3>Business Details</h3>
-  <p>Please provide the exact business details as registered with the relevant government authorities.</p>
+  <p style="font-size: 13px; line-height: 1.2;">Please provide the exact business details as registered with the relevant government authorities.</p>
 
-  <!-- Upload Profile Picture -->
-  <div class="profile-picture-container">
-    <input type="file" id="profilePicture" class="profile-picture-input" (change)="onFileSelected($event)">
-    <label for="profilePicture" class="profile-picture-label">
+  <div style="display: flex; width: 100%; justify-content: center;">
+    <div class="profile-upload-container">
+      <input type="file" id="profilePicture" accept="image/*" (change)="onFileSelected($event)">
       <img [src]="profilePictureUrl || 'default-placeholder.jpg'" class="profile-picture-preview">
       <i class="camera-icon bx bx-camera"></i>
-    </label>
+    </div>
   </div>
 
   <label>Business Name</label>
@@ -21,17 +20,17 @@
   <input type="email" class="email" [(ngModel)]="email">
 
   <label>Contact Number</label>
-  <input type="text" class="contact" [(ngModel)]="contact">
+  <input type="text" class="contact" [(ngModel)]="contact" maxlength="12" pattern="[0-9]*">
 
   <label>Full Address</label>
   <input type="text" class="address" [(ngModel)]="address">
 
   <!-- Transportation Checkbox -->
-  <label>
+  <label style="display: flex; align-items: center;">
     <input type="checkbox" [(ngModel)]="offersTransportation"> Do you offer transportation services?
   </label>
 
-  <h3>What type of business are you providing?</h3>
+  <h4>What type of business are you providing?</h4>
   <div class="business-options">
     <div class="business-option" [class.selected]="selectedBusinessType === 'Hotel'" (click)="selectBusinessType('Hotel')">
       <h4>Hotel</h4>
@@ -55,10 +54,10 @@
     <i class="bx bx-arrow-back"></i>
   </div>
   <h3>Government Information</h3>
-  <p>Please provide your business-related government documents and details.</p>
+  <p style="font-size: 13px; line-height: 1.2;">Please provide your business-related government documents and details.</p>
 
   <label>Business TIN</label>
-  <input type="text" class="business-tin" [(ngModel)]="businessTin">
+  <input type="text" class="business-tin" [(ngModel)]="businessTin"  maxlength="12" pattern="[0-9]*">
 
   <!-- Document Uploads -->
   <label>Barangay Clearance</label>

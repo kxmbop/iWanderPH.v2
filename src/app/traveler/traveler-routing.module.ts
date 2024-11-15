@@ -47,6 +47,10 @@ const routes: Routes = [
         loadChildren: () => import('./bookings/bookings.module').then(m => m.BookingsModule) 
       },
       { path: 'profile', component: ProfileComponent },
+      {
+        path: 'register-business',
+        loadChildren: () => import('./register-business/register-business.module').then(m => m.RegisterBusinessModule)
+      }
     ]
   }
 ];

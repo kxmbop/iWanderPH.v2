@@ -15,13 +15,12 @@
 /* Back icon styling */
 .back-icon {
   font-size: 24px;
-  color: #007bff;
+  color: #074D4C;
   cursor: pointer;
-  margin-bottom: 20px;
   transition: color 0.3s;
 
   &:hover {
-    color: #0056b3;
+    color: #074D4C;
   }
 }
 
@@ -47,7 +46,7 @@ p {
   margin: 0 auto 20px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #007bff;
+  border: 3px solid #074D4C;
   background-color: #e9ecef;
   display: flex;
   justify-content: center;
@@ -71,22 +70,36 @@ p {
 /* Input field styling */
 input[type="text"],
 input[type="email"],
-input[type="file"],
+input[type="number"],
 select {
   width: 100%;
-  padding: 10px;
+  padding: 20px 10px;
   border-radius: 5px;
   border: 1px solid #ced4da;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
 
   &:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #ccc;
+    box-shadow: 0 0 5px rgba(8, 111, 117, 0.5);
   }
 }
-
+input[type="file"]{
+  width: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  text-align: center;
+  
+  &:focus {
+    border-color: #ccc;
+    box-shadow: 0 0 5px rgba(8, 111, 117, 0.5);
+  }
+}
 /* Checkbox styling */
 label {
   color: #495057;
@@ -96,6 +109,8 @@ label {
 
 input[type="checkbox"] {
   margin-right: 10px;
+  border: none;
+  box-shadow: none;
 }
 
 /* Business options styling */
@@ -127,7 +142,7 @@ input[type="checkbox"] {
   }
 
   h4 {
-    color: #007bff;
+    color: #074D4C;
     margin-bottom: 5px;
     font-size: 18px;
     font-weight: bold;
@@ -144,20 +159,22 @@ input[type="checkbox"] {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+
 }
 
 .next-button {
-  background-color: #007bff;
+  background-color: #074D4C;
+  width: 100%;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
+  padding: 5px 20px;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #074D4C;
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
   }
 }
@@ -201,7 +218,7 @@ label {
 }
 
 .counter button {
-  background-color: #007bff;
+  background-color: #074D4C;
   color: #ffffff;
   border: none;
   padding: 5px 10px;
@@ -211,7 +228,7 @@ label {
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #074D4C;
   }
 }
 
@@ -238,7 +255,7 @@ label {
   display: inline-flex;
   align-items: center;
   background-color: #e9f7ff; 
-  border: 1px solid #007bff; 
+  border: 1px solid #074D4C; 
   border-radius: 20px; 
   padding: 5px 15px;
   font-size: 14px;
@@ -287,4 +304,59 @@ label {
     background-color: #218838;
     box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
   }
+}
+
+.profile-upload-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #ddd;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-upload-container:hover {
+  border-color: #4CAF50;
+}
+
+.profile-upload-container input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0; 
+  cursor: pointer;
+}
+
+.profile-upload-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block; 
+}
+
+.profile-upload-container .placeholder-text {
+  color: #353535;
+  font-size: 16px;
+  text-align: center;
+}
+
+.profile-upload-container .camera-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: rgba(0, 0, 0, 0.6);
+  transition: opacity 0.3s ease;
+  pointer-events: none; 
+}
+
+.profile-upload-container:hover .camera-icon {
+  opacity: 1; 
 }
