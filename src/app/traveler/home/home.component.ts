@@ -117,6 +117,7 @@ export class HomeComponent {
     if (token) {
       this.fypService.getReviews(token).subscribe((data: any) => {
         this.reviews = data.reviews;
+        console.log(data.reviews);
         this.initializeLikes();
       });
     }

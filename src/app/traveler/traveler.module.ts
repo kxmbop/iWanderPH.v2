@@ -18,6 +18,8 @@ import { SignupComponent } from './signup/signup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ReviewComponent } from './review/review.component';
+import { ReportContentComponent } from './report-content/report-content.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 
@@ -36,14 +38,15 @@ import { ReviewComponent } from './review/review.component';
     ProfileComponent,
     SignupComponent,
     NotificationsComponent,
-
-    ReviewComponent
+    ReviewComponent,
+    ReportContentComponent,
+    LandingPageComponent
   ],
   imports: [
     CommonModule,
     TravelerRoutingModule,
     FormsModule,
-    MatTabsModule,
+    MatTabsModule
     
   ]
 })

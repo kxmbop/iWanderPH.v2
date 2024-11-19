@@ -13,7 +13,8 @@
         <li><a href="#contact">Contact</a></li>
       </ul> -->
       <div class="nav-cta">
-        <a (click)="navigateTo('/traveler')" class="btn">Log In/Sign up</a>
+        <a (click)="navigateTo('/traveler')" class="btn">Log In</a>
+        <a (click)="navigateTo('/traveler/signup')" class="btn">Sign-up</a>
       </div>
       <div class="menu-icon">
         <span></span>
@@ -23,7 +24,11 @@
     </nav>
   </header>
 
-  <section id="home" class="hero">
+  <section
+    id="home"
+    class="hero"                         
+    [ngStyle]="{ 'background-image': 'url(' + 'data:image/jpeg;base64,' + randomBackgroundImage + ')' }"
+  >
     <div class="hero-content">
       <h2 style="font-family: 'Playwrite GB S', sans-serif;">Discover the Beauty of the Philippines</h2>
       <p>Your adventure begins here. Explore breathtaking destinations.</p>
@@ -31,26 +36,24 @@
     </div>
   </section>
 
+
   <section id="destinations" class="destinations">
     <h3 style="font-family: 'Playwrite GB S', sans-serif;">Featured Destinations</h3>
     <div class="destination-list">
-      <div class="destination">
-        <img src="boracay.jpg" alt="Boracay">
-        <h4>Boracay</h4>
-        <p>White sand beaches and clear blue waters.</p>
-      </div>
-      <div class="destination">
-        <img src="palawan.jpg" alt="Palawan">
-        <h4>Palawan</h4>
-        <p>Explore the hidden lagoons and caves.</p>
-      </div>
-      <div class="destination">
-        <img src="cebu.jpg" alt="Cebu">
-        <h4>Cebu</h4>
-        <p>Dive into the island's rich history and nature.</p>
+      <div
+        class="destination"
+        *ngFor="let destination of places"
+      >
+        <img
+          [src]="'data:image/jpeg;base64,' + destination.main_image"
+          [alt]="destination.place_name"
+        />
+        <h4>{{ destination.place_name }}</h4>
+        <p>{{ destination.description || 'Discover this beautiful destination.' }}</p>
       </div>
     </div>
   </section>
+  
 
   <footer class="footer">
     <div class="footer-content">

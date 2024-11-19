@@ -20,6 +20,7 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 import { ProfilePictureEditComponent } from './profile-picture-edit/profile-picture-edit.component';
 import { AddAccountComponent } from './add-account/add-account.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
+import { ContentModerationComponent } from './content-moderation/content-moderation.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { GenerateReportComponent } from './generate-report/generate-report.compo
     PasswordResetComponent,
     ProfilePictureEditComponent,
     AddAccountComponent,
-    GenerateReportComponent
+    GenerateReportComponent,
+    ContentModerationComponent
   ],
   imports: [
     CommonModule,

@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 .signup-container {
     display: flex;
     flex-direction: column;
@@ -162,8 +167,46 @@
   /* Web view (large screens, min width: 1025px) */
   @media (min-width: 1025px) {
     .signup-container {
+      width: 50%;
       padding: 40px;
       font-size: 16px;
+      height: calc(100% - 20%);
+    }
+    .steps{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      width: 100%;
+      p{
+        font-size: 13px;
+        text-align: justify;
+        line-height: 1.2;
+      }
+      input{
+        width: 50%;
+        box-shadow: none !important;
+        border: 1px solid #074d4c83;
+        padding: 20px 10px;
+        font-size: 15px;
+      }
+      ::ng-deep button{
+        width: none;
+        box-shadow: none;
+        border: none;
+        padding: 2px !important;
+        background-color: #f1f1f1;
+        color: #353535;
+        font-size: 12px;
+      }
+    }
+    .profile-info{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+      gap: 10px;
     }
   }
   

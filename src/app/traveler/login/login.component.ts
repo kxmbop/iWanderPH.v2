@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { PlaceService } from '../services/place.service';
 
 interface LoginData {
   username: string;
@@ -23,8 +24,17 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
   loading: boolean = false;
+  places: any[] = [];
+  randomBackgroundImage: string = '';
+  imageUrls: string[] = [];
 
-  constructor(private authService: AuthService, private router: Router) {}
+
+  constructor(private authService: AuthService, private router: Router, private placeService: PlaceService) {}
+
+  ngOnInit(): void {
+
+  }
+
 
   onSubmit(): void {
     if (!this.username || !this.password) {
@@ -72,4 +82,6 @@ export class LoginComponent {
       toggleIcon?.classList.add('fa-eye');
     }
   }
+
+
 }

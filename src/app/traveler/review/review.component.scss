@@ -13,8 +13,13 @@
 
 .profile-section {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
+    i{
+        font-size: 22px;
+    }
 }
 
 .profile-pic {
@@ -214,3 +219,34 @@
 .bxs-star {
     color: #ffd700;
 }
+
+/* Inline Modal for Report Option */
+.inline-modal {
+    position: absolute;
+    top: 30px; /* Adjust to position below the icon */
+    right: 0;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    width: 150px;
+    z-index: 1000;
+  }
+  
+  .inline-modal ul {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+  }
+  
+  .inline-modal li {
+    padding: 8px 10px;
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  .inline-modal li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  

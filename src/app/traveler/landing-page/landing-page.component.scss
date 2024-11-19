@@ -1,5 +1,5 @@
-@import '../../../src/styles.scss';
-@import '../app.component.scss';
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
 
 button{
     max-width: none;
@@ -69,6 +69,7 @@ a {
         color: $tpc;
         padding: 5px 20px;
         border-radius: 4px;
+        margin-left: 5px;
         &:hover {
           background-color: darken($secondary-color, 10%);
         }
@@ -90,19 +91,41 @@ a {
 
 // Hero Section
 .hero {
-  height: 100vh;
+  height: 40vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: background-image 1s ease-in-out;
+  background-size: cover;
+  background-position: center;
   .hero-content {
     text-align: center;
     color: $secondary-color;
+    z-index: 2;
+    color: #fff;
     h2 {
       font-size: 36px;
+      // text-shadow: 
+      // 1px 1px 0 #6a6a6a,  
+      // -1px -1px 0 #6a6a6a,  
+      // 1px -1px 0 #6a6a6a,  
+      // -1px 1px 0 #6a6a6a;
+      color: #fff;
+
     }
     p {
       font-size: 18px;
       margin: 10px 0;
+      color: #fff;
+      // text-shadow: 
+      // 1px 1px 0 #6a6a6a,  
+      // -1px -1px 0 #6a6a6a,  
+      // 1px -1px 0 #6a6a6a,  
+      // -1px 1px 0 #6a6a6a;
     }
     .btn-primary {
       background-color: $tpc;
@@ -183,7 +206,7 @@ a {
   .menu-icon {
     display: flex;
   }
-  .destination-list {
+  .destinations .destination-list {
     flex-direction: column;
     .destination {
       width: 100%;

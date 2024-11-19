@@ -1,0 +1,25 @@
+<div class="report" id="report-panel" *ngIf="showReports">
+   <div class="close-button" (click)="closeReport()">
+     <i class='bx bx-chevron-left'></i>
+     <div class="title">
+       <span>Report Content</span>
+     </div>
+   </div>
+ 
+   <!-- Step 1: Choose Violation -->
+   <div class="report-reasons flex-column centered" *ngIf="!selectedViolationID">
+     <div *ngFor="let violation of violations" class="report-reasons__item" (click)="selectViolation(violation.violationID)">
+       {{ violation.violationTitle }}
+       <input type="hidden" [value]="violation.violationID">
+       <i class='bx bx-chevron-right'></i>
+     </div>
+   </div>
+ 
+   <!-- Step 2: Enter Report Message -->
+   <div class="report-message flex-column centered" *ngIf="selectedViolationID">
+     <h3>Report Reason: {{ selectedViolationTitle }}</h3>  <!-- Use the getter here -->
+     <textarea [(ngModel)]="reportMessage" placeholder="Explain the reason for your report..."></textarea>
+     <button (click)="submitReport()">Submit Report</button>
+     <button (click)="selectedViolationID = null">Back</button>
+   </div>
+ </div>

@@ -3,10 +3,11 @@
 
 ::ng-deep .top-nav .nav-menu a#listings{
     font-weight: bold !important;
-.listinghub {
-    padding: 50px 15%;
 }
 
+.listinghub {
+  padding: 50px 15%;
+}
 .options {
   display: flex;
   width: 40%;
@@ -316,5 +317,4 @@
     object-fit: cover; /* Ensure images are fully contained without distortion */
   }
 
-}
 }

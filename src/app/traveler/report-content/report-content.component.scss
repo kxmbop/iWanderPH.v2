@@ -1,0 +1,102 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
+.report {
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   width: 100%;
+   height: 100%;
+   background-color: #ffffff;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   z-index: 11;
+}
+.group{
+   border-bottom: 5px solid #f3f3f3;
+   padding: 10px 20px;
+}
+.option{
+   .label{
+       padding: 10px 0;
+       label{
+           margin-left: 5px;
+       }
+       i{
+           font-size: 20px;
+       }
+   }
+   i{
+       font-size: 24px;
+   }    
+}
+
+@media (max-width: 480px) {
+   .settings{
+       display: none;
+   }
+   .settings-panel .top-options{
+       display: flex;
+       flex-direction: row;
+       justify-content: space-between;
+       align-items: center;
+       margin-top: 10px;
+   }
+   .close-button {
+       display: flex;
+       flex-direction: row;
+       align-items: center;
+       padding: 10px;
+   }
+   .close-button {
+       position: relative;
+       left: 0;
+       cursor: pointer;
+       font-size: 32px;
+       i{
+           position: absolute;  
+           z-index: 1;          
+           left: 0;         
+       }
+       .title{
+           width: 100%;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           font-size: 18px;
+           font-weight: 600;
+           z-index: 2; 
+           position: relative;
+       }
+   }
+   .group{
+
+       span{
+           font-size: 13px !important;
+           font-weight: 500;
+           color: #979797;
+       }
+   }
+   .report-reasons{
+      padding: 20px;
+      gap: 5px;
+   }
+   .report-reasons__item{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: #ccc;
+      border-radius: 10px;
+      i{
+         font-size: 22px;
+      }
+   }
+}
+@media (min-width: 1025px) {
+   .settings-panel {
+       display: none;
+   }
+}

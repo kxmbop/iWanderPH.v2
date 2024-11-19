@@ -1,13 +1,25 @@
 <div class="review-card">
   <!-- Profile and Username -->
   <div class="profile-section">
-    <img class="profile-pic" *ngIf="review.traveler.profilePicture; else defaultImage" 
-         [src]="'data:image/jpeg;base64,' + review.traveler.profilePicture" 
-         alt="Traveler Profile Picture">
-    <ng-template #defaultImage>
-      <img class="profile-pic" src="assets/default-profile.jpg" alt="Default Profile Picture">
-    </ng-template>
-    <p class="username">{{ review.traveler.username }}</p>
+    <div class="flex-row centered">
+      <img class="profile-pic" *ngIf="review.traveler.profilePicture; else defaultImage" 
+      [src]="'data:image/jpeg;base64,' + review.traveler.profilePicture" 
+      alt="Traveler Profile Picture">
+      <ng-template #defaultImage>
+        <img class="profile-pic" src="assets/default-profile.jpg" alt="Default Profile Picture">
+      </ng-template>
+      <p class="username">{{ review.traveler.username }}</p>
+    </div>
+    
+    <!-- Dotted Icon to trigger modal -->
+    <i class='bx bx-dots-vertical-rounded' (click)="toggleModal()"></i>
+    
+    <!-- Inline Modal for Report Option -->
+    <div class="inline-modal" *ngIf="isModalOpen">
+      <ul>
+        <li (click)="reportReview()">Report Review</li>
+      </ul>
+    </div>
   </div>
 
   <!-- Main Review Images Carousel with Overlay -->
@@ -65,3 +77,5 @@
     </div>
   </div>
 </div>
+
+

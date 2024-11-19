@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { LandingPageComponent } from './landing-page/landing-page.component';
+import { LandingPageComponent } from './traveler/landing-page/landing-page.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },

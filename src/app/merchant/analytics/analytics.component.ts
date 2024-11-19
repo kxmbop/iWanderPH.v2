@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from '../services/analytics.service';
-import { Chart, registerables } from 'chart.js'; // Import registerables
+import { Chart, registerables } from 'chart.js'; 
 
 // Register all the required components
 Chart.register(...registerables);

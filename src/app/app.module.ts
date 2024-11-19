@@ -1,15 +1,22 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { routes } from './app.routes';
-import { HammerModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
+    declarations: [
+  ],
     imports: [
+        BrowserModule,
         RouterModule.forRoot(routes),
         HammerModule,
-        CommonModule
-    ]
+        CommonModule,
+        RouterOutlet,
+        
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 
 })
 export class AppModule {}

@@ -17,6 +17,7 @@
               </div>
             <h3 id="username">{{ review.business.name }}</h3>
             <span>{{ review.business.address }}</span>
+            
         </div>
         
         <!-- Review Images Carousel -->
@@ -24,11 +25,11 @@
             <div #carousel class="review-images">
                 <div class="likes">
                     <div class="pp-mini">
-                        <img *ngIf="review.traveler.profilePicture; else defaultImage" 
-                             [src]="'data:image/jpeg;base64,' + review.traveler.profilePicture" 
+                        <img *ngIf="review.traveler.profilePic; else defaultImage" 
+                             [src]="'data:image/jpeg;base64,' + review.traveler.profilePic" 
                              alt="Traveler Profile Picture">
                         <ng-template #defaultImage>
-                            <img src="assets/default-profile.jpg" alt="Default Profile Picture">
+                            <img src="image_will_be_available_soon.png" alt="Default Profile Picture">
                         </ng-template>
                     </div>
                     <p>{{ review.traveler.username }}</p>
@@ -41,7 +42,6 @@
                             (click)="navigateToReview(review.reviewID)">
                         </i>
                     </div>                    
-                    
                 </div>
                 <div class="carousel">
                     <div class="carousel-inner">
@@ -59,13 +59,15 @@
                 </div>
 
             </div>
+
             <div class="explore">
                 <button routerLink="/traveler/home">Explore</button>
             </div>
-
+        
         </div>
 
 
+        <div style="border-bottom: 1px solid #ccc; margin-top: 10px;"></div>
 
     </div>
 </div>

@@ -12,6 +12,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { SignupComponent } from './signup/signup.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ReviewComponent } from './review/review.component';
+import { ReportContentComponent } from './report-content/report-content.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
     component: TravelerLayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'report-content/:reviewID', component: ReportContentComponent },
       { 
         path: 'inbox', 
         component: InboxComponent, 

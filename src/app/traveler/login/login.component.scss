@@ -107,6 +107,8 @@ input{
 
 }
 
+
+
 /* Android phones (small screens, max width: 480px) */
 @media (max-width: 480px) {
     .login-page {
@@ -141,42 +143,10 @@ input{
     }
 }
 
-/* Tablets and small desktops (min width: 481px, max width: 1024px) */
-@media (min-width: 481px) and (max-width: 1024px) {
-    .login-page {
-        min-width: 75%;
-        padding: 30px;
-    }
-
-    .login-welcome h1 {
-        font-size: 1.4em;
-    }
-
-    .desc p {
-        font-size: 1em;
-    }
-
-    .input-box {
-        padding: 12px;
-        font-size: 1em;
-    }
-        
-    .input-box input {
-        font-size: 0.9em;
-    }
-
-    .login-btn {
-        font-size: 1.1em;
-    }
-    .error{
-        font-size: 0.9rem ;
-    }
-}
-
 /* Web view (large screens, min width: 1025px) */
 @media (min-width: 1025px) {
     .login-page {
-        min-width: 600px; 
+        min-width: 550px; 
         padding: 40px;
     }
 

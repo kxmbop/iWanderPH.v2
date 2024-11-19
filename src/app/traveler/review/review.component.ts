@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FypService } from '../services/fyp.service';
 
 @Component({
@@ -14,10 +14,13 @@ export class ReviewComponent implements OnInit {
   newComment: string = '';
   likedReview: boolean = false; // Tracks the like state
   currentIndex = 0; // For carousel
+  isModalOpen = false;
+
 
   constructor(
     private route: ActivatedRoute,
-    private fypService: FypService
+    private fypService: FypService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -88,5 +91,17 @@ export class ReviewComponent implements OnInit {
   }
   
   
-  
+  toggleModal() {
+    this.isModalOpen = !this.isModalOpen;
+  }
+
+  closeModal(event: Event) {
+    this.isModalOpen = false;
+  }
+
+
+  reportReview() {
+    this.isModalOpen = false;
+    this.router.navigate([`/traveler/report-content`, this.reviewID]);
+  }
 }
