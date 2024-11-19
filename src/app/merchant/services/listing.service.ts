@@ -67,16 +67,19 @@ deleteVehicle(vehicleID: number, token: string): Observable<any> {
   return this.http.request<any>('DELETE', `${this.apiUrl}/delete_vehicle`, options);
 }
 
+getRoomsData(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/get_rooms.php`);
+}
+
 getRoomView(roomId: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/getRoomView.php?RoomID=${roomId}`);
+  return this.http.get(`${this.apiUrl}/get_room_view.php?RoomID=${roomId}`);
 }
 
 getRoomInclusions(roomId: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/getRoomInclusions.php?RoomID=${roomId}`);
+  return this.http.get(`${this.apiUrl}/get_room_inclusions.php?RoomID=${roomId}`);
 }
 
 getRoomGallery(roomId: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/getRoomGallery.php?RoomID=${roomId}`);
+  return this.http.get(`${this.apiUrl}/get_room_gallery.php?RoomID=${roomId}`);
 }
-
 }

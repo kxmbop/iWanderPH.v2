@@ -172,18 +172,28 @@
   <div class="modal-content">
     <span class="close-button" (click)="closeViewRoomModal()">&times;</span>
     <h2>Room Details</h2>
-    <p><strong>Room Name:</strong> {{ viewRoomData?.RoomName }}</p>
-    <p><strong>No. of Rooms:</strong> {{ viewRoomData?.RoomQuantity }}</p>
-    <p><strong>No. of Guests:</strong> {{ viewRoomData?.GuestPerRoom }}</p>
-    <p><strong>Room Rate:</strong> ₱{{ viewRoomData?.RoomRate | number: '1.2-2' }}</p>
-    <div *ngIf="viewRoomData?.inclusions?.length">
-      <h3>Inclusions:</h3>
-      <ul>
-        <li *ngFor="let inclusion of viewRoomData.inclusions">{{ inclusion }}</li>
-      </ul>
+    
+    <!-- Display Room Views -->
+    <p><strong>Room View:</strong> 
+      <span *ngFor="let view of viewRoomData.views; let isLast = last">
+        {{ view }}<span *ngIf="!isLast">, </span>
+      </span>
+    </p>
+
+    <!-- Display Inclusions -->
+    <p><strong>Inclusions:</strong> 
+      <span *ngFor="let inclusion of viewRoomData.inclusions; let isLast = last">
+        {{ inclusion }}<span *ngIf="!isLast">, </span>
+      </span>
+    </p>
+    
+    <!-- Display Gallery Images -->
+      <p><strong>Gallery:</strong></p>
+      <div class="gallery-images">
+        <img *ngFor="let image of viewRoomData.gallery" [src]="image" alt="Room Image" />
+      </div>
     </div>
   </div>
-</div>
 
 <div class="listinghub" *ngIf="isTransportationVisible" id="transportation">
   <div class="container">

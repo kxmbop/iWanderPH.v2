@@ -324,25 +324,25 @@ export class ListingsComponent implements OnInit {
     this.isTransportationVisible = true;
   }
 
-  toggleRoomDetails(roomId: string) {
-    this.selectedRoomId = this.selectedRoomId === roomId ? null : roomId;
-  }
-
   // Fetch room details directly from component methods
 
   loadRoomDetails(roomId: number): void {
-    // Assuming you have a service that fetches data, you would call it here.
-    this.listingService.getRoomView(roomId).subscribe((viewData: any[]) => {
-        this.getRoomView(roomId, viewData); // Passing roomId and data
-    });
+    this.listingService.getRoomView(roomId).subscribe(
+      (viewData: any[]) => this.roomView = viewData.map(view => view.ViewName)
+    );
 
-    this.listingService.getRoomInclusions(roomId).subscribe((inclusionsData: any[]) => {
-        this.getRoomInclusions(roomId, inclusionsData); // Passing roomId and data
-    });
+    this.listingService.getRoomInclusions(roomId).subscribe(
+      (inclusionsData: any[]) => {
+        this.roomInclusions = inclusionsData.map(inclusion => ({
+          inclusion: inclusion.InclusionName,
+          description: inclusion.Description
+        }));
+      }
+    );
 
-    this.listingService.getRoomGallery(roomId).subscribe((galleryData: any[]) => {
-        this.getRoomGallery(roomId, galleryData); // Passing roomId and data
-    });
+    this.listingService.getRoomGallery(roomId).subscribe(
+      (galleryData: any[]) => this.roomGallery = galleryData.map(gallery => gallery.ImageURL)
+    );
   }
 
   getRoomView(roomId: number, data: any[]): void {
