@@ -1,0 +1,28 @@
+
+<div class="faq-panel" id="faq-panel" [@slideInOut]="showFaq" *ngIf="showFaq">
+    <div class="close-button" (click)="closeFaq()">
+      <i class="bx bx-chevron-left"></i>
+      <div class="title">
+        <span>Frequently Asked Questions</span>
+      </div>
+    </div>
+    <div class="content-container">
+      <div class="faq-content">
+        <div class="form" *ngFor="let faq of faqs">
+          <div class="option flex-row s-b" (click)="faq.open = !faq.open">
+            
+            <label>{{ faq.question }}</label>
+            <div class="label flex-row centered">
+              <i class="bx" [ngClass]="faq.open ? 'bx-chevron-up' : 'bx-chevron-right'"></i>
+            </div>
+          </div>
+          <div class="answer" *ngIf="faq.open">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-container">
+    <router-outlet></router-outlet>
+</div>
