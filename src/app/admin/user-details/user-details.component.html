@@ -3,6 +3,13 @@
     <div class="user-details">
       <table>
         <tr>
+          <th>Profile Pic</th>
+          <td>
+            <img *ngIf="user.ProfilePic" [src]="'data:image/jpeg;base64,' + user.ProfilePic" alt="Profile Picture" class="profile-img">
+            <span *ngIf="!user.ProfilePic">No profile picture</span>
+          </td>
+        </tr>
+        <tr>
           <th>User ID</th>
           <td>{{ user.TravelerID }}</td>
         </tr>
@@ -25,10 +32,6 @@
         <tr>
           <th>Address</th>
           <td>{{ user.Address }}</td>
-        </tr>
-        <tr>
-          <th>Profile Pic</th>
-          <td><a href="#">click here</a></td>
         </tr>
         <tr>
           <th>Merchant</th>

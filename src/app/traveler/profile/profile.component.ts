@@ -134,6 +134,9 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
             ...review,
             liked: !!review.liked 
           }));
+  
+          // Sort reviews by createdAt or similar property in descending order
+          this.reviews.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         } else {
           this.reviews = [];
         }
@@ -142,6 +145,7 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
       });
     }
   }
+  
   
 
   getLikesCount(reviewID: number): number {
