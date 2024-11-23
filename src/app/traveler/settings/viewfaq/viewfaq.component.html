@@ -1,27 +1,41 @@
 
 <div class="faq-panel" id="faq-panel" [@slideInOut]="showFaq" *ngIf="showFaq">
-    <div class="close-button" (click)="closeFaq()">
-      <i class="bx bx-chevron-left"></i>
-      <div class="title">
-        <span>Frequently Asked Questions</span>
-      </div>
+  <div class="close-button" (click)="closeFaq()">
+    <i class="bx bx-chevron-left"></i>
+  </div>
+<div class="faq-container">
+ <div class="title">Frequently Asked Questions</div>
+  <div class="faq-item" *ngFor="let faq of faqs; let faqIndex = index">
+    <div class="faq-question" (click)="toggleFaq(faqIndex)">
+      {{ faq.question }}
     </div>
-    <div class="content-container">
-      <div class="faq-content">
-        <div class="form" *ngFor="let faq of faqs">
-          <div class="option flex-row s-b" (click)="faq.open = !faq.open">
-            
-            <label>{{ faq.question }}</label>
-            <div class="label flex-row centered">
-              <i class="bx" [ngClass]="faq.open ? 'bx-chevron-up' : 'bx-chevron-right'"></i>
+    <div *ngIf="faq.open" class="faq-answer-container">
+      <ng-container *ngIf="faq.steps; else directAnswer">
+        <div class="steps-container">
+          <div class="step-item" *ngFor="let step of faq.steps; let stepIndex = index">
+            <div class="step-question" (click)="toggleStep(faqIndex, stepIndex)">
+              {{ step.question }}
+            </div>
+            <div class="step-answer spaced" *ngIf="step.open">
+              <div *ngFor="let line of step.answer">
+                <p>{{ line }}</p> 
+              </div>
             </div>
           </div>
-          <div class="answer" *ngIf="faq.open">
-            <p>{{ faq.answer }}</p>
+        </div>
+      </ng-container>
+      <ng-template #directAnswer>
+        <div class="faq-answer spaced">
+          <div *ngFor="let line of faq.answer">
+            <p>{{ line }}</p>
           </div>
         </div>
-      </div>
+      </ng-template>
     </div>
+  </div>
+</div>
+
+  
   </div>
   <div class="content-container">
     <router-outlet></router-outlet>
