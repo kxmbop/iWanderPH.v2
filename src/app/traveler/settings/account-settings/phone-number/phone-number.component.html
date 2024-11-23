@@ -6,7 +6,7 @@
         <div class="title">
             <span>Update Phone Number</span>
         </div>
-        <input type="submit" value="Save" (click)="updatePhoneNumber()">
+        <input type="submit" value="Save" (click)="confirmAndSave()">
     </div>
     <div class="container">
         <input 
@@ -19,6 +19,6 @@
         />
         <p *ngIf="!isValidPhoneNumber" style="color: red;">Invalid phone number</p>
         <div style="margin-top: 10px;"></div>
-        <p>Please make sure to enter a valid phone number. Include the country code 63.</p>
+        <p>Please make sure to enter a valid phone number</p>
     </div>
 </div>

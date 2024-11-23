@@ -24,12 +24,19 @@
             margin-bottom: 7px;
             font-size: 16px;
             transition: background-color 0.15s ease, color 0.3s ease;
-
+            
             &:hover, &.active{
                 background-color: $mpc;
                 color: #fff;
             }
-            
+        }
+        .menu-tab a {
+            text-decoration: none; 
+            color: inherit; 
+        }
+        
+        .menu-tab a:hover {
+            text-decoration: none;
         }
     }
     .content-container{

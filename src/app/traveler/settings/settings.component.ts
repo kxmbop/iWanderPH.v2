@@ -45,6 +45,8 @@ export class SettingsComponent {
         (data) => {
           if (data.success) {
             this.profile = data.profile;
+            this.isMerchant = this.profile.isMerchant === 1;
+            this.isApproved = data.profile.isApproved === 1;
           } else {
             console.error("Error fetching profile: ", data.message);
           }

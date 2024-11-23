@@ -33,10 +33,30 @@ export class SignupComponent {
   constructor(private signupService: SignupService, private http: HttpClient, private cdr: ChangeDetectorRef, private router: Router) {}
 
   nextStep() {
+    if (this.currentStep === 3) {
+      // Validate required fields in Step 3
+      if (!this.firstName || !this.lastName || !this.gcashNumber || !this.address) {
+        alert('Please fill out all required fields!');
+        return;
+      }
+  
+      // Validate GCash number
+      const gcashPattern = /^[0-9]{11}$/;
+      if (!gcashPattern.test(this.gcashNumber)) {
+        alert('Invalid number! It must be exactly 11 digits and contain only numbers.');
+        return;
+      }
+      if (!this.profilePic) {
+        alert('Please upload a profile picture to proceed.');
+        return;
+      }
+    }
+  
     if (this.currentStep < 4) {
       this.currentStep++;
     }
   }
+  
 
   prevStep() {
     if (this.currentStep > 1) {
@@ -58,6 +78,15 @@ export class SignupComponent {
 
 
   onSubmit() {
+    if (!this.isPasswordValidLength() || !this.isPasswordValidLetterNumber() || !this.isPasswordValidSpecialCharacter()) {
+      alert('Password does not meet the required criteria. Please review the password hints.');
+      return;
+    }
+    if (this.password !== this.confirmPassword) {
+      alert('Passwords do not match! Please re-enter.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('gcashNumber', this.gcashNumber); 
     formData.append('firstName', this.firstName);
@@ -80,6 +109,7 @@ export class SignupComponent {
     this.signupService.signup(formData).subscribe(
       (response) => {
         console.log('Signup successful', response);
+        alert('Signup successful! Welcome to the platform.');
         this.router.navigate(['traveler/login']);
       },
       (error) => {
@@ -155,4 +185,41 @@ export class SignupComponent {
         }
       );
   }
+  togglePasswordVisibility(fieldId: string, toggleIconId: string): void {
+    const passwordInput = document.getElementById(fieldId) as HTMLInputElement;
+    const toggleIcon = document.getElementById(toggleIconId);
+
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      toggleIcon?.classList.remove('fa-eye');
+      toggleIcon?.classList.add('fa-eye-slash');
+    } else {
+      passwordInput.type = 'password';
+      toggleIcon?.classList.remove('fa-eye-slash');
+      toggleIcon?.classList.add('fa-eye');
+    }
+  }
+  validatePassword() {
+    this.isPasswordValidLength();
+    this.isPasswordValidLetterNumber();
+    this.isPasswordValidSpecialCharacter();
+  }
+  
+  isPasswordValidLength(): boolean {
+    return this.password.length >= 8 && this.password.length <= 20;
+  }
+  
+  isPasswordValidLetterNumber(): boolean {
+    const letterRegex = /[a-zA-Z]/;
+    const numberRegex = /[0-9]/;
+    return letterRegex.test(this.password) && numberRegex.test(this.password);
+  }
+  
+  isPasswordValidSpecialCharacter(): boolean {
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    return specialCharRegex.test(this.password);
+  }
+  
+  
+  
 }

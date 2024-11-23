@@ -35,4 +35,8 @@ export class FypService {
   getReview(reviewID: number): Observable<any> {
     return this.http.get(`${environment.apiUrl}/traveler/get_review.php?reviewID=${reviewID}`);
   }
+  getLikeStatus(reviewID: number, token: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${environment.apiUrl}/traveler/get_like_status.php?reviewID=${reviewID}`, { headers });
+  }
 }

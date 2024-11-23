@@ -120,6 +120,11 @@
           <label for="editComment">Review:</label>
           <br>
           <textarea id="editComment" [(ngModel)]="reviewComment" name="comment" required></textarea>
+          <label for="privacySetting">Privacy:</label>
+          <select id="privacySetting" [(ngModel)]="reviewPrivacy" name="privacy" required>
+              <option value="public">Public</option>
+              <option value="private">Private</option>
+          </select>
           <div class="button-container">
               <button type="button" (click)="confirmSave()">Save</button>
               <button type="button" (click)="onCancel()">Cancel</button>
