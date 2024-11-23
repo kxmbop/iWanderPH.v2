@@ -13,13 +13,20 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { OnlineChatComponent } from './online-chat/online-chat.component';
 import { SettingsComponent } from './settings/settings.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
-
+import { BookingTrendComponent } from './booking-trend/booking-trend.component';
+import { RevenueComponent } from './revenue/revenue.component';
+import { ReviewReportComponent } from './review-report/review-report.component';
+import { RefundReportComponent } from './refund-report/refund-report.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: AdminLoginComponent },
   { path: 'booking-details/:bookingId', component: BookingDetailsComponent },
   { path: 'user-details', component: UserDetailsComponent },
+  { path: 'booking-trend', component: BookingTrendComponent },
+  { path: 'revenue', component: RevenueComponent },
+  { path: 'review-report', component: ReviewReportComponent },
+  { path: 'refund-report', component: RefundReportComponent },
   {
     path: '',
     component: AdminLayoutComponent,  

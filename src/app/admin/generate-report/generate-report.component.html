@@ -3,13 +3,14 @@
         <div class="report-container">
             <div class="report-section">
                 <div class="card">
-                    <h3>Monthly Booking Trends</h3>
+                    <span>Monthly Booking Trends</span>
                     <canvas #monthlyTrendsChart width="800" height="400"></canvas>
-
-                    </div>      
-                    <div class="card">
+                    <a class="trendview" [routerLink]="['/admin/booking-trend']" target="_blank">View Full Report </a>
+                </div>      
+                <div class="card">
                     <h3>Revenue - Year to Date</h3>
                     <canvas #revenueChart width="800" height="400"></canvas>
+                    <a class="trendview" [routerLink]="['/admin/revenue']" target="_blank">View Full Report </a>
                 </div>  
             </div>
 
@@ -36,15 +37,19 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            
                         </div>
+                        
                     </div>
-                </div>
+                    <a class="trendview" [routerLink]="['/admin/review-report']" target="_blank">View Full Report </a>
+                </div>  
+            
                 <div class="card">
                     <h3>Refunded Merchant Report</h3>
                     <canvas #refundedMerchantChart width="400" height="400"></canvas>
+                    <a class="trendview" [routerLink]="['/admin/refund-report']" target="_blank">View Full Report </a>
                 </div>
             </div>
+    </div>
 
-        </div>
-        
 </div>

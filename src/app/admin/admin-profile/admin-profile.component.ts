@@ -8,10 +8,9 @@ import { AdminService } from '../services/admin.service';
 })
 export class AdminProfileComponent implements OnInit {
   admin: any = {};
-  supportAgents: any[] = [];
-  selectedFile: File | null = null; // New property to hold selected image
+  selectedFile: File | null = null;
 
-  // Modal visibility states
+
   isProfileEditModalOpen = false;
   isAddressEditModalOpen = false;
   isSecurityEditModalOpen = false;
@@ -20,16 +19,15 @@ export class AdminProfileComponent implements OnInit {
   constructor(private adminService: AdminService) {}
 
   ngOnInit() {
-    console.log('AdminProfileComponent initialized');
-    const token = localStorage.getItem('admintoken');  // Replace this with how you store/get the token
+    const token = localStorage.getItem('admintoken');
     if (token) {
-      console.log("Token retrieved inside if: ", token); 
       this.getAdminProfile(token);
     }
     this.getSupportAgents();
   }
+  
 
-  // Method to handle profile picture change
+
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -37,13 +35,13 @@ export class AdminProfileComponent implements OnInit {
     }
   }
 
-  // Methods to control modals
   openEditProfile() {
     this.isProfileEditModalOpen = true;
   }
-
+  
   closeProfileEditModal() {
     this.isProfileEditModalOpen = false;
+    console.log('Modal closed:', this.isProfileEditModalOpen); 
   }
 
   openEditAddress() {
@@ -71,8 +69,24 @@ export class AdminProfileComponent implements OnInit {
     this.getSupportAgents(); // Refresh the support agents list after adding a new account
   }
 
+  deleteAgent(adminID: number) {
+    if (confirm('Are you sure you want to delete this agent?')) {
+      this.adminService.deleteAgent(adminID).subscribe(
+        (response) => {
+          alert('Agent deleted successfully');
+          this.getSupportAgents(); // Reload the list after deletion
+        },
+        (error) => {
+          alert('Error deleting agent');
+          console.error(error);
+        }
+      );
+    }
+  }
+  
+
   addAccountAgent(newAgentData: any) {
-    this.adminService.addAccountAgent(newAgentData).subscribe(() => {
+    this.adminService.addAccountAdmin(newAgentData).subscribe(() => {
       this.getSupportAgents(); // Refresh the agent list after adding the account
       this.closeAddAccountModal(); // Close the modal after adding the account
     });
@@ -87,7 +101,7 @@ export class AdminProfileComponent implements OnInit {
 
   getSupportAgents() {
     this.adminService.getSupportAgents().subscribe((agentsData) => {
-      this.supportAgents = agentsData;
+      this.admin = agentsData;
     });
   }
 
@@ -98,21 +112,20 @@ export class AdminProfileComponent implements OnInit {
   
   // Method to update the profile, including the profile picture
   updateProfile() {
-    const token = localStorage.getItem('authToken');  // Retrieve the token
+    const token = localStorage.getItem('authToken');
     if (!token) {
       console.error('Token is missing');
       return;
     }
   
     const formData = new FormData();
-    formData.append('adminId', this.admin.id); // Assuming there's an ID field to identify the admin
+    formData.append('adminId', this.admin.id);
+    formData.append('name', this.admin.name);
+    formData.append('email', this.admin.email);
   
     if (this.selectedFile) {
       formData.append('profilePicture', this.selectedFile, this.selectedFile.name);
     }
-  
-    formData.append('name', this.admin.name);
-    formData.append('email', this.admin.email);
   
     this.adminService.updateAdminProfile(token, formData).subscribe(
       (response) => {
@@ -123,6 +136,6 @@ export class AdminProfileComponent implements OnInit {
         console.error('Error updating profile', error);
       }
     );
-  }
+  }  
   
 }

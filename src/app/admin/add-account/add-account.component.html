@@ -1,81 +1,96 @@
 <div class="modal-background" (click)="closeModal.emit()">
   <div class="modal-container" (click)="$event.stopPropagation()">
-    <h3>Add Support Agent</h3>
-    <form (ngSubmit)="submitForm()" #agentForm="ngForm">
+    <h3 class="modal-title">Add Admin</h3>
+    <form (ngSubmit)="submitForm()" #adminForm="ngForm">
+      
+      <!-- First Name -->
       <label>First Name:
         <input
           type="text"
-          [(ngModel)]="agent.firstName"
+          [(ngModel)]="admin.firstName"
           name="firstName"
           required
+          placeholder="Enter First Name"
         />
       </label>
-      <div *ngIf="agentForm.submitted && !agentForm.controls['firstName']?.valid">
+      <div *ngIf="adminForm.submitted && !adminForm.controls['firstName']?.valid">
         <p class="error">First Name is required.</p>
       </div>
 
+      <!-- Last Name -->
       <label>Last Name:
         <input
           type="text"
-          [(ngModel)]="agent.lastName"
+          [(ngModel)]="admin.lastName"
           name="lastName"
           required
+          placeholder="Enter Last Name"
         />
       </label>
-      <div *ngIf="agentForm.submitted && !agentForm.controls['lastName']?.valid">
+      <div *ngIf="adminForm.submitted && !adminForm.controls['lastName']?.valid">
         <p class="error">Last Name is required.</p>
       </div>
 
+      <!-- Bio -->
       <label>Bio:
         <input
           type="text"
-          [(ngModel)]="agent.bio"
+          [(ngModel)]="admin.adminUsertype"
           name="bio"
           required
+          placeholder="Enter Bio"
         />
       </label>
-      <div *ngIf="agentForm.submitted && !agentForm.controls['bio']?.valid">
+      <div *ngIf="adminForm.submitted && !adminForm.controls['adminUserType']?.valid">
         <p class="error">Bio is required.</p>
       </div>
 
+      <!-- Tax ID -->
       <label>Tax ID:
         <input
           type="text"
-          [(ngModel)]="agent.taxID"
+          [(ngModel)]="admin.taxID"
           name="taxID"
           required
+          placeholder="Enter Tax ID"
         />
       </label>
-      <div *ngIf="agentForm.submitted && !agentForm.controls['taxID']?.valid">
+      <div *ngIf="adminForm.submitted && !adminForm.controls['taxID']?.valid">
         <p class="error">Tax ID is required.</p>
       </div>
 
+      <!-- Username -->
       <label>Username:
         <input
           type="text"
-          [(ngModel)]="agent.username"
+          [(ngModel)]="admin.username"
           name="username"
           required
+          placeholder="Enter Username"
         />
       </label>
-      <div *ngIf="agentForm.submitted && !agentForm.controls['username']?.valid">
+      <div *ngIf="adminForm.submitted && !adminForm.controls['username']?.valid">
         <p class="error">Username is required.</p>
       </div>
 
+      <!-- Password -->
       <label>Password:
         <input
           type="password"
-          [(ngModel)]="agent.password"
+          [(ngModel)]="admin.password"
           name="password"
           required
+          placeholder="Enter Password"
         />
       </label>
-      <div *ngIf="agentForm.submitted && !agentForm.controls['password']?.valid">
+      <div *ngIf="adminForm.submitted && !adminForm.controls['password']?.valid">
         <p class="error">Password is required.</p>
       </div>
 
-      <button type="submit">Add Agent</button>
-      <button type="button" (click)="closeModal.emit()">Cancel</button>
+      <div class="modal-buttons">
+        <button type="submit" class="submit-btn">Add Admin</button>
+        <button type="button" class="cancel-btn" (click)="closeModal.emit()">Cancel</button>
+      </div>
     </form>
   </div>
 </div>

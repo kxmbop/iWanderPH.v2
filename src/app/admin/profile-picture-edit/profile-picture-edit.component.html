@@ -1,11 +1,11 @@
-<p>profile-picture-edit works!</p>
+<p>Profile Picture Edit works!</p>
 <div class="modal-background">
     <div class="modal-container">
         <h3>Edit Profile Picture & Admin Details</h3>
 
         <!-- Display Current Profile Picture Preview -->
         <div *ngIf="admin.profilePicture">
-            <img [src]="'data:image/jpeg;base64,' + admin.profilePicture" alt="Current Profile Picture" style="width: 100px; height: 100px; object-fit: cover; margin-bottom: 10px;">
+            <img [src]="'data:image/jpeg;base64,' + admin.profilePicture" alt="Current Profile Picture" class="profile-preview">
         </div>
 
         <!-- Form to Upload New Profile Picture and Update Admin Details -->
@@ -28,8 +28,10 @@
             <input type="text" [(ngModel)]="admin.taxID" name="taxID" id="taxID" required />
 
             <!-- Action Buttons -->
-            <button type="submit">Save Changes</button>
-            <button type="button" (click)="closeModal.emit()">Close</button>
+            <div class="button-container">
+                <button type="submit">Save Changes</button>
+                <button type="button" (click)="closeModal.emit()">Close</button>
+            </div>
         </form>
     </div>
 </div>

@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="analytics-details">
+      <h3>Full Report Details of Revenue <a class="exit-button" [routerLink]="['/admin/generate-report']" target="_blank"><i class='bx bx-exit'></i></a></h3>
+  
+      <div class="card">
+        <h3>Revenue - Year to Date</h3>
+        <!-- Make sure canvas is correctly defined -->
+        <canvas #revenueChart width="400" height="200"></canvas>
+      </div>
+  
+      <div class="table-box">
+        <table id="bookingTrendsTable" class="table-header">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Booking ID</th>
+              <th>Merchant Name</th>
+              <th>Booking Status</th>
+              <th>Payment Amount</th>
+            </tr>
+          </thead>
+        </table>
+        <div class="table-body">
+          <table>
+            <tbody>
+              <!-- Dynamic rows will be populated here -->
+              <tr *ngFor="let trend of reportData?.payments.details">
+                <td>{{ trend.month }}</td>
+                <td>{{ trend.bookingID }}</td>
+                <td>{{ trend.merchantName }}</td>
+                <td>{{ trend.bookingStatus }}</td>
+                <td>{{ trend.totalRevenue | currency:'PHP' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

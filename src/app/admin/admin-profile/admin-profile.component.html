@@ -12,7 +12,7 @@
           <h3>{{ admin.firstName }} {{ admin.lastName }}</h3>
           <p>{{ admin.adminUserType }}</p>
           <span>ID: #{{ admin.taxID }}</span>
-          <button (click)="openEditProfile()">Edit Profile</button>
+          <button (click)="openEditProfile()"><i class='bx bxs-edit-alt'></i></button>
         </div>
       </div>
       
@@ -56,20 +56,22 @@
               <th>Tax ID</th>
               <th>Username</th>
               <th>Password</th>
+              <th>Action</th>
             </tr>
           </thead>
         </table>
         <div class="table-body">
           <table>
               <tbody>
-              <tr *ngFor="let agent of supportAgents">
-                <td>{{ agent.firstName }}</td>
-                <td>{{ agent.lastName }}</td>
-                <td>{{ agent.bio }}</td>
-                <td>{{ agent.taxID }}</td>
-                <td>{{ agent.username }}</td>
-                <td>******</td>
-              </tr>
+                <tr *ngFor="let agent of admin">
+                  <td>{{ agent.firstName }}</td>
+                  <td>{{ agent.lastName }}</td>
+                  <td>{{ agent.adminUserType }}</td>
+                  <td>{{ agent.taxID }}</td>
+                  <td>{{ agent.username }}</td>
+                  <td>{{ agent.password }}</td>
+                  <td><button (click)="deleteAgent(agent.adminID)">Delete</button></td>
+                </tr>
               </tbody>
           </table>
         </div>

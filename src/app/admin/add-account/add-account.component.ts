@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { AdminService } from '../services/admin.service';
+import { HttpErrorResponse } from '@angular/common/http';  // Import the error type
 
 @Component({
   selector: 'app-add-account',
@@ -8,24 +9,24 @@ import { AdminService } from '../services/admin.service';
 })
 export class AddAccountComponent {
   @Output() closeModal = new EventEmitter<void>();
-  @Output() addAgent = new EventEmitter<any>();
+  @Output() addAdmin = new EventEmitter<any>();
 
-  agent = { firstName: '', lastName: '', bio: '', taxID: '', username: '', password: '' };
+  admin = { firstName: '', lastName: '', adminUsertype: '', taxID: '', username: '', password: '' };
 
   constructor(private adminService: AdminService) {}
 
   submitForm() {
-    this.adminService.addAccountAgent(this.agent).subscribe(
+    this.adminService.addAccountAdmin(this.admin).subscribe(
       (response) => {
         if (response.status === 'success') {
-          console.log("Agent added successfully!");
-          this.addAgent.emit(this.agent); // Emit the agent data to refresh the list
+          console.log("Admin added successfully!");
+          this.addAdmin.emit(this.admin); // Emit the admin data to refresh the list
           this.closeModal.emit(); // Close the modal
         } else {
-          console.error("Error adding agent:", response);
+          console.error("Error adding admin:", response);
         }
       },
-      (error) => {
+      (error: HttpErrorResponse) => {  // Explicitly type the error
         console.error("Network or server error:", error);
       }
     );

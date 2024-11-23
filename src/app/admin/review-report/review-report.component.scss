@@ -3,6 +3,60 @@
 @import '../admin-layout/admin-layout.component.scss';
 
 
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    border-radius: 8px;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+  
+  .container {
+    max-width: 1220px;
+    margin: 0 auto;
+    margin-top: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    h4, h2{
+      font-weight: 600;
+    }
+}
+
+.exit-button {
+    position: absolute;
+    top: 20px; /* Adjust the space from the top */
+    right: 200px; /* Adjust the space from the right */
+    z-index: 20; /* Ensure it is above other elements */
+  }
+  
+  .exit-button button {
+    background-color: #ff5c5c; /* Red background color */
+    color: white; /* White text */
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .exit-button button:hover {
+    background-color: #ff0000; /* Darker red on hover */
+  }
+  
+.canvas {
+    width: 100% !important;
+    height: 400px !important;  /* Ensure height is set */
+  }
+  
 .hub-container{
   position: relative;
   display: flex;

@@ -1,0 +1,171 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    border-radius: 8px;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+  
+  .container {
+    max-width: 1220px;
+    margin: 0 auto;
+    margin-top: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    h4, h2{
+      font-weight: 600;
+    }
+}
+
+.exit-button {
+  position: absolute;
+  top: 20px; /* Adjust the space from the top */
+  right: 200px; /* Adjust the space from the right */
+  z-index: 20; /* Ensure it is above other elements */
+}
+
+.exit-button button {
+  background-color: #ff5c5c; /* Red background color */
+  color: white; /* White text */
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.exit-button button:hover {
+  background-color: #ff0000; /* Darker red on hover */
+}
+
+.export-buttons {
+  display: flex;
+  justify-content: flex-end; /* Aligns buttons to the right */
+  gap: 10px; /* Adds space between the buttons */
+  margin-top: 20px; /* Optional: Adds some space above the buttons */
+}
+
+.export-buttons button {
+  background-color: #023040;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.export-buttons button:hover {
+  background-color: #014a63; /* Darker shade for hover */
+  transform: scale(1.05); /* Slightly increases size on hover */
+}
+
+.export-buttons button:focus {
+  outline: none; /* Removes focus outline */
+}
+
+
+
+.table-box {
+    min-width: calc(100% - 120px);
+    height: calc(80vh - 100px);
+    background-color: #f1f1f1;
+    border-radius: 7px;
+    margin-top: 10px;
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  
+  .table-header {
+    width: 100%;
+    border-collapse: collapse;
+    flex: 0 0 auto;
+  }
+  
+  .table-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden; 
+  }
+  
+  .table-body table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-header th, .table-body td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    align-items: center;
+    
+  }
+  
+  /* Set column widths */
+  .table-header th:nth-child(1), .table-body td:nth-child(1) {
+    width: 6%;
+    padding-left: 20px;
+  }
+  
+  .table-header th:nth-child(2), .table-body td:nth-child(2) {
+    width: 9%;
+  }
+  
+  .table-header th:nth-child(3), .table-body td:nth-child(3) {
+    width: 12%;
+  }
+  
+  .table-header th:nth-child(4), .table-body td:nth-child(4) {
+    width: 16%;
+  }
+  
+  .table-header th:nth-child(5), .table-body td:nth-child(5) {
+    width: 10%;
+  }
+  
+  .table-header th:nth-child(6), .table-body td:nth-child(6) {
+    width: 10%;
+  }
+  
+  .table-header th:nth-child(7), .table-body td:nth-child(7) {
+    width: 10%;
+  }
+  
+  .table-header th:nth-child(8), .table-body td:nth-child(8) {
+    width: 10%;
+  }
+  
+  .table-header th:nth-child(9), .table-body td:nth-child(9) {
+    width: 10%;
+    padding-left: 20px;
+  }
+  
+  
+  .table-body button {
+    background-color: $apc;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .table-body button:hover {
+    background-color: $apc;
+  }
+  

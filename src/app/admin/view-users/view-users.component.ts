@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ViewUsersService } from '../services/view-users.service';
 import { CurrencyPipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-view-users',
   templateUrl: './view-users.component.html',
