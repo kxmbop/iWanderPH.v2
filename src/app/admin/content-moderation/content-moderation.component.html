@@ -1,43 +1,105 @@
 <div class="text">Content Moderation</div>
 
 <div class="reports-container">
-   <table class="reports-table">
-     <thead>
-       <tr>
-         <th>Report ID</th>
-         <th>Review ID</th>
-         <th>Violation</th>
-         <th>Reported By</th>
-         <th>Message</th>
-         <th>Date</th>
-         <th>Status</th>
-         <th>Action</th>
-       </tr>
-     </thead>
-     <tbody>
-       <tr *ngFor="let report of reports">
-         <td>{{ report.reportID }}</td>
-         <td>{{ report.reviewID }}</td>
-         <td>{{ report.violation }}</td>
-         <td>{{ report.reportedBy.travelerID }}</td>
-         <td>{{ report.reportMessage }}</td>
-         <td>{{ report.reportDate }}</td>
-         <td>{{ report.status }}</td>
-         
-         <td>
-            <button 
-              [disabled]="report.status === 'No Action'"
-              (click)="onStatusChange(report, 'No Action')">No Action</button>
-            
-            <button 
-              [disabled]="report.status === 'Actioned'"
-              (click)="onStatusChange(report, 'Actioned')">Actioned</button>
-         </td>
-         
-       </tr>
-     </tbody>
-   </table>
-   
-   <div *ngIf="loading" class="loading">Loading reports...</div>
-   <div *ngIf="error" class="error">{{ error }}</div>
+  <table class="reports-table">
+    <thead>
+      <tr>
+        <th>Report ID</th>
+        <th>Review ID</th>
+        <th>Violation</th>
+        <th>Reported By</th>
+        <th>Message</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let report of reports">
+        <td>{{ report.reportID }}</td>
+        <td>{{ report.reviewID }}</td>
+        <td>{{ report.violation.violationTitle }}</td>
+        <td>{{ report.reportedBy.travelerID }}</td>
+        <td>{{ report.reportMessage }}</td>
+        <td>{{ report.reportDate }}</td>
+        <td>{{ report.status }}</td>
+        <td>
+          <button (click)="openModal(report)">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="loading" class="loading">Loading reports...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+</div>
+
+<!-- Modal -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <div class="modal-header flex-row s-b">
+      <h3>Report Details</h3>
+      <span class="close" (click)="closeModal()">&times;</span>
+    </div>
+  
+    <div class="modal-body">
+      <div class="flex-row" style="gap:10px; ">
+        <div class="report-section" style="width: 100%;">
+          <h4>Report Information</h4>
+          <div class="flex-row">
+            <p style="width: 50%;"><strong>Report ID:</strong> {{ selectedReport?.reportID }}</p>
+            <p><strong>Review ID:</strong> {{ selectedReport?.reviewID }}</p>
+          </div>
+        </div>
+    
+        <div class="report-section" style="width: 100%;">
+          <h4>Reporter Information</h4>
+          <p><strong>Reported By:</strong> {{ selectedReport?.reportedBy?.travelerID }}</p>
+        </div>
+      </div>
+  
+      <div class="report-section">
+        <h4>Report Details</h4>
+        <p><strong>Violation:</strong> {{ selectedReport?.violation.violationTitle }}</p>
+        <p><strong>Message:</strong> {{ selectedReport?.reportMessage }}</p>
+        <p style="font-size: 12px;"><strong>Date:</strong> {{ selectedReport?.reportDate }}</p>
+        <p style="font-size: 12px;"><strong>Status:</strong> {{ selectedReport?.status }}</p>
+      </div>
+
+      <div class="flex-row">
+              <!-- Review Section for Image Display -->
+      <div class="report-section flex-row" style="gap:10px;">
+        <div class="flex-column">
+          <h4>Review Images</h4>
+          <div class="review-img" *ngIf="selectedReport?.reviewDetails?.images?.length">
+            <div class="images">
+              <img 
+              *ngFor="let image of selectedReport?.reviewDetails.images"
+              [src]="'data:image/jpeg;base64,' + image.image" 
+              alt="Image" 
+              class="review-image"
+            />
+            </div>
+          </div>
+        </div>
+        <div class="review-section" style="gap:10px;">
+          <h4>Review Section</h4>
+          <p><strong>Caption:</strong> {{ selectedReport?.reviewDetails.reviewComment }}</p>
+          <p><strong>Rating:</strong> {{ selectedReport?.reviewDetails.reviewRating }}</p>
+          <p><strong>Booking: </strong> {{ selectedReport?.reviewDetails.bookingID }}
+            <a [routerLink]="['/admin/booking-details', selectedReport?.reviewDetails.bookingID]" style="color: none !important">
+              [<i>link</i>]
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="report-section">
+        
+      </div>
+      </div>
+    </div>
+
+
+  </div>
 </div>
