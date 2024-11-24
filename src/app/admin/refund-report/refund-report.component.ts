@@ -116,7 +116,6 @@ export class RefundReportComponent implements OnInit {
   exportToPDF(): void {
     const doc = new jsPDF();
   
-    // Add Logo
     const logoImage = './logo.png';
     const pageWidth = doc.internal.pageSize.width;
     const logoWidth = 25;
@@ -129,7 +128,6 @@ export class RefundReportComponent implements OnInit {
       console.error('Error adding logo:', error);
     }
   
-    // Add Description
     const description = 'Philippine Tourist Destination Information System and Booking Management Platform';
     const descriptionFontSize = 10;
     doc.setFont('helvetica', 'normal');
@@ -138,7 +136,6 @@ export class RefundReportComponent implements OnInit {
     const descriptionY = logoY + logoHeight + 10;
     doc.text(description, descriptionX, descriptionY);
   
-    // Add Report Title
     const reportTitle = 'Refunded Merchant Report';
     doc.setFont('helvetica', 'bold');
     const titleFontSize = 12;
@@ -146,7 +143,6 @@ export class RefundReportComponent implements OnInit {
     const titleY = descriptionY + 10;
     doc.text(reportTitle, titleX, titleY);
   
-    // Add Chart
     try {
       const chartImage = this.refundedMerchantChartCanvas.nativeElement.toDataURL('image/png');
       if (chartImage) {
@@ -156,7 +152,6 @@ export class RefundReportComponent implements OnInit {
       console.error('Error capturing chart image:', error);
     }
   
-    // Add Refunded Details
     let yOffset = titleY + 110;
     const refundedPercentageText = `Refunded Percentage: ${this.refundedPercentage}%`;
     const totalRefundedAmountText = `Total Refunded Amount: PHP ${this.totalRefundedAmount.toLocaleString()}`;
@@ -165,7 +160,6 @@ export class RefundReportComponent implements OnInit {
     doc.text(totalRefundedAmountText, 10, yOffset + 10);
     yOffset += 20;
   
-    // Add Table
     const table = document.querySelector('.table-box') as HTMLTableElement;
     if (table) {
       const rows = table.querySelectorAll('tr');
@@ -191,7 +185,6 @@ export class RefundReportComponent implements OnInit {
   exportToExcel(): void {
     const table = document.querySelector('.table-box') as HTMLTableElement;
   
-    // Check if the table exists
     if (!table) {
       console.error('Table not found!');
       return;
@@ -199,48 +192,38 @@ export class RefundReportComponent implements OnInit {
   
     const rows = table.querySelectorAll('tr');
   
-    // Limit the number of rows for faster export (e.g., 20 rows)
-    const limitedRows = Array.from(rows).slice(0, 20); // Change 20 to the desired row limit
+    const limitedRows = Array.from(rows).slice(0, 20);
   
-    // Convert the limited rows into a new table for export
     const tempTable = document.createElement('table');
     limitedRows.forEach(row => {
       tempTable.appendChild(row.cloneNode(true));
     });
   
-    // Create a new worksheet from the table
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(tempTable);
   
-    // Prepare the title and statistics data
     const title = [
-      ['REFUNDED MERCHANT REPORT'], // Title row
-      [`Total Refunded Amount: PHP ${this.totalRefundedAmount.toLocaleString()}`], // Statistic row
-      [`Refunded Percentage: ${this.refundedPercentage}%`], // Statistic row
-      [], // Blank row for spacing
+      ['REFUNDED MERCHANT REPORT'], 
+      [`Total Refunded Amount: PHP ${this.totalRefundedAmount.toLocaleString()}`],
+      [`Refunded Percentage: ${this.refundedPercentage}%`],
+      [], 
     ];
   
-    // Add the title and statistics at the top of the sheet
     XLSX.utils.sheet_add_aoa(ws, title, { origin: 'A1' });
   
-    // Adjust column widths to fit the content
-    const maxColWidths: number[] = []; // Explicitly declare type
+    const maxColWidths: number[] = []; 
   
-    // Iterate through worksheet data to calculate max width for each column
     Object.keys(ws).forEach(cell => {
-      if (cell[0] === '!') return; // Skip metadata entries
-      const colIndex = parseInt(cell.replace(/\D/g, ''), 10); // Ensure it's a number
-      const value = ws[cell]?.v || ''; // Cell value
-      maxColWidths[colIndex] = Math.max(maxColWidths[colIndex] || 0, value.toString().length + 2); // Add padding
+      if (cell[0] === '!') return; 
+      const colIndex = parseInt(cell.replace(/\D/g, ''), 10); 
+      const value = ws[cell]?.v || ''; 
+      maxColWidths[colIndex] = Math.max(maxColWidths[colIndex] || 0, value.toString().length + 2); 
     });
   
-    // Apply calculated widths
     ws['!cols'] = maxColWidths.map(width => ({ wch: width }));
   
-    // Create a new workbook and append the worksheet
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Refunded Merchants');
   
-    // Export the workbook as an Excel file
     XLSX.writeFile(wb, 'Refunded_Merchant_Report.xlsx');
   }
   

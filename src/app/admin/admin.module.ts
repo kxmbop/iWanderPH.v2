@@ -25,6 +25,8 @@ import { ViewListingComponent } from './view-listing/view-listing.component';
 import { NearbyPlaceComponent } from './nearby-place/nearby-place.component';
 import { RevenueComponent } from './revenue/revenue.component';
 import { RefundReportComponent } from './refund-report/refund-report.component';
+import { BookingTrendComponent } from './booking-trend/booking-trend.component';
+import { ReviewReportComponent } from './review-report/review-report.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,10 @@ import { RefundReportComponent } from './refund-report/refund-report.component';
     ViewListingComponent,
     NearbyPlaceComponent,
     RevenueComponent,
-    RefundReportComponent
+    RefundReportComponent,
+    GenerateReportComponent,
+    BookingTrendComponent,
+    ReviewReportComponent
   ],
   imports: [
     CommonModule,

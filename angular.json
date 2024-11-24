@@ -41,7 +41,14 @@
                 "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
             "allowedCommonJsDependencies": [
-              "file-saver"
+              "file-saver",
+              "jspdf",
+              "canvg",
+              "html2canvas",
+              "dompurify",
+              "rgbcolor",
+              "raf",
+              "jspdf-autotable"
             ]
           },
           "configurations": {

@@ -1,12 +1,7 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
-} from '@angular/core';
+import {Component,OnInit,ViewChild,ElementRef,ChangeDetectorRef,} from '@angular/core';
 import { GenerateReportService } from '../services/generate-report.service';
 import { Chart } from 'chart.js/auto';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-generate-report',
@@ -27,7 +22,11 @@ export class GenerateReportComponent implements OnInit {
   refundedPercentage: number = 0;
   totalRefundedAmount: number = 0;
 
-  constructor(private reportService: GenerateReportService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private reportService: GenerateReportService,
+    private cdr: ChangeDetectorRef,
+    private router: Router // Add Router here
+  ) {}
 
   ngOnInit(): void {
     this.fetchReportData();
@@ -37,6 +36,9 @@ export class GenerateReportComponent implements OnInit {
   }
 
 
+  viewbookingTrends(): void {
+    this.router.navigate(['/booking-trend']); // Redirect to the new page
+  }
 
   fetchReportData(): void {
     this.reportService.getReportData().subscribe((data) => {
