@@ -127,7 +127,7 @@
             }
             
             .notifications h4 {
-                font-size: 1.2rem;
+                font-size: 1.0rem;
                 margin-bottom: 10px;
                 color: #333;
                 text-align: center;
@@ -137,6 +137,8 @@
                 display: flex;
                 flex-direction: column;
                 gap: 12px;
+                height: 70vh;
+                overflow: auto;
             }
             
             .notification-item {
@@ -206,10 +208,12 @@
                 padding: 20px;
                 border-radius: 8px;
                 margin: 0 auto;
+                height: 70vh;
+                overflow: auto;
             }
             
             .announcements h4 {
-                font-size: 1.2rem;
+                font-size: 1.0rem;
                 margin-bottom: 10px;
                 color: #333;
                 text-align: center;
@@ -471,6 +475,9 @@
         
 }
 
+input{
+    font-size: 14px !important;
+}
 
 .send-message {
     position: absolute;
@@ -503,7 +510,10 @@
         }
     }
 }
-
+#reviewImagesContainer img {
+    width: 100px;
+    margin: 5px;
+  }
 .new-chat {
     margin-top: 20px;
 

@@ -9,7 +9,7 @@
 }
 
 /* General navbar styling */
-.navbar {
+.navbarr {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -69,7 +69,7 @@
     #settings{
         display: none;
     }
-    .navbar {
+    .navbarr {
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
@@ -82,7 +82,7 @@
         border-right: none;
         border-top: 1px solid #ccc;
     }
-    .navbar .logo, .navbar .logo_solo{
+    .navbarr .logo, .navbarr .logo_solo{
         display: none;
     }
     .nav-item {
@@ -133,16 +133,16 @@
 
 /* Tablet view (481px - 1024px) */
 @media (min-width: 481px) and (max-width: 1024px) {
-    .navbar {
+    .navbarr {
         display: flex;
         flex-direction: column;
         align-content: center;
         width: 80px;
     }
-    .navbar .logo{
+    .navbarr .logo{
         display: none;
     }
-    .navbar .logo_solo{
+    .navbarr .logo_solo{
         width: 38px;  
         height: auto;  
         display: block;
@@ -167,13 +167,13 @@
 /* Desktop view (above 1025px) */
 @media (min-width: 1025px) {
 
-    .navbar {
+    .navbarr {
         width: 320px;
     }
-    .navbar .logo_solo{
+    .navbarr .logo_solo{
         display: none;
     }
-    .navbar .logo{
+    .navbarr .logo{
         margin: 20px 0px 30px 5px;
     }
     .nav-item {
@@ -184,7 +184,7 @@
         margin-bottom: 10px;
         border-radius: 10px;
     }
-    .nav-item:hover{
+    .nav-item:hover, .nav-item::after{
         background-color: #f3f3f3;
     }
 

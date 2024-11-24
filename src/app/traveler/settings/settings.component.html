@@ -7,8 +7,8 @@
     </div>
     <div class="group">
         <span>Your Account</span>
-        <div class="option flex-row s-b" [routerLink]="['/traveler/settings/account']">
-            <div class="label flex-row centered">
+        <div class="options flex-row s-b" [routerLink]="['/traveler/settings/account']">
+            <div class="label">
                 <i class='bx bx-user-circle' ></i>
                 <label>Account</label>
             </div>
@@ -19,8 +19,8 @@
         <span>Merchant</span>
         
         <!-- Merchant Hub: Show if isMerchant is true and isApproved is also true -->
-        <div class="option flex-row s-b" *ngIf="isMerchant && isApproved" [routerLink]="['/merchant/my-dashboard/my-profile']">
-          <div class="label flex-row centered">
+        <div class="options flex-row s-b" *ngIf="isMerchant && isApproved" [routerLink]="['/merchant/my-dashboard/my-profile']">
+          <div class="label ">
             <i class='bx bx-paper-plane'></i>
             <label>Merchant Hub</label>
           </div>
@@ -28,8 +28,8 @@
         </div>
       
         <!-- Waiting for Approval: Show if isMerchant is true and isApproved is false -->
-        <div class="option flex-row s-b" *ngIf="isMerchant && !isApproved">
-          <div class="label flex-row centered">
+        <div class="options flex-row s-b" *ngIf="isMerchant && !isApproved">
+          <div class="label ">
             <i class='bx bx-time'></i>
             <label>Waiting for Approval</label>
           </div>
@@ -37,8 +37,8 @@
         </div>
       
         <!-- Apply as Merchant: Show if isMerchant is false -->
-        <div class="option flex-row s-b" *ngIf="!isMerchant && !isApproved" [routerLink]="['/traveler/register-business']">
-          <div class="label flex-row centered">
+        <div class="options flex-row s-b" *ngIf="!isMerchant && !isApproved" [routerLink]="['/traveler/register-business']">
+          <div class="label ">
             <i class='bx bx-edit-alt'></i>
             <label>Apply as Merchant</label>
           </div>
@@ -47,15 +47,15 @@
       </div>      
     <div class="group">
         <span>More info and support</span>
-        <div class="option flex-row s-b">
-            <div class="label flex-row centered">
+        <div class="options flex-row s-b">
+            <div class="label">
                 <i class='bx bx-support'></i>
                 <label>Support</label>
             </div>
             <i class='bx bx-chevron-right'id="arrow" ></i>
         </div>
-        <div class="option flex-row s-b">
-            <div class="label flex-row centered">
+        <div class="options flex-row s-b">
+            <div class="label">
                 <i class='bx bx-help-circle' ></i>
                 <label>Help Center/FAQ</label>
             </div>
@@ -64,8 +64,8 @@
     </div>
     <div class="group">
         <span>Log</span>
-        <div class="option flex-row s-b">
-            <div class="label flex-row centered" (click)="logout()">
+        <div class="options flex-row s-b">
+            <div class="label " (click)="logout()">
                 <i class='bx bx-log-out'></i>
                 <label>Log-out</label>
             </div>
@@ -81,8 +81,8 @@
 <div class="settings">
     <div class="group">
         <span>Your Account</span>
-        <div class="option flex-row s-b" [routerLink]="['/traveler/settings/account']">
-            <div class="label flex-row centered">
+        <div class="options d-flex flex-row s-b" [routerLink]="['/traveler/settings/account']">
+            <div class="label">
                 <i class='bx bx-user-circle' ></i>
                 <label>Account</label>
             </div>
@@ -91,15 +91,15 @@
     </div>
     <div class="group">
         <span>Merchant</span>
-        <div class="option flex-row s-b" *ngIf="isMerchant" [routerLink]="['/merchant/my-dashboard/my-profile']">
-            <div class="label flex-row centered" >
+        <div class="options flex-row s-b" *ngIf="isMerchant" [routerLink]="['/merchant/my-dashboard/my-profile']">
+            <div class="label" >
                 <i class='bx bx-paper-plane'></i>
                 <label>Merchant Hub</label>
             </div>
             <i class='bx bx-chevron-right hide' ></i>
         </div>
-        <div class="option flex-row s-b" *ngIf="!isMerchant" [routerLink]="['/traveler/register-business']">
-            <div class="label flex-row centered" >
+        <div class="options flex-row s-b" *ngIf="!isMerchant" [routerLink]="['/traveler/register-business']">
+            <div class="label" >
                 <i class='bx bx-edit-alt'></i>
                 <label>Apply as Merchant</label>
             </div>
@@ -108,15 +108,15 @@
     </div>
     <div class="group">
         <span>More info and support</span>
-        <div class="option flex-row s-b">
-            <div class="label flex-row centered">
+        <div class="options flex-row s-b">
+            <div class="label">
                 <i class='bx bx-support'></i>
                 <label>Support</label>
             </div>
             <i class='bx bx-chevron-right hide' ></i>
         </div>
-        <div class="option flex-row s-b">
-            <div class="label flex-row centered">
+        <div class="options flex-row s-b">
+            <div class="label">
                 <i class='bx bx-help-circle' ></i>
                 <label>Help Center/FAQ</label>
             </div>
@@ -125,8 +125,8 @@
     </div>
     <div class="group">
         <span>Log</span>
-        <div class="option flex-row s-b">
-            <div class="label flex-row centered" (click)="logout()">
+        <div class="options flex-row s-b">
+            <div class="label" (click)="logout()">
                 <i class='bx bx-log-out'></i>
                 <label>Log-out</label>
             </div>
@@ -137,3 +137,4 @@
         <router-outlet></router-outlet>
     </div>
 </div>
+

@@ -10,21 +10,21 @@
          <div class="form">
             <span>Account Information</span>
             <div class="group">
-               <div class="option flex-row s-b"  [routerLink]="['/traveler/settings/account/update-username']">
+               <div class="options flex-row s-b"  [routerLink]="['/traveler/settings/account/update-username']">
                   <label>Username</label>
                   <div class="label  flex-row centered">
                      <p>{{ profile.Username }}</p>
                      <i class='bx bx-chevron-right' ></i>
                   </div>
                </div>
-               <div class="option flex-row s-b"  [routerLink]="['/traveler/settings/account/update-password']">
+               <div class="options flex-row s-b"  [routerLink]="['/traveler/settings/account/update-password']">
                   <label>Password</label>
                   <div class="label  flex-row centered">
                      <p></p>
                      <i class='bx bx-chevron-right' ></i>
                   </div>
                </div>
-               <div class="option flex-row s-b"  [routerLink]="['/traveler/settings/account/update-phone-number']">
+               <div class="options flex-row s-b"  [routerLink]="['/traveler/settings/account/update-phone-number']">
                   <label>Phone Number</label>
                   <div class="label  flex-row centered">
                      <p>{{ profile.Mobile }}</p>
@@ -36,25 +36,25 @@
          <div class="form">
             <span>Personal Information</span>
             <div class="group">
-               <div class="option flex-row s-b">
+               <div class="options flex-row s-b">
                   <label>Display Name</label>
                   <div class="label  flex-row centered">
                      <p>{{ profile.FirstName }} {{ profile.LastName }}</p>
                   </div>
                </div>
-               <div class="option flex-row s-b">
+               <div class="options flex-row s-b">
+                  <label>Bio</label>
+                  <div class="label  flex-row centered">
+                     <p>{{ profile.Bio }}</p>
+                  </div>
+               </div>
+               <div class="options flex-row s-b">
                   <label>Email</label>
                   <div class="label  flex-row centered">
                      <p>{{ profile.Email }}</p>
                   </div>
                </div>
-               <div class="option flex-row s-b">
-                  <label>Birthday</label>
-                  <div class="label  flex-row centered">
-                     <p>November 13, 2024</p>
-                  </div>
-               </div>
-               <div class="option flex-row s-b">
+               <div class="options flex-row s-b">
                   <label>Address</label>
                   <div class="label  flex-row centered">
                      <p>{{ profile.Address }}</p>
@@ -71,7 +71,7 @@
          <div class="form" [routerLink]="['/traveler/settings/account/deactivate']">
             <span>Account Deactivation</span>
             <div class="group">
-               <div class="option flex-row s-b">
+               <div class="options flex-row s-b">
                   <label>Deactivate</label>
                   <div class="label  flex-row centered">
                      <i class='bx bx-chevron-right' ></i>
@@ -90,21 +90,21 @@
          <div class="form">
             <span>Account Information</span>
             <div class="group">
-               <div class="option flex-row s-b"  [routerLink]="['/traveler/settings/account/update-username']">
+               <div class="options flex-row s-b"  [routerLink]="['/traveler/settings/account/update-username']">
                   <label>Username</label>
                   <div class="label  flex-row centered">
                      <p>{{ profile.Username }}</p>
                      <i class='bx bx-chevron-right' ></i>
                   </div>
                </div>
-               <div class="option flex-row s-b"  [routerLink]="['/traveler/settings/account/update-password']">
+               <div class="options flex-row s-b"  [routerLink]="['/traveler/settings/account/update-password']">
                   <label>Password</label>
                   <div class="label  flex-row centered">
                      <p></p>
                      <i class='bx bx-chevron-right' ></i>
                   </div>
                </div>
-               <div class="option flex-row s-b"  [routerLink]="['/traveler/settings/account/update-phone-number']">
+               <div class="options flex-row s-b"  [routerLink]="['/traveler/settings/account/update-phone-number']">
                   <label>Phone Number</label>
                   <div class="label  flex-row centered">
                      <p>{{ profile.Mobile }}</p>
@@ -116,25 +116,31 @@
          <div class="form">
             <span>Personal Information</span>
             <div class="group">
-               <div class="option flex-row s-b">
+               <div class="options flex-row s-b">
                   <label>Display Name</label>
                   <div class="label  flex-row centered">
                      <p>{{ profile.FirstName }} {{ profile.LastName }}</p>
                   </div>
                </div>
-               <div class="option flex-row s-b">
+               <div class="options flex-row s-b">
+                  <label>Bio</label>
+                  <div class="label  flex-row centered">
+                     <p>{{ profile.Bio }}</p>
+                  </div>
+               </div>
+               <div class="options flex-row s-b">
                   <label>Email</label>
                   <div class="label  flex-row centered">
                      <p>{{ profile.Email }}</p>
                   </div>
                </div>
-               <div class="option flex-row s-b">
+               <div class="options flex-row s-b">
                   <label>Birthday</label>
                   <div class="label  flex-row centered">
                      <p>November 13, 2024</p>
                   </div>
                </div>
-               <div class="option flex-row s-b">
+               <div class="options flex-row s-b">
                   <label>Address</label>
                   <div class="label  flex-row centered">
                      <p>{{ profile.Address }}</p>
@@ -151,7 +157,7 @@
          <div class="form" [routerLink]="['/traveler/settings/account/deactivate']">
             <span>Account Deactivation</span>
             <div class="group">
-               <div class="option flex-row s-b">
+               <div class="options flex-row s-b">
                   <label>Deactivate</label>
                   <div class="label  flex-row centered">
                      <i class='bx bx-chevron-right' ></i>

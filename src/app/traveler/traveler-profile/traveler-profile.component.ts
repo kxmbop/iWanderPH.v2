@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from '../services/profile.service';
 
 @Component({
@@ -9,9 +9,9 @@ import { ProfileService } from '../services/profile.service';
 })
 export class TravelerProfileComponent implements OnInit {
   travelerID!: string;
-  travelerProfile: any = {}; // Traveler basic information
-  completedBookings: any[] = []; // Completed bookings
-  reviews: any[] = []; // Reviews array
+  travelerProfile: any = {}; 
+  completedBookings: any[] = []; 
+  reviews: any[] = []; 
   journeys: number = 0;
   activeTab = 'reviews';
   isMenuOpen = false;
@@ -21,15 +21,15 @@ export class TravelerProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
-    // Get travelerID from the route parameters
     this.route.params.subscribe((params) => {
       this.travelerID = params['travelerID'];
       this.fetchTravelerProfile();
-      this.fetchUserReviews(); // Fetch reviews
+      this.fetchUserReviews(); 
     });
   }
 
@@ -39,7 +39,7 @@ export class TravelerProfileComponent implements OnInit {
         if (response.success) {
           this.travelerProfile = response.profile || {};
           this.completedBookings = response.completedBookings || [];
-          console.log(this.completedBookings);  // Log to check the structure of completedBookings
+          console.log(this.completedBookings);  
           this.journeys = response.journeys || 0;
         } else {
           console.error('Profile fetch unsuccessful:', response);
@@ -53,8 +53,8 @@ export class TravelerProfileComponent implements OnInit {
   
   switchReview(index: number) {
     this.activeReviewIndex = index;
-    this.currentIndex = 0; // Reset the image index to 0 when switching reviews
-    this.updateCarousel(); // Update the carousel display
+    this.currentIndex = 0; 
+    this.updateCarousel(); 
   }
   
   ngAfterViewInit(): void {
@@ -65,7 +65,6 @@ export class TravelerProfileComponent implements OnInit {
     this.profileService.getUserReviews(this.travelerID).subscribe(
       (response) => {
         if (response.success) {
-          // Filter the reviews array for additional safety, in case the backend sends unintended private reviews
           this.reviews = (response.reviews || []).filter((review: any) => review.privacy !== 'private');
         } else {
           console.error('Reviews fetch unsuccessful:', response.error);
@@ -94,14 +93,14 @@ export class TravelerProfileComponent implements OnInit {
   nextImage() {
     if (this.reviews[this.activeReviewIndex]?.images && this.currentIndex < this.reviews[this.activeReviewIndex].images.length - 1) {
       this.currentIndex++;
-      this.updateCarousel(); // Update carousel items
+      this.updateCarousel(); 
     }
   }
   
   prevImage() {
     if (this.reviews[this.activeReviewIndex]?.images && this.currentIndex > 0) {
       this.currentIndex--;
-      this.updateCarousel(); // Update carousel items
+      this.updateCarousel();
     }
   }
   updateCarousel() {
@@ -110,7 +109,6 @@ export class TravelerProfileComponent implements OnInit {
       Array.prototype.forEach.call(carouselItems, (item: HTMLElement) => {
         item.classList.remove('active');
       });
-      // Only add the 'active' class to the current item based on currentIndex
       if (carouselItems[this.currentIndex]) {
         carouselItems[this.currentIndex].classList.add('active');
       }
@@ -123,33 +121,34 @@ export class TravelerProfileComponent implements OnInit {
         return;
     }
 
-    // Optimistically toggle the UI to reflect immediate feedback
     review.liked = !review.liked;
     review.likes += review.liked ? 1 : -1;
 
-    // Send the like/unlike request to the server
     this.profileService.toggleLike(review.reviewID, token).subscribe(
         (response) => {
             if (response.success) {
-                // Update the likes count based on the server response to ensure accuracy
                 review.likes = response.likes;
                 console.log(response.message);
             } else {
                 console.error("Error toggling like:", response.message);
-                // If there's an error, revert the like state
                 review.liked = !review.liked;
                 review.likes += review.liked ? 1 : -1;
             }
         },
         (error) => {
             console.error("Error toggling like", error);
-            // Revert the like state if there's an error
             review.liked = !review.liked;
             review.likes += review.liked ? 1 : -1;
         }
     );
+    
 }
 createArray(length: number): number[] {
   return new Array(length);
+}
+
+reportReview(reviewID: string) {
+  this.isMenuOpen = false;
+  this.router.navigate([`/traveler/report-content`, reviewID]);
 }
 }

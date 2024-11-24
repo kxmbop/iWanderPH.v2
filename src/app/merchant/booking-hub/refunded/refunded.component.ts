@@ -24,15 +24,11 @@ export class RefundedComponent implements OnInit {
 
     const token = localStorage.getItem('token');
     if (token) {
-        this.pendingService.getBookings(token, 'Checked-out').subscribe((readyResponse: any) => {
+        this.pendingService.getBookings(token, 'Refunded').subscribe((readyResponse: any) => {
             const readyBookings = this.extractBookings(readyResponse);
-
-            this.pendingService.getBookings(token, 'Completed').subscribe((checkedInResponse: any) => {
-                const checkedInBookings = this.extractBookings(checkedInResponse);
-
-                this.bookings = [...readyBookings, ...checkedInBookings];
-                this.originalBookings = [...this.bookings]; // Store original bookings for filtering
-            });
+            this.bookings = [...readyBookings];
+            this.originalBookings = [...this.bookings]; 
+            
         });
     }
 

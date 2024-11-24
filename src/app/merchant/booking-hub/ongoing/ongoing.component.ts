@@ -31,8 +31,12 @@ export class OngoingComponent {
             this.pendingService.getBookings(token, 'Checked-In').subscribe((checkedInResponse: any) => {
                 const checkedInBookings = this.extractBookings(checkedInResponse);
 
-                this.bookings = [...readyBookings, ...checkedInBookings];
-                this.originalBookings = [...this.bookings]; // Store original bookings for filtering
+                this.pendingService.getBookings(token, 'Checked-Out').subscribe((checkedOutResponse: any) => {
+                  const checkedOutBookings = this.extractBookings(checkedOutResponse);
+  
+                  this.bookings = [...readyBookings, ...checkedInBookings, ...checkedOutBookings];
+                  this.originalBookings = [...this.bookings]; 
+              });
             });
         });
     }

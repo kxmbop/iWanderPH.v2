@@ -7,7 +7,7 @@
    </div>
  
    <!-- Step 1: Choose Violation -->
-   <div class="report-reasons flex-column centered" *ngIf="!selectedViolationID">
+   <div class="report-reasons flex-column centered gap-2" *ngIf="!selectedViolationID">
      <div *ngFor="let violation of violations" class="report-reasons__item" (click)="selectViolation(violation.violationID)">
        {{ violation.violationTitle }}
        <input type="hidden" [value]="violation.violationID">

@@ -31,7 +31,17 @@
         margin-left: auto;  
     }
   }
-@media (min-width: 1025px) {}
+@media (min-width: 1025px) {
+  ::ng-deep .nav-item#discover{
+    background-color: #f3f3f3;
+
+    i, span{
+        color: #000;
+        font-weight: 500;
+    }
+}
+}
+
 
 $primary-color: #074D4C;
 $background-color: #f8f8f8;

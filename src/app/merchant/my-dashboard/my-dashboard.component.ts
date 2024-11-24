@@ -29,6 +29,7 @@ export class MyDashboardComponent implements OnInit, OnDestroy {
   showOptions: boolean = false; 
   receiverInfo: any; 
   announcements: any[] = [];
+  activeSubTab: string = 'notifications-sub';
 
   constructor(
     private bookingService: BookingsService,
@@ -41,11 +42,9 @@ export class MyDashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      // Retrieve the tab and chat session ID from the route parameters
-      this.activeTab = params.get('tab') || 'my-profile'; // Default to 'my-profile'
+      this.activeTab = params.get('tab') || 'my-profile'; 
       this.chatSessionId = params.get('chatSessionId');
 
-      // If chatSessionId exists, open the conversation and start polling
       if (this.chatSessionId) {
         this.openConversation(this.chatSessionId);
         this.loadReceiverProfile(this.chatSessionId);
@@ -69,14 +68,27 @@ export class MyDashboardComponent implements OnInit, OnDestroy {
     this.showOptions = !this.showOptions; 
   }
 
-  showTab(tab: string) { 
-    this.activeTab = tab;
-    this.router.navigate(['/merchant/my-dashboard', tab]); 
-    this.loadNotifications();
-    this.loadAnnouncements();
-    this.updateTabVisibility(); 
-    this.fetchAnnouncements();
+  showTab(tab: string): void {
+    if (tab === 'notifications-sub' || tab === 'announcements') {
+      this.activeSubTab = tab;
+    } else {
+      this.activeTab = tab;
+      if (tab === 'notifications') {
+        this.activeSubTab = 'notifications-sub'; 
+      }
+    }
+  
+    this.router.navigate(['/merchant/my-dashboard', tab]);
+  
+    if (this.activeTab === 'notifications') {
+      this.loadNotifications();
+      this.loadAnnouncements();
+      this.fetchAnnouncements();
+    }
+  
+    this.updateTabVisibility();
   }
+  
 
   confirmDeleteConversation(chatSessionId: string): void {
     const confirmation = confirm('Are you sure you want to delete this conversation?');

@@ -15,7 +15,7 @@ export class BookingComponent implements OnInit {
   itemId: number = 0;
   merchantId: number = 0;
   roomDetails: any = null;
-  transportationDetails: any = null;
+  transportationDetails: any = {};
   isDataLoaded: boolean = false; 
   showGcashNumber: boolean = false; 
   selectedFile: File | null = null;
@@ -106,7 +106,7 @@ export class BookingComponent implements OnInit {
   getTransportationDetails(transportationId: number): void {
     this.bookingService.getTransportationDetails(transportationId).subscribe(
       data => {
-        this.transportationDetails = data;
+        this.transportationDetails = data || {};  // Ensure it's never null
         console.log("Transportation Details:", this.transportationDetails);
         this.isDataLoaded = true;
       },
@@ -116,7 +116,6 @@ export class BookingComponent implements OnInit {
       }
     );
   }
-
   getSubtotal(): number {
     let subtotal = 0;
   

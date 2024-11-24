@@ -14,9 +14,14 @@
     background-color: #f1f1f1;
 }
 
-.option{
+.options{
+    display: flex;
+    align-items: center;
     padding: 5px 0;
     .label{
+        display: flex;
+        align-items: center;
+        flex-direction: row;
         padding: 7px 0;
         p{
             font-size: 13px;
@@ -85,7 +90,7 @@
             color: #535353;
             margin-left: 15px;
         }
-        .option{
+        .options{
             label{
                 font-size: 15px;
                 font-weight: 500;
@@ -103,6 +108,7 @@
         }
     }
     .edit {
+        display: flex;
         width: 80%;
         margin: 10px auto;
         border: 1px solid #353535;
