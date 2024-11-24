@@ -8,7 +8,11 @@
              
            
             <div class="menu-tab" id="inbox" (click)="showTab('inbox')" 
-                 [class.active]="activeTab === 'inbox'">Inbox</div>
+                 [class.active]="activeTab === 'inbox'">Inbox
+            </div>
+            <div class="menu-tab" id="logout">
+                  <a [routerLink]="['/traveler/profile']">Logout</a>
+            </div>
       </div>
           
           
@@ -212,8 +216,7 @@
                         </div>
                   </div>
             </div>
-
-
+                
       </div>
 </div>
     

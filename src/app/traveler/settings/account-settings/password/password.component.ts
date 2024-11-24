@@ -129,6 +129,21 @@ export class PasswordComponent {
     return /[!@#$%^&*(),.?":{}|<>]/.test(this.newPassword);
   }
 
+  isPasswordValid() {
+    return this.isPasswordValidLength() && 
+           this.isPasswordValidLetterNumber() && 
+           this.isPasswordValidSpecialCharacter();
+  }
+
+  // New method to show confirmation dialog
+  confirmPasswordUpdate() {
+    const isConfirmed = window.confirm("Are you sure you want to update your password?");
+    if (isConfirmed) {
+      this.updatePassword();
+    }
+  }
+
+  // The updatePassword method that gets called after confirmation
   updatePassword() {
     if (!this.currentPassword || !this.newPassword || !this.confirmNewPassword) {
       alert("All fields are required.");
@@ -136,6 +151,7 @@ export class PasswordComponent {
     }
 
     if (this.newPassword !== this.confirmNewPassword) {
+      alert("New passwords do not match. Please make sure both fields are the same.");
       this.passwordMessage = "New passwords do not match.";
       this.passwordMatch = false;
       return;
@@ -147,6 +163,11 @@ export class PasswordComponent {
     const token = localStorage.getItem('token');
     if (!token) {
       alert("No token found. Please log in again.");
+      return;
+    }
+
+    if (!this.isPasswordValid()) {
+      alert("Password does not meet the required criteria.");
       return;
     }
 

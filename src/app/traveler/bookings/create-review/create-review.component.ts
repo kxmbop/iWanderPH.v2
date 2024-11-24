@@ -31,18 +31,15 @@ export class CreateReviewComponent implements OnInit {
     this.uploadBoxes.push(this.uploadBoxes.length); // Add a new index to the array
   }
 
-  // Handle file selection
   onFileSelected(event: any, index: number): void {
     const file = event.target.files[0];
     this.selectedFiles[index] = file; // Store the selected file at the given index
   }
 
-  // Set the rating when a star is clicked
   setRating(rating: number): void {
     this.reviewRating = rating;
   }
 
-  // Submit the review using the ViewBookingsService
   submitReview(): void {
     const token = localStorage.getItem('token');
 
@@ -76,4 +73,3 @@ export class CreateReviewComponent implements OnInit {
     );
   }
 }
-//hays

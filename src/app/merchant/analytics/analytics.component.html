@@ -19,6 +19,7 @@
     
         <!-- Merchant Data Display -->
         <div *ngIf="merchantData" class="merchant-data">
+        <i class='bx bx-bar-chart-square'></i>
         <h3>Customer Satisfaction</h3>
         <select id="month" [(ngModel)]="selectedMonth" (change)="onMonthOrYearChange()">
             <option *ngFor="let month of months" [value]="month">{{ month }}</option>
@@ -49,6 +50,7 @@
         </div>
     </div>
     <div class="revenue-trends">
+        <i class='bx bx-bar-chart-square'></i>
         <h3>Revenue Trends</h3>
         <select [(ngModel)]="selectedYear" (change)="onYearChange()">
           <option *ngFor="let year of years" [value]="year">{{ year }}</option>
@@ -58,6 +60,7 @@
         </div>  
     </div>
     <div class="booking-trends">
+        <i class='bx bx-bar-chart-square'></i>
         <h3>Booking Trends</h3>
         <select [(ngModel)]="selectedYearForBookings" (change)="onYearChangeForBookings()">
             <option *ngFor="let year of years" [value]="year">{{ year }}</option>
@@ -67,6 +70,7 @@
         </div>
     </div>
     <div class="customer-demo">
+        <i class='bx bx-bar-chart-square'></i>
         <h3>Customer Demographics & Preference</h3>
         <select id="month" [(ngModel)]="selectedMonth" (change)="onMonthOrYearChange()">
             <option *ngFor="let month of months" [value]="month">{{ month }}</option>
@@ -78,8 +82,6 @@
             <canvas id="customerDemoChart" style="width: 80%; height: 200px;"></canvas>
         </div>
     </div>
-    
-    
     
 </div>
   

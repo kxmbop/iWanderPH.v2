@@ -110,23 +110,33 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  onFileSelected(event: Event, documentType: string | null = null): void {
+  onFileSelected(event: Event, documentType?: string): void {
     const input = event.target as HTMLInputElement;
+  
     if (input.files && input.files.length > 0) {
+      const selectedFile = input.files[0];
+  
       if (documentType) {
-        // For government documents
-        this.documentFiles[documentType] = input.files[0];
+        // Handle government documents
+        this.documentFiles[documentType] = selectedFile;
+  
+        // Optional: Show feedback or validation for document upload
+        console.log(`${documentType} document selected:`, selectedFile.name);
       } else {
-        // For the profile picture
-        this.selectedFile = input.files[0];
+        // Handle profile picture
+        this.selectedFile = selectedFile;
         const reader = new FileReader();
+  
         reader.onload = () => {
           this.profilePictureUrl = reader.result;
         };
-        reader.readAsDataURL(this.selectedFile);
+  
+        reader.readAsDataURL(selectedFile);
+        console.log(`Profile picture selected:`, selectedFile.name);
       }
     }
   }
+  
   
 
   onRoomImagesSelected(event: Event, index: number): void {
@@ -144,13 +154,60 @@ export class RegisterComponent implements OnInit {
   }
 
   goToNextStep() {
+    if (
+      !this.businessName ||
+      !this.email ||
+      !this.contact ||
+      !this.address ||
+      !this.selectedFile || // Profile Picture
+      this.selectedBusinessType === null
+    ) {
+      alert('All fields must be filled, including the profile picture and business type.');
+      return;
+    }
+  
+    // Validate email format
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(this.email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+  
+    // Validate contact number format (numbers and dashes only)
+    const contactPattern = /^[0-9-]+$/;
+    if (!contactPattern.test(this.contact)) {
+      alert('Contact number must only contain numbers and dashes.');
+      return;
+    }
+  
     this.currentStep = 2;
   }
-
   goToStep3() {
+    const tinRegex = /^(\d{3}-\d{3}-\d{3}-\d{3}|\d{3}-\d{3}-\d{3})$/;
+  
+    // Validate Business TIN
+    if (!tinRegex.test(this.businessTin)) {
+      alert('Please enter a valid Business TIN in the format "000-123-456-001" or "123-456-001".');
+      return;
+    }
+  
+    // Validate Required Document Uploads
+    const requiredDocuments = ['BarangayClearance', 'MayorPermit', 'BirForm', 'DotAuth'];
+    for (const doc of requiredDocuments) {
+      if (!this.documentFiles[doc]) {
+        alert(`Please upload the ${doc.replace(/([A-Z])/g, ' $1').trim()} document.`);
+        return;
+      }
+    }
+
+    // Proceed to step 3
     this.currentStep = 3;
   }
-
+  
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
   selectBusinessType(type: string) {
     this.selectedBusinessType = type;
   }
@@ -249,7 +306,31 @@ export class RegisterComponent implements OnInit {
       alert('Please fill out all fields and select a profile picture.');
       return;
     }
-  
+    // Validate Room Details
+    for (const room of this.roomDetails) {
+      if (!room.name || !room.rate || !room.inclusions.length || !room.views.length) {
+        alert('Please complete all room details, including name, rate, inclusions, and views.');
+        return;
+      }
+      if (!room.imageFiles.length) {
+        alert('Please upload at least one image for each room.');
+        return;
+      }
+    }
+
+    // Validate Transportation Details if transportation is offered
+    if (this.offersTransportation) {
+      for (const transport of this.transportationDetails) {
+        if (!transport.type || !transport.model || !transport.brand || !transport.capacity || !transport.rate) {
+          alert('Please complete all transportation details, including type, model, brand, capacity, and rate.');
+          return;
+        }
+        if (!transport.imageFiles.length) {
+          alert('Please upload at least one image for each transportation.');
+          return;
+        }
+      }
+    }
     const confirmSubmission = confirm('Are you sure you want to submit the form?');
     if (!confirmSubmission) {
       return; // If the user cancels, exit the function
@@ -314,5 +395,8 @@ export class RegisterComponent implements OnInit {
 
   goBackToStep1() {
     this.currentStep = 1;
+  }
+  goBackToStep2(): void {
+    this.currentStep = 2; // Navigate back to Step 2
   }
 }
