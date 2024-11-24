@@ -21,6 +21,7 @@ import { ProfilePictureEditComponent } from './profile-picture-edit/profile-pict
 import { AddAccountComponent } from './add-account/add-account.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { ContentModerationComponent } from './content-moderation/content-moderation.component';
+import { ViewListingComponent } from './view-listing/view-listing.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { ContentModerationComponent } from './content-moderation/content-moderat
     ProfilePictureEditComponent,
     AddAccountComponent,
     GenerateReportComponent,
-    ContentModerationComponent
+    ContentModerationComponent,
+    ViewListingComponent
   ],
   imports: [
     CommonModule,

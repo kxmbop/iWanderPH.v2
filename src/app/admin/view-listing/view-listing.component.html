@@ -1,0 +1,107 @@
+<div class="options">
+  <button [class.active]="isRoomsVisible" (click)="showRooms()">Rooms</button>
+  <button [class.active]="isTransportationVisible" (click)="showTransportation()">Transportation</button>
+</div>
+
+<!-- Search filter for Rooms -->
+<div class="filter" *ngIf="isRoomsVisible">
+  <label for="roomSearch">Search Rooms (Room ID or Room Name):</label>
+  <input type="text" id="roomSearch" [(ngModel)]="roomSearch" (ngModelChange)="filterRooms()" placeholder="Search...">
+</div>
+
+<!-- Search filter for Transportation -->
+<div class="filter" *ngIf="isTransportationVisible">
+  <label for="vehicleSearch">Search Vehicles (Transportation ID, Name, Model, Brand):</label>
+  <input type="text" id="vehicleSearch" [(ngModel)]="vehicleSearch" (ngModelChange)="filterVehicles()" placeholder="Search...">
+</div>
+
+<div class="listinghub" *ngIf="isRoomsVisible" id="rooms">
+  <div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Room Name</th>
+          <th>No. of Rooms</th>
+          <th>No. of Guests</th>
+          <th>Room Rate</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let room of rooms">
+          <td>{{room.RoomID}}</td>
+          <td>{{ room.RoomName }}</td>
+          <td>{{ room.RoomQuantity }}</td>
+          <td>{{ room.GuestPerRoom }}</td>
+          <td>₱ {{ room.RoomRate | number: '1.2-2' }}</td>
+          <td class="actions">
+            <button class="action-button view-button" (click)="viewRoom(room)">View Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- View Room Modal -->
+  <div *ngIf="showViewRoomModal" class="modal view-room-modal">
+    <div class="modal-content">
+      <span class="close-button" (click)="closeViewRoomModal()">&times;</span>
+      <h2>Room Details</h2>
+      <div *ngIf="viewRoomData">
+        <p><strong>Inclusions:</strong></p>
+        <ul *ngIf="viewRoomData.Inclusions?.length">
+          <li *ngFor="let inclusion of viewRoomData.Inclusions">
+            <strong>{{ inclusion.InclusionName }}:</strong> {{ inclusion.InclusionDescription }}
+          </li>
+        </ul>
+        <br>
+        <p><strong>Gallery:</strong></p>
+        <div *ngIf="viewRoomData.gallery?.length">
+          <img *ngFor="let image of viewRoomData.gallery" [src]="image" alt="Room Image">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="listinghub" *ngIf="isTransportationVisible" id="transportation">
+  <div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Vehicle Name</th>
+          <th>Model</th>
+          <th>Brand</th>
+          <th>Capacity</th>
+          <th>Rental Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vehicle of vehicles">
+          <td>{{ vehicle.TransportationID }}</td>
+          <td>{{ vehicle.VehicleName }}</td>
+          <td>{{ vehicle.Model }}</td>
+          <td>{{ vehicle.Brand }}</td>
+          <td>{{ vehicle.Capacity }}</td>
+          <td>₱ {{ vehicle.RentalPrice | number: '1.2-2' }}</td>
+          <td class="actions">
+            <button class="action-button view-button" (click)="viewVehicle(vehicle)">View Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- View Vehicle Modal -->
+<div *ngIf="showViewVehicleModal" class="modal view-vehicle-modal">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeViewVehicleModal()">&times;</span>
+    <h2>Vehicle Details</h2>
+    <p><strong>Gallery:</strong> {{ viewVehicleData?.TransportationImage }}</p>
+  </div>
+</div>
