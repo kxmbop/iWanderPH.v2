@@ -3,9 +3,10 @@ import { AdminService } from '../services/admin.service';
 import { AuthService } from '../services/auth.service'; // Import AuthService
 
 @Component({
-  selector: 'app-profile-picture-edit',
-  templateUrl: './profile-picture-edit.component.html',
-  styleUrls: ['./profile-picture-edit.component.scss']
+    selector: 'app-profile-picture-edit',
+    templateUrl: './profile-picture-edit.component.html',
+    styleUrls: ['./profile-picture-edit.component.scss'],
+    standalone: false
 })
 export class ProfilePictureEditComponent implements OnInit {
   @Input() admin: any;

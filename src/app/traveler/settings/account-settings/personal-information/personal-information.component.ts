@@ -6,20 +6,21 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 
 @Component({
-  selector: 'app-personal-information',
-  templateUrl: './personal-information.component.html',
-  styleUrls: ['./personal-information.component.scss'],
-  animations: [
-    trigger('slideInOut', [
-      transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
-      ])
-    ])
-  ]
+    selector: 'app-personal-information',
+    templateUrl: './personal-information.component.html',
+    styleUrls: ['./personal-information.component.scss'],
+    animations: [
+        trigger('slideInOut', [
+            transition(':enter', [
+                style({ transform: 'translateX(100%)' }),
+                animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+            ]),
+            transition(':leave', [
+                animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class PersonalInformationComponent implements OnInit {
   profile: any = {

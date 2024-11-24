@@ -4,9 +4,10 @@ import { Chart } from 'chart.js/auto';
 import { Router } from '@angular/router'; 
 
 @Component({
-  selector: 'app-review-report',
-  templateUrl: './review-report.component.html',
-  styleUrl: './review-report.component.scss'
+    selector: 'app-review-report',
+    templateUrl: './review-report.component.html',
+    styleUrl: './review-report.component.scss',
+    standalone: false
 })
 export class ReviewReportComponent implements OnInit {
 

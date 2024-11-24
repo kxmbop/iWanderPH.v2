@@ -4,20 +4,21 @@ import { ProfileService } from '../../services/profile.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-account-settings',
-  templateUrl: './account-settings.component.html',
-  styleUrl: './account-settings.component.scss',
-  animations: [
-    trigger('slideInOut', [
-      transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
-      ])
-    ])
-  ]
+    selector: 'app-account-settings',
+    templateUrl: './account-settings.component.html',
+    styleUrl: './account-settings.component.scss',
+    animations: [
+        trigger('slideInOut', [
+            transition(':enter', [
+                style({ transform: 'translateX(100%)' }),
+                animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+            ]),
+            transition(':leave', [
+                animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class AccountSettingsComponent {
   profile: any = {};

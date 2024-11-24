@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ViewBookingsService } from '../../services/view-bookings.service';
 
 @Component({
-  selector: 'app-create-review',
-  templateUrl: './create-review.component.html',
-  styleUrls: ['./create-review.component.scss']
+    selector: 'app-create-review',
+    templateUrl: './create-review.component.html',
+    styleUrls: ['./create-review.component.scss'],
+    standalone: false
 })
 export class CreateReviewComponent implements OnInit {
   bookingId!: number;

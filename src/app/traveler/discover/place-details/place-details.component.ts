@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { PlaceService } from '../../services/place.service';
 
 @Component({
-  selector: 'app-place-details',
-  templateUrl: './place-details.component.html',
-  styleUrls: ['./place-details.component.scss']
+    selector: 'app-place-details',
+    templateUrl: './place-details.component.html',
+    styleUrls: ['./place-details.component.scss'],
+    standalone: false
 })
 export class PlaceDetailsComponent implements OnInit {
   place: any = {};

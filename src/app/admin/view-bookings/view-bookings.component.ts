@@ -4,9 +4,10 @@ import { saveAs } from 'file-saver';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-view-bookings',
-  templateUrl: './view-bookings.component.html',
-  styleUrl: './view-bookings.component.scss'
+    selector: 'app-view-bookings',
+    templateUrl: './view-bookings.component.html',
+    styleUrl: './view-bookings.component.scss',
+    standalone: false
 })
 export class ViewBookingsComponent {
   bookings: any[] = []; 

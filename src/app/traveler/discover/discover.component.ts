@@ -3,9 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PlaceService } from '../services/place.service';
 
 @Component({
-  selector: 'app-discover',
-  templateUrl: './discover.component.html',
-  styleUrls: ['./discover.component.scss']
+    selector: 'app-discover',
+    templateUrl: './discover.component.html',
+    styleUrls: ['./discover.component.scss'],
+    standalone: false
 })
 export class DiscoverComponent implements OnInit {
   places: any[] = [];

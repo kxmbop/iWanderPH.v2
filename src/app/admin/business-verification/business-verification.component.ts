@@ -4,11 +4,10 @@ import { RouterModule } from '@angular/router'; // Import RouterModule
 import { VerificationService } from '../services/verification.service';
 
 @Component({
-  selector: 'app-business-verification',
-  standalone: true,
-  imports: [CommonModule, RouterModule], // Add RouterModule here
-  templateUrl: './business-verification.component.html',
-  styleUrls: ['./business-verification.component.scss']
+    selector: 'app-business-verification',
+    imports: [CommonModule, RouterModule], // Add RouterModule here
+    templateUrl: './business-verification.component.html',
+    styleUrls: ['./business-verification.component.scss']
 })
 export class BusinessVerificationComponent implements OnInit {
   merchants: any[] = [];

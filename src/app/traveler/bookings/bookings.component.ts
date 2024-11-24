@@ -14,9 +14,10 @@ interface Booking {
 type BookingStatus = 'Pending' | 'Accepted' | 'On-Going' | 'Completed' | 'Cancelled' | 'Refunded';
 
 @Component({
-  selector: 'app-bookings',
-  templateUrl: './bookings.component.html',
-  styleUrls: ['./bookings.component.scss']
+    selector: 'app-bookings',
+    templateUrl: './bookings.component.html',
+    styleUrls: ['./bookings.component.scss'],
+    standalone: false
 })
 export class BookingsComponent implements OnInit {
   selectedTab: BookingStatus = 'Pending'; 

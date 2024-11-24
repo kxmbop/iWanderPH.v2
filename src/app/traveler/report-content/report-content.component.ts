@@ -5,20 +5,21 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-report-content',
-  templateUrl: './report-content.component.html',
-  styleUrls: ['./report-content.component.scss'],
-  animations: [
-    trigger('slideInOut', [
-      transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
-      ])
-    ])
-  ]
+    selector: 'app-report-content',
+    templateUrl: './report-content.component.html',
+    styleUrls: ['./report-content.component.scss'],
+    animations: [
+        trigger('slideInOut', [
+            transition(':enter', [
+                style({ transform: 'translateX(100%)' }),
+                animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+            ]),
+            transition(':leave', [
+                animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class ReportContentComponent {
   showReports = true;

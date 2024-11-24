@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { ViewListingService } from '../services/view-listing.service';
 
 @Component({
-  selector: 'app-view-listing',
-  templateUrl: './view-listing.component.html',
-  styleUrls: ['./view-listing.component.scss']
+    selector: 'app-view-listing',
+    templateUrl: './view-listing.component.html',
+    styleUrls: ['./view-listing.component.scss'],
+    standalone: false
 })
 export class ViewListingComponent {
   rooms: any[] = [];

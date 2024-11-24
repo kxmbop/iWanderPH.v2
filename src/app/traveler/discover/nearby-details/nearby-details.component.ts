@@ -4,9 +4,10 @@ import { Location } from '@angular/common';
 import { PlaceService } from '../../services/place.service';
 
 @Component({
-  selector: 'app-nearby-details',
-  templateUrl: './nearby-details.component.html',
-  styleUrls: ['./nearby-details.component.scss']
+    selector: 'app-nearby-details',
+    templateUrl: './nearby-details.component.html',
+    styleUrls: ['./nearby-details.component.scss'],
+    standalone: false
 })
 export class NearbyDetailsComponent implements OnInit {
   merchantDetails: any = {};

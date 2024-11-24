@@ -4,9 +4,11 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-refunded',
-  templateUrl: './refunded.component.html',
-  styleUrls: ['./refunded.component.scss'] // Corrected from styleUrl to styleUrls
+    selector: 'app-refunded',
+    templateUrl: './refunded.component.html',
+    styleUrls: ['./refunded.component.scss'] // Corrected from styleUrl to styleUrls
+    ,
+    standalone: false
 })
 export class RefundedComponent implements OnInit {
   filterForm!: FormGroup;

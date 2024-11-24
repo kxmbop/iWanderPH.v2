@@ -5,9 +5,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ReviewService } from '../services/review.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    standalone: false
 })
 export class ProfileComponent implements OnInit,  AfterViewInit {
 

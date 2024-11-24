@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListingService } from '../services/listing.service';
 
 @Component({
-  selector: 'app-listings',
-  templateUrl: './listings.component.html',
-  styleUrl: './listings.component.scss'
+    selector: 'app-listings',
+    templateUrl: './listings.component.html',
+    styleUrl: './listings.component.scss',
+    standalone: false
 })
 export class ListingsComponent implements OnInit {
 

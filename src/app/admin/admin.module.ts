@@ -1,7 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AdminRoutingModule } from './admin-routing.module';
+import { NgModule } from '@angular/core';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
@@ -27,6 +24,10 @@ import { RevenueComponent } from './revenue/revenue.component';
 import { RefundReportComponent } from './refund-report/refund-report.component';
 import { BookingTrendComponent } from './booking-trend/booking-trend.component';
 import { ReviewReportComponent } from './review-report/review-report.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AdminRoutingModule } from './admin-routing.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [

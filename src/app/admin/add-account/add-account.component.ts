@@ -2,9 +2,10 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 
 @Component({
-  selector: 'app-add-account',
-  templateUrl: './add-account.component.html',
-  styleUrls: ['./add-account.component.scss']
+    selector: 'app-add-account',
+    templateUrl: './add-account.component.html',
+    styleUrls: ['./add-account.component.scss'],
+    standalone: false
 })
 export class AddAccountComponent {
   @Output() closeModal = new EventEmitter<void>();

@@ -4,9 +4,10 @@ import { Chart } from 'chart.js/auto';
 import { Router } from '@angular/router'; 
 
 @Component({
-  selector: 'app-generate-report',
-  templateUrl: './generate-report.component.html',
-  styleUrls: ['./generate-report.component.scss'],
+    selector: 'app-generate-report',
+    templateUrl: './generate-report.component.html',
+    styleUrls: ['./generate-report.component.scss'],
+    standalone: false
 })
 export class GenerateReportComponent implements OnInit {
   reportData: any;

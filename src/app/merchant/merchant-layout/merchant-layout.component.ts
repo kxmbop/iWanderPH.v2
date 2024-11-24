@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { BookingsService } from '../services/bookings.service';
 
 @Component({
-  selector: 'app-merchant-layout',
-  templateUrl: './merchant-layout.component.html',
-  styleUrl: './merchant-layout.component.scss'
+    selector: 'app-merchant-layout',
+    templateUrl: './merchant-layout.component.html',
+    styleUrl: './merchant-layout.component.scss',
+    standalone: false
 })
 export class MerchantLayoutComponent implements OnInit {
   profile: any = {};

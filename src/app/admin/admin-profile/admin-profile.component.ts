@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 
 @Component({
-  selector: 'app-admin-profile',
-  templateUrl: './admin-profile.component.html',
-  styleUrls: ['./admin-profile.component.scss'],
+    selector: 'app-admin-profile',
+    templateUrl: './admin-profile.component.html',
+    styleUrls: ['./admin-profile.component.scss'],
+    standalone: false
 })
 export class AdminProfileComponent implements OnInit {
   admin: any = {};

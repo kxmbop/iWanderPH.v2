@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { BookingService } from '../services/booking.service';
 
 @Component({
-  selector: 'app-booking-details',
-  templateUrl: './booking-details.component.html',
-  styleUrl: './booking-details.component.scss'
+    selector: 'app-booking-details',
+    templateUrl: './booking-details.component.html',
+    styleUrl: './booking-details.component.scss',
+    standalone: false
 })
 export class BookingDetailsComponent implements OnInit {
   bookingDetails: any = null;

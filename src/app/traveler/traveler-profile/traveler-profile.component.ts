@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from '../services/profile.service';
 
 @Component({
-  selector: 'app-traveler-profile',
-  templateUrl: './traveler-profile.component.html',
-  styleUrls: ['./traveler-profile.component.scss']
+    selector: 'app-traveler-profile',
+    templateUrl: './traveler-profile.component.html',
+    styleUrls: ['./traveler-profile.component.scss'],
+    standalone: false
 })
 export class TravelerProfileComponent implements OnInit {
   travelerID!: string;

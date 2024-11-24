@@ -5,9 +5,10 @@ import { BookingService } from '../../services/booking.service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-booking',
-  templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.scss']
+    selector: 'app-booking',
+    templateUrl: './booking.component.html',
+    styleUrls: ['./booking.component.scss'],
+    standalone: false
 })
 export class BookingComponent implements OnInit {
   bookingForm: FormGroup;

@@ -5,10 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChatServiceService } from '../services/chat-service.service';
 
 @Component({
-  selector: 'app-my-dashboard',
-  templateUrl: './my-dashboard.component.html',
-  styleUrls: ['./my-dashboard.component.scss']
-  
+    selector: 'app-my-dashboard',
+    templateUrl: './my-dashboard.component.html',
+    styleUrls: ['./my-dashboard.component.scss'],
+    standalone: false
 })
 export class MyDashboardComponent implements OnInit, OnDestroy {
   activeTab: string = 'my-profile';

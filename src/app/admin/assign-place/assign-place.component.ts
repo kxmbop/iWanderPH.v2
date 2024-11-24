@@ -5,11 +5,10 @@ import { PlacesService } from '../services/places.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-assign-place',
-  standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './assign-place.component.html',
-  styleUrls: ['./assign-place.component.scss']
+    selector: 'app-assign-place',
+    imports: [CommonModule, RouterModule, FormsModule],
+    templateUrl: './assign-place.component.html',
+    styleUrls: ['./assign-place.component.scss']
 })
 export class AssignPlaceComponent implements OnInit {
   places: any[] = [];

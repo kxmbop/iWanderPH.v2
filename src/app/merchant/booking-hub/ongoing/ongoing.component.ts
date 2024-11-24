@@ -5,9 +5,10 @@ import { debounceTime } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-ongoing',
-  templateUrl: './ongoing.component.html',
-  styleUrls: ['./ongoing.component.scss']
+    selector: 'app-ongoing',
+    templateUrl: './ongoing.component.html',
+    styleUrls: ['./ongoing.component.scss'],
+    standalone: false
 })
 export class OngoingComponent {
   filterForm!: FormGroup;

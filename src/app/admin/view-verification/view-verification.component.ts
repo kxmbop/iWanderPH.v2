@@ -4,11 +4,10 @@ import { CommonModule } from '@angular/common';
 import { VerificationService } from '../services/verification.service';
 
 @Component({
-  selector: 'app-view-verification',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './view-verification.component.html',
-  styleUrls: ['./view-verification.component.scss']
+    selector: 'app-view-verification',
+    imports: [CommonModule],
+    templateUrl: './view-verification.component.html',
+    styleUrls: ['./view-verification.component.scss']
 })
 export class ViewVerificationComponent implements OnInit {
   traveler: any = {};

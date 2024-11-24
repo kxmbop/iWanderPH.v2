@@ -4,20 +4,21 @@ import { Router } from '@angular/router';
 import { BookingService } from '../services/booking.service';
 
 @Component({
-  selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss'],
-  animations: [
-    trigger('slideInOut', [
-      transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
-      ])
-    ])
-  ]
+    selector: 'app-notifications',
+    templateUrl: './notifications.component.html',
+    styleUrls: ['./notifications.component.scss'],
+    animations: [
+        trigger('slideInOut', [
+            transition(':enter', [
+                style({ transform: 'translateX(100%)' }),
+                animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+            ]),
+            transition(':leave', [
+                animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class NotificationsComponent implements OnInit {
   notifications: any[] = [];

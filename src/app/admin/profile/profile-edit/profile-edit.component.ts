@@ -19,9 +19,10 @@ interface ProfileData {
 }
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.scss']
+    selector: 'app-profile',
+    templateUrl: './profile-edit.component.html',
+    styleUrls: ['./profile-edit.component.scss'],
+    standalone: false
 })
 export class ProfileEditComponent implements OnInit {
   profileData: ProfileData = {};

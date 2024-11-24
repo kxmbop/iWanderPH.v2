@@ -28,22 +28,21 @@ interface TransportationDetails {
 }
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
-  animations: [
-    trigger('slideInOut', [
-      transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
-      ])
-    ])
-  ]
+    selector: 'app-register',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
+    animations: [
+        trigger('slideInOut', [
+            transition(':enter', [
+                style({ transform: 'translateX(100%)' }),
+                animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+            ]),
+            transition(':leave', [
+                animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
+            ])
+        ])
+    ]
 })
 export class RegisterComponent implements OnInit {
   showRegistration: true | undefined;

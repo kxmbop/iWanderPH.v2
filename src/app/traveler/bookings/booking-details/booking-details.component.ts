@@ -5,9 +5,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { RefundDialogComponent } from '../refund-dialog/refund-dialog.component';
 
 @Component({
-  selector: 'app-booking-details',
-  templateUrl: './booking-details.component.html',
-  styleUrls: ['./booking-details.component.scss']
+    selector: 'app-booking-details',
+    templateUrl: './booking-details.component.html',
+    styleUrls: ['./booking-details.component.scss'],
+    standalone: false
 })
 export class BookingDetailsComponent implements OnInit {
   bookingDetails: any = {};

@@ -5,9 +5,10 @@ import { debounceTime } from 'rxjs/operators';
 import { Modal } from 'bootstrap';
 
 @Component({
-  selector: 'app-completed',
-  templateUrl: './completed.component.html',
-  styleUrls: ['./completed.component.scss']
+    selector: 'app-completed',
+    templateUrl: './completed.component.html',
+    styleUrls: ['./completed.component.scss'],
+    standalone: false
 })
 export class CompletedComponent {
   filterForm!: FormGroup;

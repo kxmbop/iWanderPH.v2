@@ -4,9 +4,10 @@ import { environment } from '../../../environments/environment';
 import * as bootstrap from 'bootstrap';
 
 @Component({
-  selector: 'app-content-moderation',
-  templateUrl: './content-moderation.component.html',
-  styleUrls: ['./content-moderation.component.scss']
+    selector: 'app-content-moderation',
+    templateUrl: './content-moderation.component.html',
+    styleUrls: ['./content-moderation.component.scss'],
+    standalone: false
 })
 export class ContentModerationComponent implements OnInit {
   reports: any[] = []; 

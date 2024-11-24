@@ -8,9 +8,10 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 @Component({
-  selector: 'app-revenue',
-  templateUrl: './revenue.component.html',
-  styleUrls: ['./revenue.component.scss']
+    selector: 'app-revenue',
+    templateUrl: './revenue.component.html',
+    styleUrls: ['./revenue.component.scss'],
+    standalone: false
 })
 export class RevenueComponent implements OnInit, AfterViewInit {
   reportData: any;

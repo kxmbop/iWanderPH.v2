@@ -6,9 +6,10 @@ import { Chart, registerables } from 'chart.js'
 import autoTable from 'jspdf-autotable';;
 
 @Component({
-  selector: 'app-refund-report',
-  templateUrl: './refund-report.component.html',
-  styleUrls: ['./refund-report.component.scss']
+    selector: 'app-refund-report',
+    templateUrl: './refund-report.component.html',
+    styleUrls: ['./refund-report.component.scss'],
+    standalone: false
 })
 export class RefundReportComponent implements OnInit {
 

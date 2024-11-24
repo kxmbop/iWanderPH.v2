@@ -9,9 +9,10 @@ import * as XLSX from 'xlsx';
 Chart.register(...registerables);
 
 @Component({
-  selector: 'app-booking-trend',
-  templateUrl: './booking-trend.component.html',
-  styleUrls: ['./booking-trend.component.scss']
+    selector: 'app-booking-trend',
+    templateUrl: './booking-trend.component.html',
+    styleUrls: ['./booking-trend.component.scss'],
+    standalone: false
 })
 export class BookingTrendComponent implements OnInit {
 
