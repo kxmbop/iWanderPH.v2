@@ -75,7 +75,9 @@ body {
   outline: none; /* Removes focus outline */
 }
 
-
+table th, td {
+  color: #023040;
+}
 
 .table-box {
     min-width: calc(100% - 120px);

@@ -72,7 +72,38 @@ body {
     border-collapse: collapse;
     flex: 0 0 auto;
   }
+ 
+  .export-buttons {
+    display: flex;
+    justify-content: flex-end; /* Aligns buttons to the right */
+    gap: 10px; /* Adds space between the buttons */
+    margin-top: 20px; /* Optional: Adds some space above the buttons */
+  }
   
+  .export-buttons button {
+    background-color: #023040;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .export-buttons button:hover {
+    background-color: #014a63; /* Darker shade for hover */
+    transform: scale(1.05); /* Slightly increases size on hover */
+  }
+  
+  .export-buttons button:focus {
+    outline: none; /* Removes focus outline */
+  }
+
+  
+  table th, td {
+    color: #023040;
+  }
+
   .table-body {
     flex: 1 1 auto;
     overflow-y: auto;
@@ -91,12 +122,14 @@ body {
     box-sizing: border-box;
     align-items: center;
     
+    
   }
   
   /* Set column widths */
   .table-header th:nth-child(1), .table-body td:nth-child(1) {
     width: 6%;
     padding-left: 20px;
+    
   }
   
   .table-header th:nth-child(2), .table-body td:nth-child(2) {

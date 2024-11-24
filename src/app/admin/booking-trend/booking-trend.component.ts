@@ -16,6 +16,8 @@ Chart.register(...registerables);
 export class BookingTrendComponent implements OnInit {
 
   reportData: any = {trends: []};
+  totalBookingCount: number = 0;
+  totalBookingPercentage: number = 0;
  
 
   @ViewChild('monthlyTrendsChart', { static: true }) monthlyTrendsCanvas!: ElementRef<HTMLCanvasElement>;
@@ -63,7 +65,7 @@ export class BookingTrendComponent implements OnInit {
               {
                 label: 'Bookings (%)',
                 data: this.reportData.monthlyTrends.data.map((value: number) => (value / 500) * 100),
-                borderColor: 'blue',
+                borderColor: '#023040',
                 backgroundColor: 'rgba(0, 123, 255, 0.2)',
                 borderWidth: 2,
                 fill: true,
@@ -100,55 +102,140 @@ export class BookingTrendComponent implements OnInit {
   }
 
   exportToPDF(): void {
+    if (
+      !this.reportData?.monthlyTrends?.labels ||
+      !this.reportData?.monthlyTrends?.data ||
+      !this.reportData?.revenueTrends?.data
+    ) {
+      console.error('Required data is missing in reportData!');
+      return;
+    }
+  
     const doc = new jsPDF();
-    const chartImage = this.monthlyTrendsCanvas.nativeElement.toDataURL('image/png');
-    
-    if (chartImage) {
-      console.log('Chart Image captured successfully.');
-      doc.addImage(chartImage, 'PNG', 10, 10, 180, 100);
+  
+    // Add Logo
+    const logoImage = './logo.png'; // Ensure the logo path is correct
+    const pageWidth = doc.internal.pageSize.width;
+    const logoWidth = 25;
+    const logoHeight = 25;
+    const logoX = (pageWidth - logoWidth) / 2;
+    const logoY = 10;
+  
+    try {
+      doc.addImage(logoImage, 'PNG', logoX, logoY, logoWidth, logoHeight);
+    } catch (error) {
+      console.warn('Logo image not added. Ensure the path is correct.', error);
+    }
+  
+    // Add description text
+    const description = 'Philippine Tourist Destination Information System and Booking Management Platform';
+    const descriptionFontSize = 10;
+    const descriptionY = logoY + logoHeight + 5;
+    doc.setFont('Poppins', 'normal');
+    doc.setFontSize(descriptionFontSize);
+    const descriptionX = (pageWidth - doc.getTextWidth(description)) / 2;
+    doc.text(description, descriptionX, descriptionY);
+  
+    // Add report title
+    const reportTitle = 'Monthly Booking Trends';
+    const titleFontSize = 14;
+    const titleY = descriptionY + 10;
+    doc.setFont('Poppins', 'bold');
+    doc.setFontSize(titleFontSize);
+    const titleX = (pageWidth - doc.getTextWidth(reportTitle)) / 2;
+    doc.text(reportTitle, titleX, titleY);
+  
+    // Add chart image
+    const chartY = titleY + 10;
+    const chartHeight = 80;
+    if (this.monthlyTrendsCanvas?.nativeElement) {
+      const chartImage = this.monthlyTrendsCanvas.nativeElement.toDataURL('image/png');
+      const chartX = 15;
+      const chartWidth = 180;
+      doc.addImage(chartImage, 'PNG', chartX, chartY, chartWidth, chartHeight);
     } else {
-      console.error('Failed to capture chart image.');
+      console.error('Chart canvas not found!');
     }
-    
-    let yOffset = 120; // Start after the chart
-    const table = document.querySelector('#bookingTrendsTable') as HTMLTableElement;
-    
-    if (table) {
-      const rows = table.querySelectorAll('tr');
-      const headers = Array.from(rows[0].cells).map((cell: HTMLTableCellElement) => cell.textContent);
-      const tableData = Array.from(rows).slice(1).map((row: HTMLTableRowElement) => {
-        return Array.from(row.cells).map((cell: HTMLTableCellElement) => cell.textContent);
-      });
-      
-      autoTable(doc, {
-        head: [headers],
-        body: tableData,
-        startY: yOffset,
-        styles: { fontSize: 10 },
-      });
-    }
-    
-    doc.save('monthly_booking_trends_report.pdf');
+  
+    // Prepare table data
+    const tableData = this.reportData.monthlyTrends.labels.map((month: string, index: number) => [
+      month,
+      this.reportData.monthlyTrends.data[index], // Booking count
+      this.reportData.revenueTrends.data[index], // Revenue
+      ((this.reportData.monthlyTrends.data[index] / 500) * 100).toFixed(2) + '%', // Booking percentage
+    ]);
+  
+    const summaryY = chartY + chartHeight + 10;
+    autoTable(doc, {
+      head: [['Month', 'Booking Count', 'Revenue', 'Booking Percentage']],
+      body: tableData,
+      startY: summaryY,
+      theme: 'striped',
+      styles: { fontSize: 10 },
+    });
+  
+    // Save PDF
+    doc.save('Monthly_Booking_Trends_Report.pdf');
   }
   
+
   exportToGoogleSheets(): void {
     // Get the table element
-    const table = document.getElementById('bookingTrendsTable') as HTMLTableElement;
+    const table = document.querySelector('.table-box') as HTMLTableElement;
   
-    if (table) {
-      // Convert the table into a worksheet
-      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      
-      // Add the sheet to the workbook
-      XLSX.utils.book_append_sheet(wb, ws, 'Monthly Booking Trends');
-      
-      // Export the sheet to an Excel file
-      XLSX.writeFile(wb, 'monthly_booking_trends_report.xlsx');
-    } else {
-      console.error('Table with id "bookingTrendsTable" not found!');
+    // Check if the table exists
+    if (!table) {
+      console.error('Table not found!');
+      return;
     }
+  
+    const rows = table.querySelectorAll('tr');
+  
+    // Limit the number of rows for faster export (e.g., 20 rows)
+    const limitedRows = Array.from(rows).slice(0, 20); // Change 20 to the desired row limit
+  
+    // Convert the limited rows into a new table for export
+    const tempTable = document.createElement('table');
+    limitedRows.forEach(row => {
+      tempTable.appendChild(row.cloneNode(true));
+    });
+  
+    // Create a new worksheet from the table
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(tempTable);
+  
+    // Prepare the title and statistics data
+    const title = [
+      ['MONTHLY BOOKING TRENDS REPORT'], // Title row
+      [`Total Booking Count: ${this.totalBookingCount}`], // Statistic row
+      [`Total Booking Percentage: ${this.totalBookingPercentage}%`], // Statistic row
+      [], // Blank row for spacing
+    ];
+  
+    // Add the title and statistics at the top of the sheet
+    XLSX.utils.sheet_add_aoa(ws, title, { origin: 'A1' });
+  
+    // Adjust column widths to fit the content
+    const maxColWidths: number[] = []; // Explicitly declare type
+  
+    // Iterate through worksheet data to calculate max width for each column
+    Object.keys(ws).forEach(cell => {
+      if (cell[0] === '!') return; // Skip metadata entries
+      const colIndex = parseInt(cell.replace(/\D/g, ''), 10); // Ensure it's a number
+      const value = ws[cell]?.v || ''; // Cell value
+      maxColWidths[colIndex] = Math.max(maxColWidths[colIndex] || 0, value.toString().length + 2); // Add padding
+    });
+  
+    // Apply calculated widths
+    ws['!cols'] = maxColWidths.map(width => ({ wch: width }));
+  
+    // Create a new workbook and append the worksheet
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Monthly Booking Trends');
+  
+    // Export the workbook as an Excel file
+    XLSX.writeFile(wb, 'Monthly_Booking_Trends_Report.xlsx');
   }
+  
   
   
 }

@@ -28,6 +28,53 @@ body {
     }
 }
 
+.year-filter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #023040;
+    margin-right: 10px;
+  }
+
+  select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #023040;
+    outline: none;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: #023040;
+    }
+
+    option {
+      padding: 8px;
+    }
+  }
+
+  /* Optional: Styling for the container */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    label {
+      margin-bottom: 8px;
+    }
+
+    select {
+      width: 100%;
+    }
+  }
+}
+
+
 .exit-button {
     position: absolute;
     top: 20px; /* Adjust the space from the top */
@@ -53,6 +100,68 @@ body {
     width: 100% !important;
     height: 400px !important;  /* Ensure height is set */
   }
+
+  .export-buttons {
+    display: flex;
+    justify-content: flex-end; /* Aligns buttons to the right */
+    gap: 10px; /* Adds space between the buttons */
+    margin-top: 20px; /* Optional: Adds some space above the buttons */
+  }
+  
+  .export-buttons button {
+    background-color: #023040;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .export-buttons button:hover {
+    background-color: #014a63; /* Darker shade for hover */
+    transform: scale(1.05); /* Slightly increases size on hover */
+  }
+  
+  .export-buttons button:focus {
+    outline: none; /* Removes focus outline */
+  }
+
+
+  .filter-container {
+    display: absolute;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    font-family: Arial, sans-serif;
+  
+    label {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #333;
+    }
+  
+    select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      color: #333;
+      cursor: pointer;
+      outline: none;
+  
+      &:hover {
+        border-color: #007bff;
+      }
+  
+      &:focus {
+        border-color: #0056b3;
+        background-color: #fff;
+      }
+    }
+  }
+  
   
 .table-box {
     min-width: calc(100% - 120px);
@@ -72,7 +181,8 @@ body {
     border-collapse: collapse;
     flex: 0 0 auto;
   }
-  
+
+
   .table-body {
     flex: 1 1 auto;
     overflow-y: auto;

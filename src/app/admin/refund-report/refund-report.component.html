@@ -1,12 +1,61 @@
-<div class="container">
-    <div class="analytics-details">
-      <h3>Full Report Details of Revenue <a class="exit-button" [routerLink]="['/admin/']" target="_blank"><i class='bx bx-exit'></i></a></h3>
-  
-      <div class="card">
-        <h3>Refunded Merchant Report</h3>
-        <canvas #refundedMerchantChart width="400" height="400"></canvas>
-      </div>
+<div class="container" #reportContent>
+  <div class="analytics-details">
+    <h3 style="color: #023040;">Full Report Details of REFUND PAYMENT
+      <a class="exit-button" [routerLink]="['/admin/generate-report']" target="_blank">
+        <i class="bx bx-exit"></i>
+      </a>
+    </h3>
+    <div class="card">
+      <h3 style="text-align: center; color: #023040 !important;">Refunded Merchant Report</h3>
 
+      <!-- Canvas for the gauge chart -->
+      <div class="chart-container">
+        <canvas #refundedMerchantChart></canvas>
+      </div>
+    </div>
+
+    <!-- Table displaying refunded merchant data -->
+    <div class="table-box">
+      <table class="table-header">
+        <thead>
+          <tr>
+            <th>Booking Date</th>
+            <th>Booking ID</th>
+            <th>Merchant Name</th>
+            <th>Booking Status</th>
+            <th>Room Booked ID</th>
+            <th>Payment Transaction ID</th>
+            <th>Payment Status</th>
+            <th>Total Amount Refunded</th>
+            <th>Payout Status</th>
+            <th>Payout Released Date</th>
+            <th>Refund Reason</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="table-body">
+        <table>
+          <tbody>
+            <tr *ngFor="let refund of refundedDetails">
+              <td>{{ refund.bookingDate }}</td>
+              <td>{{ refund.bookingID }}</td>
+              <td>{{ refund.merchantName }}</td>
+              <td>{{ refund.bookingStatus }}</td>
+              <td>{{ refund.roomBookingID }}</td>
+              <td>{{ refund.paymentTransactionID }}</td>
+              <td>{{ refund.paymentStatus }}</td>
+              <td>{{ refund.totalAmount | currency:'PHP' }}</td>
+              <td>{{ refund.payoutStatus }}</td>
+              <td>{{ refund.paymentReleasedDate }}</td>
+              <td>{{ refund.refundReason }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="export-buttons">
+      <button (click)="exportToPDF()">Export to PDF</button>
+      <button (click)="exportToExcel()">Export to Excel</button>
     </div>
   </div>
-  
+</div>
