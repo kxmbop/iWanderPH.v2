@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart, ChartTypeRegistry, registerables } from 'chart.js'; 
 import { AnalyticsService } from '../services/analytics.service';
 import { forkJoin } from 'rxjs'; 
-
+//mary analyticss
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
