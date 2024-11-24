@@ -23,6 +23,8 @@ import { GenerateReportComponent } from './generate-report/generate-report.compo
 import { ContentModerationComponent } from './content-moderation/content-moderation.component';
 import { ViewListingComponent } from './view-listing/view-listing.component';
 import { NearbyPlaceComponent } from './nearby-place/nearby-place.component';
+import { RevenueComponent } from './revenue/revenue.component';
+import { RefundReportComponent } from './refund-report/refund-report.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { NearbyPlaceComponent } from './nearby-place/nearby-place.component';
     GenerateReportComponent,
     ContentModerationComponent,
     ViewListingComponent,
-    NearbyPlaceComponent
+    NearbyPlaceComponent,
+    RevenueComponent,
+    RefundReportComponent
   ],
   imports: [
     CommonModule,
