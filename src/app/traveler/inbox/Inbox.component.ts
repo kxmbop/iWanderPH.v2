@@ -62,7 +62,6 @@ export class InboxComponent {
 
   loadProfile(): void {
     const token = localStorage.getItem('token');
-    console.log("Token retrieved: ", token); 
 
     if (token) {
       this.profileService.getProfile(token).subscribe(
@@ -71,7 +70,7 @@ export class InboxComponent {
           if (data.success) {
             console.log('User Profile:', data.profile);
             this.profile = data.profile;
-            this.loggedInUserId = data.profile.travelerId; 
+            this.loggedInUserId = this.profile.TravelerID; 
             console.log('Logged userId:', this.loggedInUserId);
           } else {
             console.error("Error fetching profile: ", data.message);

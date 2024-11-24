@@ -76,7 +76,7 @@ export class ConversationComponent implements OnInit, OnDestroy {
           if (data.success) {
             console.log('User Profile:', data.profile);
             this.profile = data.profile;
-            this.loggedInUserId = data.profile.travelerId; 
+            this.loggedInUserId = data.profile.TravelerID; 
             console.log('Logged userId:', this.loggedInUserId); 
             // Get the chatSessionId after successfully loading the profile
             this.getChatSessionId();

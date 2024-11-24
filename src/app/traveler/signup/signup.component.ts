@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-  currentStep: number = 3;
+  currentStep: number = 1;
   gcashNumber: string = '';  
   firstName: string = '';    
   lastName: string = '';     
