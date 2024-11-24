@@ -208,51 +208,59 @@ $padding: 10px;
     }
   }
 }
+
 .merchant-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin: 10px 0; 
-  padding: 10px;
+  gap: 15px;
+  margin: 20px 0;
+  padding: 20px;
 
   .merchant-item {
-      text-decoration: none;
-      background-color: #f9f9f9; 
-      border: 1px solid #ddd; 
-      border-radius: 5px; 
-      padding: 15px; 
-      transition: box-shadow 0.3s;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border: 1px solid #ddd;
+    border-radius: $border-radius;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
+    a {
+      text-decoration: none; // Remove underline for the anchor tag
       color: inherit;
 
       &:hover {
-          text-decoration: none;
-          color: #007BFF; 
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Shadow on hover
-          background-color: #fff; // Change background on hover
+        color: inherit; // Ensure color doesn't change on hover
+      }
+    }
+
+    p {
+      margin: 8px 0;
+      font-size: 16px;
+      color: #333;
+
+      &:first-of-type {
+        font-weight: 600;
+        font-size: 18px;
+        color: #074d4c;
       }
 
-      p {
-          margin: 5px 0; // Margin for paragraphs
-          font-size: 16px; // Font size for merchant details
-          color: #333; // Dark text color
-
-          &:first-of-type {
-              font-weight: bold; // Bold BusinessName
-              font-size: 18px; // Slightly larger font size
-          }
-
-          &:nth-of-type(2) {
-              color: #555; // Lighter color for Address
-          }
-
-          &:last-of-type {
-              font-weight: normal; // Regular weight for Room Rate
-              color: #007BFF; // Use a primary color for emphasis
-          }
+      &:nth-of-type(2) {
+        font-size: 14px;
+        color: #555;
       }
+
+      &:last-of-type {
+        font-size: 16px;
+        font-weight: 500;
+        color: #0a6563;
+      }
+
+      // Remove any inherited underline or decoration
+      text-decoration: none;
+    }
   }
 }
 
-
 // Include responsive mixin
-@include responsive;
+@include responsive

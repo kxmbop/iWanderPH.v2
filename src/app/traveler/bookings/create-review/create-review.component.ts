@@ -42,22 +42,33 @@ export class CreateReviewComponent implements OnInit {
 
   submitReview(): void {
     const token = localStorage.getItem('token');
-
+  
     if (!token) {
       console.error('No token found.');
       return;
     }
-
+  
+    // Add a confirmation dialog
+    const userConfirmed = window.confirm(
+      `Are you sure you want to submit this review? 
+      Rating: ${this.reviewRating} stars
+      Comment: ${this.reviewComment}`
+    );
+  
+    if (!userConfirmed) {
+      return; // Exit if the user cancels
+    }
+  
     const formData = new FormData();
     formData.append('bookingID', this.bookingId.toString());
     formData.append('reviewComment', this.reviewComment);
     formData.append('reviewRating', this.reviewRating.toString());
     formData.append('privacy', this.privacy);
-
+  
     for (let i = 0; i < this.selectedFiles.length; i++) {
       formData.append('reviewImages[]', this.selectedFiles[i]);
     }
-
+  
     this.viewBookingsService.submitReview(formData, token).subscribe(
       (response: any) => {
         console.log('Review submitted successfully:', response);
@@ -72,4 +83,5 @@ export class CreateReviewComponent implements OnInit {
       }
     );
   }
+  
 }

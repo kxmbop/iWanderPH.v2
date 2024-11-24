@@ -63,9 +63,8 @@
             </div>
 
             <div class="explore">
-                <button routerLink="/traveler/home">Explore</button>
+                <button [routerLink]="['/traveler/discover/nearby-details', review.business.businessID]">Explore</button>
             </div>
-        
         </div>
     </div>
 </div>
