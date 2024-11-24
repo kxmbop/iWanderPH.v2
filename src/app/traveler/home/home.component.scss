@@ -28,27 +28,6 @@
 }
 
 
-
-
-.fyp-feed{
-    height: calc(100vh - 20%);
-    width: 100%;
-    // background-color: #b9caff;
-    display: flex;
-    flex-direction: row;
-    overflow: auto;
-    padding: 20px;
-    gap: 20px;
-
-    &::-webkit-scrollbar{
-        display: none;
-    }
-}
-
-
-
-
-
 .u-d{
     display: flex;
     flex-direction: column;
@@ -63,7 +42,7 @@
         font-size: 0.9em;
         inline-size: 1;
     }
-}
+  }
 
 
 
@@ -284,7 +263,58 @@
 
 }
 /* Desktop view (above 1025px) */
+  
+  /* Desktop view (above 1025px) */
 @media (min-width: 1025px) {
+  ::ng-deep .top-utility, .search-bar{
+      display: none !important;
+  }
+  ::ng-deep .nav-item#home{
+      i, span{
+          color: #000;
+          font-weight: 600;
+      }
+  }
+
+  .search-bar {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar input[type="text"] {
+    width: 80%;   
+    height: 34px !important; 
+    padding: 15px 40px; 
+    border: 1px solid #ccc; 
+    border-radius: 12px;
+}
+
+.search-bar i {
+    position: absolute; 
+    left: 14%; 
+    top: 50%;
+    transform: translateY(-50%); 
+    color: #999; 
+    font-size: 18px; 
+    pointer-events: none; 
+}
+
+
+.u-d{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    h3, span {
+        display: inline-block;
+        vertical-align: top;
+    }
+    span{
+        font-size: 0.9em;
+        inline-size: 1;
     ::ng-deep .top-utility, .search-bar, .fyp-feed{
         display: none !important;
     }
@@ -299,6 +329,25 @@
         gap: 20px;
         margin-top: 15px;
     }
+  }
+  
+  .fyp-feed{
+      display: center;
+      flex-direction: column;
+      margin: 0 auto;
+      width: 100%;
+      height: 500%;
+      border: 1px solid #ccc;
+      overflow: auto;
+      .review-post{
+          width: 100%;
+          margin: 0 auto;
+      }
+  }
+  .tabs{
+      width: calc(100% - 320px);
+      z-index: 1;
+  }
     .fyp-feed-web{
         display: flex;
         flex-direction: column;
@@ -316,12 +365,12 @@
         z-index: 1;
     }
 
-    .p-j{
-        gap: 15px;
-        margin-top: 15px;
-    }
-    .p-b{
-        max-height: 54px;
+  .p-j{
+      gap: 15px;
+      margin-top: 15px;
+  }
+  .p-b{
+      max-height: 54px;
 
     }
     .review-tab, .journey-tab {
@@ -377,6 +426,281 @@
       .carousel {
         position: relative;
         overflow: hidden;
+  }
+  .review-tab, .journey-tab {
+      width: 100%;
+      height: calc(100% - 300px);
+      padding: 0 15px;
+      overflow: auto;
+  }
+  .review-card{
+      position: relative;
+      height: auto;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      border-radius: 15px;
+      .review-images {
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          border-radius: 20px;
+          
+          .likes {
+    
+              width: 100%;
+              display: flex;
+              flex-direction: column; 
+              justify-content: space-between;
+              align-items: center;
+              z-index: 1000;
+              
+              .pp-mini {
+                  position: absolute;
+                  left: 10px;
+                  width: 35px;
+                  height: 35px;
+                  border-radius: 50%;
+                  overflow: hidden;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  img {
+                      width: 100%;
+                      object-fit: cover;
+                  }
+              }
+          
+              .comment-like {
+                  position: absolute;
+                  top: 10px;
+                  right: 10px;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: flex-end; 
+                  z-index: 1000;
+  
+                  .heart-icon {
+                      color: rgba(255, 255, 255, 0.8); 
+                      cursor: pointer;
+                      transition: color 0.3s ease;
+                      font-size: 32px !important;
+                      margin-bottom: 10px;
+                  }
+              
+                  .heart-icon.filled {
+                      color: #ff0000; 
+                  }
+              
+                  .comment-icon {
+                      color: #fff;
+                      cursor: pointer;
+                      font-size: 32px !important;
+                  }
+              }
+          }
+        }
+  }
+  .explore{
+      position: absolute;
+      bottom: 15px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      z-index: 1000;
+      button{
+          font-size: 16px;
+          font-weight: 500;
+          color: #fff;
+          background-color: $tpc;
+          padding: 15px 40px;
+          border-radius: 18px;
+          min-width: none !important;
+          line-height: 1 !important;
+      }
+  }
+
+  
+    
+    ::ng-deep .review-images button {
+      padding: 0;
+      border-radius: 50%;
+      font-size: 24px;
+      line-height: 0;
+      color: #353535;
+    }
+    
+    .review-images img {
+      width: 100%;
+      object-fit: cover;
+    }
+    
+    .carousel {
+      position: relative;
+      overflow: hidden;
+
+    }
+    
+    .carousel-inner {
+      display: flex;
+      transition: none;
+      width: 100%;
+    }
+    
+    .carousel-item {
+      flex: 0 0 100%;
+      display: none;
+      height: 585px;
+      width: 468px;
+      object-fit: cover;
+      transform: translateX(100%); /* initial position */
+      transition: opacity 0.5s ease, transform 0.5s ease-out; /* updated transition */
+          img{
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+          }
+      }
+    
+    .carousel-item.active {
+      display: block;
+      transform: translateX(0); /* active state */
+    }
+    
+    .carousel-item.prev {
+      transform: translateX(-100%); /* prev state */
+    }
+    
+    .carousel-item.next {
+      transform: translateX(100%); /* next state */
+    }
+    
+    .carousel-prev, .carousel-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      cursor: pointer;
+    }
+    
+    .carousel-prev {
+      left: 10px;
+    }
+    
+    .carousel-next {
+      right: 10px;
+    }
+    
+    .carousel-prev[disabled], .carousel-next[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .review-post{
+      width: 100%;
+      height: 300%;
+      margin: 0 10px;
+      }
+
+}
+
+/* Mobile view (up to 480px) */
+@media (max-width: 480px) { 
+    .settings{
+        display: none;
+    }
+    .top-utility{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 52px;
+        //border-bottom: 1px solid #ccc;
+        padding: 10px 12px;
+    }
+    .top-utility .logo{
+        width: 132px;
+    }
+    .top-utility i{
+        font-size: 28px;
+        margin-left: auto;
+    }
+
+    .p-j{
+        gap: 15px;
+        margin-top: 15px;
+    }
+    .p-b{
+        max-height: 54px;
+
+    }
+    .review-tab, .journey-tab {
+        width: 100%;
+        height: calc(100% - 300px);
+        padding: 0 15px;
+        overflow: auto;
+    }
+    .review-card{
+        position: relative;
+        height: 450px;
+        width: 370px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        border-radius: 20px;
+
+    }
+    .explore{
+        position: absolute;
+        bottom: 15px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        z-index: 1000;
+        button{
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+            background-color: $tpc;
+            padding: 15px 40px;
+            border-radius: 18px;
+            min-width: none !important;
+            line-height: 1 !important;
+        }
+    }
+    .review-images {
+        position: relative;
+        height: 420px;
+        width: 320px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+
+
+      }
+    
+      
+      ::ng-deep .review-images button {
+        padding: 0;
+        border-radius: 50%;
+        font-size: 24px;
+        line-height: 0;
+        color: #353535;
+      }
+      
+      .review-images img {
+        width: 100%;
+        object-fit: cover;
+      }
+      
+      .carousel {
+        position: relative;
+        overflow: hidden;
 
       }
       
@@ -389,8 +713,8 @@
       .carousel-item {
         flex: 0 0 100%;
         display: none;
-        height: 585px;
-        width: 468px;
+        height: 420px;
+        width: 320px;
         object-fit: cover;
         transform: translateX(100%); /* initial position */
         transition: opacity 0.5s ease, transform 0.5s ease-out; /* updated transition */
@@ -439,6 +763,65 @@
         width: 100%;
         margin: 0 10px;
         }
+
+        .likes {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            display: flex;
+            flex-direction: column; 
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            
+            .pp-mini {
+                position: absolute;
+                left: 10px;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+        
+            .comment-like {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end; 
+                z-index: 1000;
+
+                .heart-icon {
+                    color: rgba(255, 255, 255, 0.8); 
+                    cursor: pointer;
+                    transition: color 0.3s ease;
+                    font-size: 32px !important;
+                    margin-bottom: 10px;
+                }
+            
+                .heart-icon.filled {
+                    color: #ff0000; 
+                }
+            
+                .comment-icon {
+                    color: #fff;
+                    cursor: pointer;
+                    font-size: 32px !important;
+                }
+            }
+        }
+
+}
+
+
         .pp-mini {
           width: 35px;
           height: 35px;
