@@ -1,3 +1,8 @@
+<div class="back-icon">
+  <a routerLink="/traveler/bookings">
+    <i class='bx bx-arrow-back'></i>
+  </a>
+</div>
 <div *ngIf="bookingDetails" class="booking-details-container">
   <h2>Booking Details</h2>
 
@@ -48,13 +53,7 @@
       </div>
 
       <ng-container *ngIf="bookingDetails.booking?.bookingStatus === 'Pending'">
-        <button 
-          mat-raised-button 
-          color="warn" 
-          *ngIf="!refundRequested" 
-          >
-          Request Refund
-        </button>
+      
     
         <p *ngIf="refundRequested">Refund request submitted, wait for confirmation.</p>
       </ng-container>

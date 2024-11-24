@@ -11,7 +11,7 @@
     <div class="tab" (click)="selectTab('Accepted')" [class.active]="selectedTab === 'Accepted'">Accepted</div>
     <div class="tab" (click)="selectTab('On-Going')" [class.active]="selectedTab === 'On-Going'">OnGoing</div>
     <div class="tab" (click)="selectTab('Completed')" [class.active]="selectedTab === 'Completed'">Completed</div>
-    <div class="tab" (click)="selectTab('Cancelled')" [class.active]="selectedTab === 'Cancelled'">Cancelled</div>
+    <div class="tab" (click)="selectTab('Canceled')" [class.active]="selectedTab === 'Canceled'">Canceled</div>
     <div class="tab" (click)="selectTab('Refunded')" [class.active]="selectedTab === 'Refunded'">Refunded</div>
   </div>
 
@@ -25,8 +25,10 @@
             <p>Total Amount: {{ booking.TotalAmount }}</p>
           </div>
 
-          <!-- Show Review button only for Completed bookings -->
-          <button *ngIf="selectedTab === 'Completed'" (click)="goToReview(booking)">Review</button>
+          <ng-container *ngIf="selectedTab === 'Completed'">
+            <button *ngIf="!booking.hasReview" (click)="goToReview(booking)" class="review-btn">Review</button>
+            <p *ngIf="booking.hasReview" style="color: #074d4c" class="review">Review Completed</p>
+          </ng-container>
         </div>
       </div>
     </ng-container>

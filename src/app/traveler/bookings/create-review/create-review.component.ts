@@ -41,22 +41,43 @@ export class CreateReviewComponent implements OnInit {
   }
 
   submitReview(): void {
+    // Validate that all fields are filled
+    const errors: string[] = [];
+  
+    if (this.reviewRating === 0) {
+      errors.push('Please select a rating.');
+    }
+  
+    if (this.selectedFiles.length === 0) {
+      errors.push('Please upload at least one photo.');
+    }
+  
+    if (!this.reviewComment.trim()) {
+      errors.push('Please add a review comment.');
+    }
+  
+    if (!this.privacy) {
+      errors.push('Please select a privacy option.');
+    }
+  
+    // If there are errors, display an alert or show a notification
+    if (errors.length > 0) {
+      alert(errors.join('\n')); // Simple alert, replace with a better UI if needed
+      return;
+    }
+  
+    // Confirmation dialog before submission
+    const confirmSubmission = confirm('Are you sure you want to submit this review?');
+    if (!confirmSubmission) {
+      return;
+    }
+  
+    // Proceed with submission if everything is valid
     const token = localStorage.getItem('token');
   
     if (!token) {
       console.error('No token found.');
       return;
-    }
-  
-    // Add a confirmation dialog
-    const userConfirmed = window.confirm(
-      `Are you sure you want to submit this review? 
-      Rating: ${this.reviewRating} stars
-      Comment: ${this.reviewComment}`
-    );
-  
-    if (!userConfirmed) {
-      return; // Exit if the user cancels
     }
   
     const formData = new FormData();
@@ -73,6 +94,7 @@ export class CreateReviewComponent implements OnInit {
       (response: any) => {
         console.log('Review submitted successfully:', response);
         if (response.success) {
+          alert('Review submitted successfully!');
           this.router.navigate(['/traveler/bookings']);
         } else {
           console.error('Error submitting review:', response.message);
