@@ -14,13 +14,28 @@ export class AnalyticsService {
 
   getMerchantData(month: string, year: string): Observable<any> {
     const token = localStorage.getItem('token');
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    const body = { month, year };
-
-    return this.http.post(this.apiUrl, body, { headers });
+    
+    if (!token) {
+      console.error('Token is missing in localStorage!');
+      return new Observable(observer => {
+        observer.error({ error: 'Token not found in localStorage' });
+      });
+    }
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  
+    const body: any = { month, year }; // Pass month and year to the backend
+  
+    return this.http.post(`${environment.apiUrl}/merchant/ratings.php`, body, { headers });
   }
+  
+
+  
+  
+  
   getRevenueData(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

@@ -1,85 +1,46 @@
 <div class="analytics-container">
+  <div class="customer-satisfaction">
+    <!-- Loading State -->
+    <div *ngIf="!merchantData && !errorMessage" class="loading">
+      Loading data, please wait...
+    </div>
 
-    <div class="customer-satisfaction">
-        <!-- Month and Year Picker -->
-        <div>
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <canvas id="ratingsChart" style="width: 80%; height: 200px;"></canvas>
+
+
+    <!-- No Data Available -->
+    <div *ngIf="merchantData.length === 0">
+      No data available for customer satisfaction.
+    </div>
+  </div>
+
+  <!-- Revenue Trends Section -->
+  <div class="revenue-trends">
+    <h3>Revenue Trends</h3>
+    <div>
+      <canvas id="revenueChart" style="width: 80%; height: 200px;"></canvas>
+    </div>
+  </div>
+
+  <!-- Booking Trends Section -->
+  <div class="booking-trends">
+    <h3>Booking Trends</h3>
+    <div>
+      <canvas id="bookingChart" style="width: 80%; height: 200px;"></canvas>
+    </div>
+  </div>
+
+  <!-- Customer Demographics Section -->
+  <div class="customer-demo">
+    <h3>Customer Demographics & Preference</h3>
+    <div>
         
-        
-        </div>
-    
-        <!-- Loading State -->
-        <div *ngIf="!merchantData && !errorMessage" class="loading">
-        Loading data, please wait...
-        </div>
-    
-        <!-- Error Message -->
-        <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-        </div>
-    
-        <!-- Merchant Data Display -->
-        <div *ngIf="merchantData" class="merchant-data">
-        <h3>Customer Satisfaction</h3>
-        <select id="month" [(ngModel)]="selectedMonth" (change)="onMonthOrYearChange()">
-            <option *ngFor="let month of months" [value]="month">{{ month }}</option>
-        </select>
-    
-    
-        <select id="year" [(ngModel)]="selectedYear" (change)="onMonthOrYearChange()">
-            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-        </select>
-        <div *ngIf="merchantData.length > 0">
-            <div *ngFor="let data of merchantData" class="data-item">
-            <p><strong>Average Rating:</strong></p>
-            <div class="stars">
-                <!-- Star icons -->
-                <i *ngFor="let star of starsArray; let i = index" 
-                class="bx" 
-                [ngClass]="{'bxs-star': i < roundRating(data.averageRating), 'bx-star': i >= roundRating(data.averageRating)}">
-                </i>
-                <!-- Percentage beside the stars -->
-                <span class="rating-percent">{{ data.averageRating | number: '1.1-2' }}%</span>
-            </div>
-            </div>
-        </div>
-        
-        <div *ngIf="merchantData.length === 0">
-            No data available for customer satisfaction.
-        </div>
-        </div>
+      <canvas id="customerDemoChart" style="width: 80%; height: 200px;"></canvas>
     </div>
-    <div class="revenue-trends">
-        <h3>Revenue Trends</h3>
-        <select [(ngModel)]="selectedYear" (change)="onYearChange()">
-          <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-        </select>
-        <div>
-            <canvas id="revenueChart" style="width: 80%; height: 200px;"></canvas>
-        </div>  
-    </div>
-    <div class="booking-trends">
-        <h3>Booking Trends</h3>
-        <select [(ngModel)]="selectedYearForBookings" (change)="onYearChangeForBookings()">
-            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-        </select>
-        <div>
-            <canvas id="bookingChart" style="width: 80%; height: 200px;"></canvas>
-        </div>
-    </div>
-    <div class="customer-demo">
-        <h3>Customer Demographics & Preference</h3>
-        <select id="month" [(ngModel)]="selectedMonth" (change)="onMonthOrYearChange()">
-            <option *ngFor="let month of months" [value]="month">{{ month }}</option>
-        </select>
-        <select id="year" [(ngModel)]="selectedYear" (change)="onMonthOrYearChange()">
-            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-        </select>
-        <div>
-            <canvas id="customerDemoChart" style="width: 80%; height: 200px;"></canvas>
-        </div>
-    </div>
-    
-    
-    
+  </div>
 </div>
-  
