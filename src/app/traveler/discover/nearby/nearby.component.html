@@ -15,7 +15,7 @@
                 <p>Address: {{ merchant.Address }}</p>
                 <p *ngIf="merchant.LowestRoomRate !== null">Lowest Room Rate: {{ merchant.LowestRoomRate | currency }}</p>
                 <p *ngIf="merchant.LowestRoomRate === null">Lowest Room Rate: Not Available</p>
-                <button [routerLink]="['/traveler/discover/nearby-details', merchant.MerchantID, this.placeId]">View Details</button>
+                <button [routerLink]="['/traveler/discover/nearby-details', merchant.MerchantID]">View Details</button>
             </li>
         </ul>
     </div>

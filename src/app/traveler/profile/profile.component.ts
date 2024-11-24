@@ -126,26 +126,27 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
     const token = localStorage.getItem('token');
     
     if (token) {
-      this.profileService.getReviews(token).subscribe((data: any) => {
-        console.log("Reviews Data:", data.reviews); 
-  
-        if (Array.isArray(data.reviews)) {
-          this.reviews = data.reviews.map((review: any) => ({
-            ...review,
-            liked: !!review.liked 
-          }));
-  
-          // Sort reviews by createdAt or similar property in descending order
-          this.reviews.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-        } else {
-          this.reviews = [];
-        }
-      }, error => {
-        console.error("Error fetching reviews:", error);
-      });
+        this.profileService.getReviews(token).subscribe((data: any) => {
+            console.log("Reviews Data:", data.reviews);
+
+            if (Array.isArray(data.reviews)) {
+                this.reviews = data.reviews.map((review: any) => ({
+                    ...review,
+                    liked: !!review.liked,
+                    createdAt: new Date(review.createdAt) // Ensure createdAt is a Date object
+                }));
+
+                // Sort reviews by createdAt in descending order
+                this.reviews.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+            } else {
+                this.reviews = [];
+            }
+        }, error => {
+            console.error("Error fetching reviews:", error);
+        });
     }
-  }
-  
+}
+
   
 
   getLikesCount(reviewID: number): number {
@@ -313,6 +314,10 @@ saveConfirmed(): void {
 cancelSave(): void {
     this.isConfirmationModalOpen = false; // Close the confirmation modal without saving
 }
+goToNearbyDetails(merchantID: number): void {
+  this.router.navigate(['/traveler/discover/nearby-details', merchantID]);
+}
+
 
 }
 //end 

@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: DiscoverComponent },
   { path: 'place-details/:id', component: PlaceDetailsComponent },
   { path: 'nearby/:placeId', component: NearbyComponent },
-  { path: 'nearby-details/:merchantId/:placeId', component: NearbyDetailsComponent },
+  { path: 'nearby-details/:merchantId', component: NearbyDetailsComponent },
   { path: 'booking', component: BookingComponent },
 ];
 

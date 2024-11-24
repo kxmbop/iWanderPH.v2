@@ -12,7 +12,6 @@ export class NearbyDetailsComponent implements OnInit {
   merchantDetails: any = {};
   rooms: any[] = [];
   transportations: any[] = [];
-  placeId!: number;
 
   constructor(
     private route: ActivatedRoute, 
@@ -23,13 +22,8 @@ export class NearbyDetailsComponent implements OnInit {
 
   ngOnInit(): void {
       const merchantId = this.route.snapshot.paramMap.get('merchantId');
-      const placeId = this.route.snapshot.paramMap.get('placeId');
 
-      if (placeId) {
-          this.placeId = +placeId;
-      } else {
-          console.error("Place ID is missing in the route.");
-      }
+
 
       if (merchantId) {
           this.loadMerchantDetails(+merchantId);
@@ -41,24 +35,36 @@ export class NearbyDetailsComponent implements OnInit {
 
   loadMerchantDetails(merchantId: number): void {
     this.placeService.getMerchantById(merchantId).subscribe(
-      data => {
-        this.merchantDetails = data.merchant;
-        console.log('merchant details:', this.merchantDetails)
-        // Handle the image if it exists
-        if (this.merchantDetails.profilePicture) {
-          this.merchantDetails.profilePicture = 'data:image/jpeg;base64,' + this.merchantDetails.profilePicture;
-        }
+        data => {
+            this.merchantDetails = data.merchant;
 
-        this.rooms = data.rooms;
-        this.transportations = data.transportations;
-      },
-      error => {
-        console.error('Error loading merchant details:', error);
-      }
+            if (this.merchantDetails.profilePicture) {
+                this.merchantDetails.profilePicture = 'data:image/jpeg;base64,' + this.merchantDetails.profilePicture;
+            }
+
+            this.rooms = data.rooms.map((room: Room) => ({
+              ...room,
+              AvailabilityStatus: room.AvailableQuantity > 0 ? `${room.AvailableQuantity} Available` : 'Fully Booked'
+          }));
+            this.transportations = data.transportations;
+        },
+        error => {
+            console.error('Error loading merchant details:', error);
+        }
     );
-  }
+}
+
 
   goBack(): void {
     this.location.back();
   }
+}
+interface Room {
+  RoomID: number;
+  RoomName: string;
+  RoomRate: number;
+  RoomQuantity: number;
+  AvailableQuantity: number;
+  GuestPerRoom: number;
+  [key: string]: any; // Optional to allow additional dynamic properties
 }

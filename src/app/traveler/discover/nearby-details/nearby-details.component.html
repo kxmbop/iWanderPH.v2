@@ -1,6 +1,6 @@
 <div class="details-container">
   <div class="back-icon">
-    <a routerLink="/traveler/discover/place-details/{{this.placeId}}">
+    <a routerLink="/traveler/discover/">
       <i class='bx bx-arrow-back'></i>
     </a>
   </div>
@@ -65,10 +65,14 @@
               </div>
             </div>
 
-            <button mat-raised-button color="primary" 
-                    [routerLink]="['/traveler/discover/booking']" 
-                    [queryParams]="{ type: 'room', id: room.RoomID, merchantId: merchantDetails.merchantId }">
-              <i class='bx bxs-calendar-check'></i> &nbsp;Book Room
+            <button 
+              mat-raised-button 
+              [disabled]="room.AvailabilityStatus === 'Fully Booked'" 
+              [routerLink]="room.AvailabilityStatus !== 'Fully Booked' ? ['/traveler/discover/booking'] : null" 
+              [queryParams]="room.AvailabilityStatus !== 'Fully Booked' ? { type: 'room', id: room.RoomID, merchantId: merchantDetails.merchantId } : null">
+              <i *ngIf="room.AvailabilityStatus !== 'Fully Booked'" class="bx bxs-calendar-check"></i>
+              &nbsp;
+              {{ room.AvailabilityStatus !== 'Fully Booked' ? 'Book Room' : 'Fully Booked' }}
             </button>
           </div>
         </div>
