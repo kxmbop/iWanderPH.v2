@@ -26,14 +26,23 @@ export class ReviewComponent implements OnInit {
   ngOnInit(): void {
     this.reviewID = Number(this.route.snapshot.paramMap.get('reviewID'));
     this.getReviewDetails(this.reviewID);
+    this.getLikeStatus(this.reviewID);
     this.getComments(this.reviewID);
   }
 
   getReviewDetails(reviewID: number) {
     this.fypService.getReview(reviewID).subscribe((data: any) => {
       this.review = data.review;
-      this.likedReview = data.review.likedByUser; // Get liked status
     });
+  }
+  getLikeStatus(reviewID: number) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.fypService.getLikeStatus(reviewID, token).subscribe((data: any) => {
+        this.likedReview = data.likedByUser;
+        console.log("Liked by user:", this.likedReview); // Debugging line
+      });
+    }
   }
 
   getComments(reviewID: number) {
@@ -45,13 +54,10 @@ export class ReviewComponent implements OnInit {
   toggleHeart(reviewID: number) {
     const token = localStorage.getItem('token');
     if (token) {
-      // Toggle the liked state on the UI first
       this.likedReview = !this.likedReview;
 
-      // Send the like/unlike request to the backend
       this.fypService.toggleReviewLike(reviewID, token).subscribe((response) => {
         if (!response.success) {
-          // Revert the like state if the request fails
           this.likedReview = !this.likedReview;
         }
       });

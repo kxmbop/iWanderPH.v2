@@ -5,10 +5,11 @@
 
 <div class="search-bar">
     <i class='bx bx-search'></i>
-    <input type="text" placeholder="Discover...">
+    <input type="text" placeholder="Discover..." [(ngModel)]="searchQuery" (input)="filterReviews()">
 </div>
+
 <div class="fyp-feed">
-    <div class="review-post" *ngFor="let review of reviews">
+    <div class="review-post" *ngFor="let review of filteredReviews">
         <div class="u-d">
             <div class="rating">
                 <ng-container *ngFor="let star of createArray(5); let i = index">
@@ -25,12 +26,12 @@
         <div class="review-card">
             <div #carousel class="review-images">
                 <div class="likes">
-                    <div class="pp-mini">
-                        <img *ngIf="review.traveler.profilePic; else defaultImage" 
-                             [src]="'data:image/jpeg;base64,' + review.traveler.profilePic" 
-                             alt="Traveler Profile Picture">
+                    <div class="pp-mini" (click)="navigateToUserTimeline(review.traveler.travelerID)">
+                        <ng-container *ngIf="review.traveler.profilePic; else defaultImage">
+                            <img [src]="'data:image/jpeg;base64,' + review.traveler.profilePic" alt="Traveler Profile Picture">
+                        </ng-container>
                         <ng-template #defaultImage>
-                            <img src="image_will_be_available_soon.png" alt="Default Profile Picture">
+                            <img src="assets/images/default-profile-picture.jpg" alt="Default Profile Picture">
                         </ng-template>
                     </div>
                     <p>{{ review.traveler.username }}</p>

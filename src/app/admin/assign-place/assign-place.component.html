@@ -71,7 +71,7 @@
       <td>{{ place.full_address }}</td>
       <td>{{ place.island_group }}</td>
       <td>
-        <button [routerLink]="['/admin/view-place', place.id]">Assign</button>
+        <button [routerLink]="['/admin/nearby-place', place.id]">Assign</button>
         <button (click)="openEditPlaceModal(place)">Edit</button>
         <button (click)="deletePlace(place.id)">Delete</button>
       </td>

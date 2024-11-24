@@ -19,6 +19,8 @@ import { ViewVerificationComponent } from './view-verification/view-verification
 import { AssignPlaceComponent } from './assign-place/assign-place.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { ViewListingComponent } from './view-listing/view-listing.component';
+import { NearbyPlaceComponent } from './nearby-place/nearby-place.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -45,6 +47,7 @@ const routes: Routes = [
       { path: 'assign-place', component: AssignPlaceComponent }, 
       { path: 'assign', component: AssignPlaceComponent }, 
       { path: 'view-listing', component: ViewListingComponent }
+      { path: 'nearby-place/:id', component: NearbyPlaceComponent },
     ]
   }
 ];

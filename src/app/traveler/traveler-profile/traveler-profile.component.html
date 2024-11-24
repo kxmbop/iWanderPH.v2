@@ -1,0 +1,109 @@
+    <div class="top-utility">
+        <a [routerLink]="'/traveler/home'" class="icon-link">
+            <i class='bx bx-arrow-back'></i>
+        </a>
+        <h3 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH</h3>
+    </div>
+
+    <div class="p-j">
+        <div class="profile-container">
+            <img [src]="travelerProfile.ProfilePic" alt="Traveler Profile Picture" class="profile-pic" />
+        </div>
+        <div class="profile-container">
+            <div class="profile-journey">
+                <span id="num_journey">{{ journeys }}</span>
+                <span id="journey_label">Journeys</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-b">
+        <div class="names">
+            <span id="name">{{ travelerProfile.FirstName }} {{ travelerProfile.LastName }}</span>
+            <span id="username">&#64;{{ travelerProfile.Username }}</span>
+        </div>
+        <div class="bio">
+            <span id="bio">{{ travelerProfile.Bio }}</span>
+        </div>
+    </div>
+
+    <div class="profile-tabs">
+        <span (click)="toggleTab('reviews')">Reviews</span>
+        <span (click)="toggleTab('journeys')">Journeys</span>
+    </div>
+
+    <div class="tabs">
+        <div class="review-tab" [class.active]="activeTab === 'reviews'" [class.slide-out-left]="activeTab !== 'reviews'">
+            <div class="review-post" *ngFor="let review of reviews">
+                <div class="u-d">
+                    <img *ngIf="travelerProfile.ProfilePic" [src]="travelerProfile.ProfilePic" alt="Profile Picture" class="pp-mini">
+                    <span id="username">{{ travelerProfile.Username }}</span>
+                    <div class="menu-container">
+                        <div class="menu-icon" (click)="toggleMenu()">
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                        </div>
+                        <div *ngIf="isMenuOpen" class="dropdown-menu">
+                            <span>Report</span>
+                        </div>
+                    </div>
+                </div>
+                <div #carousel class="review-images">
+                    <div class="carousel">
+                        <div class="carousel-inner">
+                            <div *ngFor="let image of review.images; let i = index" class="carousel-item" [ngClass]="{'active': i === currentIndex}">
+                                <img [src]="'data:image/jpeg;base64,' + image" alt="Review Image">
+                            </div>
+                        </div>
+                        <button class="carousel-prev" [disabled]="review.images.length === 1 || currentIndex === 0" (click)="prevImage()">
+                            <i class="bx bx-chevron-left"></i>
+                        </button>
+                        <button class="carousel-next" [disabled]="review.images.length === 1 || currentIndex === review.images.length - 1" (click)="nextImage()">
+                            <i class="bx bx-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="review-details">
+                    <div class="likes">
+                        <i 
+                            class="bx bxs-heart" 
+                            [ngClass]="{ 'liked': review.liked }"
+                            (click)="toggleLike(review)"
+                        ></i>
+    
+                        <span class="like-count">{{ review.likes }}</span>
+                        
+                        <i class="bx bx-message-square-dots" [routerLink]="['/traveler/review', review.reviewID]"></i>
+                        <span class="comment-count">{{ review.comments }}</span>
+                        
+                        <div class="rating">
+                            <ng-container *ngFor="let star of createArray(5); let i = index">
+                                <i class="bx bxs-star" *ngIf="i < review.rating"></i>
+                                <i class="bx bx-star" *ngIf="i >= review.rating"></i>
+                            </ng-container>
+                        </div>
+                    </div>
+                    
+                    <div class="caption">
+                        <span>{{ review.comment }}</span>
+                        <br>
+                        <a [routerLink]="['/traveler/review', review.reviewID]">View {{ review.comments }} comment{{ review.comments !== 1 ? 's' : '' }} here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="journey-tab" [class.active]="activeTab === 'journeys'" [class.slide-out-right]="activeTab !== 'journeys'">
+            <div *ngFor="let booking of completedBookings" class="completed-booking">
+                <img 
+                    *ngIf="booking.profilePicture" 
+                    [src]="booking.profilePicture" 
+                    alt="Merchant Profile Picture" 
+                    class="merchant-profile-picture"
+                />
+                <h4>{{ booking.businessName }}</h4>
+                <p>Email: {{ booking.email }}</p>
+                <p>Contact: {{ booking.contact }}</p>
+                <p>Address: {{ booking.address }}</p>
+            </div>
+            
+        </div>        
+    </div>

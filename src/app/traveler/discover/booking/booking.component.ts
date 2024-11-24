@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookingService } from '../../services/booking.service';
 import { Location } from '@angular/common';
 
-
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -20,6 +19,7 @@ export class BookingComponent implements OnInit {
   isDataLoaded: boolean = false; 
   showGcashNumber: boolean = false; 
   selectedFile: File | null = null;
+  currentDateTime: string = ''; // For setting the min attribute dynamically
 
   constructor(
     private route: ActivatedRoute,
@@ -47,15 +47,13 @@ export class BookingComponent implements OnInit {
       this.bookingType = params['type'];
       this.itemId = +params['id'];
       this.merchantId = +params['merchantId'];
-
-      // Fetch room or transportation details based on bookingType
+  
       if (this.bookingType === 'room') {
         this.getRoomDetails(this.itemId);
       } else if (this.bookingType === 'transportation') {
         this.getTransportationDetails(this.itemId);
       }
-
-      // Clear validators based on bookingType
+  
       if (this.bookingType === 'transportation') {
         this.bookingForm.get('checkIn')?.clearValidators();
         this.bookingForm.get('checkOut')?.clearValidators();
@@ -66,10 +64,18 @@ export class BookingComponent implements OnInit {
         this.bookingForm.get('pickupDateTime')?.clearValidators();
         this.bookingForm.get('dropOffDateTime')?.clearValidators();
       }
-
-      // Update form validation
+  
       this.bookingForm.updateValueAndValidity();
     });
+  
+    this.updateCurrentDateTime();
+  
+    // Update every minute to reflect the current time
+    setInterval(() => this.updateCurrentDateTime(), 60000);
+  }
+  updateCurrentDateTime(): void {
+    const now = new Date();
+    this.currentDateTime = now.toISOString().slice(0, 16); // 'YYYY-MM-DDTHH:mm'
   }
 
   toggleGcashNumber(event: any): void {
@@ -83,7 +89,6 @@ export class BookingComponent implements OnInit {
     }
   }
   
-
   getRoomDetails(roomId: number): void {
     this.bookingService.getRoomDetails(roomId).subscribe(
       data => {
@@ -102,7 +107,7 @@ export class BookingComponent implements OnInit {
     this.bookingService.getTransportationDetails(transportationId).subscribe(
       data => {
         this.transportationDetails = data;
-        console.log("Transportation Details:", this.transportationDetails); // Debugging log
+        console.log("Transportation Details:", this.transportationDetails);
         this.isDataLoaded = true;
       },
       error => {
@@ -115,7 +120,6 @@ export class BookingComponent implements OnInit {
   getSubtotal(): number {
     let subtotal = 0;
   
-    // For room booking, calculate based on the number of nights
     if (this.bookingType === 'room' && this.roomDetails) {
       const roomRate = Number(this.roomDetails.RoomRate);
       const checkInDate = new Date(this.bookingForm.get('checkIn')?.value);
@@ -123,12 +127,9 @@ export class BookingComponent implements OnInit {
       
       if (checkInDate && checkOutDate && !isNaN(roomRate)) {
         const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
-        const numberOfNights = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Convert time difference to days
+        const numberOfNights = Math.ceil(timeDifference / (1000 * 3600 * 24));
         subtotal = roomRate * numberOfNights;
-        console.log(`Room Rate: ${roomRate}, Number of Nights: ${numberOfNights}, Subtotal: ${subtotal}`);
       }
-      
-    // For transportation booking, calculate based on the number of days
     } else if (this.bookingType === 'transportation' && this.transportationDetails) {
       const rentalPrice = Number(this.transportationDetails.RentalPrice);
       const pickupDate = new Date(this.bookingForm.get('pickupDateTime')?.value);
@@ -136,29 +137,19 @@ export class BookingComponent implements OnInit {
       
       if (pickupDate && dropOffDate && !isNaN(rentalPrice)) {
         const timeDifference = dropOffDate.getTime() - pickupDate.getTime();
-        const numberOfDays = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Convert time difference to days
+        const numberOfDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
         subtotal = rentalPrice * numberOfDays;
-        console.log(`Rental Price: ${rentalPrice}, Number of Days: ${numberOfDays}, Subtotal: ${subtotal}`);
       }
     }
-  
     return subtotal;
   }
-  
 
   getVAT(): number {
-    const subtotal = this.getSubtotal();
-    const vat = subtotal * 0.12; // 12% VAT
-    console.log(`Subtotal: ${subtotal}, VAT: ${vat}`); // Corrected with backticks
-    return vat;
+    return this.getSubtotal() * 0.12;
   }
 
   getTotalAmount(): number {
-    const subtotal = this.getSubtotal();
-    const vat = this.getVAT();
-    const total = subtotal + vat;
-    console.log(`Subtotal: ${subtotal}, VAT: ${vat}, Total Amount: ${total}`); // Corrected with backticks
-    return total;
+    return this.getSubtotal() + this.getVAT();
   }
 
   submitBooking(): void {
@@ -171,12 +162,20 @@ export class BookingComponent implements OnInit {
     // Validate the form
     if (this.bookingForm.invalid) {
       console.error('Form is invalid');
+      alert('Please complete all required fields before submitting.');
+      return;
+    }
+  
+    // Check if proof of payment is uploaded
+    if (!this.selectedFile) {
+      alert('Please upload a proof of payment to proceed.');
       return;
     }
   
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found');
+      alert('Authentication failed. Please log in again.');
       return;
     }
   
@@ -188,14 +187,14 @@ export class BookingComponent implements OnInit {
       type: this.bookingType,
       itemId: this.itemId,
       subtotal: subtotal,
-      payout: payout
+      payout: payout,
     };
   
     // Add room-specific data
     if (this.bookingType === 'room') {
       bookingData.checkIn = this.bookingForm.get('checkIn')?.value;
       bookingData.checkOut = this.bookingForm.get('checkOut')?.value;
-      bookingData.specialRequest = this.bookingForm.get('specialRequest')?.value;
+      bookingData.specialRequest = this.bookingForm.get('specialRequest')?.value || ''; // Make specialRequest optional
     }
   
     // Add transportation-specific data
@@ -208,27 +207,31 @@ export class BookingComponent implements OnInit {
   
     const formData = new FormData();
   
-    // Check if the file is selected before appending it to FormData
-    if (this.selectedFile) {
-      formData.append('file', this.selectedFile); // Attach payment file if selected
-    }
+    // Attach payment file
+    formData.append('file', this.selectedFile);
   
-    formData.append('bookingData', JSON.stringify(bookingData)); // Attach other booking data
+    // Attach other booking data
+    formData.append('bookingData', JSON.stringify(bookingData));
   
     this.bookingService.uploadBooking(formData, token).subscribe(
       response => {
         if (response.success) {
           console.log('Booking created successfully.');
+          alert('Booking submitted successfully!');
           this.router.navigate(['/traveler/bookings']);
         } else {
           console.error('Booking failed:', response.message);
+          alert(`Booking failed: ${response.message}`);
         }
       },
       error => {
         console.error('Error booking:', error);
+        alert('An error occurred while submitting the booking. Please try again later.');
       }
     );
   }
+  
+
   goBack(): void {
     this.location.back();
   }

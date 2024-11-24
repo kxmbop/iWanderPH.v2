@@ -30,27 +30,28 @@
             </div>
         </div>
     </mat-tab>
-
-    <mat-tab label="Hotels/Resorts">
-        <div class="rooms">
-            <div class="search-bar">
-                <input
-                    type="text"
-                    [(ngModel)]="searchQuery"
-                    placeholder="Search for merchants..."
-                    (input)="filterMerchants()"
-                    class="search-input"
-                />
-            </div>
-            <div class="merchant-list">
-                <div *ngFor="let merchant of filteredMerchants" class="merchant-item">
-                    <a [routerLink]="['/traveler/discover/nearby-details', merchant.MerchantID]" class="merchant-link">
-                        <p>{{ merchant.BusinessName }}</p>
-                        <p>{{ merchant.Address }}</p>
-                        <p>Lowest Room Rate: {{ merchant.lowestRoomRate | currency }}</p>
-                    </a>
+    <div class="hotels-resort">
+        <mat-tab label="Hotels/Resorts">
+            <div class="rooms">
+                <div class="search-bar">
+                    <input
+                        type="text"
+                        [(ngModel)]="searchQuery"
+                        placeholder="Search for merchants..."
+                        (input)="filterMerchants()"
+                        class="search-input"
+                    />
+                </div>
+                <div class="merchant-list">
+                    <div *ngFor="let merchant of filteredMerchants" class="merchant-item">
+                        <a [routerLink]="['/traveler/discover/nearby-details', merchant.MerchantID]" class="merchant-link">
+                            <p>{{ merchant.BusinessName }}</p>
+                            <p>{{ merchant.Address }}</p>
+                            <p>Lowest Room Rate: {{ merchant.lowestRoomRate | currency }}</p>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </mat-tab>
+        </mat-tab>
+    </div>
 </mat-tab-group>

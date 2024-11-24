@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
   reviewID!: number;
   reviewComment: string = '';
   isConfirmationModalOpen = false;
+  reviewPrivacy: string = 'public'; 
 
   constructor(
     private profileService: ProfileService,
@@ -133,6 +134,9 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
             ...review,
             liked: !!review.liked 
           }));
+  
+          // Sort reviews by createdAt or similar property in descending order
+          this.reviews.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         } else {
           this.reviews = [];
         }
@@ -141,6 +145,7 @@ export class ProfileComponent implements OnInit,  AfterViewInit {
       });
     }
   }
+  
   
 
   getLikesCount(reviewID: number): number {
@@ -230,12 +235,13 @@ loadCompletedBookings(): void {
 }
 openEditModal(review: any): void {
   this.isEditModalOpen = true;
-  this.reviewID = review.reviewID; // Set the review ID
+  this.reviewID = review.reviewID;
 
   // Fetch the review data for the specific reviewID
   this.profileService.getReviewById(this.reviewID).subscribe(
     (reviewData) => {
-      this.reviewComment = reviewData.ReviewComment; // Set initial comment data
+      this.reviewComment = reviewData.ReviewComment; // Set initial comment
+      this.reviewPrivacy = reviewData.ReviewPrivacy; // Set initial privacy
     },
     (error) => console.error("Error fetching review data", error)
   );
@@ -250,6 +256,7 @@ onSave(): void {
   const updatedReview = {
     reviewID: this.reviewID,
     reviewComment: this.reviewComment,
+    reviewPrivacy: this.reviewPrivacy
   };
 
   // Send the updated review data to the server
@@ -276,29 +283,32 @@ confirmSave(): void {
     this.isConfirmationModalOpen = true; // Open the confirmation modal
 }
 
+// In profile.component.ts, ensure you are passing 'privacy' to the API:
 saveConfirmed(): void {
-    this.isConfirmationModalOpen = false; // Close confirmation modal
+  this.isConfirmationModalOpen = false; // Close confirmation modal
 
-    // Prepare the updated review data
-    const updatedReview = {
-        reviewID: this.reviewID,
-        reviewComment: this.reviewComment,
-    };
+  // Prepare updated review data
+  const updatedReview = {
+    reviewID: this.reviewID,
+    reviewComment: this.reviewComment,
+    privacy: this.reviewPrivacy, // Make sure 'privacy' is being sent
+  };
 
-    this.profileService.updateReview(updatedReview).subscribe(
-        (response) => {
-            if (response.success) {
-                console.log("Review updated successfully", response);
-                this.getReviews(); // Refresh the reviews
-                this.closeEditModal();
-            } else {
-                console.error("Failed to update review:", response.error);
-                alert(response.error);
-            }
-        },
-        (error) => console.error("Error updating review", error)
-    );
+  this.profileService.updateReview(updatedReview).subscribe(
+    (response) => {
+      if (response.success) {
+        console.log("Review updated successfully", response);
+        this.getReviews(); // Refresh reviews
+        this.closeEditModal();
+      } else {
+        console.error("Failed to update review:", response.error);
+        alert(response.error);
+      }
+    },
+    (error) => console.error("Error updating review", error)
+  );
 }
+
 
 cancelSave(): void {
     this.isConfirmationModalOpen = false; // Close the confirmation modal without saving

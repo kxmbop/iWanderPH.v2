@@ -19,6 +19,8 @@ export class HomeComponent {
   @ViewChild('carousel', { static: true }) carousel: ElementRef | null = null;
   currentIndex = 0;
   activeReviewIndex = 0;
+  filteredReviews: any[] = [];
+  searchQuery: string = '';
 
   constructor(
     private profileService: ProfileService,
@@ -117,7 +119,7 @@ export class HomeComponent {
     if (token) {
       this.fypService.getReviews(token).subscribe((data: any) => {
         this.reviews = data.reviews;
-        console.log(data.reviews);
+        this.filteredReviews = [...this.reviews]; // Initialize filtered reviews
         this.initializeLikes();
       });
     }
@@ -165,5 +167,15 @@ export class HomeComponent {
 
   createArray(length: number): number[] {
     return new Array(length);
+  }
+  navigateToUserTimeline(travelerID: string) {
+    this.router.navigate(['/traveler/traveler-profile', travelerID]);
+  }
+  filterReviews() {
+    const query = this.searchQuery.toLowerCase();
+    this.filteredReviews = this.reviews.filter((review) =>
+      review.business.name.toLowerCase().includes(query) ||
+      review.traveler.username.toLowerCase().includes(query)
+    );
   }
 }
