@@ -1,0 +1,49 @@
+<div class="container">
+    <h2>Nearby Merchants for {{ placeName }}</h2>
+    <h3>Assign a Merchant to {{ placeName }}</h3>
+    <div class="form-group">
+      <label for="merchantDropdown">Select Merchant:</label>
+      <select id="merchantDropdown" class="form-control" [(ngModel)]="selectedMerchantId">
+        <option *ngFor="let merchant of availableMerchants" [value]="merchant.merchantID">
+          {{ merchant.businessName }}
+        </option>
+      </select>
+      <button class="btn btn-primary mt-3" (click)="assignMerchant()">Assign</button>
+    </div>
+    <div class="table">
+        <table *ngIf="merchants.length > 0; else noMerchants" class="table">
+        <thead>
+            <tr>
+            <th>Profile Picture</th>
+            <th>Business Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Business Type</th>
+            <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let merchant of merchants">
+            <td>
+                <img [src]="'data:image/jpeg;base64,' + merchant.profilePicture" alt="Profile Picture" width="100"/>
+            </td>
+            <td>{{ merchant.businessName }}</td>
+            <td>{{ merchant.email }}</td>
+            <td>{{ merchant.contact }}</td>
+            <td>{{ merchant.address }}</td>
+            <td>{{ merchant.businessType }}</td>
+            <td>
+                <button class="btn btn-danger btn-sm" (click)="unassignMerchant(merchant.merchantID)">
+                <i class="fa fa-trash"></i>
+                </button>
+            </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+
+    <ng-template #noMerchants>
+      <p>No nearby merchants found for this place.</p>
+    </ng-template>
+</div>

@@ -8,7 +8,7 @@
       <img *ngIf="profile.ProfilePic" [src]="getProfilePicture()" alt="Profile Picture" class="profile-picture">
       <div *ngIf="!profile.ProfilePic" class="profile-picture">No Profile Picture</div>
   </div>
-  <div class="profile-container">
+  <div *ngIf="journeys" class="profile-container">
       <div class="profile-journey">
           <span id="num_journey">{{ journeys }}</span>
           <span id="journey_label">Journeys</span>
@@ -24,10 +24,6 @@
   <div class="bio">
       <span id="bio">{{ profile.Bio }}</span>
   </div>
-  <!-- <div class="options flex-row centered">
-    <button>Edit Profile</button>
-    <button>Share Profile</button>
-  </div> -->
 </div>
 
 <div class="profile-tabs">

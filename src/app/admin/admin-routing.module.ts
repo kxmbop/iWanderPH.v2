@@ -18,6 +18,7 @@ import { BusinessVerificationComponent } from './business-verification/business-
 import { ViewVerificationComponent } from './view-verification/view-verification.component'; 
 import { AssignPlaceComponent } from './assign-place/assign-place.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
+import { NearbyPlaceComponent } from './nearby-place/nearby-place.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -43,6 +44,7 @@ const routes: Routes = [
       { path: 'view-verification/:merchantID', component: ViewVerificationComponent },
       { path: 'assign-place', component: AssignPlaceComponent }, 
       { path: 'assign', component: AssignPlaceComponent }, 
+      { path: 'nearby-place/:id', component: NearbyPlaceComponent },
     ]
   }
 ];
