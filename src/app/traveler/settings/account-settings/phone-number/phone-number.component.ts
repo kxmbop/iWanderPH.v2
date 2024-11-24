@@ -60,21 +60,27 @@ export class PhoneNumberComponent {
   }
 
   validatePhoneNumber() {
-    const phoneRegex = /^[0-9]{12}$/; 
+    const phoneRegex = /^[0-9]{11}$/; 
     this.isValidPhoneNumber = phoneRegex.test(this.phoneNumber);
+  }
+  confirmAndSave() {
+    const confirmation = window.confirm("Are you sure you want to update your phone number?");
+    if (confirmation) {
+      this.updatePhoneNumber();
+    }
   }
 
   updatePhoneNumber() {
     if (!this.isValidPhoneNumber) {
-      return; 
+      return;
     }
-  
-    const token = localStorage.getItem("token");  
+
+    const token = localStorage.getItem("token");
     const data = { phone: this.phoneNumber, token: token };
-  
+
     const apiUrl = `${environment.apiUrl}/traveler/update_phone.php`;
-  
-    this.http.post(apiUrl, data)  
+
+    this.http.post(apiUrl, data)
       .subscribe(response => {
         alert('Phone number updated successfully');
         this.closeSettings();
@@ -83,7 +89,7 @@ export class PhoneNumberComponent {
         console.error('Error updating phone number', error);
       });
   }
-  
+    
 
   closeSettings() {
     this.showSettings = false;

@@ -1,4 +1,9 @@
 <div class="review-card">
+  <div class="back-icon">
+    <a [routerLink]="'/traveler/home'" class="icon-link">
+      <i class='bx bx-arrow-back'></i>
+    </a>
+  </div>
   <!-- Profile and Username -->
   <div class="profile-section">
     <div class="flex-row centered">
@@ -54,8 +59,8 @@
         </ng-container>
       </div>
       <i class='bx bxs-heart heart-icon'
-         [class.filled]="likedReview" 
-         (click)="toggleHeart(review.reviewID)">
+        [class.filled]="likedReview" 
+        (click)="toggleHeart(review.reviewID)">
       </i>
     </div>
   </div>

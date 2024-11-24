@@ -57,69 +57,73 @@
       <img [src]="transportationDetails.ImageFile" alt="Vehicle Image" *ngIf="transportationDetails.ImageFile">
     </div>
 
-    <div class="priceSummary" *ngIf="isDataLoaded">
-      
-      <h5>Pricing Summary</h5>
-      <div class="price-details">
-        <div class="detail">
-            <label>Subtotal:</label>
-            <p>{{ getSubtotal() | currency }}</p>
-        </div>
-        <div class="detail">
-            <label>VAT (12%):</label>
-            <p>{{ getVAT() | currency }}</p>
-        </div>
-        <div class="detail">
-            <label>Total Amount:</label>
-            <p>{{ getTotalAmount() | currency }}</p>
-        </div>
-      </div>
-      <div *ngIf="!isDataLoaded">
-        <p>Loading pricing details...</p>
-      </div>
-
-      <h5 style="margin-top: 5px;">Payment Method</h5>
-      <div  class="payment-method">
-        <input type="checkbox" id="showGcash" (change)="toggleGcashNumber($event)">
-        <label for="showGcash">GCash QRPH</label>
-      </div>
-      <div *ngIf="showGcashNumber"  class="gcash">
-        <img src="iwanderphGCash.jpg" alt="Gcash payment option">
-      </div>
-
-      <!-- Payment Upload without mat-form-field -->
-      <h5 style="margin-top: 5px;">Upload Payment</h5>
-      <div class="file-upload">
-        <input type="file" id="paymentUpload" name="paymentUpload" accept=".jpg, .jpeg, .png, .pdf" (change)="onFileSelected($event)">
-      </div>
-
-    </div>
-
-
     <!-- Booking Form -->
     <form [formGroup]="bookingForm" (ngSubmit)="submitBooking()" class="bookingForm">
       <!-- Room Booking Fields -->
       <div *ngIf="bookingType === 'room' && roomDetails">
         <div class="form-field">
           <label>Check-In Date</label>
-          <input matInput formControlName="checkIn" placeholder="Check-In Date" type="datetime-local" required>
-          <mat-error *ngIf="bookingForm.get('checkIn')?.hasError('required')">
-            Check-In Date is required
-          </mat-error>
+          <input 
+            matInput 
+            formControlName="checkIn" 
+            placeholder="Check-In Date" 
+            type="datetime-local" 
+            [min]="currentDateTime" 
+            required
+          >
         </div>
-
         <div class="form-field">
           <label>Check-Out Date</label>
-          <input matInput formControlName="checkOut" placeholder="Check-Out Date" type="datetime-local" required>
-          <mat-error *ngIf="bookingForm.get('checkOut')?.hasError('required')">
-            Check-Out Date is required
-          </mat-error>
+          <input 
+            matInput 
+            formControlName="checkOut" 
+            placeholder="Check-Out Date" 
+            type="datetime-local" 
+            [min]="bookingForm.get('checkIn')?.value || currentDateTime" 
+            required
+          >
         </div>
-
         <div class="form-field">
           <label>Special Request</label>
           <input matInput formControlName="specialRequest" placeholder="Special Request" type="text">
         </div>
+      </div>
+      <div class="priceSummary" *ngIf="isDataLoaded">
+      
+        <h5>Pricing Summary</h5>
+        <div class="price-details">
+          <div class="detail">
+              <label>Subtotal:</label>
+              <p>{{ getSubtotal() | currency }}</p>
+          </div>
+          <div class="detail">
+              <label>VAT (12%):</label>
+              <p>{{ getVAT() | currency }}</p>
+          </div>
+          <div class="detail">
+              <label>Total Amount:</label>
+              <p>{{ getTotalAmount() | currency }}</p>
+          </div>
+        </div>
+        <div *ngIf="!isDataLoaded">
+          <p>Loading pricing details...</p>
+        </div>
+  
+        <h5 style="margin-top: 5px;">Payment Method</h5>
+        <div  class="payment-method">
+          <input type="checkbox" id="showGcash" (change)="toggleGcashNumber($event)">
+          <label for="showGcash">GCash QRPH</label>
+        </div>
+        <div *ngIf="showGcashNumber"  class="gcash">
+          <img src="iwanderphGCash.jpg" alt="Gcash payment option">
+        </div>
+  
+        <!-- Payment Upload without mat-form-field -->
+        <h5 style="margin-top: 5px;">Upload Payment</h5>
+        <div class="file-upload">
+          <input type="file" id="paymentUpload" name="paymentUpload" accept=".jpg, .jpeg, .png, .pdf" (change)="onFileSelected($event)">
+        </div>
+  
       </div>
 
       <!-- Transportation Booking Fields -->
@@ -142,7 +146,14 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Pick-up Date & Time</mat-label>
-          <input matInput formControlName="pickupDateTime" placeholder="Pick-up Date & Time" type="datetime-local" required>
+          <input 
+            matInput 
+            formControlName="pickupDateTime" 
+            placeholder="Pick-up Date & Time" 
+            type="datetime-local" 
+            [min]="currentDateTime" 
+            required
+          >
           <mat-error *ngIf="bookingForm.get('pickupDateTime')?.hasError('required')">
             Pick-up Date & Time is required
           </mat-error>
@@ -150,7 +161,14 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Drop-off Date & Time</mat-label>
-          <input matInput formControlName="dropOffDateTime" placeholder="Drop-off Date & Time" type="datetime-local" required>
+          <input 
+            matInput 
+            formControlName="dropOffDateTime" 
+            placeholder="Drop-off Date & Time" 
+            type="datetime-local" 
+            [min]="bookingForm.get('pickupDateTime')?.value || currentDateTime" 
+            required
+          >
           <mat-error *ngIf="bookingForm.get('dropOffDateTime')?.hasError('required')">
             Drop-off Date & Time is required
           </mat-error>

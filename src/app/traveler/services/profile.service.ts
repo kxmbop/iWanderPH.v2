@@ -32,6 +32,7 @@ export class ProfileService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`);
     return this.http.put(`${this.apiUrl}/traveler/update_review.php`, review, { headers });
   }
+  
   //delete sa review
   deleteReview(reviewID: number): Observable<any> {
     const token = localStorage.getItem('token');
@@ -54,12 +55,15 @@ export class ProfileService {
   getProfileById(travelerID: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/traveler/get_profiles.php?travelerID=${travelerID}`);
   }
-
   getUserReviews(travelerID: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/traveler/get_user_reviews.php?travelerID=${travelerID}`);
   }
   getUserJourney(travelerID: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/traveler/get_user_journeys.php?travelerID=${travelerID}`);
   }
-  //put here the for the edit-profile
+  //traveler-profile
+  getTravelerProfile(travelerId: string) {
+    return this.http.get<any>(`${this.apiUrl}/traveler/${travelerId}`);
+  }
+  
 }

@@ -20,7 +20,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ReviewComponent } from './review/review.component';
 import { ReportContentComponent } from './report-content/report-content.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { TravelerProfileComponent } from './traveler-profile/traveler-profile.component';
 
 
 @NgModule({
@@ -40,13 +41,15 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     NotificationsComponent,
     ReviewComponent,
     ReportContentComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    TravelerProfileComponent
   ],
-  imports: [
+  imports: [  
     CommonModule,
     TravelerRoutingModule,
     FormsModule,
-    MatTabsModule
+    MatTabsModule,
+    ReactiveFormsModule,
     
   ]
 })

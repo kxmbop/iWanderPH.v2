@@ -13,7 +13,7 @@ import { SignupComponent } from './signup/signup.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ReviewComponent } from './review/review.component';
 import { ReportContentComponent } from './report-content/report-content.component';
-
+import { TravelerProfileComponent } from './traveler-profile/traveler-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -52,7 +52,8 @@ const routes: Routes = [
       {
         path: 'register-business',
         loadChildren: () => import('./register-business/register-business.module').then(m => m.RegisterBusinessModule)
-      }
+      },
+      { path: 'traveler-profile/:travelerID', component: TravelerProfileComponent }
     ]
   }
 ];
