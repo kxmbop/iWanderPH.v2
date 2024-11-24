@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="analytics-details">
+    <h3>Full Report Details of Revenue 
+      <a class="exit-button" [routerLink]="['/admin/generate-report']" target="_blank"><i class='bx bx-exit'></i></a>
+    </h3>
+
+    <!-- Year Filter -->
+    <div class="filter-container">
+      <label for="yearFilter">Select Year:</label>
+      <select id="yearFilter" [(ngModel)]="selectedYear" (change)="filterByYear()">
+        <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
+      </select>
+    </div>
+    
+    
+
+    <div class="card">
+      <h3 style="text-align: center; color: #023040 !important;">Revenue - Year to Date</h3>
+      <canvas #revenueChart width="400" height="200"></canvas>
+    </div>
+
+    <div class="table-box">
+      <table id="bookingTrendsTable" class="table-header">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Booking ID</th>
+            <th>Merchant Name</th>
+            <th>Booking Status</th>
+            <th>Payment Amount</th>
+          </tr>
+        </thead>
+      </table>
+      <div class="table-body">
+        <table>
+          <tbody>
+            <tr *ngFor="let trend of filteredData">
+              <td>{{ trend.month }}</td>
+              <td>{{ trend.bookingID }}</td>
+              <td>{{ trend.merchantName }}</td>
+              <td>{{ trend.bookingStatus }}</td>
+              <td>{{ trend.totalRevenue | currency:'PHP' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="export-buttons">
+      <button (click)="exportToPDF()">Export to PDF</button>
+      <button (click)="exportToExcel()">Export to Excel</button>
+    </div>
+  </div>
+</div>

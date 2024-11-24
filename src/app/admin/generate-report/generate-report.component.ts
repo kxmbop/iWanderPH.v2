@@ -17,6 +17,7 @@ export class GenerateReportComponent implements OnInit {
   reportData: any;
   filteredUsers: any[] = [];
   payments: any[] = [];
+  private chart: any;
 
   @ViewChild('monthlyTrendsChart', { static: true }) monthlyTrendsCanvas!: ElementRef<HTMLCanvasElement>;
   @ViewChild('customerDemographicsChart', { static: true }) customerDemographicsCanvas!: ElementRef<HTMLCanvasElement>;
@@ -32,6 +33,7 @@ export class GenerateReportComponent implements OnInit {
     this.fetchReportData();
     this.fetchMerchantRatings();
     this.fetchRefundedMerchantData();
+    this.loadRevenueData();
   }
 
 
@@ -84,6 +86,23 @@ export class GenerateReportComponent implements OnInit {
     return context;
   }
 
+  
+  loadRevenueData(): void {
+    this.reportService.getPayments().subscribe({
+      next: (data) => {
+        console.log("Fetched data:", data);  // Debugging: Check if data is correct
+        this.reportData = data;
+        // Ensure chart is initialized after data is fetched
+        if (this.revenueChartCanvas && this.reportData) {
+          this.initializeCharts();
+        }
+      },
+      error: (err) => {
+        console.error('Error loading report data:', err);
+      }
+    });
+  }
+
   initializeCharts(): void {
     // Initialize Line Chart
     if (this.reportData?.monthlyTrends) {
@@ -97,7 +116,7 @@ export class GenerateReportComponent implements OnInit {
               {
                 label: 'Bookings (%)',
                 data: this.reportData.monthlyTrends.data.map((value: number) => (value / 500) * 100),
-                borderColor: 'blue',
+                borderColor: '023040',
                 backgroundColor: 'rgba(0, 123, 255, 0.2)',
                 borderWidth: 2,
                 fill: true,
@@ -138,56 +157,96 @@ export class GenerateReportComponent implements OnInit {
       }
     }
 
-    // Initialize Bar Chart
-    if (this.reportData?.revenueTrends) {
-      const context = this.adjustCanvasResolution(this.revenueChartCanvas.nativeElement);
-      if (context) {
-        new Chart(context, {
-          type: 'bar',
-          data: {
-            labels: this.reportData.revenueTrends.labels,
-            datasets: [
-              {
-                label: 'Revenue (PHP)',
-                data: this.reportData.revenueTrends.data,
-                backgroundColor: '#36A2EB',
-                borderColor: '#0364A2',
-                borderWidth: 1,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                callbacks: {
-                  label: function (tooltipItem: any) {
-                    const value = tooltipItem.raw as number;
-                    return `PHP ${value.toLocaleString()}`;
-                  },
-                },
-              },
-            },
-            scales: {
-              x: {
-                title: { display: true, text: 'Months' },
-              },
-              y: {
-                title: { display: true, text: 'Revenue (PHP)' },
-                beginAtZero: true,
-                ticks: {
-                  callback: function (value) {
-                    return 'PHP ' + value.toLocaleString();
-                  },
-                },
-              },
-            },
-          },
+  
+      console.log('Revenue Trends:', this.reportData?.payments); // Log data to verify structure
+    
+      // Format labels and data
+      if (this.reportData?.payments?.details) {
+        const labels: string[] = [];
+        const data: number[] = [];
+    
+        // Use a Map to group data by month and sum totalRevenue for each month
+        const monthMap: Map<string, number> = new Map();
+    
+        // Iterate through the payments and group by month, summing totalRevenue
+        this.reportData.payments.details.forEach((payment: any) => {
+          if (monthMap.has(payment.month)) {
+            // If the month is already in the map, add the revenue to the existing value
+            monthMap.set(payment.month, monthMap.get(payment.month)! + payment.totalRevenue);
+          } else {
+            // If it's a new month, add it to the map
+            monthMap.set(payment.month, payment.totalRevenue);
+          }
         });
+    
+        // Convert the map to arrays of labels and data
+        monthMap.forEach((totalRevenue, month) => {
+          labels.push(month);
+          data.push(totalRevenue);
+        });
+    
+        console.log('Formatted Labels:', labels);
+        console.log('Formatted Data:', data);
+    
+        // Adjust canvas resolution
+        const context = this.adjustCanvasResolution(this.revenueChartCanvas.nativeElement);
+        if (context) {
+          // Destroy previous chart if it exists
+          if (this.chart) {
+            this.chart.destroy();
+          }
+    
+          // Initialize a new chart
+          this.chart = new Chart(context, {
+            type: 'bar',
+            data: {
+              labels: labels, // Use formatted labels
+              datasets: [
+                {
+                  label: 'Revenue (PHP)',
+                  data: data, // Use the summed revenue data
+                  backgroundColor: '#023040',
+                  borderColor: '#0364A2',
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  callbacks: {
+                    label: function (tooltipItem: any) {
+                      const value = tooltipItem.raw as number;
+                      return `PHP ${value.toLocaleString()}`;
+                    },
+                  },
+                },
+              },
+              scales: {
+                x: {
+                  title: { display: true, text: 'Months' },
+                },
+                y: {
+                  title: { display: true, text: 'Revenue (PHP)' },
+                  beginAtZero: true,
+                  ticks: {
+                    callback: function (value) {
+                      return 'PHP ' + value.toLocaleString();
+                    },
+                  },
+                },
+              },
+            },
+          });
+        } else {
+          console.error('Failed to get canvas context.');
+        }
+      } else {
+        console.error('Revenue trends data is not available or improperly structured.');
       }
     }
-  }
 
   initializeRefundedMerchantChart(): void {
     const context = this.adjustCanvasResolution(this.refundedMerchantChartCanvas.nativeElement);
@@ -199,7 +258,7 @@ export class GenerateReportComponent implements OnInit {
           datasets: [
             {
               data: [this.refundedPercentage, 100 - this.refundedPercentage],
-              backgroundColor: ['#FF6384', '#E0E0E0'],
+              backgroundColor: ['#023040', '#E0E0E0'],
               hoverBackgroundColor: ['#FF6384', '#F5F5F5'],
             },
           ],
