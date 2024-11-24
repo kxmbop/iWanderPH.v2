@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from '../services/analytics.service';
+import { forkJoin } from 'rxjs'; 
+//mary analyticss
 import { Chart, registerables } from 'chart.js'; 
 
 // Register all the required components
