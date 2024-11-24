@@ -46,8 +46,8 @@ const routes: Routes = [
       { path: 'view-verification/:merchantID', component: ViewVerificationComponent },
       { path: 'assign-place', component: AssignPlaceComponent }, 
       { path: 'assign', component: AssignPlaceComponent }, 
-      { path: 'view-listing', component: ViewListingComponent }
-      { path: 'nearby-place/:id', component: NearbyPlaceComponent },
+      { path: 'view-listing', component: ViewListingComponent },
+      { path: 'nearby-place/:id', component: NearbyPlaceComponent }
     ]
   }
 ];

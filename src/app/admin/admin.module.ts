@@ -44,7 +44,7 @@ import { NearbyPlaceComponent } from './nearby-place/nearby-place.component';
     AddAccountComponent,
     GenerateReportComponent,
     ContentModerationComponent,
-    ViewListingComponent
+    ViewListingComponent,
     NearbyPlaceComponent
   ],
   imports: [
