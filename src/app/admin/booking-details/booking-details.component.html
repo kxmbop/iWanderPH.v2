@@ -147,16 +147,16 @@
 
     <div class="si">
       <span>
-        <h4>Booking Status:</h4>
-        <h3>{{ bookingDetails?.BookingStatus }}</h3>
+        <h6>Booking Status:</h6>
+        <h5>{{ bookingDetails?.BookingStatus }}</h5>
       </span>
       <span>
-        <h4>Payment Status:</h4>
-        <h3>{{ bookingDetails?.PaymentStatus }}</h3>
+        <h6>Payment Status:</h6>
+        <h5>{{ bookingDetails?.PaymentStatus }}</h5>
       </span>
       <span>
-        <h4>Payout Status:</h4>
-        <h3>{{ bookingDetails?.PayoutStatus }}</h3>
+        <h6>Payout Status:</h6>
+        <h5>{{ bookingDetails?.PayoutStatus }}</h5>
       </span>
       <div class="actions">
         <button [disabled]="bookingDetails?.refundAmount > 0 || bookingDetails?.PaymentStatus !== 'successful'" (click)="openRefundModal()" class="refund-button">Refund</button>

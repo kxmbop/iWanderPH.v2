@@ -24,7 +24,11 @@
         <td>{{ report.reportDate }}</td>
         <td>{{ report.status }}</td>
         <td>
-          <button (click)="openModal(report)">View</button>
+          <button 
+            (click)="openModal(report)" 
+            [disabled]="report.status === 'Solved'" style="font-size: 12px;">
+            View
+          </button>
         </td>
       </tr>
     </tbody>
@@ -66,40 +70,93 @@
         <p style="font-size: 12px;"><strong>Status:</strong> {{ selectedReport?.status }}</p>
       </div>
 
-      <div class="flex-row">
+      <div class="flex-row" style="gap:10px;">
               <!-- Review Section for Image Display -->
-      <div class="report-section flex-row" style="gap:10px;">
-        <div class="flex-column">
-          <h4>Review Images</h4>
-          <div class="review-img" *ngIf="selectedReport?.reviewDetails?.images?.length">
-            <div class="images">
-              <img 
-              *ngFor="let image of selectedReport?.reviewDetails.images"
-              [src]="'data:image/jpeg;base64,' + image.image" 
-              alt="Image" 
-              class="review-image"
-            />
+        <div class="report-section flex-row" style="gap:20px;  width: 60%;">
+          <div class="flex-column">
+            <h4>Review Images</h4>
+            <div class="review-img" *ngIf="selectedReport?.reviewDetails?.images?.length">
+              <div class="images">
+                <img 
+                *ngFor="let image of selectedReport?.reviewDetails.images"
+                [src]="'data:image/jpeg;base64,' + image.image" 
+                alt="Image" 
+                class="review-image"
+              />
+              </div>
             </div>
           </div>
+          <div class="review-section" style="gap:10px;">
+            <h4>Review Section</h4>
+            <p><strong>Reported User:</strong> {{ selectedReport?.reviewDetails.travelerID }}</p>
+            <p><strong>Reported User Email:</strong> {{ selectedReport?.reviewDetails.travelerEmail }}</p>
+            <p><strong>Caption:</strong> {{ selectedReport?.reviewDetails.reviewComment }}</p>
+            <p><strong>Rating:</strong> {{ selectedReport?.reviewDetails.reviewRating }}</p>
+            <p><strong>Booking: </strong> {{ selectedReport?.reviewDetails.bookingID }}
+              <a [routerLink]="['/admin/booking-details', selectedReport?.reviewDetails.bookingID]" style="font-size: 12px; color: blue">
+                [ link ]
+              </a>
+            </p>
+          </div>
         </div>
-        <div class="review-section" style="gap:10px;">
-          <h4>Review Section</h4>
-          <p><strong>Caption:</strong> {{ selectedReport?.reviewDetails.reviewComment }}</p>
-          <p><strong>Rating:</strong> {{ selectedReport?.reviewDetails.reviewRating }}</p>
-          <p><strong>Booking: </strong> {{ selectedReport?.reviewDetails.bookingID }}
-            <a [routerLink]="['/admin/booking-details', selectedReport?.reviewDetails.bookingID]" style="color: none !important">
-              [<i>link</i>]
+
+        <div class="report-section" style="width: 40%;">
+          <h4>Action</h4>
+          <p>
+            Community Guidelines SOP: 
+            <a href="https://docs.google.com/document/d/1l4WtEY6McJsOa3lv68-vExlaGfaRFLOaDYmumIbmrV8/edit?tab=t.0" style="font-size: 12px; color: blue">
+              [ external link ]
             </a>
           </p>
-        </div>
-      </div>
+        
+          <!-- Select Action Dropdown -->
+          <div class="action-option">
+            <label for="action-select" style="font-size: 14px;">Select Action:</label>
+            <select id="action" name="action" [(ngModel)]="selectedAction" required>
+              <option value="1">Content Deletion and Warning</option>
+              <option value="2">Suspend User</option>
+              <option value="3">Ban User</option>
+            </select>
+          </div>
+        
+          <!-- Select Violation Dropdown -->
+          <div class="action-option">
+            <label for="violation-select" style="font-size: 14px;">Select Violation:</label>
+            <select id="actualViolation" name="actualViolation" [(ngModel)]="selectedViolation" required>
+              <option *ngFor="let violation of violations" [value]="violation.violationTitle">
+                {{ violation.violationTitle }}
+              </option>
+            </select>
+          </div>
 
-      <div class="report-section">
+        
+          <!-- Hidden Inputs -->
+          <input type="text" name="reportID" value="{{ selectedReport?.reportID }}" hidden>
+          <input type="text" name="reportedUser" value="{{ selectedReport?.reviewDetails.travelerID }}" hidden>
+          <input type="text" name="reportedUserEmail" value="{{ selectedReport?.reviewDetails.travelerEmail }}" hidden>
+        
+          <!-- Add Comments or Notes -->
+          <div class="action-option flex-column">
+            <label for="action-comment" style="font-size: 14px;">Additional Comments:</label>
+            <textarea id="action-comment" name="summary" [(ngModel)]="actionComment" rows="4" placeholder="Enter comments here..." required></textarea>
+          </div>
+        
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button (click)="submitAction()" class="btn-action">Submit Action</button>
+          </div>
+        </div>
+        
+
         
       </div>
-      </div>
     </div>
-
-
   </div>
+</div>
+
+
+<!-- Toast Notification -->
+<div id="successAlert" class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3 py-2 px-3 fs-6 d-none" role="alert" style="max-width: 500px;">
+  <strong>Success!</strong> The report has been submitted.
+  <button type="button" class="btn-close btn-close-sm" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
