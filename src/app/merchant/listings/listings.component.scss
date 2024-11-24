@@ -248,73 +248,181 @@
   }
 }
 
+/* General Modal Styles */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal-content.open {
+  transform: translateY(0); /* Smooth reveal */
+}
+
+.close-button {
+  font-size: 30px;
+  color: #333;
+  cursor: pointer;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.form-group {
+  width: 100%; /* Adjust to make it fit */
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container{
+  flex-direction: row;
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+.column{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  input{
+    width: 100%;
+  }
+}
+
+label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+input[type="file"] {
+  padding: 8px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.image-preview-box {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+small {
+  color: #e74c3c;
+  font-size: 12px;
+  display: block;
+  margin-top: 5px;
+}
+
+/* Button Styling */
+button[type="submit"] {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 5px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+button[type="submit"]:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
   .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-    .close-button {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 18px;
-      color: #333;
-      cursor: pointer;
-      &:hover { color: black; }
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    .add-room-submit-button {
-      background-color: #4CAF50;
-      color: white;
-      font-size: 16px;
-      padding: 10px 20px;
-      border-radius: 5px;
-      transition: background-color 0.3s, transform 0.2s;
-      &:hover { background-color: #45a049; transform: scale(1.05); }
-      &:disabled { background-color: #a9a9a9; cursor: not-allowed; }
-    }
+    width: 100%;
+    padding: 15px;
+  }
+
+  .form-group {
+    width: 100%;
   }
 
   .image-preview-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-  }
-  
-  .image-preview-box {
-    width: 70px; // Adjust the width as needed
-    height: 70px; // Adjust the height as needed
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .image-preview {
-    max-width: 20%;
-    max-height: 20%;
-    object-fit: cover; /* Ensure images are fully contained without distortion */
+    flex-direction: column;
   }
 
+  .image-preview-box {
+    width: 100px;
+    height: 100px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
 }

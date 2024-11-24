@@ -55,7 +55,7 @@ addVehicle(data: any, token: string): Observable<any> {
 
 updateVehicle(vehicleID: number, updatedData: any): Observable<any> {
   updatedData.VehicleID = vehicleID;
-  return this.http.post<any>(`${this.apiUrl}/update_vehicle`, updatedData);
+  return this.http.post<any>(`${this.apiUrl}/update_transpo`, updatedData);
 }
 
 deleteVehicle(vehicleID: number, token: string): Observable<any> {
@@ -68,15 +68,15 @@ deleteVehicle(vehicleID: number, token: string): Observable<any> {
 }
 
 getRoomView(roomId: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/getRoomView.php?RoomID=${roomId}`);
+  return this.http.get<any>(`${this.apiUrl}/get_room_view.php?RoomID=${roomId}`);
 }
 
 getRoomInclusions(roomId: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/getRoomInclusions.php?RoomID=${roomId}`);
+  return this.http.get<any>(`${this.apiUrl}/get_room_inclusions.php?RoomID=${roomId}`);
 }
 
 getRoomGallery(roomId: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}/getRoomGallery.php?RoomID=${roomId}`);
+  return this.http.get<any>(`${this.apiUrl}/get_room_gallery.php?RoomID=${roomId}`);
 }
 
 }
