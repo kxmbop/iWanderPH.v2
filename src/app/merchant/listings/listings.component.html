@@ -3,6 +3,7 @@
   <button (click)="showTransportation()">Transportation</button>
 </div>
 
+<!-- Room Listing Tab Hub -->
 <div class="listinghub" *ngIf="isRoomsVisible" id="rooms">
   <div class="container">
     <div class="button-container">
@@ -39,51 +40,73 @@
 <div *ngIf="showAddRoomModal" class="modal add-room-modal">
   <div class="modal-content">
     <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
-      <h3>Add New Room</h3>
+      <h5>Add New Room</h5>
       <span class="close-button" (click)="closeAddRoomModal()">&times;</span>
     </div>
     <form [formGroup]="roomForm" (ngSubmit)="addRoom()" class="flex-column">
       <div class="form-container">
         <!-- Left Column -->
-        <div class="column">
-          <div class="form-group">
-            <label for="RoomName">Room Name</label>
-            <input id="RoomName" formControlName="RoomName" type="text" placeholder="Room Name" required />
+        <div class="column border-bottom" >
+          <div class="d-flex flex-row gap-3">
+            <div class="form-group">
+              <label for="RoomName">Room Name</label>
+              <input id="RoomName" formControlName="RoomName" type="text" placeholder="Room Name" required />
+            </div>
+            <div class="form-group">
+              <label for="RoomQuantity">No. of Rooms</label>
+              <input id="RoomQuantity" formControlName="RoomQuantity" type="number" placeholder="Number of Rooms" required />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="RoomQuantity">No. of Rooms</label>
-            <input id="RoomQuantity" formControlName="RoomQuantity" type="number" placeholder="Number of Rooms" required />
-          </div>
-          <div class="form-group">
-            <label for="GuestPerRoom">No. of Guests</label>
-            <input id="GuestPerRoom" formControlName="GuestPerRoom" type="number" placeholder="Guests per Room" required />
-          </div>
-          <div class="form-group">
-            <label for="RoomRate">Room Rate (₱)</label>
-            <input id="RoomRate" formControlName="RoomRate" type="number" placeholder="Room Rate" required />
+          <div class="d-flex flex-row gap-3">
+            <div class="form-group">
+              <label for="GuestPerRoom">No. of Guests</label>
+              <input id="GuestPerRoom" formControlName="GuestPerRoom" type="number" placeholder="Guests per Room" required />
+            </div>
+            <div class="form-group">
+              <label for="RoomRate">Room Rate (₱)</label>
+              <input id="RoomRate" formControlName="RoomRate" type="number" placeholder="Room Rate" required />
+            </div>
           </div>
         </div>
         
-        <!-- Right Column -->
         <div class="column">
+
           <!-- Views -->
           <div class="form-group">
-            <label for="ViewName">Views</label>
-            <input id="ViewName" formControlName="ViewName" type="text" placeholder="Add views (comma-separated)" required />
+            <label for="Views">Views</label>
+            <div class="views-grid">
+              <div *ngFor="let view of views">
+                <input 
+                  type="checkbox" 
+                  [id]="view.ViewID" 
+                  [value]="view.ViewID" 
+                  (change)="onViewSelectionChange(view.ViewID, $event)"
+                />
+                <label [for]="view.ViewID">{{ view.ViewName }}</label>
+              </div>
+            </div>
           </div>
 
           <!-- Inclusions -->
           <div class="form-group">
-            <label for="Inclusion">Inclusions</label>
-            <input id="Inclusion" formControlName="Inclusion" type="text" placeholder="Add inclusions (comma-separated)" required />
+            <label for="Inclusions">Inclusions</label>
+            <div class="inclusions-grid">
+              <div *ngFor="let inclusion of inclusions">
+                <input 
+                  type="checkbox" 
+                  [id]="inclusion.InclusionID" 
+                  [value]="inclusion.InclusionID" 
+                  (change)="onInclusionSelectionChange(inclusion.InclusionID, $event)"
+                />
+                <label [for]="inclusion.InclusionID">{{ inclusion.InclusionName }}</label>
+              </div>
+            </div>
           </div>
 
-          <!-- Inclusion Descriptions -->
-          <div class="form-group">
-            <label for="InclusionDesc">Inclusion Descriptions</label>
-            <input id="InclusionDesc" formControlName="InclusionDesc" type="text" placeholder="Add inclusion descriptions (comma-separated)" required />
-          </div>
 
+
+        </div>
+        <div class="column">
           <!-- Room Gallery -->
           <div class="form-group">
             <label for="RoomGallery">Room Gallery</label>
@@ -95,13 +118,15 @@
               multiple 
               (change)="onFileChange($event)" 
               required />
-            <div *ngIf="galleryFiles?.length > 0" class="image-preview-container">
+
+            <div *ngIf="galleryFiles.length > 0" class="image-preview-container">
               <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
                 <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
               </div>
               <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
               <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
             </div>
+              
           </div>
         </div>
       </div>
@@ -114,103 +139,159 @@
 <div *ngIf="showUpdateRoomModal" class="modal update-room-modal">
   <div class="modal-content">
     <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
-      <h3>Update Room</h3>
+      <h5>Update Room #{{ viewRoomData.RoomID }}</h5>
       <span class="close-button" (click)="closeUpdateRoomModal()">&times;</span>
     </div>
-    <form [formGroup]="updateForm" (ngSubmit)="updateRoom()" class="flex-column">
-      <div class="form-container flex-column">
-        <!-- Column 1 -->
-        <div class="column">
-          <div class="form-group W-100">
-            <label for="updateRoomName">Room Name</label>
-            <input id="updateRoomName" formControlName="RoomName" type="text" placeholder="Room Name" required />
+    <form [formGroup]="roomForm" (ngSubmit)="updateRoom()" class="flex-column">
+      <div class="form-container">
+
+        <!-- Room Details -->
+        <div class="column border-bottom">
+          <div class="d-flex flex-row gap-3">
+            <div class="form-group">
+              <label for="RoomName">Room Name</label>
+              <input id="RoomName" formControlName="RoomName" type="text" placeholder="Room Name" required />
+            </div>
+            <div class="form-group">
+              <label for="RoomQuantity">No. of Rooms</label>
+              <input id="RoomQuantity" formControlName="RoomQuantity" type="number" placeholder="Number of Rooms" required />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="updateRoomQuantity">No. of Rooms</label>
-            <input id="updateRoomQuantity" formControlName="RoomQuantity" type="number" placeholder="Number of Rooms" required />
-          </div>
-          <div class="form-group">
-            <label for="updateGuestPerRoom">No. of Guests</label>
-            <input id="updateGuestPerRoom" formControlName="GuestPerRoom" type="number" placeholder="Guests per Room" required />
-          </div>
-          <div class="form-group">
-            <label for="updateRoomRate">Room Rate (₱)</label>
-            <input id="updateRoomRate" formControlName="RoomRate" type="number" placeholder="Room Rate" required />
+          <div class="d-flex flex-row gap-3">
+            <div class="form-group">
+              <label for="GuestPerRoom">No. of Guests</label>
+              <input id="GuestPerRoom" formControlName="GuestPerRoom" type="number" placeholder="Guests per Room" required />
+            </div>
+            <div class="form-group">
+              <label for="RoomRate">Room Rate (₱)</label>
+              <input id="RoomRate" formControlName="RoomRate" type="number" placeholder="Room Rate" required />
+            </div>
           </div>
         </div>
 
-        <!-- Column 2 -->
-        <div class="column">
-          <div class="form-group">
-            <label for="updateViewName">Views</label>
-            <input id="updateViewName" formControlName="ViewName" type="text" placeholder="Add views (comma-separated)" required />
-          </div>
-          <div class="form-group">
-            <label for="updateInclusion">Inclusions</label>
-            <input id="updateInclusion" formControlName="Inclusion" type="text" placeholder="Add inclusions (comma-separated)" required />
-          </div>
-          <div class="form-group">
-            <label for="updateInclusionDesc">Inclusion Descriptions</label>
-            <input id="updateInclusionDesc" formControlName="InclusionDesc" type="text" placeholder="Add inclusion descriptions (comma-separated)" required />
+        <!-- Views -->
+        <div class="form-group">
+          <label for="Views">Views</label>
+          <div class="views-grid">
+            <div *ngFor="let view of views">
+              <input 
+                type="checkbox" 
+                [id]="'view-' + view.ViewID" 
+                [value]="view.ViewID" 
+                [checked]="selectedViews.includes(view.ViewID.toString())"
+                (change)="onViewSelectionChange(view.ViewID, $event)" 
+              />
+              <label [for]="'view-' + view.ViewID">{{ view.ViewName }}</label>
+            </div>
           </div>
         </div>
+
+        <!-- Inclusions -->
+        <div class="form-group">
+          <label for="Inclusions">Inclusions</label>
+          <div class="inclusions-grid">
+            <div *ngFor="let inclusion of inclusions">
+              <input 
+                type="checkbox" 
+                [id]="'inclusion-' + inclusion.InclusionID" 
+                [value]="inclusion.InclusionID" 
+                [checked]="selectedInclusions.includes(inclusion.InclusionID.toString())"
+                (change)="onInclusionSelectionChange(inclusion.InclusionID, $event)" 
+              />
+              <label [for]="'inclusion-' + inclusion.InclusionID">{{ inclusion.InclusionName }}</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room Gallery -->
+        <p><strong>Existing RoomGallery:</strong></p>
+        <div *ngIf="viewRoomData.Gallery?.length" class="room-gallery">
+          <div class="room-image">
+            <img *ngFor="let image of viewRoomData.Gallery" [src]="'data:image/jpeg;base64,' +image" alt="Room Image">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="RoomGallery">Update Room Gallery</label>
+          <input 
+            id="RoomGallery" 
+            type="file" 
+            accept="image/*" 
+            multiple 
+            (change)="onFileChange($event)" 
+          />
+          <div *ngIf="galleryFiles.length > 0" class="image-preview-container">
+            <div *ngFor="let file of galleryFiles" class="image-preview-box">
+              <img [src]="file.preview || file" alt="Image preview" class="image-preview" />
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <!-- Room Gallery (Full Width) -->
-      <div class="form-group">
-        <label for="updateRoomGallery">Room Gallery</label>
-        <input
-          id="updateRoomGallery"
-          formControlName="RoomGallery"
-          type="file"
-          accept="image/*"
-          multiple
-          (change)="onFileChange($event)"
-          required
-        />
-        <div *ngIf="galleryFiles?.length > 0" class="image-preview-container">
-          <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
-            <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
-          </div>
-          <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
-          <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
-        </div>
-      </div>
-
+      <button type="submit" class="add-room-submit-button" [disabled]="roomForm.invalid">Update Room</button>
     </form>
-    <button type="submit" class="update-room-submit-button" [disabled]="updateForm.invalid">Update Room</button>
-
   </div>
 </div>
 
 <!-- View Room Modal -->
 <div *ngIf="showViewRoomModal" class="modal view-room-modal">
   <div class="modal-content">
-    <span class="close-button" (click)="closeViewRoomModal()">&times;</span>
-    <h2>Room Details</h2>
+    <div class="d-flex flex-row justify-content-between">
+      <h4>Room Details</h4>
+      <span class="close-button" (click)="closeViewRoomModal()">&times;</span>
+    </div>
     <div *ngIf="viewRoomData">
-      <p><strong>Inclusions:</strong></p>
-      <ul *ngIf="viewRoomData.Inclusions?.length">
-        <li *ngFor="let inclusion of viewRoomData.Inclusions">
-          <strong>{{ inclusion.InclusionName }}:</strong> {{ inclusion.InclusionDescription }}
-        </li>
-      </ul>
-      <br>
-      <p><strong>Views:</strong></p>
-      <ul *ngIf="viewRoomData.Views?.length">
-        <li *ngFor="let view of viewRoomData.Views">
-          {{ view }}
-        </li>
-      </ul>
-      <br>
+      <div class="border-bottom mb-2 py-2">
+        <div class="d-flex flex-row gap-3">
+          <label class="w-25">Room Name: </label>
+          <p>{{ viewRoomData.RoomName }}</p>
+        </div>
+        <div class="d-flex flex-row gap-3">
+          <label class="w-25">No of availbale rooms: </label>
+          <p>{{ viewRoomData.RoomQuantity }}</p>
+        </div>
+        <div class="d-flex flex-row gap-3">
+          <label class="w-25">Guest Allowed: </label>
+          <p>{{ viewRoomData.GuestPerRoom }}</p>
+        </div>
+        <div class="d-flex flex-row gap-3">
+          <label class="w-25">Room Rate: </label>
+          <p>{{ viewRoomData.RoomRate | number: '1.2-2' }}</p>
+        </div>
+      </div>
+
+      <div class="border-bottom mb-2 py-1">
+        <p><strong>Inclusions:</strong></p>
+        <ul *ngIf="viewRoomData.Inclusions?.length" class="px-4">
+            <li *ngFor="let inclusion of viewRoomData.Inclusions">
+              <div class="d-flex flex-row gap-3">
+              <label class="w-25">{{ inclusion.InclusionName }}:</label> <p>{{ inclusion.InclusionDescription }}</p>
+              </div>
+            </li>
+        </ul>
+      </div>
+
+      <div class="border-bottom mb-2 py-1">
+        <p><strong>Views:</strong></p>
+          <div class="d-flex flex-row gap-2 w-100 py-2" style="overflow-x: auto; overflow-y: hidden;" *ngIf="viewRoomData.Views?.length">
+            <div *ngFor="let view of viewRoomData.Views">
+              <span class="view-span">{{ view.ViewName }}</span>
+            </div>
+          </div>
+      </div>
+
       <p><strong>Gallery:</strong></p>
-      <div *ngIf="viewRoomData.gallery?.length">
-        <img *ngFor="let image of viewRoomData.gallery" [src]="image" alt="Room Image">
+      <div *ngIf="viewRoomData.Gallery?.length" class="room-gallery">
+        <div class="room-image">
+          <img *ngFor="let image of viewRoomData.Gallery" [src]="'data:image/jpeg;base64,' +image" alt="Room Image">
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+
+
+<!-- Transportation Listing Tab Hub -->
 <div class="listinghub" *ngIf="isTransportationVisible" id="transportation">
   <div class="container">
     <div class="button-container">
@@ -249,7 +330,7 @@
 <div *ngIf="showAddVehicleModal" class="modal">
   <div class="modal-content">
     <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
-      <h2>Add New Vehicle</h2>
+      <h4>Add New Vehicle</h4>
       <span class="close-button" (click)="closeAddVehicleModal()">&times;</span>
     </div>
     <form [formGroup]="vehicleForm" (ngSubmit)="addVehicle()" class="flex-column">
@@ -285,13 +366,14 @@
             multiple 
             (change)="onFileChange($event)" 
             required />
-          <div *ngIf="galleryFiles?.length > 0" class="image-preview-container">
-            <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
-              <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
+            <div *ngIf="galleryFiles.length > 0" class="image-preview-container">
+              <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
+                <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
+              </div>
+              <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
+              <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
             </div>
-            <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
-            <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
-          </div>
+            
         </div>
       </div>
       <button type="submit" class="add-vehicle-submit-button" [disabled]="vehicleForm.invalid">Add Vehicle</button>
@@ -303,7 +385,7 @@
 <div *ngIf="showUpdateVehicleModal" class="modal update-vehicle-modal">
   <div class="modal-content">
     <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
-      <h2>Update Vehicle</h2>
+      <h4>Update Vehicle</h4>
       <span class="close-button" (click)="closeUpdateVehicleModal()">&times;</span>
     </div>
 
@@ -340,13 +422,13 @@
             multiple 
             (change)="onFileChange($event)" 
             required />
-          <div *ngIf="galleryFiles?.length > 0" class="image-preview-container">
-            <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
-              <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
-            </div>
-            <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
-            <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
-          </div>
+            <div *ngIf="galleryFiles.length > 0" class="image-preview-container">
+              <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
+                <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
+              </div>
+              <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
+              <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
+            </div>            
         </div>
       </div>
       <button type="submit" class="update-vehicle-submit-button" [disabled]="updateForm.invalid">Update Vehicle</button>
@@ -354,12 +436,11 @@
   </div>
 </div>
 
-
 <!-- View Vehicle Modal -->
 <div *ngIf="showViewVehicleModal" class="modal view-vehicle-modal">
   <div class="modal-content">
     <span class="close-button" (click)="closeViewVehicleModal()">&times;</span>
-    <h2>Vehicle Details</h2>
+    <h4>Vehicle Details</h4>
     <p><strong>Gallery:</strong> {{ viewRoomData?.RoomName }}</p>
     </div>
   </div>

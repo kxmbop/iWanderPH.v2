@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-assign-place',
-    imports: [CommonModule, RouterModule, FormsModule],
     templateUrl: './assign-place.component.html',
     styleUrls: ['./assign-place.component.scss']
 })

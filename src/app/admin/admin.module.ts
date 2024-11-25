@@ -12,10 +12,7 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { OnlineChatComponent } from './online-chat/online-chat.component';
 import { SettingsComponent } from './settings/settings.component';
-import { AddressEditComponent } from './address-edit/address-edit.component';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { ProfilePictureEditComponent } from './profile-picture-edit/profile-picture-edit.component';
-import { AddAccountComponent } from './add-account/add-account.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { ContentModerationComponent } from './content-moderation/content-moderation.component';
 import { ViewListingComponent } from './view-listing/view-listing.component';
@@ -28,6 +25,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { FormsModule } from '@angular/forms';
+import { ViewVerificationComponent } from './view-verification/view-verification.component';
+import { BusinessVerificationComponent } from './business-verification/business-verification.component';
+import { AssignPlaceComponent } from './assign-place/assign-place.component';
 
 @NgModule({
   declarations: [
@@ -43,10 +43,7 @@ import { FormsModule } from '@angular/forms';
     BookingDetailsComponent,
     UserDetailsComponent,
     SettingsComponent,
-    AddressEditComponent,
-    PasswordResetComponent,
     ProfilePictureEditComponent,
-    AddAccountComponent,
     GenerateReportComponent,
     ContentModerationComponent,
     ViewListingComponent,
@@ -55,7 +52,10 @@ import { FormsModule } from '@angular/forms';
     RefundReportComponent,
     GenerateReportComponent,
     BookingTrendComponent,
-    ReviewReportComponent
+    ReviewReportComponent,
+    ViewVerificationComponent,
+    BusinessVerificationComponent,
+    AssignPlaceComponent
   ],
   imports: [
     CommonModule,

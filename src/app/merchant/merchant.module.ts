@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MerchantRoutingModule } from './merchant-routing.module';
 import { MerchantLayoutComponent } from './merchant-layout/merchant-layout.component';
 import { HubLayoutComponent } from './booking-hub/hub-layout/hub-layout.component';
@@ -24,8 +23,8 @@ import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
   imports: [
     CommonModule,
     MerchantRoutingModule,
-    ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MerchantModule { }

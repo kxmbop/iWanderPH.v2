@@ -2,82 +2,84 @@
   <div class="logo-details">
     <a routerLink="/admin/admin-profile">
       <div class="logo_name">        
-        <span id="name" style="color: #fff; text-decoration: none;">{{ profile.firstname }} {{ profile.lastname }}</span>
+        <span id="name" style="color: #fff; text-decoration: none; margin-left: 20px;">{{ profile.username }} </span>
       </div>
     </a>
     <i class='bx bx-menu' id="btn"></i>
   </div>
   <ul class="nav-list">
-    <li id="dashboard">
-      <a routerLink="/admin/dashboard">
-        <i class='bx bx-grid-alt'></i>
-        <span class="links_name">Dashboard</span>
-      </a>
-      <span class="tooltip">Dashboard</span>
-    </li>
-    <li id="online-chat">
-      <a routerLink="/admin/chat">
-        <i class='bx bxs-conversation'></i>
-        <span class="links_name">Chat</span>
-      </a>
-      <span class="tooltip">Chat</span>
-    </li>
-    <li id="view-bookings">
+    <!-- For all roles -->
+    <li id="view-bookings" *ngIf="profile.userType === 'SuperAdmin' || profile.userType === 'Admin' || profile.userType === 'Customer Support'">
       <a routerLink="/admin/view-bookings">
         <i class='bx bxs-hotel'></i>
         <span class="links_name">View Bookings</span>
       </a>
       <span class="tooltip">View Bookings</span>
     </li>
-    <li id="view-users">
+    <li id="view-users" *ngIf="profile.userType === 'SuperAdmin' || profile.userType === 'Admin' || profile.userType === 'Customer Support'">
       <a routerLink="/admin/view-users">
         <i class='bx bxs-group'></i>
         <span class="links_name">View Users</span>
       </a>
       <span class="tooltip">View Users</span>
     </li>
-    <li id="post-notification">
-      <a routerLink="/admin/post-notification">
-        <i class='bx bxs-notification'></i>
-        <span class="links_name">Post Notification</span>
+    <li id="online-chat" *ngIf="profile.userType === 'SuperAdmin' || profile.userType === 'Admin' || profile.userType === 'Customer Support'">
+      <a routerLink="/admin/chat">
+        <i class='bx bxs-conversation'></i>
+        <span class="links_name">Chat</span>
       </a>
-      <span class="tooltip">Post Notification</span>
+      <span class="tooltip">Chat</span>
     </li>
-    <li id="content-moderation">
+    <li id="content-moderation" *ngIf="profile.userType === 'SuperAdmin' || profile.userType === 'Admin' || profile.userType === 'Customer Support'">
       <a routerLink="/admin/content-moderation">
         <i class='bx bxs-check-shield' ></i>
         <span class="links_name">Content Moderation</span>
       </a>
       <span class="tooltip">Content Moderation</span>
     </li>
-    <li id="business-verification">
+
+    <!-- Only for SuperAdmin and Admin -->
+    <li id="post-notification" *ngIf="profile.userType === 'SuperAdmin' || profile.userType === 'Admin'">
+      <a routerLink="/admin/post-notification">
+        <i class='bx bxs-notification'></i>
+        <span class="links_name">Post Notification</span>
+      </a>
+      <span class="tooltip">Post Notification</span>
+    </li>
+    <li id="business-verification" *ngIf="profile.userType === 'SuperAdmin' || profile.userType === 'Admin'">
       <a routerLink="/admin/business-verification">
         <i class='bx bxs-business' ></i>
         <span class="links_name">Business Verification</span>
       </a>
       <span class="tooltip">Business Verification</span>
     </li>
-    <li id="generate-analytics">
+    <li id="generate-analytics" *ngIf="profile.userType === 'SuperAdmin' || profile.userType === 'Admin'">
       <a routerLink="/admin/generate-analytics">
         <i class='bx bxs-bar-chart-square'></i>
         <span class="links_name">Generate Analytics</span>
       </a>
       <span class="tooltip">Generate Analytics</span>
     </li>
-    <li id="assign-place">
+
+    <!-- Only for Admin -->
+    <li id="assign-place" *ngIf="profile.userType === 'SuperAdmin'">
       <a routerLink="/admin/assign-place">
         <i class='bx bxs-landscape'></i>
         <span class="links_name">Assign Places</span>
       </a>
       <span class="tooltip">Assign Places</span>
     </li>
-    <li id="listing">
+
+    <!-- For all roles -->
+    <li id="listing" *ngIf="profile.userType === 'SuperAdmin' || profile.userType === 'Admin' || profile.userType === 'Customer Support'">
       <a routerLink="/admin/view-listing">
         <i class='bx bx-list-ul'></i>
         <span class="links_name">View Listing</span>
       </a>
       <span class="tooltip">View Listings</span>
     </li>
+
+    <!-- Log-out for all roles -->
     <li class="profile">
       <a routerLink="/admin/login">
         <i class='bx bx-log-out'></i>
@@ -89,6 +91,5 @@
 </div>
 
 <div class="home-section">
-    <router-outlet>
-    </router-outlet>
+    <router-outlet></router-outlet>
 </div>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule } from '@angular/material/tabs';
 import { TravelerRoutingModule } from './traveler-routing.module';
 import { LoginComponent } from './login/login.component';
 import { TravelerLayoutComponent } from './traveler-layout/traveler-layout.component';
@@ -22,6 +21,7 @@ import { ReportContentComponent } from './report-content/report-content.componen
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TravelerProfileComponent } from './traveler-profile/traveler-profile.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -48,9 +48,8 @@ import { TravelerProfileComponent } from './traveler-profile/traveler-profile.co
     CommonModule,
     TravelerRoutingModule,
     FormsModule,
-    MatTabsModule,
     ReactiveFormsModule,
-    
+    MatTabsModule
   ]
 })
 export class TravelerModule { }

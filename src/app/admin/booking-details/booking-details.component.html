@@ -246,7 +246,7 @@
 <div class="modal" *ngIf="refundVisible">
   <div class="modal-content">
     <span class="close" (click)="closeRefundModal()">&times;</span>
-    <h2>Initiating Refund for Booking #{{ bookingDetails?.BookingID }}</h2>
+    <h4>Initiating Refund for Booking #{{ bookingDetails?.BookingID }}</h4>
     <div class="refund-modal-content">
       <div class="refund-image">
         <img *ngIf="bookingDetails?.ProofOfPayment" 
@@ -255,7 +255,7 @@
         <p *ngIf="!bookingDetails?.ProofOfPayment">No proof of payment uploaded.</p>
       </div>
       <div class="refund-details">
-        <h3>Refund Details</h3>
+        <h5>Refund Details</h5>
         <div class="refund-amount">
           <label>Refund Amount:</label>
           <input type="number" [(ngModel)]="refundAmount" [placeholder]="bookingDetails?.TotalAmount" [value]="bookingDetails?.TotalAmount">
@@ -293,9 +293,9 @@
 <div class="modal" *ngIf="payoutVisible">
   <div class="modal-content">
     <span class="close" (click)="closePayoutModal()">&times;</span>
-    <h2>Initiating Payout for Booking #{{ bookingDetails?.BookingID }}</h2>
+    <h4>Initiating Payout for Booking #{{ bookingDetails?.BookingID }}</h4>
     <div class="payout-modal-content">
-      <h3>Payout Details</h3>
+      <h5>Payout Details</h5>
       <p>Payout Amount: ₱{{ bookingDetails?.PayoutAmount | number: '1.2-2' }}</p>
       <div class="payout-transaction-id">
         <label>Enter Payout Transaction ID:</label>
@@ -310,7 +310,7 @@
 <div class="modal" *ngIf="paymentUpdateVisible">
   <div class="modal-content">
     <span class="close" (click)="closePaymentModal()">&times;</span>
-    <h2>Confirm Payment for Booking #{{ bookingDetails?.BookingID }}</h2>
+    <h4>Confirm Payment for Booking #{{ bookingDetails?.BookingID }}</h4>
     
     <div class="payment-update-modal-content">
       <div class="payment-proof">

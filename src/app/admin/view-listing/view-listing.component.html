@@ -22,6 +22,7 @@
         <tr>
           <th>ID</th>
           <th>Room Name</th>
+          <th>Images</th>
           <th>No. of Rooms</th>
           <th>No. of Guests</th>
           <th>Room Rate</th>
@@ -32,6 +33,16 @@
         <tr *ngFor="let room of rooms">
           <td>{{room.RoomID}}</td>
           <td>{{ room.RoomName }}</td>
+          <td >
+            <div *ngIf="room.Gallery?.length; else noImage" class="room-gallery">
+              <div *ngFor="let image of room.Gallery">
+                <img [src]="'data:image/jpeg;base64,' + image" alt="Room Image" class="room-thumbnail">
+              </div>
+            </div>
+            <ng-template #noImage>
+              <span>No images available</span>
+            </ng-template>
+          </td>
           <td>{{ room.RoomQuantity }}</td>
           <td>{{ room.GuestPerRoom }}</td>
           <td>₱ {{ room.RoomRate | number: '1.2-2' }}</td>
@@ -47,7 +58,7 @@
   <div *ngIf="showViewRoomModal" class="modal view-room-modal">
     <div class="modal-content">
       <span class="close-button" (click)="closeViewRoomModal()">&times;</span>
-      <h2>Room Details</h2>
+      <h4>Room Details</h4>
       <div *ngIf="viewRoomData">
         <p><strong>Inclusions:</strong></p>
         <ul *ngIf="viewRoomData.Inclusions?.length">
@@ -57,8 +68,10 @@
         </ul>
         <br>
         <p><strong>Gallery:</strong></p>
-        <div *ngIf="viewRoomData.gallery?.length">
-          <img *ngFor="let image of viewRoomData.gallery" [src]="image" alt="Room Image">
+        <div class="gallery-modal">
+          <div  *ngFor="let image of viewRoomData.Gallery" class="modal-gallery-image">
+            <img  [src]="'data:image/jpeg;base64,' + image" alt="Room Image" class="room-thumbnail">
+          </div>
         </div>
       </div>
     </div>
@@ -101,7 +114,23 @@
 <div *ngIf="showViewVehicleModal" class="modal view-vehicle-modal">
   <div class="modal-content">
     <span class="close-button" (click)="closeViewVehicleModal()">&times;</span>
-    <h2>Vehicle Details</h2>
-    <p><strong>Gallery:</strong> {{ viewVehicleData?.TransportationImage }}</p>
+    <h5>Vehicle Details</h5>
+
+    <!-- Display vehicle details -->
+    <p><strong>Vehicle Name:</strong> {{ viewVehicleData?.VehicleName }}</p>
+    <p><strong>Model:</strong> {{ viewVehicleData?.Model }}</p>
+    <p><strong>Brand:</strong> {{ viewVehicleData?.Brand }}</p>
+    <p><strong>Capacity:</strong> {{ viewVehicleData?.Capacity }}</p>
+    <p><strong>Rental Price:</strong> ₱ {{ viewVehicleData?.RentalPrice | number: '1.2-2' }}</p>
+
+    <!-- Gallery (optional if you want to display vehicle images) --> 
+    <p><strong>Gallery:</strong></p>
+    <div class="gallery-modal">
+      <div  *ngFor="let image of viewVehicleData.TransportationImages" class="modal-gallery-image">
+        <img  [src]="'data:image/jpeg;base64,' + image" alt="Room Image" class="room-thumbnail">
+      </div>
+    </div>
   </div>
 </div>
+
+

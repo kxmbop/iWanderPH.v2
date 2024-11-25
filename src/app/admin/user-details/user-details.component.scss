@@ -1,21 +1,15 @@
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
 
-body {
+::ng-deep body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: left;
-    border-radius: 8px;
-    max-height: 100vh;
     overflow: hidden;
   }
   
   .container {
-    max-width: 1220px;
+    height: 90vh;
+    width: 1220px;
     margin: 0 auto;
     margin-top: 30px;
     background-color: #fff;
@@ -88,7 +82,7 @@ body {
         }
       }
       .content{
-        height: 50vh;
+        height: calc(40vh - 20px);
         border-radius: 0 0 5px 5px ;
         background-color: #f1f1f1;
         overflow: hidden;
@@ -120,7 +114,6 @@ body {
 
           table {
             width: 100%;
-            height: 100%;
             border-collapse: collapse;
 
             thead {
@@ -138,14 +131,13 @@ body {
           }
           .table-body{
             overflow-x: auto;
-            max-height: calc(50vh - 20px);
+            max-height: calc(40vh - 20px);
             width: 100%;
             &::-webkit-scrollbar {
               display: none;
             }
             table {
               width: 100%;
-              height: 100%;
               border-collapse: collapse;
               tbody {
                 width: 100%;

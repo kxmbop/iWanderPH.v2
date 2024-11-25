@@ -29,7 +29,6 @@ interface TransportationDetails {
 
 @Component({
     selector: 'app-register',
-    imports: [CommonModule, FormsModule],
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
     animations: [

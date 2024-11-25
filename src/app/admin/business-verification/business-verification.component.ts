@@ -5,7 +5,6 @@ import { VerificationService } from '../services/verification.service';
 
 @Component({
     selector: 'app-business-verification',
-    imports: [CommonModule, RouterModule], // Add RouterModule here
     templateUrl: './business-verification.component.html',
     styleUrls: ['./business-verification.component.scss']
 })

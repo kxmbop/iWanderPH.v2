@@ -5,9 +5,16 @@
 
 ::ng-deep body{
     overflow-y: auto !important;
+    background-color: #f1f1f1;
 }
-*{
-    color: $apc;
+
+button{
+    font-size: 13px;
+
+}
+
+::ng-deep input{
+    box-shadow: none !important;
 }
 .container {
     max-width: 1220px;

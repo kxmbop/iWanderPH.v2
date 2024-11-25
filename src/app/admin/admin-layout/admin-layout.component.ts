@@ -54,9 +54,7 @@ export class AdminLayoutComponent {
     if (token) {
     this.profileService.getProfile(token).subscribe(
       (data) => {
-        console.log("API Response: ", data); 
         if (data.success) {
-          console.log('User Profile:', data.profile);
           this.profile = data.profile;
         } else {
           console.error("Error fetching profile: ", data.message);

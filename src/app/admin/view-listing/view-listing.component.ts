@@ -49,6 +49,7 @@ export class ViewListingComponent {
   }
 }
 
+
 // Method to search for vehicles
 filterVehicles() {
   if (this.vehicleSearch) {
@@ -72,6 +73,7 @@ filterVehicles() {
   }
 
   showTransportation() {
+    console.log("Switching to Transportation..."); 
     this.isRoomsVisible = false;
     this.isTransportationVisible = true;
   }
@@ -92,7 +94,6 @@ filterVehicles() {
       if (response.success) {
         this.vehicles = response.data;
         console.log("Vehicles: ", this.vehicles);
-
       } else {
         console.error('Error fetching vehicles:', response.message);
       }

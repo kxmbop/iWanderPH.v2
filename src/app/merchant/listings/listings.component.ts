@@ -9,7 +9,8 @@ import { ListingService } from '../services/listing.service';
     standalone: false
 })
 export class ListingsComponent implements OnInit {
-
+  listingForm: FormGroup;
+  galleryFiles: { file: File, preview: string }[] = [];
   rooms: any[] = [];
   showAddRoomModal: boolean = false;
   showUpdateRoomModal: boolean = false;
@@ -18,7 +19,6 @@ export class ListingsComponent implements OnInit {
   roomToUpdate: any;
   showViewRoomModal: boolean = false;
   viewRoomData: any;   
-  galleryFiles: any;
   vehicles: any[] = [];
   showAddVehicleModal: boolean = false;
   showUpdateVehicleModal: boolean = false;
@@ -35,6 +35,11 @@ export class ListingsComponent implements OnInit {
   roomInclusions: { inclusion: string, description: string }[] = [];
   roomGallery: string[] = [];
   room: any;
+  views: any[] = [];
+  inclusions: any[] = [];
+  selectedViews: string[] = [];
+  selectedInclusions: string[] = [];
+  Math = Math;
 
 
   constructor(private listingService: ListingService, private fb: FormBuilder) {
@@ -67,17 +72,29 @@ export class ListingsComponent implements OnInit {
       Capacity: ['', [Validators.required, Validators.min(1)]],
       RentalPrice: ['', [Validators.required, Validators.min(0)]]
     });
+    this.listingForm = this.fb.group({
+      ViewName: ['', Validators.required],
+      Inclusion: ['', Validators.required]
+    });
   }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
-    
+    this.roomForm = this.fb.group({
+      RoomName: [''],        // Default empty values
+      RoomQuantity: [0],
+      GuestPerRoom: [0],
+      RoomRate: [0],
+    });
+
     if (!token) {
       console.error('Token not found in local storage.');
       return;
     } 
+    
     this.fetchRooms(token);
     this.fetchVehicles(token);
+    this.fetchViewsInclusions();
   }
 
   fetchRooms(token: string): void {
@@ -93,7 +110,6 @@ export class ListingsComponent implements OnInit {
       (error) => console.error('Error:', error)
     );
   }
-
   fetchVehicles(token: string): void {
     this.listingService.getVehicles(token).subscribe(
       (response) => {
@@ -110,16 +126,200 @@ export class ListingsComponent implements OnInit {
       }
     );
   }
-
-  openAddVehicleModal(): void {
-    this.showAddVehicleModal = true;
+  fetchViewsInclusions(): void {
+    this.listingService.getViewsInclusions().subscribe(response => {
+      if (response.success) {
+        this.views = response.data.views || []; 
+        this.inclusions = response.data.inclusions || []; 
+      } else {
+        console.error('Error fetching views and inclusions:', response.message);
+      }
+    });
   }
 
-  closeAddVehicleModal(): void {
-    this.showAddVehicleModal = false;
-    this.vehicleForm.reset();
+  // Add Room Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  addRoom() {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('RoomName', this.roomForm.get('RoomName')?.value);
+    formData.append('RoomQuantity', this.roomForm.get('RoomQuantity')?.value);
+    formData.append('GuestPerRoom', this.roomForm.get('GuestPerRoom')?.value);
+    formData.append('RoomRate', this.roomForm.get('RoomRate')?.value);
+    formData.append('Views', JSON.stringify(this.selectedViews));
+    formData.append('Inclusions', JSON.stringify(this.selectedInclusions));
+  
+    for (let i = 0; i < this.galleryFiles.length; i++) {
+      formData.append('ImageFile[]', this.galleryFiles[i].file);
+    }
+  
+    this.listingService.addRoom(formData, token).subscribe(response => {
+      if (response.success) {
+        console.log('Room added successfully');
+        this.closeAddRoomModal();
+      } else {
+        console.error('Error:', response.message);
+      }
+    });
+  }
+  // onViewSelectionChange(viewID: string, event: any) {
+  //   if (event.target.checked) {
+  //     this.selectedViews.push(viewID);
+  //   } else {
+  //     this.selectedViews = this.selectedViews.filter(id => id !== viewID);
+  //   }
+  // }
+  // onInclusionSelectionChange(inclusionID: string, event: any) {
+  //   if (event.target.checked) {
+  //     this.selectedInclusions.push(inclusionID);
+  //   } else {
+  //     this.selectedInclusions = this.selectedInclusions.filter(id => id !== inclusionID);
+  //   }
+  // }
+  // onFileChange(event: any) {
+  //   const files: FileList = event.target.files; 
+  //   this.galleryFiles = Array.from(files).map((file: File) => ({  
+  //     file: file, 
+  //     preview: URL.createObjectURL(file)
+  //   }));
+  // }
+  addFiles(files: FileList) {
+    Array.from(files).forEach((file: File) => { 
+      this.galleryFiles.push({
+        file: file,
+        preview: URL.createObjectURL(file) 
+      });
+    });
+  }
+  openAddRoomModal(): void {
+    this.showAddRoomModal = true;
+    this.fetchViewsInclusions();
+  }
+  closeAddRoomModal(): void {
+    this.showAddRoomModal = false;
+    this.roomForm.reset();
   }
 
+  // Update Room Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  updateRoom(): void {
+    if (!this.roomForm.valid) {
+      console.error('Form is invalid');
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append('RoomID', this.viewRoomData.RoomID.toString()); 
+    formData.append('RoomName', this.roomForm.get('RoomName')?.value);
+    formData.append('RoomQuantity', this.roomForm.get('RoomQuantity')?.value);
+    formData.append('GuestPerRoom', this.roomForm.get('GuestPerRoom')?.value);
+    formData.append('RoomRate', this.roomForm.get('RoomRate')?.value);
+    formData.append('Views', JSON.stringify(this.selectedViews));
+    formData.append('Inclusions', JSON.stringify(this.selectedInclusions));
+  
+    for (let i = 0; i < this.galleryFiles.length; i++) {
+      formData.append('ImageFile[]', this.galleryFiles[i].file); 
+    }
+  
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('Authorization token is missing');
+      return;
+    }
+  
+    this.listingService.updateRoom(formData, token).subscribe(
+      response => {
+        if (response.success) {
+          console.log('Room updated successfully');
+          this.closeUpdateRoomModal();
+        } else {
+          console.error('Error:', response.message);
+        }
+      },
+      error => {
+        console.error('HTTP Error:', error);
+      }
+    );
+  }
+  openUpdateRoomModal(room: any): void {
+    this.showUpdateRoomModal = true;
+    this.fetchViewsInclusions(); // Fetch the views and inclusions (if needed)
+  
+    // Populate the form with the selected room's data
+    this.roomForm.patchValue({
+      RoomName: room.RoomName || '',
+      RoomQuantity: room.RoomQuantity || 0,
+      GuestPerRoom: room.GuestPerRoom || 0,
+      RoomRate: room.RoomRate || 0,
+    });
+  
+    // Initialize the selected views and inclusions
+    this.selectedViews = room.Views ? room.Views.map((view: any) => view.ViewID.toString()) : [];
+    this.selectedInclusions = room.Inclusions
+      ? room.Inclusions.map((inclusion: any) => inclusion.InclusionID.toString())
+      : [];
+  
+    this.viewRoomData = room;
+  }
+  closeUpdateRoomModal(): void {
+    this.showUpdateRoomModal = false;
+    this.updateForm.reset();
+  }
+  onViewSelectionChange(viewID: number, event: Event): void {
+    const viewIDStr = viewID.toString();
+    if ((event.target as HTMLInputElement).checked) {
+      this.selectedViews.push(viewIDStr);
+    } else {
+      this.selectedViews = this.selectedViews.filter(id => id !== viewIDStr);
+    }
+  }
+  onInclusionSelectionChange(inclusionID: number, event: Event): void {
+    const inclusionIDStr = inclusionID.toString();
+    if ((event.target as HTMLInputElement).checked) {
+      this.selectedInclusions.push(inclusionIDStr);
+    } else {
+      this.selectedInclusions = this.selectedInclusions.filter(id => id !== inclusionIDStr);
+    }
+  }
+  onFileChange(event: any): void {
+    const files = event.target.files as FileList; 
+    this.galleryFiles = Array.from(files).map((file: File) => ({
+      file,
+      preview: URL.createObjectURL(file), 
+    }));
+  }
+
+
+  // View Room Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  viewRoom(room: any): void {
+    this.viewRoomData = room;
+    this.showViewRoomModal = true;
+  }
+  closeViewRoomModal(): void {
+    this.showViewRoomModal = false;
+    this.viewRoomData = null;
+  }
+
+  // Delete Room Functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  deleteRoom(room: any): void {
+    if (confirm(`Are you sure you want to remove ${room.RoomName}?`)) {
+      this.listingService.deleteRoom(room.RoomID).subscribe(
+        (response) => {
+          if (response.success) {
+            this.rooms = this.rooms.filter(r => r.RoomID !== room.RoomID);
+            console.log(`Room ${room.RoomName} deleted successfully`);
+          } else {
+            console.error('Failed to delete room:', response.message);
+          }
+        },
+        (error) => console.error('Error deleting room:', error)
+      );
+    }
+  }
+
+
+
+
+
+  // Add Vehicle Funcions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   addVehicle(): void {
     const token = localStorage.getItem('token');
     const newVehicle = this.vehicleForm.value;
@@ -138,7 +338,6 @@ export class ListingsComponent implements OnInit {
       );
     }
   }
-
   openUpdateVehicleModal(vehicle: any) {
     this.vehicleToUpdate = vehicle;
     this.showUpdateVehicleModal = true;
@@ -202,116 +401,12 @@ export class ListingsComponent implements OnInit {
     this.viewVehicleData = null;
   }
 
-  addRoom(): void {
-    const token = localStorage.getItem('token');
-    const newRoom = this.roomForm.value;
-    if (token) {
-      this.listingService.addRoom(newRoom, token).subscribe(
-        (response) => {
-          if (response.success) {
-            this.rooms.push(newRoom);  // Add the new room to local data
-            this.closeAddRoomModal();
-          } else {
-            console.error('Failed to add room:', response.message);
-          }
-        },
-        (error) => console.error('Error adding room:', error)
-      );
-    }
-  }
 
-  openAddRoomModal(): void {
-    this.showAddRoomModal = true;
-  }
 
-  closeAddRoomModal(): void {
-    this.showAddRoomModal = false;
-    this.roomForm.reset();
-  }
 
-  updateRoom(): void {
-    const updatedRoom = this.updateForm.value;
-    if (this.roomToUpdate) {
-      this.listingService.updateRoom(this.roomToUpdate.RoomID, updatedRoom).subscribe(
-        (response) => {
-          if (response.success) {
-            const index = this.rooms.findIndex(room => room.RoomID === this.roomToUpdate.RoomID);
-            if (index !== -1) {
-              this.rooms[index] = updatedRoom;
-            }
-            this.closeUpdateRoomModal();
-          } else {
-            console.error('Failed to update room:', response.message);
-          }
-        },
-        (error) => console.error('Error updating room:', error)
-      );
-    }
-  }
 
-  onFileChange(event: any): void {
-    const files: FileList = event.target.files;
-    this.galleryFiles = [];
-  
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-  
-      reader.onload = () => {
-        const fileWithPreview = {
-          name: file.name,
-          size: file.size,
-          preview: reader.result as string
-        };
-        this.galleryFiles.push(fileWithPreview);
-      };
-  
-      // Read the file as Data URL to create the preview
-      reader.readAsDataURL(file);
-    }
-  
-    // Validation for the number of images
-    if (this.galleryFiles.length < 3) {
-      console.error('At least 3 pictures are required');
-    } else if (this.galleryFiles.length > 10) {
-      console.error('You can upload up to 10 pictures only');
-    }
-  }
 
-  deleteRoom(room: any): void {
-    const token = localStorage.getItem('token');
-    if (token && confirm(`Are you sure you want to remove ${room.RoomName}?`)) {
-      this.listingService.deleteRoom(room.RoomID, token).subscribe(
-        (response) => {
-          if (response.success) {
-            this.rooms = this.rooms.filter(r => r.RoomID !== room.RoomID);
-            console.log(`Room ${room.RoomName} deleted successfully`);
-          } else {
-            console.error('Failed to delete room:', response.message);
-          }
-        },
-        (error) => console.error('Error deleting room:', error)
-      );
-    }
-  }
-  openUpdateRoomModal(room: any) {
-    this.showUpdateRoomModal = true;
-    }
 
-  closeUpdateRoomModal(): void {
-    this.showUpdateRoomModal = false;
-    this.updateForm.reset();
-  }
-
-  viewRoom(room: any): void {
-    this.viewRoomData = room;
-    this.showViewRoomModal = true;
-  }
-
-  closeViewRoomModal(): void {
-    this.showViewRoomModal = false;
-    this.viewRoomData = null;
-}
 
   // Show Rooms section
   showRooms() {
@@ -328,8 +423,6 @@ export class ListingsComponent implements OnInit {
   toggleRoomDetails(roomId: string) {
     this.selectedRoomId = this.selectedRoomId === roomId ? null : roomId;
   }
-
-  // Fetch room details directly from component methods
 
   loadRoomDetails(roomId: number): void {
     // Assuming you have a service that fetches data, you would call it here.
@@ -359,5 +452,14 @@ export class ListingsComponent implements OnInit {
 
   getRoomGallery(roomId: number, data: any[]): void {
     this.roomGallery = data.map((gallery: any) => gallery.ImageFile); // Fetches gallery images
+  }
+
+
+  openAddVehicleModal(): void {
+    this.showAddVehicleModal = true;
+  }
+  closeAddVehicleModal(): void {
+    this.showAddVehicleModal = false;
+    this.vehicleForm.reset();
   }
 }

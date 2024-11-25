@@ -15,7 +15,8 @@ export class ViewBookingsComponent {
   filters = {
     bookingId: '',
     travelerName: '',
-    date: ''
+    date: '',
+    paymentStatus: ''
   };
 
   constructor(
@@ -40,10 +41,16 @@ export class ViewBookingsComponent {
   }
   applyFilters() {
     this.filteredBookings = this.bookings.filter(booking => {
-      return (!this.filters.bookingId || booking.bookingId.toString().includes(this.filters.bookingId.toString())) &&
+      return (!this.filters.bookingId || booking.bookingId.includes(this.filters.bookingId)) &&
              (!this.filters.travelerName || booking.travelerName.toLowerCase().includes(this.filters.travelerName.toLowerCase())) &&
-             (!this.filters.date || new Date(booking.bookingDate).toDateString() === new Date(this.filters.date).toDateString());
+             (!this.filters.date || new Date(booking.bookingDate).toLocaleDateString() === new Date(this.filters.date).toLocaleDateString()) &&
+             (!this.filters.paymentStatus || booking.paymentstatus === this.filters.paymentStatus);
     });
+  }
+
+  togglePendingPaymentsFilter() {
+    this.filters.paymentStatus = this.filters.paymentStatus === 'pending' ? '' : 'pending';
+    this.applyFilters(); 
   }
 
   exportToCSV(): void {

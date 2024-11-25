@@ -142,6 +142,7 @@
     width: calc(100% - 85px);
     transition: all 0.5s ease;
     z-index: 2;
+    overflow: hidden;
 }
 .sidebar.open ~ .home-section{
     left: 250px;

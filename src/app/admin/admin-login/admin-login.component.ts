@@ -31,10 +31,11 @@ export class AdminLoginComponent {
           console.log('Login successful:', response.message);
           this.errorMessage = null;
           localStorage.setItem('admintoken', response.token);
-          this.router.navigate(['admin/dashboard']);
+          this.router.navigate(['admin/admin-profile']);
           console.log("Token stored: ", response.token);
         } else {
           this.errorMessage = response.message;
+          console.log('Error:', response.message);  // Debug log
         }
       }, error => {
         console.error('Login Error:', error);

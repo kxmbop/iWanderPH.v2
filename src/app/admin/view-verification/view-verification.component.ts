@@ -5,7 +5,6 @@ import { VerificationService } from '../services/verification.service';
 
 @Component({
     selector: 'app-view-verification',
-    imports: [CommonModule],
     templateUrl: './view-verification.component.html',
     styleUrls: ['./view-verification.component.scss']
 })

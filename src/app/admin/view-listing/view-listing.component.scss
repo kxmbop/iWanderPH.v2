@@ -4,27 +4,27 @@
   gap: 15px;
   padding: 20px;
 
-  button {
-    padding: 10px 15px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.3s ease, border-bottom 0.3s ease;
-
-    &:hover {
-      color: #007bff;
-    }
-
-    &.active {
-      color: #007bff;
-      border-bottom: 2px solid #007bff;
-    }
-  }
 }
 
+button {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+
+  &:hover {
+    color: #007bff;
+  }
+
+  &.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+  }
+}
 .filter {
   display: flex;
   justify-content: center;
@@ -82,9 +82,6 @@
   }
 
   .actions {
-    display: flex;
-    justify-content: center;
-
     .action-button {
       padding: 5px 10px;
       border: none;
@@ -117,7 +114,8 @@
   .modal-content {
     background: #fff;
     width: 90%;
-    max-width: 600px;
+    max-width: 50vw;
+    height: 60vh;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -168,7 +166,7 @@
   .gallery {
     margin-top: 15px;
 
-    h3 {
+    h4 {
       font-size: 18px;
       color: #074D4C;
       font-weight: bold;
@@ -236,6 +234,45 @@
     }
   }
 }
+
+
+.room-gallery {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.room-thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.room-thumbnail:hover {
+  opacity: 0.8;
+}
+
+/* Modal Gallery Styling */
+.gallery-modal {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.modal-gallery-image {
+  width: 200px;
+  border-radius: 5px;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+
 
 // Animations
 @keyframes fadeIn {
