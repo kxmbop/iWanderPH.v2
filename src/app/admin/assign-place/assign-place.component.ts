@@ -62,21 +62,29 @@ export class AssignPlaceComponent implements OnInit {
     formData.append('province', this.newPlace.province);
     formData.append('full_address', this.newPlace.full_address);
     formData.append('island_group', this.newPlace.island_group);
+    formData.append('best_time_to_visit', this.newPlace.best_time_to_visit || '');
+    formData.append('entrance_fee', this.newPlace.entrance_fee ? this.newPlace.entrance_fee.toString() : '');
+    formData.append('activities', this.newPlace.activities || '');
+    formData.append('nearby_points_of_interest', this.newPlace.nearby_points_of_interest || '');
+    formData.append('map_embed_link', this.newPlace.map_embed_link || '');
+    formData.append('how_to_get_there', this.newPlace.how_to_get_there || '');
+  
     if (this.mainImageFile) {
       formData.append('main_image', this.mainImageFile);
     }
     this.additionalImages.forEach((image, index) => {
       formData.append(`additional_images[${index}]`, image);
     });
-
+  
     this.placesService.addPlace(formData).subscribe({
       next: () => {
         this.loadPlaces();
         this.closeAddPlaceModal();
       },
-      error: (err) => console.error('Error adding place:', err)
+      error: (err) => console.error('Error adding place:', err),
     });
   }
+  
 
   
 
@@ -111,20 +119,23 @@ export class AssignPlaceComponent implements OnInit {
   }
   updatePlace(): void {
     const formData = new FormData();
-    formData.append('place_id', this.editPlace.id); // Add place ID for the update
+    formData.append('place_id', this.editPlace.id);
     formData.append('place_name', this.editPlace.place_name);
     formData.append('description', this.editPlace.description);
     formData.append('region', this.editPlace.region);
     formData.append('province', this.editPlace.province);
     formData.append('full_address', this.editPlace.full_address);
     formData.append('island_group', this.editPlace.island_group);
-    
-    // Append main image only if a new file is selected
+    formData.append('best_time_to_visit', this.editPlace.best_time_to_visit || '');
+    formData.append('entrance_fee', this.editPlace.entrance_fee ? this.editPlace.entrance_fee.toString() : '');
+    formData.append('activities', this.editPlace.activities || '');
+    formData.append('nearby_points_of_interest', this.editPlace.nearby_points_of_interest || '');
+    formData.append('map_embed_link', this.editPlace.map_embed_link || '');
+    formData.append('how_to_get_there', this.editPlace.how_to_get_there || '');
+  
     if (this.mainImageFile) {
       formData.append('main_image', this.mainImageFile);
     }
-  
-    // Append additional images only if new files are selected
     this.additionalImages.forEach((image, index) => {
       formData.append(`additional_images[${index}]`, image);
     });
@@ -134,7 +145,7 @@ export class AssignPlaceComponent implements OnInit {
         this.loadPlaces();
         this.closeEditPlaceModal();
       },
-      error: (err) => console.error('Error updating place:', err)
+      error: (err) => console.error('Error updating place:', err),
     });
   }
   

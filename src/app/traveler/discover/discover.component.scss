@@ -261,6 +261,92 @@ $padding: 10px;
     }
   }
 }
+.filter-dropdowns {
+  display: flex;
+  justify-content: center; 
+  margin-top: 5px;
+
+  .dropdown-container {
+    display: flex;
+    gap: 15px; 
+  }
+// No code was selected, so I will provide a code snippet that can be inserted at the cursor position to improve the existing code.
+
+// Add a mixin for consistent spacing
+@mixin spacing($top, $right, $bottom, $left) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left;
+}
+
+// Use the mixin to simplify the merchant-list styles
+.merchant-list {
+  @include spacing(20px, 0, 20px, 0);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .merchant-item {
+    @include spacing(0, 0, 15px, 0);
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border: 1px solid #ddd;
+    border-radius: $border-radius;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:hover {
+        color: inherit;
+      }
+    }
+
+    p {
+      margin: 8px 0;
+      font-size: 16px;
+      color: #333;
+
+      &:first-of-type {
+        font-weight: 600;
+        font-size: 18px;
+        color: #074d4c;
+      }
+
+      &:nth-of-type(2) {
+        font-size: 14px;
+        color: #555;
+      }
+
+      &:last-of-type {
+        font-size: 16px;
+        font-weight: 500;
+        color: #0a6563;
+      }
+
+      text-decoration: none;
+    }
+  }
+}
+  select {
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    border: 1.5px solid #074D4C;
+    background-color: #ffffff;
+    color: #074D4C;
+    cursor: pointer;
+
+    option {
+      color: #074D4C;
+    }
+  }
+}
 
 // Include responsive mixin
-@include responsive
+@include responsive 

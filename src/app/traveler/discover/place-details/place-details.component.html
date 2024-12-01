@@ -4,34 +4,65 @@
       <i class='bx bx-arrow-back'></i>
     </a>
   </div>
-  <div class="description-list">
-    <div *ngIf="place" class="description">
-      <h2>{{ place.place_name }}</h2>
-      <div class="main-image">
-        <img [src]="'data:image/jpeg;base64,' + selectedImage" alt="{{ place.place_name }}">
-      </div>
-      <p id="description">{{ place.description }}</p>
-      <p><strong>Region:</strong> {{ place.region }}</p>
-      <p><strong>Province:</strong> {{ place.province }}</p>
-      <p><strong>Full Address:</strong> {{ place.full_address }}</p>
-      <p><strong>Island Group:</strong> {{ place.island_group }}</p>
-  
-      <!-- Only display the additional images section if images exist -->
-      <div *ngIf="placeImages && placeImages.length > 0" class="additional-images">
-        <h5>More Images</h5>
-        <div class="thumbnail-list">
-          <div class="thumbnail" (click)="resetToMainImage()">
-              <img [src]="'data:image/jpeg;base64,' + mainImage" alt="Main Image">
-          </div>
-
-          <div *ngFor="let image of placeImages" class="thumbnail" (click)="changeMainImage(image)">
-              <img [src]="'data:image/jpeg;base64,' + image" alt="Additional Image">
-          </div>
+  <div class="main-image">
+    <img [src]="'data:image/jpeg;base64,' + selectedImage" alt="{{ place.place_name }}">
+    <div *ngIf="placeImages && placeImages.length > 0" class="additional-images">
+      <div class="thumbnail-list">
+        <div class="thumbnail" (click)="resetToMainImage()">
+          <img [src]="'data:image/jpeg;base64,' + mainImage" alt="Main Image">
+        </div>
+        <div *ngFor="let image of placeImages" class="thumbnail" (click)="changeMainImage(image)">
+          <img [src]="'data:image/jpeg;base64,' + image" alt="Additional Image">
         </div>
       </div>
-      <div>
-        <button [routerLink]="['/traveler/discover/nearby', placeId]">Nearby Resorts or Merchants</button>
+    </div>
+  </div>
+  <h2>{{ place.place_name }}</h2>
+
+  <!-- Menu Tabs -->
+  <div class="menu-tabs">
+    <span [class.active]="currentTab === 'location'" (click)="currentTab = 'location'">Location</span>
+    <span [class.active]="currentTab === 'description'" (click)="currentTab = 'description'">Description</span>
+    <span [class.active]="currentTab === 'details'" (click)="currentTab = 'details'">Details</span>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="tab-content">
+    <div *ngIf="currentTab === 'location'" class="tab-location">
+      <p id="location"><i class="bx bx-map"></i> {{ place.full_address }}</p>
+      <p><strong>Region:</strong> {{ place.region }}</p>
+      <p><strong>Province:</strong> {{ place.province }}</p>
+      <p><strong>Island Group:</strong> {{ place.island_group }}</p>
+      <div *ngIf="safeMapEmbedLink">
+        <iframe 
+          [src]="safeMapEmbedLink" 
+          width="400" 
+          height="300" 
+          style="border:0;" 
+          allowfullscreen 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
     </div>
-  </div>  
+
+    <div *ngIf="currentTab === 'description'" class="tab-description">
+      <p id="description">{{ place.description }}</p>
+    </div>
+
+    <div *ngIf="currentTab === 'details'" class="tab-details">
+      <p><strong>Best Time to Visit:</strong> {{ place.best_time_to_visit }}</p>
+      <p><strong>Entrance Fee:</strong> {{ place.entrance_fee }}</p>
+
+      <p><strong>Activities:</strong></p>
+      <p *ngFor="let activity of splitCommaSeparatedData(place.activities)">• {{ activity }}</p>
+
+      <p><strong>Nearby Points of Interest:</strong></p>
+      <p *ngFor="let point of splitCommaSeparatedData(place.nearby_points_of_interest)">• {{ point }}</p>
+      <p><strong>How to Get There:</strong> {{ place.how_to_get_there }}</p>
+    </div>
+  </div>
+
+  <!-- Nearby Button (Fixed Position) -->
+  <button class="nearby-button" [routerLink]="['/traveler/discover/nearby', placeId]">Nearby >></button>
 </div>

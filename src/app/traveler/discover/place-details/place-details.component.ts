@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PlaceService } from '../../services/place.service';
 
 @Component({
@@ -9,13 +10,15 @@ import { PlaceService } from '../../services/place.service';
     standalone: false
 })
 export class PlaceDetailsComponent implements OnInit {
+  currentTab: string = 'location';
   place: any = {};
   placeImages: any[] = [];
   mainImage: string = '';
   selectedImage: string = ''; 
   placeId!: number; 
+  safeMapEmbedLink!: SafeResourceUrl;
 
-  constructor(private route: ActivatedRoute, private placeService: PlaceService) { }
+  constructor(private route: ActivatedRoute, private placeService: PlaceService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     const placeIdParam = this.route.snapshot.paramMap.get('id');
@@ -31,7 +34,7 @@ export class PlaceDetailsComponent implements OnInit {
       this.placeImages = data.images;
       this.mainImage = this.place.main_image || ''; 
       this.selectedImage = this.mainImage;
-      console.log(this.placeImages);
+      this.safeMapEmbedLink = this.sanitizer.bypassSecurityTrustResourceUrl(this.place.map_embed_link);
     });
   }
 
@@ -41,5 +44,10 @@ export class PlaceDetailsComponent implements OnInit {
 
   resetToMainImage(): void {
     this.selectedImage = this.mainImage; 
+  }
+
+  // Method to split comma-separated data into an array and return it
+  splitCommaSeparatedData(data: string): string[] {
+    return data ? data.split(',').map(item => item.trim()) : [];
   }
 }
