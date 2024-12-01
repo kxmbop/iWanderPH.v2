@@ -26,7 +26,10 @@
           </div>
 
           <!-- Show Review button only for Completed bookings -->
-          <button *ngIf="selectedTab === 'Completed'" (click)="goToReview(booking)">Review</button>
+          <ng-container *ngIf="selectedTab === 'Completed'">
+            <button *ngIf="!booking.hasReview" (click)="goToReview(booking)" class="review-btn">Review</button>
+            <p *ngIf="booking.hasReview" style="color: #074d4c" class="review">Review Completed</p>
+          </ng-container>
         </div>
       </div>
     </ng-container>

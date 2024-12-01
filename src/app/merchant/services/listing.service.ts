@@ -49,18 +49,14 @@ export class ListingService {
     return this.http.get<any>(`${this.apiUrl}/${roomId}`);
   }
 
-
-
   getVehicles(token: string): Observable<any> {
     return this.http.post(`${environment.apiUrl}/merchant/vehicles.php`, { token });
   }
 
-
-  addVehicle(data: any, token: string): Observable<any> {
+  addVehicle(data: FormData, token: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<any>(`${this.apiUrl}/add_vehicle`, data, { headers });
+    return this.http.post<any>(`${this.baseUrl}/addVehicle.php`, data, { headers });
   }
-
   updateVehicle(vehicleID: number, updatedData: any): Observable<any> {
     updatedData.VehicleID = vehicleID;
     return this.http.post<any>(`${this.apiUrl}/update_transpo`, updatedData);

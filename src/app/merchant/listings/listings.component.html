@@ -329,12 +329,13 @@
 <!-- Add Vehicle Modal -->
 <div *ngIf="showAddVehicleModal" class="modal">
   <div class="modal-content">
-    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%;">
+    <div class="modal-header">
       <h4>Add New Vehicle</h4>
       <span class="close-button" (click)="closeAddVehicleModal()">&times;</span>
     </div>
     <form [formGroup]="vehicleForm" (ngSubmit)="addVehicle()" class="flex-column">
       <div class="column">
+        <!-- Vehicle Details -->
         <div class="form-group">
           <label for="VehicleName">Vehicle Name</label>
           <input id="VehicleName" formControlName="VehicleName" type="text" placeholder="Vehicle Name" required />
@@ -356,7 +357,7 @@
           <input id="RentalPrice" formControlName="RentalPrice" type="number" placeholder="Rental Price" required />
         </div>
         <!-- Vehicle Gallery -->
-        <div class="form-group full-width">
+        <div class="form-group">
           <label for="addVehicleGallery">Vehicle Gallery</label>
           <input 
             id="addVehicleGallery" 
@@ -366,20 +367,22 @@
             multiple 
             (change)="onFileChange($event)" 
             required />
-            <div *ngIf="galleryFiles.length > 0" class="image-preview-container">
-              <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
-                <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
-              </div>
-              <small *ngIf="galleryFiles.length < 3">You need at least 3 pictures.</small>
-              <small *ngIf="galleryFiles.length > 10">You can upload up to 10 pictures only.</small>
+          <div *ngIf="galleryFiles.length > 0" class="image-preview-container">
+            <div *ngFor="let file of galleryFiles; let i = index" class="image-preview-box">
+              <img [src]="file.preview" alt="Image preview {{i + 1}}" class="image-preview" />
             </div>
-            
+            <small *ngIf="galleryFiles.length < 3" class="error">You need at least 3 pictures.</small>
+            <small *ngIf="galleryFiles.length > 10" class="error">You can upload up to 10 pictures only.</small>
+          </div>
         </div>
       </div>
-      <button type="submit" class="add-vehicle-submit-button" [disabled]="vehicleForm.invalid">Add Vehicle</button>
+      <button type="submit" class="add-vehicle-submit-button" [disabled]="vehicleForm.invalid || galleryFiles.length < 3 || galleryFiles.length > 10">
+        Add Vehicle
+      </button>
     </form>
   </div>
 </div>
+
 
 <!-- Update Vehicle Modal -->
 <div *ngIf="showUpdateVehicleModal" class="modal update-vehicle-modal">

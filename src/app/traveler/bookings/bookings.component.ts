@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { ViewBookingsService } from '../services/view-bookings.service';
+import { ReviewService } from '../services/review.service';
 
 interface Booking {
   BookingID: number;
@@ -9,6 +10,7 @@ interface Booking {
   BookingType: 'room' | 'transportation';
   BookingStatus: string;
   TotalAmount: number;
+  hasReview: boolean; 
 }
 
 type BookingStatus = 'Pending' | 'Accepted' | 'On-Going' | 'Completed' | 'Cancelled' | 'Refunded';
@@ -30,10 +32,13 @@ export class BookingsComponent implements OnInit {
     Refunded: []
   };
 
-  constructor(private viewBookingsService: ViewBookingsService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private viewBookingsService: ViewBookingsService, private router: Router, private route: ActivatedRoute, private reviewService: ReviewService) {}
 
   ngOnInit(): void {
     this.loadBookings();
+    this.reviewService.reviewDeleted$.subscribe(() => {
+      this.loadBookings();
+    });
   }
 
   loadBookings(): void {
@@ -92,7 +97,9 @@ export class BookingsComponent implements OnInit {
   }
   
   goToReview(booking: Booking) {
-    this.router.navigate(['traveler/bookings/create-review', booking.BookingID]);
+    this.router.navigate(['traveler/bookings/create-review', booking.BookingID]).then(() => {
+      booking.hasReview = true;
+    });
   }
 }
 //end

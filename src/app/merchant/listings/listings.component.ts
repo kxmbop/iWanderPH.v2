@@ -241,9 +241,8 @@ export class ListingsComponent implements OnInit {
   }
   openUpdateRoomModal(room: any): void {
     this.showUpdateRoomModal = true;
-    this.fetchViewsInclusions(); // Fetch the views and inclusions (if needed)
+    this.fetchViewsInclusions(); 
   
-    // Populate the form with the selected room's data
     this.roomForm.patchValue({
       RoomName: room.RoomName || '',
       RoomQuantity: room.RoomQuantity || 0,
@@ -251,7 +250,6 @@ export class ListingsComponent implements OnInit {
       RoomRate: room.RoomRate || 0,
     });
   
-    // Initialize the selected views and inclusions
     this.selectedViews = room.Views ? room.Views.map((view: any) => view.ViewID.toString()) : [];
     this.selectedInclusions = room.Inclusions
       ? room.Inclusions.map((inclusion: any) => inclusion.InclusionID.toString())
@@ -322,22 +320,40 @@ export class ListingsComponent implements OnInit {
   // Add Vehicle Funcions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   addVehicle(): void {
     const token = localStorage.getItem('token');
-    const newVehicle = this.vehicleForm.value;
-
-    if (token) {
-      this.listingService.addVehicle(newVehicle, token).subscribe(
-        (response) => {
-          if (response.success) {
-            this.vehicles.push(response.data);  // Add new vehicle to list
-            this.closeAddVehicleModal();
-          } else {
-            console.error('Failed to add vehicle:', response.message);
-          }
-        },
-        (error) => console.error('Error adding vehicle:', error)
-      );
+    const formData = new FormData();
+  
+    if (!token) {
+      console.error('No token found. Unable to proceed.');
+      return;
     }
+  
+    formData.append('VehicleName', this.vehicleForm.get('VehicleName')?.value);
+    formData.append('Model', this.vehicleForm.get('Model')?.value);
+    formData.append('Brand', this.vehicleForm.get('Brand')?.value);
+    formData.append('Capacity', this.vehicleForm.get('Capacity')?.value);
+    formData.append('RentalPrice', this.vehicleForm.get('RentalPrice')?.value);
+  
+    if (this.galleryFiles.length < 3 || this.galleryFiles.length > 10) {
+      console.error('Invalid number of images.');
+      return;
+    }
+    this.galleryFiles.forEach((file, index) => {
+      formData.append(`ImageFile[${index}]`, file.file);
+    });
+  
+    this.listingService.addVehicle(formData, token).subscribe(
+      (response) => {
+        if (response.success) {
+          this.vehicles.push(response.data); 
+          this.closeAddVehicleModal();
+        } else {
+          console.error('Failed to add vehicle:', response.message);
+        }
+      },
+      (error) => console.error('Error adding vehicle:', error)
+    );
   }
+
   openUpdateVehicleModal(vehicle: any) {
     this.vehicleToUpdate = vehicle;
     this.showUpdateVehicleModal = true;

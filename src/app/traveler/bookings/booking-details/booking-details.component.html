@@ -48,13 +48,7 @@
       </div>
 
       <ng-container *ngIf="bookingDetails.booking?.bookingStatus === 'Pending'">
-        <button 
-          mat-raised-button 
-          color="warn" 
-          *ngIf="!refundRequested" 
-          >
-          Request Refund
-        </button>
+
     
         <p *ngIf="refundRequested">Refund request submitted, wait for confirmation.</p>
       </ng-container>
