@@ -16,10 +16,9 @@ interface Booking {
 type BookingStatus = 'Pending' | 'Accepted' | 'On-Going' | 'Completed' | 'Cancelled' | 'Refunded';
 
 @Component({
-    selector: 'app-bookings',
-    templateUrl: './bookings.component.html',
-    styleUrls: ['./bookings.component.scss'],
-    standalone: false
+  selector: 'app-bookings',
+  templateUrl: './bookings.component.html',
+  styleUrls: ['./bookings.component.scss']
 })
 export class BookingsComponent implements OnInit {
   selectedTab: BookingStatus = 'Pending'; 
@@ -32,19 +31,22 @@ export class BookingsComponent implements OnInit {
     Refunded: []
   };
 
-  constructor(private viewBookingsService: ViewBookingsService, private router: Router, private route: ActivatedRoute, private reviewService: ReviewService) {}
+  constructor(
+    private viewBookingsService: ViewBookingsService, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private reviewService: ReviewService
+  ) {}
 
   ngOnInit(): void {
     this.loadBookings();
-  
-    // Listen for review deletion events
+
+    // Single subscription to review deletion events
     this.reviewService.reviewDeleted$.subscribe(() => {
-      this.loadBookings(); // Reload bookings when a review is deleted
-    });
-    this.reviewService.reviewDeleted$.subscribe(() => {
-      this.loadBookings();
+      this.loadBookings(); 
     });
   }
+
   loadBookings(): void {
     const token = localStorage.getItem('token');
     if (token) {
@@ -86,7 +88,7 @@ export class BookingsComponent implements OnInit {
       Accepted: [],
       'On-Going': [],
       'Completed': [],
-      Canceled: [],
+      Cancelled: [], // Corrected spelling
       Refunded: []
     });
   }
@@ -100,10 +102,6 @@ export class BookingsComponent implements OnInit {
   }
   
   goToReview(booking: Booking) {
-    this.router.navigate(['traveler/bookings/create-review', booking.BookingID]).then(() => {
-      // Set the `hasReview` field to true after navigating to the review creation page
-      booking.hasReview = true;
-    });
     this.router.navigate(['traveler/bookings/create-review', booking.BookingID]).then(() => {
       booking.hasReview = true;
     });
