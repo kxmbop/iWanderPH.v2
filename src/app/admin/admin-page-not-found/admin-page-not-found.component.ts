@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-admin-page-not-found',
-  templateUrl: './admin-page-not-found.component.html',
-  styleUrl: './admin-page-not-found.component.scss'
+    selector: 'app-admin-page-not-found',
+    templateUrl: './admin-page-not-found.component.html',
+    styleUrl: './admin-page-not-found.component.scss',
+    standalone: false
 })
 export class AdminPageNotFoundComponent {
 

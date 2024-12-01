@@ -18,20 +18,21 @@ export interface User {
 }
 
 @Component({
-  selector: 'app-chats',
-  templateUrl: './Inbox.component.html',
-  styleUrls: ['./Inbox.component.scss'],
-  animations: [
-    trigger('slideInOut', [
-      transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
-      ])
-    ])
-  ]
+    selector: 'app-chats',
+    templateUrl: './Inbox.component.html',
+    styleUrls: ['./Inbox.component.scss'],
+    animations: [
+        trigger('slideInOut', [
+            transition(':enter', [
+                style({ transform: 'translateX(100%)' }),
+                animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+            ]),
+            transition(':leave', [
+                animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class InboxComponent {
   profile: any = {};
@@ -62,7 +63,6 @@ export class InboxComponent {
 
   loadProfile(): void {
     const token = localStorage.getItem('token');
-    console.log("Token retrieved: ", token); 
 
     if (token) {
       this.profileService.getProfile(token).subscribe(
@@ -71,7 +71,7 @@ export class InboxComponent {
           if (data.success) {
             console.log('User Profile:', data.profile);
             this.profile = data.profile;
-            this.loggedInUserId = data.profile.travelerId; 
+            this.loggedInUserId = this.profile.TravelerID; 
             console.log('Logged userId:', this.loggedInUserId);
           } else {
             console.error("Error fetching profile: ", data.message);

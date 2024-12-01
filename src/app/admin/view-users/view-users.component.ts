@@ -3,10 +3,11 @@ import { ViewUsersService } from '../services/view-users.service';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-view-users',
-  templateUrl: './view-users.component.html',
-  styleUrls: ['./view-users.component.scss'], 
-  providers: [CurrencyPipe] 
+    selector: 'app-view-users',
+    templateUrl: './view-users.component.html',
+    styleUrls: ['./view-users.component.scss'],
+    providers: [CurrencyPipe],
+    standalone: false
 })
 export class ViewUsersComponent {
   users: any[] = [];

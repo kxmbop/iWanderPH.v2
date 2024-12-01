@@ -4,9 +4,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PlaceService } from '../../services/place.service';
 
 @Component({
-  selector: 'app-place-details',
-  templateUrl: './place-details.component.html',
-  styleUrls: ['./place-details.component.scss']
+    selector: 'app-place-details',
+    templateUrl: './place-details.component.html',
+    styleUrls: ['./place-details.component.scss'],
+    standalone: false
 })
 export class PlaceDetailsComponent implements OnInit {
   currentTab: string = 'location';

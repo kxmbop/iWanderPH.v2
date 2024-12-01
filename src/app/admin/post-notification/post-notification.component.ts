@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 
 @Component({
-  selector: 'app-post-notification',
-  templateUrl: './post-notification.component.html',
-  styleUrl: './post-notification.component.scss'
+    selector: 'app-post-notification',
+    templateUrl: './post-notification.component.html',
+    styleUrl: './post-notification.component.scss',
+    standalone: false
 })
 export class PostNotificationComponent implements OnInit {
   notifications: any[] = [];

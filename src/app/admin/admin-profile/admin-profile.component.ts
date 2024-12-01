@@ -1,128 +1,135 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../services/admin.service';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
-  selector: 'app-admin-profile',
-  templateUrl: './admin-profile.component.html',
-  styleUrls: ['./admin-profile.component.scss'],
+    selector: 'app-admin-profile',
+    templateUrl: './admin-profile.component.html',
+    styleUrls: ['./admin-profile.component.scss'],
+    standalone: false
 })
 export class AdminProfileComponent implements OnInit {
   admin: any = {};
-  supportAgents: any[] = [];
-  selectedFile: File | null = null; // New property to hold selected image
+  selectedFile: File | null = null; 
+  users: any[] = [];
+  isUserModalOpen = false;
+  isEditMode = false;
+  currentUser: any = {};
 
-  // Modal visibility states
   isProfileEditModalOpen = false;
   isAddressEditModalOpen = false;
   isSecurityEditModalOpen = false;
   isAddAccountModalOpen = false;
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private profileService: ProfileService) { }
 
   ngOnInit() {
     console.log('AdminProfileComponent initialized');
-    const token = localStorage.getItem('admintoken');  // Replace this with how you store/get the token
+    this.getAdminProfile();
+    this.loadUsers();
+  }
+  getAdminProfile() {
+    const token = localStorage.getItem('admintoken');
+    console.log("Token: ", token);
     if (token) {
-      console.log("Token retrieved inside if: ", token); 
-      this.getAdminProfile(token);
+    this.profileService.getProfile(token).subscribe(
+      (data) => {
+        if (data.success) {
+          console.log('User Profile:', data.profile);
+          this.admin = data.profile;
+        } else {
+          console.error("Error fetching profile: ", data.message);
+        }
+      },
+      (error) => {
+        console.error("Error: ", error);
+      }
+    );
+    } else {
+      console.error("No token found");
     }
-    this.getSupportAgents();
-  }
-
-  // Method to handle profile picture change
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-    }
-  }
-
-  // Methods to control modals
-  openEditProfile() {
-    this.isProfileEditModalOpen = true;
-  }
-
-  closeProfileEditModal() {
-    this.isProfileEditModalOpen = false;
-  }
-
-  openEditAddress() {
-    this.isAddressEditModalOpen = true;
-  }
-
-  closeAddressEditModal() {
-    this.isAddressEditModalOpen = false;
-  }
-
-  openEditSecurity() {
-    this.isSecurityEditModalOpen = true;
-  }
-
-  closeSecurityEditModal() {
-    this.isSecurityEditModalOpen = false;
-  }
-
-  openAddAccount() {
-    this.isAddAccountModalOpen = true;
-  }
-
-  closeAddAccountModal() {
-    this.isAddAccountModalOpen = false;
-    this.getSupportAgents(); // Refresh the support agents list after adding a new account
-  }
-
-  addAccountAgent(newAgentData: any) {
-    this.adminService.addAccountAgent(newAgentData).subscribe(() => {
-      this.getSupportAgents(); // Refresh the agent list after adding the account
-      this.closeAddAccountModal(); // Close the modal after adding the account
-    });
-  }
-
-  // Methods to get admin profile and support agents
-  getAdminProfile(token: string) {
-    this.adminService.getAdminProfile(token).subscribe((profileData) => {
-      this.admin = profileData;
-    });
   } 
 
-  getSupportAgents() {
-    this.adminService.getSupportAgents().subscribe((agentsData) => {
-      this.supportAgents = agentsData;
-    });
-  }
-
-  onAgentAdded(agent: any) {
-    this.getSupportAgents(); // Refresh the support agents list
-    this.closeAddAccountModal(); // Close the modal after adding the account
-  }
-  
-  // Method to update the profile, including the profile picture
-  updateProfile() {
-    const token = localStorage.getItem('authToken');  // Retrieve the token
+  updateProfile(): void {
+    const token = localStorage.getItem('admintoken');
     if (!token) {
       console.error('Token is missing');
       return;
     }
   
-    const formData = new FormData();
-    formData.append('adminId', this.admin.id); // Assuming there's an ID field to identify the admin
+    const updatedAdmin = {
+      firstName: this.admin.firstName,
+      lastName: this.admin.lastName,
+      phoneNumber: this.admin.phoneNumber,
+      email: this.admin.email,
+      address: this.admin.address,
+      username: this.admin.username,
+      password: this.admin.password
+    };
   
-    if (this.selectedFile) {
-      formData.append('profilePicture', this.selectedFile, this.selectedFile.name);
-    }
-  
-    formData.append('name', this.admin.name);
-    formData.append('email', this.admin.email);
-  
-    this.adminService.updateAdminProfile(token, formData).subscribe(
-      (response) => {
+    this.adminService.updateAdminProfile(token, updatedAdmin).subscribe(
+      response => {
         console.log('Profile updated successfully', response);
-        this.getAdminProfile(token);  // Refresh profile after update
+        alert('Profile updated successfully!');
       },
-      (error) => {
-        console.error('Error updating profile', error);
+      error => {
+        console.error('Error updating profile:', error);
+        alert('Failed to update profile.');
       }
     );
   }
+
+  deleteUser(adminID: string): void {
+    if (confirm('Are you sure you want to delete this user?')) {
   
+      this.adminService.deleteUser(adminID).subscribe(
+        response => {
+          alert('User deleted successfully');
+          this.loadUsers();
+        },
+        error => {
+          console.error('Error deleting user:', error);
+          alert('Failed to delete user. Please try again.');
+        }
+      );
+    }
+  }
+  
+
+  loadUsers() {
+    this.adminService.getUsers().subscribe((response) => {
+      this.users = response;
+    });
+  }
+
+  openUserModal() {
+    this.isEditMode = false;
+    this.currentUser = {};
+    this.isUserModalOpen = true;
+  }
+
+  openEditUserModal(user: any) {
+    this.isEditMode = true;
+    this.currentUser = { ...user };
+    this.isUserModalOpen = true;
+  }
+
+  closeUserModal() {
+    this.isUserModalOpen = false;
+    this.currentUser = {};
+  }
+
+  saveUser() {
+    if (this.isEditMode) {
+      this.adminService.updateUser(this.currentUser).subscribe(() => {
+        this.loadUsers();
+        this.closeUserModal();
+      });
+    } else {
+      this.adminService.addUser(this.currentUser).subscribe(() => {
+        this.loadUsers();
+        this.closeUserModal();
+      });
+    }
+  }
 }

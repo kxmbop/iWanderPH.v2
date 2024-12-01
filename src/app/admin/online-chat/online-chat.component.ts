@@ -4,9 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router'; // Added import
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-online-chat',
-  templateUrl: './online-chat.component.html',
-  styleUrls: ['./online-chat.component.scss']
+    selector: 'app-online-chat',
+    templateUrl: './online-chat.component.html',
+    styleUrls: ['./online-chat.component.scss'],
+    standalone: false
 })
 export class OnlineChatComponent implements OnInit {
   conversations: any[] = [];

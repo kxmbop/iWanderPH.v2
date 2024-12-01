@@ -6,20 +6,21 @@ import { ProfileService } from '../services/profile.service';
 import { switchMap } from 'rxjs/operators';
 import { Subscription, interval } from 'rxjs';
 @Component({
-  selector: 'app-conversation',
-  templateUrl: './conversation.component.html',
-  styleUrls: ['./conversation.component.scss'], 
-  animations: [
-    trigger('slideInOut', [
-      transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
-      ])
-    ])
-  ]
+    selector: 'app-conversation',
+    templateUrl: './conversation.component.html',
+    styleUrls: ['./conversation.component.scss'],
+    animations: [
+        trigger('slideInOut', [
+            transition(':enter', [
+                style({ transform: 'translateX(100%)' }),
+                animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+            ]),
+            transition(':leave', [
+                animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class ConversationComponent implements OnInit, OnDestroy {
   showChats = true;
@@ -76,7 +77,7 @@ export class ConversationComponent implements OnInit, OnDestroy {
           if (data.success) {
             console.log('User Profile:', data.profile);
             this.profile = data.profile;
-            this.loggedInUserId = data.profile.travelerId; 
+            this.loggedInUserId = data.profile.TravelerID; 
             console.log('Logged userId:', this.loggedInUserId); 
             // Get the chatSessionId after successfully loading the profile
             this.getChatSessionId();

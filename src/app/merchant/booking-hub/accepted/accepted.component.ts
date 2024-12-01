@@ -4,9 +4,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-accepted',
-  templateUrl: './accepted.component.html',
-  styleUrl: './accepted.component.scss'
+    selector: 'app-accepted',
+    templateUrl: './accepted.component.html',
+    styleUrl: './accepted.component.scss',
+    standalone: false
 })
 export class AcceptedComponent {
   filterForm!: FormGroup;

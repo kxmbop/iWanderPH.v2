@@ -6,20 +6,21 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 
 @Component({
-  selector: 'app-personal-information',
-  templateUrl: './personal-information.component.html',
-  styleUrls: ['./personal-information.component.scss'],
-  animations: [
-    trigger('slideInOut', [
-      transition(':enter', [
-        style({ transform: 'translateX(100%)' }),
-        animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
-      ])
-    ])
-  ]
+    selector: 'app-personal-information',
+    templateUrl: './personal-information.component.html',
+    styleUrls: ['./personal-information.component.scss'],
+    animations: [
+        trigger('slideInOut', [
+            transition(':enter', [
+                style({ transform: 'translateX(100%)' }),
+                animate('300ms ease-in-out', style({ transform: 'translateX(0%)' }))
+            ]),
+            transition(':leave', [
+                animate('300ms ease-in-out', style({ transform: 'translateX(100%)' }))
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class PersonalInformationComponent implements OnInit {
   profile: any = {
@@ -29,6 +30,8 @@ export class PersonalInformationComponent implements OnInit {
     address: ''
   };
   showSettings = true;
+  profilePicture: string | ArrayBuffer | null = null;
+
 
   constructor(
     private profileService: ProfileService,
@@ -62,25 +65,47 @@ export class PersonalInformationComponent implements OnInit {
 
   updatePI() {
     const token = localStorage.getItem('token');
-    if (token) {
-      const apiUrl = `${environment.apiUrl}/traveler/update_PI.php`;
-      this.http.post(apiUrl, { token, ...this.profile }).subscribe(
+    const formData = new FormData();
+
+    if (this.profile.profilePic) {
+        formData.append('profilePic', this.profile.profilePic); 
+    }
+    formData.append('token', token || '');
+    formData.append('FirstName', this.profile.FirstName);
+    formData.append('LastName', this.profile.LastName);
+    formData.append('Address', this.profile.Address);
+    formData.append('Bio', this.profile.Bio);
+
+    const apiUrl = `${environment.apiUrl}/traveler/update_PI.php`;
+    this.http.post(apiUrl, formData).subscribe(
         (response: any) => {
-          if (response.success) {
-            alert('Profile updated successfully');
-            this.router.navigate(['/traveler/settings/account']);
-          } else {
-            console.error("Error updating profile: ", response.message);
-          }
+            if (response.success) {
+                alert('Profile updated successfully');
+                this.router.navigate(['/traveler/settings/account']);
+            } else {
+                console.error('Error updating profile:', response.message);
+            }
         },
         (error) => {
-          console.error("Error: ", error);
+            console.error('Error:', error);
         }
-      );
-    } else {
-      console.error("No token found");
-    }
+    );
+}
+
+
+onFileChange(event: any): void {
+  const file = event.target.files[0];
+  if (file) {
+    this.profile.profilePic = file;
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.profilePicture = reader.result; 
+    };
+    reader.readAsDataURL(file); 
+  } else {
+    console.warn("No file selected");
   }
+}
 
   closeSettings() {
     this.showSettings = false;
@@ -88,4 +113,7 @@ export class PersonalInformationComponent implements OnInit {
       this.router.navigate(['/traveler/settings/account']);
     }, 500);
   }
+
+
+
 }

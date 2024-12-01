@@ -6,7 +6,18 @@
   </div>
 
   <div class="room-img">
-    <img [src]="'data:image/jpeg;base64,' + roomDetails.ImageFile" alt="Room Image" *ngIf="roomDetails.ImageFile; else defaultImage">
+    <img 
+      *ngIf="roomDetails?.ImageFile; else checkTransportation" 
+      [src]="'data:image/jpeg;base64,' + roomDetails?.ImageFile" 
+      alt="Room Image"
+    >
+    <ng-template #checkTransportation>
+      <img 
+        *ngIf="transportationDetails?.ImageFile; else defaultImage" 
+        [src]="'data:image/jpeg;base64,' + transportationDetails?.ImageFile" 
+        alt="Transportation Image"
+      >
+    </ng-template>
     <ng-template #defaultImage>
       <img src="image_will_be_available_soon.png" alt="Default Image">
     </ng-template>
@@ -45,16 +56,38 @@
     </div>
 
     <!-- Display Transportation Details -->
-    <div *ngIf="bookingType === 'transportation' && transportationDetails" >
-      <h3>Transportation Details</h3>
-      <p><strong>Vehicle Name:</strong> {{ transportationDetails.VehicleName }}</p>
-      <p><strong>Model:</strong> {{ transportationDetails.Model }}</p>
-      <p><strong>Brand:</strong> {{ transportationDetails.Brand }}</p>
-      <p><strong>Capacity:</strong> {{ transportationDetails.Capacity }}</p>
-      <p><strong>Rental Price (per day):</strong> {{ transportationDetails.RentalPrice | currency }}</p>
-      <p><strong>Driver Name:</strong> {{ transportationDetails.DriverName }}</p>
-      <p><strong>Driver Contact:</strong> {{ transportationDetails.DriverContactNo }}</p>
-      <img [src]="transportationDetails.ImageFile" alt="Vehicle Image" *ngIf="transportationDetails.ImageFile">
+    <div *ngIf="bookingType === 'transportation' && transportationDetails" class="roomDetails">
+      <h5>Transportation Details</h5>
+      <div class="room-details">
+        <div class="detail">
+          <label>Vehicle Name:</label>
+          <p>{{ transportationDetails.VehicleName }}</p>
+        </div>
+        <div class="detail">
+          <label>Model:</label>
+          <p>{{ transportationDetails.Model }}</p>
+        </div>
+        <div class="detail">
+          <label>Brand:</label>
+          <p>{{ transportationDetails.Brand }}</p>
+        </div>
+        <div class="detail">
+          <label>Capacity:</label>
+          <p>{{ transportationDetails.Capacity }}</p>
+        </div>
+        <div class="detail">
+          <label>Rental Price (per day):</label>
+          <p>{{ transportationDetails.RentalPrice | currency }}</p>
+        </div>
+        
+      </div>
+      <!-- <img 
+      *ngIf="isDataLoaded && transportationDetails?.ImageFile" 
+      [src]="'data:image/jpeg;base64,' + transportationDetails?.ImageFile" 
+      alt="Vehicle Image">
+      <div *ngIf="isDataLoaded && !transportationDetails?.ImageFile">
+        <img src="image_will_be_available_soon.png" alt="Default Image">
+      </div> -->
     </div>
 
     <!-- Booking Form -->
@@ -118,7 +151,7 @@
           <img src="iwanderphGCash.jpg" alt="Gcash payment option">
         </div>
   
-        <!-- Payment Upload without mat-form-field -->
+        <!-- Payment Upload without div -->
         <h5 style="margin-top: 5px;">Upload Payment</h5>
         <div class="file-upload">
           <input type="file" id="paymentUpload" name="paymentUpload" accept=".jpg, .jpeg, .png, .pdf" (change)="onFileSelected($event)">
@@ -126,54 +159,55 @@
   
       </div>
 
-      <!-- Transportation Booking Fields -->
       <div *ngIf="bookingType === 'transportation' && transportationDetails">
-        <mat-form-field appearance="fill">
-          <mat-label>Pick-up Location</mat-label>
-          <input matInput formControlName="pickupLocation" placeholder="Pick-up Location" required>
-          <mat-error *ngIf="bookingForm.get('pickupLocation')?.hasError('required')">
-            Pick-up Location is required
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Drop-off Location</mat-label>
-          <input matInput formControlName="dropOffLocation" placeholder="Drop-off Location" required>
-          <mat-error *ngIf="bookingForm.get('dropOffLocation')?.hasError('required')">
-            Drop-off Location is required
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Pick-up Date & Time</mat-label>
-          <input 
-            matInput 
-            formControlName="pickupDateTime" 
-            placeholder="Pick-up Date & Time" 
-            type="datetime-local" 
-            [min]="currentDateTime" 
-            required
-          >
-          <mat-error *ngIf="bookingForm.get('pickupDateTime')?.hasError('required')">
-            Pick-up Date & Time is required
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Drop-off Date & Time</mat-label>
-          <input 
-            matInput 
-            formControlName="dropOffDateTime" 
-            placeholder="Drop-off Date & Time" 
-            type="datetime-local" 
-            [min]="bookingForm.get('pickupDateTime')?.value || currentDateTime" 
-            required
-          >
-          <mat-error *ngIf="bookingForm.get('dropOffDateTime')?.hasError('required')">
-            Drop-off Date & Time is required
-          </mat-error>
-        </mat-form-field>
+          <div class="form-field">
+            <mat-label>Pick-up Location</mat-label>
+            <input matInput formControlName="pickupLocation" placeholder="Enter Pick-up Location" required>
+            <mat-error *ngIf="bookingForm.get('pickupLocation')?.hasError('required')">
+              Pick-up Location is required
+            </mat-error>
+          </div>
+      
+          <div class="form-field">
+            <mat-label>Drop-off Location</mat-label>
+            <input matInput formControlName="dropOffLocation" placeholder="Enter Drop-off Location" required>
+            <mat-error *ngIf="bookingForm.get('dropOffLocation')?.hasError('required')">
+              Drop-off Location is required
+            </mat-error>
+          </div>
+      
+          <div class="form-field">
+            <mat-label>Pick-up Date & Time</mat-label>
+            <input 
+              matInput 
+              formControlName="pickupDateTime" 
+              placeholder="Select Pick-up Date & Time" 
+              type="datetime-local" 
+              [min]="currentDateTime" 
+              required
+            >
+            <mat-error *ngIf="bookingForm.get('pickupDateTime')?.hasError('required')">
+              Pick-up Date & Time is required
+            </mat-error>
+          </div>
+      
+          <div class="form-field">
+            <mat-label>Drop-off Date & Time</mat-label>
+            <input 
+              matInput 
+              formControlName="dropOffDateTime" 
+              placeholder="Select Drop-off Date & Time" 
+              type="datetime-local" 
+              [min]="bookingForm.get('pickupDateTime')?.value || currentDateTime" 
+              required
+            >
+            <mat-error *ngIf="bookingForm.get('dropOffDateTime')?.hasError('required')">
+              Drop-off Date & Time is required
+            </mat-error>
+          </div>
+        
       </div>
+      
 
       <button mat-raised-button color="primary" type="submit" [disabled]="bookingForm.invalid || !isDataLoaded">
         Submit Booking

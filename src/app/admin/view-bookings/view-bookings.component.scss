@@ -1,6 +1,5 @@
 @import '../../../../src/styles.scss';
 @import '../../app.component.scss';
-@import '../admin-layout/admin-layout.component.scss';
 
 ::ng-deep .sidebar li#view-bookings{
     pointer-events: none !important;
@@ -83,7 +82,7 @@
 .filter-bar{
     justify-content: right;
 }
-.filter-bar button{
+.export_bt{
     color: #fff;
     padding: 0 30px;
     background-color: $apc;
@@ -191,15 +190,29 @@
 }
 
 
-.table-body button {
-    background-color: $apc;
-    color: white;
-    border: none;
+button {
+    background-color: none !important;
+    border: 1px solid $apc;
     padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
+    font-size: 14px;
+    text-wrap: nowrap;
+    &:hover{
+        background-color: $apc;
+        color: #fff;
+    }
+    &.active-filter {
+        background-color: $apc;  
+        color: white; 
+        border-color: $apc;  
+
+        &:hover {
+            background-color: darken($apc, 10%);  
+            color: white;  
+        }
+    }
 }
 
 .table-body button:hover {
     background-color: $apc;
 }
+

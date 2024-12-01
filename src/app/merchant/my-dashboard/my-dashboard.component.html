@@ -17,7 +17,6 @@
           
           
       <div class="content-container">
-
             <!-- my profile tab -->
             <div *ngIf="activeTab === 'my-profile'" class="my-profile content-tab">
                   <div class="profile_img">
@@ -31,7 +30,7 @@
                         </div>
                   </div>
                   <div class="account_details">
-                        <h4>{{ profile.businessName }}</h4>
+                        <h3>{{ profile.businessName }}</h3>
                         <div class="detail">
                               <label>Owner/Merchant Name:</label>
                               <p>{{ profile.ownerName }}</p>
@@ -93,52 +92,54 @@
             </div>
 
             <!-- notification-tab -->
-            <div class="notif content-tab">
+            <div *ngIf="activeTab === 'notifications'" class="notif content-tab">
                   <div class="tabs">
-                        <div class="content-tab" id="notifications" (click)="showTab('notifications')" [class.active]="activeTab === 'notifications'">
-                              <h4>Notifications  </h4>    
-                        </div>
-                        <div class="content-tab" id="announcements" (click)="showTab('announcements')" [class.active]="activeTab === 'announcements'">
-                              <h4>Announcements </h4>      
-                        </div>
+                    <div class="content-tab" id="notifications" (click)="showTab('notifications-sub')" 
+                         [class.active]="activeSubTab === 'notifications-sub'">
+                      <h4 style="font-size: 18px !important;">Notifications</h4>    
+                    </div>
+                    <div class="content-tab" id="announcements" (click)="showTab('announcements')" 
+                         [class.active]="activeSubTab === 'announcements'">
+                      <h4 style="font-size: 18px !important;">Announcements</h4>      
+                    </div>
                   </div>
-
-                  <div class="content-tab notifications" *ngIf="activeTab === 'notifications'"  [@slideAnimation]="activeTab === 'notifications' ? 'in' : 'out'">
-                        <div *ngIf="notifications.length > 0; else noNotifications" class="notification-list">
-                          <div *ngFor="let notification of notifications" class="notification-item">
-                            <div class="notification-content">
-                              <p class="notification-message">{{ notification.notificationMessage }}</p>
-                              <div class="notification-meta">
-                                <span class="notification-status">Booking Status: {{ notification.bookingStatus }}</span>
-                                <span class="notification-date">{{ notification.createdAt | date:'short' }}</span>
-                              </div>
-                            </div>
+                
+                  <div class="content-tab notifications" 
+                       *ngIf="activeSubTab === 'notifications-sub'" 
+                       [@slideAnimation]="activeSubTab === 'notifications-sub' ? 'in' : 'out'">
+                    <div *ngIf="notifications.length > 0; else noNotifications" class="notification-list">
+                      <div *ngFor="let notification of notifications" class="notification-item">
+                        <div class="notification-content">
+                          <p class="notification-message">{{ notification.notificationMessage }}</p>
+                          <div class="notification-meta">
+                            <span class="notification-status">Booking Status: {{ notification.bookingStatus }}</span>
+                            <span class="notification-date">{{ notification.createdAt | date:'short' }}</span>
                           </div>
                         </div>
-                      
-                        <ng-template #noNotifications>
-                          <p class="no-notifications-message">You have no notifications at the moment.</p>
-                        </ng-template>
+                      </div>
+                    </div>
+                    <ng-template #noNotifications>
+                      <p class="no-notifications-message">You have no notifications at the moment.</p>
+                    </ng-template>
                   </div>
-
-                  <div *ngIf="activeTab === 'announcements'" class="content-tab announcements" [@slideAnimation]="activeTab === 'announcements' ? 'in' : 'out'">
-                  
-                        <div *ngIf="announcements.length > 0; else noAnnouncements" class="announcement-list">
-                              <div *ngFor="let announcement of announcements" class="announcement-item">
-                                <div class="announcement-content">
-                                  <h5 class="announcement-header">{{ announcement.header }}</h5>
-                                  <p class="announcement-description">{{ announcement.description }}</p>
-                                  <span class="announcement-date">{{ announcement.createdAt | date:'short' }}</span>
-                                </div>
-                              </div>
-                            </div>
-      
-                        <ng-template #noAnnouncements>
-                        <p class="no-announcements-message">There are no announcements at the moment.</p>
-                        </ng-template>
+                
+                  <div *ngIf="activeSubTab === 'announcements'" class="content-tab announcements" 
+                       [@slideAnimation]="activeSubTab === 'announcements' ? 'in' : 'out'">
+                    <div *ngIf="announcements.length > 0; else noAnnouncements" class="announcement-list">
+                      <div *ngFor="let announcement of announcements" class="announcement-item">
+                        <div class="announcement-content">
+                          <h4 class="announcement-header">{{ announcement.header }}</h4>
+                          <p class="announcement-description">{{ announcement.description }}</p>
+                          <span class="announcement-date">{{ announcement.createdAt | date:'short' }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <ng-template #noAnnouncements>
+                      <p class="no-announcements-message">There are no announcements at the moment.</p>
+                    </ng-template>
                   </div>
-
             </div>
+                
             
 
 
@@ -166,9 +167,9 @@
                         <div class="chat-content">
                             <div *ngIf="!newChatMode" class="existing-chat">
                                 <div class="top-bar" *ngIf="receiverInfo">
-                                    <h4>
+                                    <h5>
                                         {{ receiverInfo?.businessName || (receiverInfo?.FirstName + ' ' + receiverInfo?.LastName) || 'Unknown Receiver' }}
-                                    </h4>                    
+                                    </h5>                    
                                     <i class='bx bx-dots-vertical-rounded' (click)="toggleOptions()"></i>
                                 </div>
                             
@@ -193,7 +194,7 @@
                             </div>
                     
                             <div *ngIf="newChatMode" class="new-chat-container">
-                                <h4>Create a New Conversation</h4>
+                                <h5>Create a New Conversation</h5>
                                 <input type="text" 
                                        [(ngModel)]="userSearchTerm" 
                                        (input)="filterUsers()" 
@@ -219,4 +220,3 @@
                 
       </div>
 </div>
-    

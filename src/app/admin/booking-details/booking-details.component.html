@@ -1,4 +1,4 @@
-<div class="container" *ngIf="bookingDetails && listingDetails && inclusions && viewDetails; else loading">
+<div class="container" >
   <!-- Traveler Details -->
   <div class="uib">
     <label>Traveler #{{ bookingDetails?.TravelerID }}</label>
@@ -58,10 +58,6 @@
         <span>{{ bookingDetails?.MerchantBusinessName }}</span>
       </div>
       <div class="a">
-        <label>Username: &nbsp;</label>
-        <span>{{ bookingDetails?.MerchantUsername }}</span>
-      </div>
-      <div class="a">
         <i class='bx bxs-phone'></i>
         <label>Phone: &nbsp;</label>
         <span>{{ bookingDetails?.MerchantContact }}</span>
@@ -80,20 +76,29 @@
   </div>
 
   <div class="bib">
-    <div class="li">
+    <!-- Booking Type is Room -->
+    <div class="li" *ngIf="bookingDetails?.BookingType === 'room'">
       <label>Booking ID #{{ bookingDetails?.BookingID }}</label>
       <div class="ld">
         <div class="ib">
-          image here <!-- leave as is -->
+          <img 
+            *ngIf="imageFiles.length > 0; else defaultImage" 
+            [src]="'data:image/jpeg;base64,' + imageFiles[0]" 
+            alt="Image">
+          
+          <ng-template #defaultImage>
+            <img src="image_will_be_available_soon.png" alt="Default Image">
+          </ng-template>
         </div>
+        
         <div class="ldesc">
           <div>
             <label>Listing: &nbsp;</label>
-            <span>{{ bookingDetails?.ListingID }}</span>
+            <span>{{ listingDetails?.RoomID }}</span>
           </div>
           <div>
             <label>Name: &nbsp;</label>
-            <span>{{ listingDetails?.RoomName }}</span> <!-- based on room or transport logic -->
+            <span>{{ listingDetails?.RoomName }}</span>
           </div>
           <div>
             <label>Inclusions: &nbsp;</label><br>
@@ -104,25 +109,54 @@
           <div>
             <label>View: &nbsp;</label>
             <div class="il">
-              <span *ngFor="let views of viewDetails">{{ views }}</span>
+              <span *ngFor="let view of viewDetails">{{ view }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Booking Type is Transportation -->
+    <div class="li" *ngIf="bookingDetails?.BookingType === 'transportation'">
+      <label>Booking ID #{{ bookingDetails?.BookingID }}</label>
+      <div class="ld">
+        <div class="ib">
+          <img 
+            *ngIf="imageFiles.length > 0; else defaultImage" 
+            [src]="'data:image/jpeg;base64,' + imageFiles[0]" 
+            alt="Image">
+          
+          <ng-template #defaultImage>
+            <img src="image_will_be_available_soon.png" alt="Default Image">
+          </ng-template>
+        </div>
+        
+        <div class="ldesc">
+          <div>
+            <label>Listing: &nbsp;</label>
+            <span>{{ listingDetails?.TransportationID }}</span>
+          </div>
+          <div>
+            <label>Name: &nbsp;</label>
+            <span>{{ listingDetails?.VehicleName }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="si">
       <span>
-        <h4>Booking Status:</h4>
-        <h3>{{ bookingDetails?.BookingStatus }}</h3>
+        <h6>Booking Status:</h6>
+        <h5>{{ bookingDetails?.BookingStatus }}</h5>
       </span>
       <span>
-        <h4>Payment Status:</h4>
-        <h3>{{ bookingDetails?.PaymentStatus }}</h3>
+        <h6>Payment Status:</h6>
+        <h5>{{ bookingDetails?.PaymentStatus }}</h5>
       </span>
       <span>
-        <h4>Payout Status:</h4>
-        <h3>{{ bookingDetails?.PayoutStatus }}</h3>
+        <h6>Payout Status:</h6>
+        <h5>{{ bookingDetails?.PayoutStatus }}</h5>
       </span>
       <div class="actions">
         <button [disabled]="bookingDetails?.refundAmount > 0 || bookingDetails?.PaymentStatus !== 'successful'" (click)="openRefundModal()" class="refund-button">Refund</button>
@@ -130,7 +164,8 @@
       </div>
     </div>
 
-    <div class="bd">
+    <!-- Booking Type is Room -->
+    <div class="bd" *ngIf="bookingDetails?.BookingType === 'room'">
       <label>Reservation Summary</label>
       <div class="bdr">
         <div class="rd">
@@ -155,6 +190,34 @@
         </div>
       </div>
     </div>
+
+    <!-- Booking Type is Transportation -->
+    <div class="bd" *ngIf="bookingDetails?.BookingType === 'transportation'">
+      <label>Reservation Summary</label>
+      <div class="bdr">
+        <div class="rd">
+          <div class="c">
+            <div class="check-in">
+              <h4>Check-in</h4>
+              <span>{{ listingDetails?.DropoffDateTime | date }}</span>
+            </div>
+            <div class="check-out">
+              <h4>Check-out</h4>
+              <span>{{ listingDetails?.PickupDateTime | date }}</span>
+            </div>
+          </div>
+          <!-- <span class="sp">Total Length of Stay: {{ bookingDetails?.Duration }} days</span> -->
+        </div>
+        <div class="ba">
+          <h4>Price Summary</h4>
+          <span>Room: ₱{{ bookingDetails?.Subtotal | number: '1.2-2' }}</span>
+          <span>Tax: ₱{{ bookingDetails?.VAT | number: '1.2-2' }}</span>
+          <span>Payout Amount: ₱{{ bookingDetails?.PayoutAmount | number: '1.2-2' }}</span>
+          <span id="total">Total Amount: ₱{{ bookingDetails?.TotalAmount | number: '1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -183,7 +246,7 @@
 <div class="modal" *ngIf="refundVisible">
   <div class="modal-content">
     <span class="close" (click)="closeRefundModal()">&times;</span>
-    <h2>Initiating Refund for Booking #{{ bookingDetails?.BookingID }}</h2>
+    <h4>Initiating Refund for Booking #{{ bookingDetails?.BookingID }}</h4>
     <div class="refund-modal-content">
       <div class="refund-image">
         <img *ngIf="bookingDetails?.ProofOfPayment" 
@@ -192,7 +255,7 @@
         <p *ngIf="!bookingDetails?.ProofOfPayment">No proof of payment uploaded.</p>
       </div>
       <div class="refund-details">
-        <h3>Refund Details</h3>
+        <h5>Refund Details</h5>
         <div class="refund-amount">
           <label>Refund Amount:</label>
           <input type="number" [(ngModel)]="refundAmount" [placeholder]="bookingDetails?.TotalAmount" [value]="bookingDetails?.TotalAmount">
@@ -230,9 +293,9 @@
 <div class="modal" *ngIf="payoutVisible">
   <div class="modal-content">
     <span class="close" (click)="closePayoutModal()">&times;</span>
-    <h2>Initiating Payout for Booking #{{ bookingDetails?.BookingID }}</h2>
+    <h4>Initiating Payout for Booking #{{ bookingDetails?.BookingID }}</h4>
     <div class="payout-modal-content">
-      <h3>Payout Details</h3>
+      <h5>Payout Details</h5>
       <p>Payout Amount: ₱{{ bookingDetails?.PayoutAmount | number: '1.2-2' }}</p>
       <div class="payout-transaction-id">
         <label>Enter Payout Transaction ID:</label>
@@ -247,7 +310,7 @@
 <div class="modal" *ngIf="paymentUpdateVisible">
   <div class="modal-content">
     <span class="close" (click)="closePaymentModal()">&times;</span>
-    <h2>Confirm Payment for Booking #{{ bookingDetails?.BookingID }}</h2>
+    <h4>Confirm Payment for Booking #{{ bookingDetails?.BookingID }}</h4>
     
     <div class="payment-update-modal-content">
       <div class="payment-proof">

@@ -1,85 +1,139 @@
 <div class="admin-profile">
-  <!-- Sidebar and Main Content -->
-    <div class="sidebar1">
-      <div class="profile-section">
-        <h2 class="header">Admin Information</h2>
-        <div class="profile-card">
-          <!-- Profile Picture -->
-          <img *ngIf="admin.profilePicture" [src]="'data:image/jpeg;base64,' + admin.profilePicture" alt="Profile Picture">
-          <p *ngIf="!admin.profilePicture">No Profile Picture Available</p>
-      
-          <!-- Admin Details -->
-          <h3>{{ admin.firstName }} {{ admin.lastName }}</h3>
-          <p>{{ admin.adminUserType }}</p>
-          <span>ID: #{{ admin.taxID }}</span>
-          <button (click)="openEditProfile()">Edit Profile</button>
+  <!-- Sidebar Section -->
+  <div class="sidebar1">
+    <div class="profile-section">
+      <h4 class="header">Admin Profile</h4>
+      <div class="profile-card p-2 gap-2">
+        <div class="d-flex flex-row gap-1 w-100">
+          <span style="width: 100px;">Name:</span>
+          <input [(ngModel)]="admin.firstName" name="firstName">
         </div>
-      </div>
-      
-      <div class="info-section"></div>
-      <div class="info-section2">
-        <h3 class="info-section2">About</h3>
-        <p class="info-section2">Phone: {{ admin.phoneNumber }}</p>
-        <p class="info-section2">Email: {{ admin.email }}</p>
-      </div>
-      
-      <div class="info-section1"></div>
-      <div class="info-section2">
-        <h3 class="info-section2">Address</h3>
-        <p class="info-section2">Address: {{ admin.address }}</p>
-        <p class="info-section2">City/State: {{ admin.cityState }}</p>
-        <p class="info-section2">Postcode: {{ admin.postCode }}</p>
-        <button (click)="openEditAddress()">Edit Address</button>
-      </div>
-      
-      <div class="info-section"></div>
-      <div class="info-section2">
-        <h3 class="info-section2">Security</h3>
-        <p class="info-section2">Username: {{ admin.username }}</p>
-        <p class="info-section2">Password: {{ admin.password }}</p>
-        <button (click)="openEditSecurity()">Edit Security</button>
-      </div>
-      
-    </div>
-  
-    <div class="main-content">
-      <h2>Support Agent Account</h2>
-      <button (click)="openAddAccount()">+ Add Account</button>
-      
-      <div class="table-box">
-        <table class="table-header">
-            <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Bio</th>
-              <th>Tax ID</th>
-              <th>Username</th>
-              <th>Password</th>
-            </tr>
-          </thead>
-        </table>
-        <div class="table-body">
-          <table>
-              <tbody>
-              <tr *ngFor="let agent of supportAgents">
-                <td>{{ agent.firstName }}</td>
-                <td>{{ agent.lastName }}</td>
-                <td>{{ agent.bio }}</td>
-                <td>{{ agent.taxID }}</td>
-                <td>{{ agent.username }}</td>
-                <td>******</td>
-              </tr>
-              </tbody>
-          </table>
+        <div class="d-flex flex-row gap-1 w-100">
+          <span style="width: 100px;">Last Name:</span>
+          <input [(ngModel)]="admin.lastName" name="lastName">
+        </div>
+        <div class="d-flex flex-row gap-1">
+          <span style="width: 100px;">Usertype:</span>
+          <input [(ngModel)]="admin.userType" readonly>
+        </div>
+        <div class="d-flex flex-row gap-1">
+          <span style="width: 100px;">ID:</span>
+          <input [(ngModel)]="admin.id" readonly>
+        </div>
+        <div class="d-flex flex-row gap-1">
+          <span style="width: 100px;">Phone:</span>
+          <input [(ngModel)]="admin.phoneNumber" name="phone">
+        </div>
+        <div class="d-flex flex-row gap-1">
+          <span style="width: 100px;">Email:</span>
+          <input type="email" [(ngModel)]="admin.email" name="email">
+        </div>
+        <div class="d-flex flex-row gap-1">
+          <span style="width: 100px;">Address:</span>
+          <input [(ngModel)]="admin.address" name="address">
         </div>
       </div>
     </div>
   
-    <!-- Modals -->
-    <app-profile-picture-edit *ngIf="isProfileEditModalOpen" [admin]="admin" (closeModal)="closeProfileEditModal()"></app-profile-picture-edit>
-    <app-address-edit *ngIf="isAddressEditModalOpen" [admin]="admin" (closeModal)="closeAddressEditModal()"></app-address-edit>
-    <app-password-reset *ngIf="isSecurityEditModalOpen" [admin]="admin" (closeModal)="closeSecurityEditModal()"></app-password-reset>
-    <app-add-account *ngIf="isAddAccountModalOpen" (closeModal)="closeAddAccountModal()" (addAgent)="onAgentAdded($event)"></app-add-account>
+    <div class="profile-card gap-2 border-top">
+      <h5 class="my-2">Login</h5>
+      <div class="d-flex flex-row gap-1">
+        <span style="width: 100px;">Username:</span>
+        <input [(ngModel)]="admin.username" name="username">
+      </div>
+      <div class="d-flex flex-row gap-1">
+        <span style="width: 100px;">Password:</span>
+        <input [(ngModel)]="admin.password" type="password" name="password">
+      </div>
+    </div>
+  
+    <button class="mt-4" (click)="updateProfile()">Update Info</button>
   </div>
-  
+
+  <!-- Main Content Section -->
+  <div class="main-content" *ngIf="admin.userType === 'SuperAdmin'">
+    <div class="user-management">
+      <h4>User Management</h4>
+      <button class="mb-2" style="padding: 5px 20px;" (click)="openUserModal()">Add User</button>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Admin ID</th>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>User Type</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.adminID }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phoneNumber }}</td>
+            <td>{{ user.userType }}</td>
+            <td class="d-flex gap-2">
+              <button class="btn btn-warning btn-sm" (click)="openEditUserModal(user)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteUser(user.adminID)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- User Modal -->
+  <div class="modal" *ngIf="isUserModalOpen" [class.show]="isUserModalOpen" [style.display]="isUserModalOpen ? 'block' : 'none'">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ isEditMode ? 'Edit User' : 'Add User' }}</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeUserModal()"><i class='bx bx-x'></i></button>
+        </div>
+        <input type="text" [(ngModel)]="currentUser.adminID" hidden>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Username</label>
+            <input [(ngModel)]="currentUser.username" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Passwword</label>
+            <input [(ngModel)]="currentUser.password" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>First Name</label>
+            <input [(ngModel)]="currentUser.firstName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input [(ngModel)]="currentUser.lastName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input [(ngModel)]="currentUser.email" type="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input [(ngModel)]="currentUser.phoneNumber" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>User Type</label>
+            <select [(ngModel)]="currentUser.userType" class="form-control" required>
+              <option value="Customer Support">Customer Support</option>
+              <option value="superadmin" *ngIf="admin.userType === 'superadmin'">Superadmin</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeUserModal()">Close</button>
+          <button class="btn btn-primary" (click)="saveUser()">Save</button>
+        </div>
+      </div>
+
+  </div>
+</div>

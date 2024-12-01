@@ -9,9 +9,10 @@ interface LoginResponse {
   token: string;
 }
 @Component({
-  selector: 'app-admin-login',
-  templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.scss']
+    selector: 'app-admin-login',
+    templateUrl: './admin-login.component.html',
+    styleUrls: ['./admin-login.component.scss'],
+    standalone: false
 })
 export class AdminLoginComponent {
   errorMessage: string | null = null;
@@ -30,10 +31,11 @@ export class AdminLoginComponent {
           console.log('Login successful:', response.message);
           this.errorMessage = null;
           localStorage.setItem('admintoken', response.token);
-          this.router.navigate(['admin/dashboard']);
+          this.router.navigate(['admin/admin-profile']);
           console.log("Token stored: ", response.token);
         } else {
           this.errorMessage = response.message;
+          console.log('Error:', response.message);  // Debug log
         }
       }, error => {
         console.error('Login Error:', error);

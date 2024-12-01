@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { PendingService } from '../../services/pending.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { Modal } from 'bootstrap';
 
 @Component({
-  selector: 'app-completed',
-  templateUrl: './completed.component.html',
-  styleUrls: ['./completed.component.scss']
+    selector: 'app-completed',
+    templateUrl: './completed.component.html',
+    styleUrls: ['./completed.component.scss'],
+    standalone: false
 })
 export class CompletedComponent {
   filterForm!: FormGroup;
   bookings: any[] = [];
   originalBookings: any[] = []; 
   status: 'completed' | null = 'completed';
+  @ViewChild('reviewModal') reviewModalElement: ElementRef | undefined;
+  modalInstance: Modal | undefined; 
+
 
   constructor(private pendingService: PendingService) { }
 
@@ -25,16 +30,15 @@ export class CompletedComponent {
 
     const token = localStorage.getItem('token');
     if (token) {
-        this.pendingService.getBookings(token, 'Checked-out').subscribe((readyResponse: any) => {
-            const readyBookings = this.extractBookings(readyResponse);
 
-            this.pendingService.getBookings(token, 'Completed').subscribe((checkedInResponse: any) => {
-                const checkedInBookings = this.extractBookings(checkedInResponse);
 
-                this.bookings = [...readyBookings, ...checkedInBookings];
-                this.originalBookings = [...this.bookings]; // Store original bookings for filtering
-            });
-        });
+      this.pendingService.getBookings(token, 'Completed').subscribe((completedResponse: any) => {
+          const completedBookings = this.extractBookings(completedResponse);
+
+          this.bookings = [ ...completedBookings];
+          this.originalBookings = [...this.bookings]; // Store original bookings for filtering
+      });
+
     }
 
     this.filterForm.valueChanges
@@ -80,5 +84,30 @@ export class CompletedComponent {
     this.filterForm.get('toDate')?.setValue(todayDate);
 
     this.applyFilters();
+  }
+
+  openReviewModal(review: any): void {
+    // Set modal content
+    document.getElementById('reviewID')!.textContent = review.reviewID;
+    document.getElementById('reviewRating')!.textContent = review.reviewRating;
+    document.getElementById('reviewPrivacy')!.textContent = review.reviewPrivacy;
+  
+    const reviewImagesContainer = document.getElementById('reviewImagesContainer')!;
+    reviewImagesContainer.innerHTML = '';
+  
+    review.reviewImages.forEach((image: string) => {
+      const img = document.createElement('img');
+      img.src = 'data:image/jpeg;base64,' + image;
+      img.classList.add('w-25');
+      reviewImagesContainer.appendChild(img);
+    });
+  
+    // Display modal
+    const modal = document.getElementById('reviewModal')!;
+    modal.style.display = 'block';
+  }
+  closeReviewModal(): void {
+    const modal = document.getElementById('reviewModal')!;
+    modal.style.display = 'none';
   }
 }

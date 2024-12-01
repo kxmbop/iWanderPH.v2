@@ -35,7 +35,9 @@
     }
   }
 }
-
+input{
+  font-size: 14px;
+}
 .booking-container {
   display: flex;
   flex-direction: column;
@@ -45,12 +47,11 @@
 
 .room-img{
   width: 100%;
-  height: 20%;
+  height: 220px;
   display: flex;
   flex-direction: row;
   img {
     width: 100%;
-    height: 100%;
     object-fit: cover;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   }
@@ -68,6 +69,7 @@
         display: none; 
       }
       h5{
+        font-size: 16px;
         font-weight: 500;
       }
       span {
@@ -78,7 +80,10 @@
           display: inline-block; 
       }
   }
-
+  h5{
+    font-size: 16px;
+    font-weight: 500;
+  }
 .roomDetails{
   border-top: 1px solid #ccc;
   margin: 15px 0;
@@ -172,6 +177,31 @@
   }
 
 }
+.transportation-booking-form {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 20px 0;
+
+  .form-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .form-field {
+    width: 100%;
+  }
+}
+
 
 .booking-content{
   height: calc(70vh - 32px);
@@ -349,3 +379,4 @@
 mat-checkbox {
   display: block; /* Or any other rules affecting it */
 }
+

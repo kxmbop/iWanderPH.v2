@@ -43,7 +43,7 @@
                             <i class="bx bx-dots-vertical-rounded"></i>
                         </div>
                         <div *ngIf="isMenuOpen" class="dropdown-menu">
-                            <span>Report</span>
+                            <span><a (click)="reportReview(review.reviewID)">Report</a></span>
                         </div>
                     </div>
                 </div>
@@ -104,6 +104,5 @@
                 <p>Contact: {{ booking.contact }}</p>
                 <p>Address: {{ booking.address }}</p>
             </div>
-            
         </div>        
     </div>

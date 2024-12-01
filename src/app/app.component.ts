@@ -4,11 +4,11 @@ import { RouterOutlet } from '@angular/router';
 import { LandingPageComponent } from './traveler/landing-page/landing-page.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, CommonModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    standalone: true, 
+    imports: [RouterOutlet, CommonModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'iWanderPH.v2';

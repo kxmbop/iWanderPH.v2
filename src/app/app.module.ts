@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
         RouterModule.forRoot(routes),
         HammerModule,
         CommonModule,
-        RouterOutlet,
+        RouterOutlet
         
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

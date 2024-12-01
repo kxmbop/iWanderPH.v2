@@ -18,13 +18,23 @@ import { BusinessVerificationComponent } from './business-verification/business-
 import { ViewVerificationComponent } from './view-verification/view-verification.component'; 
 import { AssignPlaceComponent } from './assign-place/assign-place.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
+import { ViewListingComponent } from './view-listing/view-listing.component';
 import { NearbyPlaceComponent } from './nearby-place/nearby-place.component';
+import { BookingTrendComponent } from './booking-trend/booking-trend.component';
+import { RevenueComponent } from './revenue/revenue.component';
+import { ReviewReportComponent } from './review-report/review-report.component';
+import { RefundReportComponent } from './refund-report/refund-report.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: AdminLoginComponent },
   { path: 'booking-details/:bookingId', component: BookingDetailsComponent },
   { path: 'user-details', component: UserDetailsComponent },
+  { path: 'booking-trend', component: BookingTrendComponent },
+  { path: 'revenue', component: RevenueComponent },
+  { path: 'review-report', component: ReviewReportComponent  },
+  { path: 'refund-report', component: RefundReportComponent },
   {
     path: '',
     component: AdminLayoutComponent,  
@@ -44,7 +54,8 @@ const routes: Routes = [
       { path: 'view-verification/:merchantID', component: ViewVerificationComponent },
       { path: 'assign-place', component: AssignPlaceComponent }, 
       { path: 'assign', component: AssignPlaceComponent }, 
-      { path: 'nearby-place/:id', component: NearbyPlaceComponent },
+      { path: 'view-listing', component: ViewListingComponent },
+      { path: 'nearby-place/:id', component: NearbyPlaceComponent }
     ]
   }
 ];

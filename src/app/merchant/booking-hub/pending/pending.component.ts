@@ -5,9 +5,10 @@ import { PendingService } from '../../services/pending.service';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-pending',
-  templateUrl: './pending.component.html',
-  styleUrls: ['./pending.component.scss']
+    selector: 'app-pending',
+    templateUrl: './pending.component.html',
+    styleUrls: ['./pending.component.scss'],
+    standalone: false
 })
 export class PendingComponent implements OnInit {
   filterForm!: FormGroup;

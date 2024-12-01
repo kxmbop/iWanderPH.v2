@@ -93,4 +93,24 @@
   background-color: #074d4c;
   margin-top: 5px;
   color: white;
+=======
+
+
+@media (min-width: 1025px) {
+  .top-utility{
+    display: none;
+  }
+  ::ng-deep .nav-item#bookings{
+    background-color: #f3f3f3;
+      i, span{
+          color: #000;
+          font-weight: 500;
+      }
+  }
+  .tab-container{
+    margin-top: 20px;
+  }
+  .tab-content{
+    padding: 10px 30px;
+  }
 }

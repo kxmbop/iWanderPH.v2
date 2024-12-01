@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NearbyService } from '../services/nearby.service';
 
 @Component({
-  selector: 'app-nearby-place',
-  templateUrl: './nearby-place.component.html',
-  styleUrls: ['./nearby-place.component.scss']
+    selector: 'app-nearby-place',
+    templateUrl: './nearby-place.component.html',
+    styleUrls: ['./nearby-place.component.scss'],
+    standalone: false
 })
 export class NearbyPlaceComponent implements OnInit {
   placeId!: number;

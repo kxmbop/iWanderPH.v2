@@ -6,12 +6,16 @@
             <input type="number" placeholder="booking id" [(ngModel)]="filters.bookingId" (input)="applyFilters()">
             <input type="text" placeholder="traveler username" [(ngModel)]="filters.travelerName" (input)="applyFilters()">
             <input type="date" [(ngModel)]="filters.date" (change)="applyFilters()">
-        </div>
+            <button class="filter-btn" 
+            [ngClass]="{ 'active-filter': filters.paymentStatus === 'pending' }" 
+            (click)="togglePendingPaymentsFilter()">Pending Payments</button>
+            </div>
         <div class="filter-bar">
-                <button id="export_bt" (click)="exportToCSV()">Export</button>
-                <i class='bx bxs-info-circle' id="info_bt"></i>
+            <button class="filter-btn" (click)="exportToCSV()">Export</button>
+            <i class='bx bxs-info-circle' id="info_bt"></i>
         </div>       
     </div>
+    
     <div class="table-box">
         <table class="table-header">
             <thead>

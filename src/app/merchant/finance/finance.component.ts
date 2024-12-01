@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { FinanceService } from '../services/finance.service';
 
 @Component({
-  selector: 'app-finance',
-  templateUrl: './finance.component.html',
-  styleUrls: ['./finance.component.scss']
+    selector: 'app-finance',
+    templateUrl: './finance.component.html',
+    styleUrls: ['./finance.component.scss'],
+    standalone: false
 })
 export class FinanceComponent implements OnInit {
   bookings: any[] = []; // Initialize an empty array for bookings

@@ -1,0 +1,24 @@
+@import '../../../../src/styles.scss';
+@import '../../app.component.scss';
+@import '../admin-layout/admin-layout.component.scss';
+
+::ng-deep .sidebar li#generate-analytics{
+    pointer-events: none !important;
+}
+::ng-deep .sidebar li#generate-analytics i{
+    color: $apc !important;
+}
+::ng-deep .sidebar li#generate-analytics a{
+    background-color: #fff;
+}
+::ng-deep .sidebar li#generate-analytics .links_name{
+    color: $apc;
+    pointer-events: none !important;
+}
+.text{
+    display: inline-block;
+    color: $apc;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 18px
+}

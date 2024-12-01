@@ -84,9 +84,7 @@
       <div class="page-container">
         <div *ngIf="transportations?.length">
           <div *ngFor="let transport of transportations" class="card">
-
-            <div *ngIf="transport.gallery?.length; else defaultTransportImage">
-              <h4>Gallery</h4>
+            <div *ngIf="transport.gallery?.length; else defaultTransportImage" class="room-img">
               <img *ngFor="let image of transport.gallery.slice(0, 3)" 
                    [src]="'data:image/jpeg;base64,' + image" 
                    alt="Transportation image" /> 

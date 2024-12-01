@@ -4,9 +4,10 @@ import { ProfileComponent } from '../profile/profile.component';
 import { ProfileService } from '../services/profile.service';
 
 @Component({
-  selector: 'app-traveler-layout',
-  templateUrl: './traveler-layout.component.html',
-  styleUrl: './traveler-layout.component.scss'
+    selector: 'app-traveler-layout',
+    templateUrl: './traveler-layout.component.html',
+    styleUrl: './traveler-layout.component.scss',
+    standalone: false
 })
 export class TravelerLayoutComponent {
   profile: any = {};

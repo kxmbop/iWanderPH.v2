@@ -2,6 +2,7 @@
     <h3 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH</h3>
     <i class='bx bx-conversation' id="chats" [routerLink]="['/traveler/inbox']"></i>
 </div>
+
 <div class="search-bar">
     <i class='bx bx-search'></i>
     <input type="text" placeholder="Discover..." [(ngModel)]="searchQuery" (input)="filterReviews()">
@@ -65,9 +66,72 @@
                 <button [routerLink]="['/traveler/discover/nearby-details', review.business.businessID]">Explore</button>
             </div>
         </div>
+    </div>
+</div>
 
+<div class="fyp-feed-web">
+    <div class="review-post" *ngFor="let review of filteredReviews">
+        <!-- Review Images Carousel -->
 
-        <div style="border-bottom: 1px solid #ccc; margin-top: 10px;"></div>
+        <div class="review-card d-flex flex-column mt-3">
+            <div #carousel class="review-images">
 
+                <div class="d-flex flex-row justify-center align-items-center gap-2 w-100 p-2" >
+                    <div class="pp-mini" (click)="navigateToUserTimeline(review.traveler.travelerID)">
+                        <ng-container *ngIf="review.traveler.profilePic; else defaultImage">
+                            <img [src]="'data:image/jpeg;base64,' + review.traveler.profilePic" alt="Traveler Profile Picture">
+                        </ng-container>
+                        <ng-template #defaultImage>
+                            <img src="assets/images/default-profile-picture.jpg" alt="Default Profile Picture">
+                        </ng-template>
+                    </div>
+                    <div class="lh-1 gap-2">
+                        <div class="d-flex flex-row align-items-center gap-2">
+                            <p>{{ review.traveler.username }}</p>
+                            <p id="username" style="color: #494949; font-size: 14px;">{{ review.business.name }}</p>
+
+                        </div>
+                        <div class="d-flex flex-row align-items-center gap-2">
+                            <span style="font-size: 11px; color: #494949;">{{ review.business.address }}</span>
+                            <div style="font-size: 11px;">
+                                <ng-container *ngFor="let star of createArray(5); let i = index">
+                                  <i class='bx bxs-star' *ngIf="i < review.rating"></i>
+                                  <i class='bx bx-star' *ngIf="i >= review.rating"></i>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="carousel">
+                    <div class="carousel-inner">
+                    <div *ngFor="let image of review.images; let i = index" class="carousel-item" [ngClass]="{'active': i === currentIndex}">
+                        <img [src]="'data:image/jpeg;base64,' + image" alt="Review Image">
+                    </div>
+                    </div>
+                    <!-- Navigation buttons -->
+                    <button class="carousel-prev" [disabled]="review.images.length === 1 || currentIndex === 0" (click)="prevImage()">
+                    <i class='bx bx-chevron-left'></i>
+                    </button>
+                    <button class="carousel-next" [disabled]="review.images.length === 1 || currentIndex === review.images.length - 1" (click)="nextImage()">
+                    <i class='bx bx-chevron-right'></i>
+                    </button>
+                </div>
+
+                <div class="likes px-3 ">
+                    <div class="comment-like">
+                        <i class='bx bx-heart heart-icon cursor-pointer' 
+                            [class.filled]="likedReviews[review.reviewID]" 
+                            (click)="toggleHeart(review.reviewID)">
+                        </i>
+                        <i class='bx bx-comment fs-3 ' style="cursor: pointer;"
+                            (click)="navigateToReview(review.reviewID)">
+                        </i>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <div style="border-bottom: 1px solid #ccc; margin-top: 15px;"></div>
     </div>
 </div>

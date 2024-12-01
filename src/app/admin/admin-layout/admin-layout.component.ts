@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { ProfileService } from '../services/profile.service';
 
 @Component({
-  selector: 'app-admin-layout',
-  templateUrl: './admin-layout.component.html',
-  styleUrl: './admin-layout.component.scss'
+    selector: 'app-admin-layout',
+    templateUrl: './admin-layout.component.html',
+    styleUrl: './admin-layout.component.scss',
+    standalone: false
 })
 export class AdminLayoutComponent {
   title = 'iWanderPH.v2';
@@ -53,9 +54,7 @@ export class AdminLayoutComponent {
     if (token) {
     this.profileService.getProfile(token).subscribe(
       (data) => {
-        console.log("API Response: ", data); 
         if (data.success) {
-          console.log('User Profile:', data.profile);
           this.profile = data.profile;
         } else {
           console.error("Error fetching profile: ", data.message);

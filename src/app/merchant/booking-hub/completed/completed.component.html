@@ -40,13 +40,32 @@
             <td>{{ booking.CheckOutDate ?? booking.DropoffDateTime ?? 'No Location Available' }}</td>
             <td [class]="booking.bookingStatus">{{ booking.bookingStatus | titlecase }}</td>
             <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td>
-            <td>{{ booking.review || 'No review available' }}</td>
-            <td>{{ booking.rating || 'No rating' }}</td>
+            <td><button (click)="openReviewModal(booking)">View Review</button></td>
+            <td>{{ booking.reviewRating || 'No rating' }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 </div>
 
+
+<div id="reviewModal" class="simple-modal">
+  <div class="simple-modal-content">
+    <div class="simple-modal-header">
+      <h2>Review Details</h2>
+      <span class="close-button" (click)="closeReviewModal()">&times;</span>
+    </div>
+    <div class="simple-modal-body">
+      <p><strong>Review ID:</strong> <span id="reviewID"></span></p>
+      <p><strong>Rating:</strong> <span id="reviewRating"></span></p>
+      <p><strong>Privacy:</strong> <span id="reviewPrivacy"></span></p>
+      <div><strong>Review Images:</strong></div>
+      <div id="reviewImagesContainer" class="review-images-container"></div>
+    </div>
+    <div class="simple-modal-footer">
+      <button (click)="closeReviewModal()">Close</button>
+    </div>
+  </div>
+</div>
 
 

@@ -1,5 +1,5 @@
 <div class="top-nav">
-    <h2 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH Merchant</h2>
+    <h3 style="font-family: 'Playwrite GB S', sans-serif;">iWanderPH Merchant</h3>
     <div class="nav-menu">
         <a routerLink="/merchant/my-dashboard/my-profile" id="my-dashboard">My Dashboard</a>
         <a routerLink="/merchant/booking-hub" id="booking-hub">Booking Hub</a>
@@ -8,7 +8,7 @@
         <a routerLink="/merchant/analytics" id="analytics">Analytics</a>
     </div>
     <div class="nav-profile">
-        <h3>{{ profile.businessName }}</h3>
+        <h5>{{ profile.businessName }}</h5>
         <div class="profile-picture">
             <img *ngIf="profile.merchantPic" [src]="'data:image/jpeg;base64,' + profile.merchantPic" alt="Profile Picture" />
             <p *ngIf="!profile.merchantPic">No Profile Picture Available</p>

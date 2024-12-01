@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { BookingService } from '../services/booking.service';
 
 @Component({
-  selector: 'app-booking-details',
-  templateUrl: './booking-details.component.html',
-  styleUrl: './booking-details.component.scss'
+    selector: 'app-booking-details',
+    templateUrl: './booking-details.component.html',
+    styleUrl: './booking-details.component.scss',
+    standalone: false
 })
 export class BookingDetailsComponent implements OnInit {
   bookingDetails: any = null;
@@ -27,6 +28,9 @@ export class BookingDetailsComponent implements OnInit {
   confirmPayment1: boolean = false;
   confirmPayment2: boolean = false;
   confirmPayment3: boolean = false;
+  imageFiles: any = [];
+  isRoomBooking: boolean = true;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +43,7 @@ export class BookingDetailsComponent implements OnInit {
     if (bookingId) {
       console.log(bookingId);
       this.fetchBookingDetails(bookingId);
+      this.isRoomBooking = !!this.bookingDetails?.RoomBookingID;
     } else {
       console.error('No bookingId provided');
     }
@@ -49,11 +54,9 @@ export class BookingDetailsComponent implements OnInit {
       (data) => {
         console.log('Fetched data:', data);
         
-        console.log('Booking Details:', data.booking);
-        console.log('Traveler Details:', data.inclusions);
-        console.log('View Details:', data.viewDetails);
-        console.log('Merchant Details:', data.listingDetails);
-        
+        console.log('Booking Details:', data.imageFiles);
+
+        this.imageFiles = data.imageFiles;
         this.bookingDetails = data.bookingDetails;
         this.inclusions = data.inclusions;
         this.viewDetails = data.viewDetails; 

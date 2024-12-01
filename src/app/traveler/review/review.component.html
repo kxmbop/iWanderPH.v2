@@ -4,7 +4,6 @@
       <i class='bx bx-arrow-back'></i>
     </a>
   </div>
-  <!-- Profile and Username -->
   <div class="profile-section">
     <div class="flex-row centered">
       <img class="profile-pic" *ngIf="review.traveler.profilePicture; else defaultImage" 
@@ -16,18 +15,15 @@
       <p class="username">{{ review.traveler.username }}</p>
     </div>
     
-    <!-- Dotted Icon to trigger modal -->
     <i class='bx bx-dots-vertical-rounded' (click)="toggleModal()"></i>
     
-    <!-- Inline Modal for Report Option -->
     <div class="inline-modal" *ngIf="isModalOpen">
       <ul>
-        <li (click)="reportReview()">Report Review</li>
+        <li (click)="reportReview()">Report</li>
       </ul>
     </div>
   </div>
 
-  <!-- Main Review Images Carousel with Overlay -->
   <div class="main-image-container">
     <div class="carousel">
       <div class="carousel-inner" [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
@@ -38,7 +34,6 @@
         </div>
       </div>
       
-      <!-- Navigation buttons -->
       <button class="carousel-prev" [disabled]="currentIndex === 0" (click)="prevImage()">
         <i class='bx bx-chevron-left'></i>
       </button>
@@ -48,7 +43,6 @@
     </div>
     
 
-    <!-- Overlay for Business Name, Location, Rating, and Heart Icon -->
     <div class="overlay">
       <h3 class="overlay-title">{{ review.business.name }}</h3>
       <p class="overlay-location">{{ review.business.address }}</p>
@@ -65,17 +59,14 @@
     </div>
   </div>
 
-  <!-- Review Details -->
   <div class="review-info">
     <p class="review-text">{{ review.comment }}</p>
 
-    <!-- Input for Adding a New Comment -->
     <div class="add-comment-container">
       <input class="comment-input" type="text" [(ngModel)]="newComment" placeholder="Add your comment..." />
       <button class="submit-button" (click)="submitComment()">Submit</button>
     </div>
 
-    <!-- Display Existing Comments -->
     <h3>Comments</h3>
     <div *ngFor="let comment of comments" class="comment-section">
       <p><strong>{{ comment.username }}</strong>: {{ comment.comment }}</p>
