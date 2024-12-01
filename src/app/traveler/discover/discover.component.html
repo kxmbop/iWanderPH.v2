@@ -17,6 +17,24 @@
             <button [class.active]="selectedIslandGroup === 'Visayas'" (click)="filterByIslandGroup('Visayas')">Visayas</button>
             <button [class.active]="selectedIslandGroup === 'Mindanao'" (click)="filterByIslandGroup('Mindanao')">Mindanao</button>
         </div>
+        
+        <div class="filter-dropdowns">
+            <div class="dropdown-container">
+                <!-- Region Dropdown -->
+                <select [(ngModel)]="selectedRegion" (change)="filterByRegion($event)">
+                    <option value="">Select Region</option>
+                    <option *ngFor="let region of uniqueRegions" [value]="region">{{ region }}</option>
+                </select>
+        
+                <!-- Province Dropdown -->
+                <select [(ngModel)]="selectedProvince" (change)="filterByProvince($event)">
+                    <option value="">Select Province</option>
+                    <option *ngFor="let province of filteredProvinces" [value]="province">{{ province }}</option>
+                </select>
+            </div>
+        </div>
+        
+        
 
         <div class="place-list">
             <div *ngFor="let place of places" class="place-item">

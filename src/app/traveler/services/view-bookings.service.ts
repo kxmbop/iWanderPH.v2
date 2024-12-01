@@ -26,6 +26,5 @@ export class ViewBookingsService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(this.reviewUrl, formData, { headers });
   }
-  
 }
 //end of the code

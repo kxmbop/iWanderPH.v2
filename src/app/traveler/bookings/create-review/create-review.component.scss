@@ -1,6 +1,6 @@
 .review-form-container {
     max-width: 600px;
-    margin: 12px;    
+    margin: 12px;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
@@ -15,6 +15,7 @@
     }
   
     .form-group {
+      
         margin-top: 45px;
         margin-bottom: 15px;
       
@@ -254,6 +255,7 @@
       }
     }
   }
+
   .back-icon {
     position: fixed;
     display: flex;
@@ -286,4 +288,3 @@
       }
     }
   }
-  

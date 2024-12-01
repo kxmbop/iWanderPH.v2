@@ -41,6 +41,7 @@ export class CreateReviewComponent implements OnInit {
   }
 
   submitReview(): void {
+    // Validate that all fields are filled
     const errors: string[] = [];
   
     if (this.reviewRating === 0) {
@@ -59,16 +60,19 @@ export class CreateReviewComponent implements OnInit {
       errors.push('Please select a privacy option.');
     }
   
+    // If there are errors, display an alert or show a notification
     if (errors.length > 0) {
-      alert(errors.join('\n')); 
+      alert(errors.join('\n')); // Simple alert, replace with a better UI if needed
       return;
     }
   
+    // Confirmation dialog before submission
     const confirmSubmission = confirm('Are you sure you want to submit this review?');
     if (!confirmSubmission) {
       return;
     }
   
+    // Proceed with submission if everything is valid
     const token = localStorage.getItem('token');
   
     if (!token) {

@@ -35,6 +35,24 @@
       <label for="additional_images">Additional Images:</label>
       <input type="file" (change)="onAdditionalImagesSelected($event)" multiple>
 
+      <label for="best_time_to_visit">Best Time to Visit:</label>
+      <input type="text" id="best_time_to_visit" [(ngModel)]="newPlace.best_time_to_visit" name="best_time_to_visit">
+
+      <label for="entrance_fee">Entrance Fee:</label>
+      <input type="number" id="entrance_fee" [(ngModel)]="newPlace.entrance_fee" name="entrance_fee">
+
+      <label for="activities">Activities:</label>
+      <textarea id="activities" [(ngModel)]="newPlace.activities" name="activities"></textarea>
+
+      <label for="nearby_points_of_interest">Nearby Points of Interest:</label>
+      <textarea id="nearby_points_of_interest" [(ngModel)]="newPlace.nearby_points_of_interest" name="nearby_points_of_interest"></textarea>
+
+      <label for="map_embed_link">Map Embed Link:</label>
+      <input type="text" id="map_embed_link" [(ngModel)]="newPlace.map_embed_link" name="map_embed_link">
+
+      <label for="how_to_get_there">How to Get There:</label>
+      <textarea id="how_to_get_there" [(ngModel)]="newPlace.how_to_get_there" name="how_to_get_there"></textarea>
+
       <button type="submit">Add Place</button>
     </form>
   </div>
@@ -51,6 +69,12 @@
       <th>Province</th>
       <th>Full Address</th>
       <th>Island Group</th>
+      <th>Best Time to Visit</th>
+      <th>Entrance Fee</th>
+      <th>Activities</th>
+      <th>Nearby Points of Interest</th>
+      <th>Map Embed Link</th>
+      <th>How to Get There</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -70,6 +94,12 @@
       <td>{{ place.province }}</td>
       <td>{{ place.full_address }}</td>
       <td>{{ place.island_group }}</td>
+      <td>{{ place.best_time_to_visit }}</td>
+      <td>{{ place.entrance_fee }}</td>
+      <td>{{ place.activities }}</td>
+      <td>{{ place.nearby_points_of_interest }}</td>
+      <td>{{ place.map_embed_link }}</td>
+      <td>{{ place.how_to_get_there }}</td>
       <td>
         <button [routerLink]="['/admin/nearby-place', place.id]">Assign</button>
         <button (click)="openEditPlaceModal(place)">Edit</button>
@@ -112,7 +142,25 @@
   
         <label for="additional_images">Additional Images:</label>
         <input type="file" (change)="onAdditionalImagesSelected($event)" multiple>
+
+        <label for="best_time_to_visit">Best Time to Visit:</label>
+        <input type="text" id="best_time_to_visit" [(ngModel)]="editPlace.best_time_to_visit" name="best_time_to_visit" required>
+
+        <label for="entrance_fee">Entrance Fee:</label>
+        <input type="text" id="entrance_fee" [(ngModel)]="editPlace.entrance_fee" name="entrance_fee" required>
   
+        <label for="activities">Activities:</label>
+        <input type="text" id="activities" [(ngModel)]="editPlace.activities" name="activities" required>
+
+        <label for="nearby_points_of_interest">Nearby Points of Interest:</label>
+        <input type="text" id="nearby_points_of_interest" [(ngModel)]="editPlace.nearby_points_of_interest" name="nearby_points_of_interest" required>
+
+        <label for="map_embed_link">Map Embed Link:</label>
+        <input type="text" id="map_embed_link" [(ngModel)]="editPlace.map_embed_link" name="map_embed_link" required>
+
+        <label for="how_to_get_there">How to get there:</label>
+        <input type="text" id="how_to_get_there" [(ngModel)]="editPlace.how_to_get_there" name="how_to_get_there" required>
+
         <button type="submit">Update Place</button>
       </form>
     </div>
