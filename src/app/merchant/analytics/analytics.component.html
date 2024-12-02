@@ -2,47 +2,106 @@
 <div class="analytics-container">
     
   <div class="customer-satisfaction">
-    <!-- Loading State -->
-    <div *ngIf="!merchantData && !errorMessage" class="loading">
-      Loading data, please wait...
+    <div>
+      <canvas id="ratingsChart"style="width: 70%; height: 200px;"></canvas>
+      <div *ngIf="showRatingsTable" class="table-container">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Rating</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let starCount of starCounts">
+              <td>{{ starCount.rating }} Stars</td>
+              <td>{{ starCount.count }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
-    <!-- Error Message -->
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-
-    <canvas id="ratingsChart" style="width: 80%; height: 200px;"></canvas>
-
-
-    <!-- No Data Available -->
-    <div *ngIf="merchantData.length === 0">
-      No data available for customer satisfaction.
-    </div>
+    
   </div>
 
   <!-- Revenue Trends Section -->
   <div class="revenue-trends">
-    <h3>Revenue Trends</h3>
     <div>
-      <canvas id="revenueChart" style="width: 80%; height: 200px;"></canvas>
+      <canvas id="revenueChart"></canvas>
+      <div *ngIf="showRevenueTable" class="table-container">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let entry of revenueData">
+              <td>{{ entry.bookingDate }}</td>
+              <td>{{ entry.totalAmount | currency }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+  
 
   <!-- Booking Trends Section -->
   <div class="booking-trends">
-    <h3>Booking Trends</h3>
     <div>
-      <canvas id="bookingChart" style="width: 80%; height: 200px;"></canvas>
+      <canvas id="bookingChart" style="width: 200px; height: 200px;"></canvas>
+      <div *ngIf="showBookingTable" class="table-container">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Booking Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let entry of bookingData">
+              <td>{{ entry.month }}</td>
+              <td>{{ entry.count }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+    
   </div>
 
   <!-- Customer Demographics Section -->
   <div class="customer-demo">
-    <h3>Customer Demographics & Preference</h3>
     <div>
-        
       <canvas id="customerDemoChart" style="width: 80%; height: 200px;"></canvas>
+      <div *ngIf="showCustomerDemoTable" class="table-container">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Customer Type</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Repeat Customers</td>
+              <td>{{ customerDemoData.repeatCustomers }}</td>
+            </tr>
+            <tr>
+              <td>New Customers</td>
+              <td>{{ customerDemoData.newCustomers }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+    
+    </div>
 </div>
+
+
+
+
+
