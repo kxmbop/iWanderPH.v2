@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from '../services/analytics.service';
 import { forkJoin } from 'rxjs'; 
+import { Chart } from 'chart.js';
 //mary table
 @Component({
     selector: 'app-analytics',
