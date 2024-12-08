@@ -25,9 +25,10 @@
               <th>Traveler</th>
               <th>Check-In/Pick-Up</th>
               <th>Check-Out/Drop-Off</th>
+              <th>Extension</th>
               <th>Booking Status</th>
               <th>Total Amount</th>
-              <th>Actions</th>
+              <th class="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -42,14 +43,77 @@
               <td>{{ booking.TravelerUsername }}</td>
               <td>{{ booking.CheckInDate ?? booking.PickupDateTime ?? 'No Date Available' }}</td>
               <td>{{ booking.CheckOutDate ?? booking.DropoffDateTime ?? 'No Location Available' }}</td>
+              <td>
+                <ng-container *ngIf="booking.bulCount > 1; else noExtension">
+                  <button (click)="viewExtensionDetails(booking.bookingID)">View Extension Details</button>
+                </ng-container>
+                <ng-template #noExtension>
+                  Booking is not extended
+                </ng-template>
+              </td>
               <td [class]="booking.bookingStatus">{{ booking.bookingStatus | titlecase }}</td>
               <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td>
               <td>
                 <button class="update-btn" *ngIf="booking.bookingStatus === 'Ready'" (click)="updateStatus(booking.bookingID, 'Checked-in')">Check-In</button>
                 <button class="update-btn" *ngIf="booking.bookingStatus === 'Checked-in'" (click)="updateStatus(booking.bookingID, 'Checked-out')">Check-Out</button>
+                <button class="update-btn mx-1"  *ngIf="booking.bookingStatus === 'Checked-in' && booking.bulCount < 1" (click)="openExtendModal(booking.bookingID)">Extend</button>
+
               </td>
             </tr>
           </tbody>
         </table>
   </div>
 </div>
+
+<!-- Modal for Extension -->
+<div id="extendModal" class="modal" *ngIf="showExtendModal">
+  <div class="modal-content">
+    <h3>Extend Booking</h3>
+    <form [formGroup]="extensionForm" (ngSubmit)="submitExtension()">
+      <label for="checkInPickUp">Check-In/Pick-Up:</label>
+      <input type="datetime-local" id="checkInPickUp" formControlName="checkInPickUp" class="modal-input">
+      
+      <label for="checkOutDropOff">Check-Out/Drop-Off:</label>
+      <input type="datetime-local" id="checkOutDropOff" formControlName="checkOutDropOff" class="modal-input">
+      
+      <div class="modal-buttons">
+        <button type="submit" class="modal-btn">Submit</button>
+        <button type="button" (click)="closeExtendModal()" class="modal-btn cancel-btn">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Extension Details Modal -->
+<div class="modal" *ngIf="isExtensionModalVisible">
+  <div class="modal-content">
+    <h4>Extension Details</h4>
+
+    <div class="extension-details-container">
+      <div class="extension-detail-card" *ngFor="let extension of extensionDetails">
+        <div class="card-header">
+          <h5>Booking ID: {{ extension.bookingID }}</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Check-In / Pick-Up:</strong> {{ extension.checkIn_pickUp }}</p>
+          <p><strong>Check-Out / Drop-Off:</strong> {{ extension.checkOut_dropOff }}</p>
+          <p><strong>Excess Days:</strong> {{ extension.excessDays }}</p>
+          <p><strong>Payment Status:</strong> {{ extension.paymentStatus }}</p>
+          <p><strong>Total Amount:</strong> {{ extension.totalAmount | currency }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-3 border p-2  gap-2">
+      <span>Upload proof of payment</span>
+      <input type="file" (change)="onFileSelected($event)" accept="image/*">
+      <button *ngIf="selectedFile" (click)="uploadProofOfPayment()">Upload Proof of Payment</button>
+    </div>
+
+    <div class="modal-buttons">
+      <button (click)="closeExtensionModal()" class="modal-btn close-btn">Close</button>
+    </div>
+  </div>
+</div>
+
+

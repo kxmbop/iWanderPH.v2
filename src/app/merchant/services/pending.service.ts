@@ -44,4 +44,22 @@ export class PendingService {
     return this.http.put(`${this.apiUrl}/${bookingID}/refund`, {}, { headers });
   }
 
+  extendBooking(extensionData: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `${this.apiUrl}extendBooking.php`; 
+
+    return this.http.post(url, extensionData, { headers });
+  }
+
+
+  getExtensionDetails(bookingID: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `${this.apiUrl}getExtensionDetails.php`;
+  
+    return this.http.post(url, { bookingID }, { headers });
+  }
+  
+
 }

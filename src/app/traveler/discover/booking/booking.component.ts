@@ -20,7 +20,7 @@ export class BookingComponent implements OnInit {
   isDataLoaded: boolean = false; 
   showGcashNumber: boolean = false; 
   selectedFile: File | null = null;
-  currentDateTime: string = ''; // For setting the min attribute dynamically
+  currentDateTime: string = ''; 
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +39,9 @@ export class BookingComponent implements OnInit {
       pickupLocation: ['', Validators.required],
       dropOffLocation: ['', Validators.required],
       pickupDateTime: ['', Validators.required],
-      dropOffDateTime: ['', Validators.required]
+      dropOffDateTime: ['', Validators.required],
+
+      paymentMethod: ['', Validators.required]
     });
   }
 
@@ -78,7 +80,15 @@ export class BookingComponent implements OnInit {
     const now = new Date();
     this.currentDateTime = now.toISOString().slice(0, 16); // 'YYYY-MM-DDTHH:mm'
   }
-
+  onPaymentMethodChange(method: string): void {
+    if (method === 'gcash') {
+      // Ensure proof of payment is required
+      this.selectedFile = null;
+    } else if (method === 'payOnSite') {
+      // Clear selected file if switching to "Pay on Site"
+      this.selectedFile = null;
+    }
+  }
   toggleGcashNumber(event: any): void {
     this.showGcashNumber = event.target.checked;
   }
@@ -166,11 +176,6 @@ export class BookingComponent implements OnInit {
       return;
     }
   
-    // Check if proof of payment is uploaded
-    if (!this.selectedFile) {
-      alert('Please upload a proof of payment to proceed.');
-      return;
-    }
   
     const token = localStorage.getItem('token');
     if (!token) {
@@ -204,11 +209,14 @@ export class BookingComponent implements OnInit {
       bookingData.pickupDateTime = this.bookingForm.get('pickupDateTime')?.value;
       bookingData.dropOffDateTime = this.bookingForm.get('dropOffDateTime')?.value;
     }
-  
-    const formData = new FormData();
-  
-    // Attach payment file
-    formData.append('file', this.selectedFile);
+    const formData = new FormData;
+
+    if (this.bookingForm.get('paymentMethod')?.value === 'gcash' && this.selectedFile) {
+      formData.append('proofOfPayment', this.selectedFile);
+      bookingData.paymentMethod = "gcash";
+    } else if (this.bookingForm.get('paymentMethod')?.value === 'payOnSite') {
+      bookingData.paymentMethod = "payOnSite";
+    }
   
     // Attach other booking data
     formData.append('bookingData', JSON.stringify(bookingData));

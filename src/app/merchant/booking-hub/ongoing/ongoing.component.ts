@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { PendingService } from '../../services/pending.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -12,16 +14,28 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class OngoingComponent {
   filterForm!: FormGroup;
+  extensionForm!: FormGroup;
   bookings: any[] = [];  
   originalBookings: any[] = []; 
+  isExtensionModalVisible = false;
+  extensionDetails: any[] = [];
+  showExtendModal = false;
+  selectedBookingID!: number;
+  selectedFile: File | null = null;
 
-  constructor(private pendingService: PendingService, private fb: FormBuilder) { }
+
+  constructor(private pendingService: PendingService, private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.filterForm = new FormGroup({
         filter: new FormControl(''),
         fromDate: new FormControl(''),
         toDate: new FormControl('')
+    });
+    
+    this.extensionForm = this.fb.group({
+      checkInPickUp: ['', Validators.required],
+      checkOutDropOff: ['', Validators.required]
     });
 
     const token = localStorage.getItem('token');
@@ -73,6 +87,70 @@ export class OngoingComponent {
 
       return matchesFilter && matchesFromDate && matchesToDate;
     });
+  }
+  openExtendModal(bookingID: number): void {
+    this.selectedBookingID = bookingID;
+    this.showExtendModal = true;
+  }
+
+  closeExtendModal(): void {
+    this.showExtendModal = false;
+    this.extensionForm.reset();
+  }
+
+  submitExtension(): void {
+    if (this.extensionForm.valid) {
+      const extensionData = {
+        bookingID: this.selectedBookingID,
+        checkInPickUp: this.extensionForm.value.checkInPickUp,
+        checkOutDropOff: this.extensionForm.value.checkOutDropOff
+      };
+
+      this.pendingService.extendBooking(extensionData).subscribe(
+        (response: any) => {
+          alert('Extension logged successfully.');
+          this.closeExtendModal();
+        },
+        (error) => console.error('Error logging extension:', error)
+      );
+    }
+  }
+  viewExtensionDetails(bookingID: number): void {
+      this.pendingService.getExtensionDetails(bookingID).subscribe((response: any) => {
+        this.extensionDetails = response.data;
+        this.isExtensionModalVisible = true;
+      });
+    
+  }
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
+  // Upload the proof of payment
+  uploadProofOfPayment(): void {
+    if (!this.selectedFile) {
+      alert('Please select a file first.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('proofOfPayment', this.selectedFile);
+    formData.append('bookingID', this.extensionDetails[0]?.bookingID); // Assuming bookingID is available
+
+    this.http.post(`${environment.apiUrl}/extensionPOP.php`, formData)
+      .subscribe(response => {
+        console.log('Payment proof uploaded and payment status updated', response);
+        // Update UI or state if needed, e.g., changing payment status
+        this.extensionDetails[0].paymentStatus = 'received';
+      }, error => {
+        console.error('Error uploading proof of payment', error);
+      });
+  }
+
+
+  closeExtensionModal(): void {
+    this.isExtensionModalVisible = false;
   }
 
   searchToday(): void {

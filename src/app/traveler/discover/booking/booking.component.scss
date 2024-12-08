@@ -134,11 +134,13 @@ input{
         padding: 0;
     }
   }
-
+.g-cash-payment{
+  display: flex;
+  flex-direction: column;
+}
   .payment-method{
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
 
     input{
       height: auto !important;

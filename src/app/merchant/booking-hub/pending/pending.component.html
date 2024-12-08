@@ -25,6 +25,7 @@
           <th>Traveler</th>
           <th>Check-In/Pick-Up</th>
           <th>Check-Out/Drop-Off</th>
+          <th>Payment Method</th>
           <th>Payment Status</th>
           <th>Total Amount</th>
           <th>Actions</th>
@@ -42,7 +43,9 @@
           <td>{{ booking.bookingID }}</td>
           <td>{{ booking.TravelerUsername }}</td> 
           <td>{{ booking.CheckInDate ?? booking.PickupDateTime ?? 'No Date Available' }}</td>
-            <td>{{ booking.CheckOutDate ?? booking.DropoffDateTime ?? 'No Location Available' }}</td>
+          <td>{{ booking.CheckOutDate ?? booking.DropoffDateTime ?? 'No Location Available' }}</td>
+          <td>{{ booking.payOnSite === 1 ? 'Walk-In' : 'GCash' }}</td>
+
           <td [class]="getStatusClass(booking.paymentStatus)">{{ booking.paymentStatus | titlecase }}</td>
           <td>₱ {{ booking.totalAmount | number: '.2-2' }}</td> 
           <td class="actions">
